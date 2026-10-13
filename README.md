@@ -107,7 +107,7 @@ API documentation is live at **`http://localhost:8000/docs`** (Interactive Swagg
 ### Option A: Hugging Face Spaces (Recommended - Dedicated 16GB RAM, No Cold Starts)
 1. In [Hugging Face](https://huggingface.co/spaces), click **Create new Space**.
 2. Set Space Name: `redline-gateway`, License: `mit`, Space SDK: **Docker** (Blank).
-3. Connect your GitHub repository (`AllenFletcherAI/Redline-MW1-Customs-Bridge`) or push directly to HF Git remote.
+3. Connect your GitHub repository (`AllenFletcherAI/Redline-Gateway`) or push directly to HF Git remote.
 4. In Space **Settings** -> **Variables and secrets**, add:
    - Secret Name: `GEMINI_API_KEY`
    - Value: `your-google-gemini-api-key`
