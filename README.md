@@ -9,7 +9,7 @@
 [![Docker](https://img.shields.io/badge/Docker-Containerized-0284c7?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 [![Compliance](https://img.shields.io/badge/Standard-ADSp%202017%20%7C%20ISO%206346-e11d48?style=flat-square)](https://www.spediteure.de/adsp/)
 
-Developed for **[Red Line Internationale Spedition GmbH](https://www.redline-spedition.de/)** & **[mw1group](https://www.mw1group.com/)**  
+Developed for **[Red Line Internationale Spedition GmbH](https://www.red-line-logistics.com/)** & **[mw1group](https://www.mw1group.com/)**  
 *Gewerbepark Kachtenhausen 1–10, 32791 Lage, Germany*
 
 ---
