@@ -90,6 +90,13 @@ def read_root():
         )
     return {"message": "RedLine Gateway API Online", "docs": "/docs"}
 
+@app.api_route("/favicon.ico", methods=["GET", "HEAD"])
+def favicon():
+    favicon_file = os.path.join(static_dir, "favicon.ico")
+    if os.path.exists(favicon_file):
+        return FileResponse(favicon_file, media_type="image/x-icon")
+    return Response(status_code=404)
+
 @app.post("/api/v1/documents/process", response_model=ProcessedShipmentResponse)
 async def process_document(file: UploadFile = File(...)):
     """
