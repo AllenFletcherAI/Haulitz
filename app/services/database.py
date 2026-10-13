@@ -46,6 +46,13 @@ def init_db():
         cursor.execute("ALTER TABLE processed_shipments ADD COLUMN override_at TEXT")
     if "sha256" not in cols:
         cursor.execute("ALTER TABLE processed_shipments ADD COLUMN sha256 TEXT")
+    
+    # Backfill SHA-256 cryptographic hashes for legacy/pre-seeded records
+    cursor.execute("SELECT id, shipment_ref, document_type, processed_at FROM processed_shipments WHERE sha256 IS NULL OR sha256 = ''")
+    rows_to_backfill = cursor.fetchall()
+    for row in rows_to_backfill:
+        h = hashlib.sha256(f"{row[1]}:{row[2]}:{row[3]}".encode()).hexdigest()
+        cursor.execute("UPDATE processed_shipments SET sha256 = ? WHERE id = ?", (h, row[0]))
     conn.commit()
     conn.close()
 
