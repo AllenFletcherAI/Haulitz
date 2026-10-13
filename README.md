@@ -2,7 +2,7 @@
 title: RedLine Gateway
 emoji: 🚢
 colorFrom: red
-colorTo: slate
+colorTo: gray
 sdk: gradio
 sdk_version: 6.30.0
 app_file: gateway_app.py
