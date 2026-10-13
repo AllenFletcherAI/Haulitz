@@ -1,66 +1,65 @@
-# 🚢 RedLine Gateway
-### Autonomous Freight Ingestion & Deterministic Customs Pre-Clearance Engine
+# RedLine Gateway
+### Automated Shipping Document Ingestion & Customs Compliance Verification
 
-[![Live Production](https://img.shields.io/badge/Production-Live%20Online-22c55e?style=for-the-badge&logo=render&logoColor=white)](https://redline-gateway.onrender.com)
-[![Uptime Monitor](https://img.shields.io/badge/Uptime-24%2F7%20Monitored-0284c7?style=for-the-badge&logo=uptimerobot&logoColor=white)](https://redline-gateway.onrender.com/health)
-[![Region](https://img.shields.io/badge/Region-Frankfurt%20(EU)--Central-4f46e5?style=for-the-badge&logo=googlecloud&logoColor=white)](https://redline-gateway.onrender.com)
-[![Python Version](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-059669?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Docker](https://img.shields.io/badge/Docker-Containerized-0284c7?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Compliance](https://img.shields.io/badge/Standard-ADSp%202017%20%7C%20ISO%206346-e11d48?style=for-the-badge)](https://www.spediteure.de/adsp/)
+[![Production](https://img.shields.io/badge/Production-Live-22c55e?style=flat-square&logo=render&logoColor=white)](https://redline-gateway.onrender.com)
+[![Uptime](https://img.shields.io/badge/Uptime-24%2F7%20Monitored-0284c7?style=flat-square&logo=uptimerobot&logoColor=white)](https://redline-gateway.onrender.com/health)
+[![Region](https://img.shields.io/badge/Region-Frankfurt%20(EU)--Central-4f46e5?style=flat-square)](https://redline-gateway.onrender.com)
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-059669?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-0284c7?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Compliance](https://img.shields.io/badge/Standard-ADSp%202017%20%7C%20ISO%206346-e11d48?style=flat-square)](https://www.spediteure.de/adsp/)
 
-Custom-engineered for **[Red Line Internationale Spedition GmbH](https://www.redline-spedition.de/)** & **[mw1group](https://www.mw1group.com/)**  
-*Gewerbepark Kachtenhausen 1–10, 32791 Lage, Nordrhein-Westfalen, Germany*
-
----
-
-> ### 🌐 Live Production Terminal
-> **Production Service URL**: [https://redline-gateway.onrender.com](https://redline-gateway.onrender.com)  
-> **Interactive Swagger / OpenAPI Documentation**: [https://redline-gateway.onrender.com/docs](https://redline-gateway.onrender.com/docs)  
-> **System Health & Uptime Status Probe**: [https://redline-gateway.onrender.com/health](https://redline-gateway.onrender.com/health)
+Developed for **[Red Line Internationale Spedition GmbH](https://www.redline-spedition.de/)** & **[mw1group](https://www.mw1group.com/)**  
+*Gewerbepark Kachtenhausen 1–10, 32791 Lage, Germany*
 
 ---
 
-## 1. Overview & Business Value
-
-**RedLine Gateway** is an enterprise-grade document ingestion and deterministic customs pre-clearance engine. It bridges overseas shipping documents (Ocean Bills of Lading, Air Waybills, Commercial Invoices, and Packing Lists) into mw1group’s internal **`myscm`** ERP system and German **ATLAS 9.1** customs infrastructure.
-
-### The Operational Challenges Solved
-1. **Demurrage & Port Detention Elimination:** Detects weight variances, container number check-digit errors, and missing tariff codes *before* ocean vessels berth at Hamburg or Rotterdam, halting container demurrage charges (€150–€350/day).
-2. **Disponent Time Reclamation:** Eliminates 15–20 minutes of manual data-entry per shipment, replacing it with sub-second multimodal extraction into verified relational records.
-3. **Deterministic "Steel Cage" Compliance:** AI never writes unverified data directly to the database. All extracted entities pass through deterministic mathematical algorithms (ISO 6346 Modulo-11, Physical Mass Conservation, Line-Item Arithmetic) before ERP staging.
-4. **Zero ERP Disruption:** Emits native, parameterized Transact-SQL statements directly compatible with mw1’s internal Microsoft SQL Server 2022 database and C# / ASP.NET backend.
+> **Live Service:** [https://redline-gateway.onrender.com](https://redline-gateway.onrender.com)  
+> **API Documentation (OpenAPI/Swagger):** [https://redline-gateway.onrender.com/docs](https://redline-gateway.onrender.com/docs)  
+> **Health Probe:** [https://redline-gateway.onrender.com/health](https://redline-gateway.onrender.com/health)
 
 ---
 
-## 2. Architecture: Semantic AI + Deterministic Steel Cage
+## 1. Overview & Operational Scope
+
+**RedLine Gateway** is a document processing and customs validation engine designed to ingest international freight documents (Ocean Bills of Lading, Air Waybills, Commercial Invoices, and Packing Lists), extract shipment entities, and validate them against logistics standards before ERP staging and German ATLAS 9.1 customs submission.
+
+### Operational Objectives
+1. **Demurrage & Detention Prevention:** Detects weight discrepancies, invalid container check digits, and missing HS/TARIC tariff classifications before ocean vessels arrive at port (e.g., Hamburg or Rotterdam), mitigating carrier detention charges (€150–€350/day).
+2. **Dispatcher Workflow Automation:** Converts unstructured PDFs and document scans into verified structured records, eliminating manual re-keying into operational systems.
+3. **Deterministic Rule Enforcement:** Document parsing is coupled with strict mathematical and legal validation (ISO 6346 Modulo-11, weight consistency under § 412 HGB, line-item arithmetic). Model outputs are never committed directly to operational tables without passing deterministic verification.
+4. **ERP Integration:** Emits parameterized Transact-SQL statements and JSON payloads formatted for direct ingestion into mw1group's internal `myscm` Microsoft SQL Server 2022 database and .NET backend.
+
+---
+
+## 2. System Architecture
 
 ```mermaid
 flowchart TD
     subgraph INTAKE["1. Document Ingestion"]
-        A["Scanned Ocean B/L<br/>Commercial Invoice<br/>Packing List"] --> B["Multimodal Vision Extraction<br/>Google Gemini Vision API"]
-        B --> C["Unverified Candidate JSON"]
+        A["Scanned Ocean B/L<br/>Commercial Invoice<br/>Packing List"] --> B["Multimodal Vision Extraction<br/>Gemini API"]
+        B --> C["Extracted Document Payload"]
     end
 
-    subgraph STEELCAGE["2. Deterministic Audit Harness (Zero-AI)"]
-        C --> D{"Rules & Math Engine"}
+    subgraph VALIDATION["2. Deterministic Verification Pipeline"]
+        C --> D{"Validation Rules"}
         D --> D1["ISO 6346 Modulo-11 Checksum"]
-        D --> D2["Mass Conservation: Gross >= Net"]
-        D --> D3["Line-Item Mathematical Cross-Sum"]
-        D --> D4["ICC Incoterms 2020 Validation"]
-        D --> D5["HS / TARIC Tariff Code Syntax"]
+        D --> D2["Weight Consistency (Gross >= Net)"]
+        D --> D3["Line-Item Cross-Sum Arithmetic"]
+        D --> D4["Incoterms 2020 Syntax"]
+        D --> D5["HS / TARIC Tariff Code Validation"]
     end
 
-    subgraph DISPATCH["3. Routing & Storage"]
-        D1 --> DECISION{"Audit Outcome"}
+    subgraph DISPATCH["3. Routing & Persistence"]
+        D1 --> DECISION{"Audit Evaluation"}
         D2 --> DECISION
         D3 --> DECISION
         D4 --> DECISION
         D5 --> DECISION
-        DECISION -->|"All Checks Pass (100%)"| E["VERIFIED_CLEAN<br/>ATLAS 9.1 Pre-Clearance Ready"]
-        DECISION -->|"Any Check Fails"| F["QUARANTINE_HOLD<br/>Demurrage Clock Activated<br/>ADSp 2017 Claim Notice Emitted"]
+        DECISION -->|"All Rules Pass (100%)"| E["VERIFIED_CLEAN<br/>ATLAS 9.1 Pre-Clearance Ready"]
+        DECISION -->|"Any Rule Violation"| F["QUARANTINE_HOLD<br/>Demurrage Warning Active<br/>ADSp 2017 Notice Generated"]
         E --> G[("MS-SQL Server 2022<br/>dbo.myscm_Staging")]
-        F --> H["Operations Quarantine Console<br/>1-Click Legal Notice to Carrier"]
+        F --> H["Quarantine Management Console<br/>Discrepancy Notice to Carrier"]
     end
 
     classDef clean fill:#065f46,stroke:#34d399,stroke-width:2px,color:#fff;
@@ -73,43 +72,40 @@ flowchart TD
 
 ---
 
-## 3. Key Operational Modules
+## 3. Core Validation Modules
 
-### 🔍 3-Way Cross-Document Reconciliation Matrix
-Cross-audits the three primary ocean freight documents against each other:
-* **Transport Document (B/L)** vs. **Commercial Invoice** vs. **Packing List**.
-* Compares Container Numbers, Package Counts (Colli), Gross/Net Weights, and Currency/Incoterms.
-* Automatically flags any discrepancy exceeding strict logistics limits (e.g., > 50 kg weight variance triggers immediate quarantine).
+### Three-Way Document Reconciliation
+Cross-checks the primary ocean freight document set:
+* **Transport Document (B/L)** vs. **Commercial Invoice** vs. **Packing List**
+* Verifies container numbers, package quantities (Colli), gross and net weights, currencies, and Incoterms across all three documents.
+* Automatically routes files to quarantine if cross-document variance thresholds are exceeded (e.g., > 50 kg weight variance).
 
-### 🛡️ ISO 6346 Modulo-11 Check Digit Engine
-Validates 11-character intermodal container IDs (4 letters + 7 digits) using the official ISO 6346 Modulo-11 algorithm. Protects dispatchers against terminal gate-in rejection fines at Hamburg NTB / CTA and Rotterdam World Gateway.
+### ISO 6346 Modulo-11 Container Validation
+Implements the standard ISO 6346 checksum verification for 11-character intermodal shipping containers (4-letter owner/equipment code, 6-digit serial, 1 check digit). Prevents gate-in rejections and terminal fines at container facilities (Hamburg CTA/NTB, Rotterdam World Gateway).
 
-### ⚖️ Physical Mass Conservation Law (§ 412 HGB)
-Applies deterministic physics checks ensuring declared Gross Weight strictly exceeds Net Weight across all line-items and totals. Flagged variances are recorded in compliance with § 412 HGB (Shipper Packaging & Declaration Duty).
+### Weight Consistency Verification (§ 412 HGB)
+Validates that declared gross weights strictly exceed net weights across individual line items and document aggregates, adhering to shipper declaration rules under Section 412 of the German Commercial Code (HGB).
 
-### 📋 Automated ADSp 2017 Carrier Claim Notice Generator
-When discrepancies occur between the Ocean Carrier's Bill of Lading and supplier papers, the gateway generates a formal, legally grounded discrepancy memo citing **ADSp 2017 Section 19** and **§ 412 HGB** in 1 click, ready to dispatch to ocean shipping lines to halt storage accrual.
-
-### 🧭 10-Step Interactive Guided Tour
-Integrated executive walkthrough accessible directly from the top navigation bar. Steps stakeholders through live ingestion, 3-way reconciliation, demurrage risk quarantine, audit ledger forensics, and IT ERP integration.
+### Carrier Discrepancy Notice Generation (ADSp 2017)
+When discrepancies are detected between carrier Bills of Lading and supplier commercial documents, the gateway produces a formal discrepancy memo citing **ADSp 2017 Section 19** and **§ 412 HGB**, allowing dispatchers to notify shipping lines immediately to halt demurrage accrual.
 
 ---
 
 ## 4. Technology Stack
 
-| Layer | Component | Specification |
+| Component | Technology | Role |
 | :--- | :--- | :--- |
-| **Backend Framework** | FastAPI (ASGI) | Python 3.11, Pydantic v2, Uvicorn ASGI Runner |
-| **Multimodal Extraction** | Google Gemini Vision | Official `google-genai` SDK with strict JSON schema constraints |
-| **Audit Core** | Deterministic Engine | Pure Python ISO 6346 Modulo-11, arithmetic & Incoterm validators |
-| **Persistence** | SQLite / MS-SQL | Local audit ledger with 100+ pre-seeded records; T-SQL bridge for ERP |
-| **Frontend** | Responsive SPA | Tailwind CSS, RedLine Crimson (`#DC2626`) & mw1 Navy Blue theme |
-| **Infrastructure** | Docker & Cloud Edge | Multi-stage Debian-slim container running in Frankfurt (EU-Central) |
-| **Reliability** | Uptime Monitoring | Automated 5-minute HTTP keep-alive probes via UptimeRobot |
+| **API Framework** | FastAPI (Python 3.11) | Asynchronous REST API with Pydantic v2 validation |
+| **Entity Extraction** | Google Gemini Vision API | Structured multimodal OCR and key-value mapping |
+| **Validation Engine** | Pure Python | Deterministic ISO 6346, arithmetic, and trade code rule validation |
+| **Persistence** | SQLite / MS-SQL Server | Local audit ledger; T-SQL bridge for myscm staging |
+| **Frontend** | Single Page Application | HTML5, Tailwind CSS, vanilla JavaScript |
+| **Containerization** | Docker | Multi-stage Debian-slim runtime |
+| **Monitoring** | UptimeRobot | Periodic HTTP health probes |
 
 ---
 
-## 5. Quick Start (Running Locally)
+## 5. Local Setup
 
 ### Prerequisites
 * Python 3.11+
@@ -137,15 +133,15 @@ COMPANY_NAME="Red Line Internationale Spedition GmbH"
 PARTNER_NAME="mw1group"
 ```
 
-### Step 4: Launch the Microservice
+### Step 4: Run Application
 ```bash
 python run.py
 ```
-* **Executive Web UI**: `http://localhost:8000`
-* **Interactive OpenAPI Swagger Docs**: `http://localhost:8000/docs`
+* **Web UI**: `http://localhost:8000`
+* **Swagger API Docs**: `http://localhost:8000/docs`
 * **Health Check**: `http://localhost:8000/health`
 
-### Alternative: Running with Docker
+### Alternative: Run with Docker
 ```bash
 docker build -t redline-gateway .
 docker run -p 7860:7860 -e GEMINI_API_KEY="your-key" redline-gateway
@@ -153,16 +149,15 @@ docker run -p 7860:7860 -e GEMINI_API_KEY="your-key" redline-gateway
 
 ---
 
-## 6. Production Cloud Deployment
+## 6. Deployment & High Availability
 
-The live instance is hosted on **Render** (Frankfurt, Germany) with an automated Docker multi-stage container build connected directly to the `main` branch of this repository.
+The service runs on **Render** (Frankfurt, EU-Central region) with automatic builds triggered from the repository's `main` branch.
 
-### High-Availability Keep-Alive Monitor
-To ensure zero cold-start delay for users and hiring teams:
-* **Endpoint Monitored**: `https://redline-gateway.onrender.com/health`
-* **Protocol**: HTTP `HEAD` / `GET`
-* **Frequency**: Every 5 minutes (via UptimeRobot)
-* **Result**: Render’s 15-minute free-tier idle sleep timer is permanently reset, guaranteeing instantaneous, 24/7 global availability.
+### Health Probing & Keep-Alive
+* **Endpoint:** `https://redline-gateway.onrender.com/health`
+* **Method:** HTTP `HEAD` / `GET`
+* **Frequency:** 5-minute interval via UptimeRobot
+* **Function:** Prevents container idle spin-downs on free-tier infrastructure, ensuring consistent response times.
 
 ---
 
@@ -170,21 +165,21 @@ To ensure zero cold-start delay for users and hiring teams:
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET / HEAD` | `/` | Serves the primary executive single-page dashboard |
-| `GET / HEAD` | `/health` | Cluster health and uptime probe |
-| `GET` | `/api/v1/metrics` | Real-time KPI metrics (demurrage prevented, ATLAS rate, hold counts) |
-| `POST` | `/api/v1/documents/process` | 5-stage document upload, OCR entity extraction & deterministic audit |
-| `GET` | `/api/v1/sample/{doc_type}` | Loads pre-configured sample transport documents for testing |
-| `GET` | `/api/v1/reconcile-samples` | Fetches 3-way dossier (Ocean B/L, Commercial Invoice, Packing List) |
-| `POST` | `/api/v1/reconcile-simulation` | Executes live demurrage discrepancy simulation (€1,250 prevented) |
-| `GET` | `/api/v1/recent` | Retrieves recent immutable audit ledger records |
-| `POST` | `/api/v1/quarantine/override` | Records authorized supervisor release on a quarantined shipment |
-| `GET` | `/api/v1/integration/mssql-ddl` | Generates MS-SQL Server DDL schema for `myscm_Staging` tables |
-| `GET` | `/api/v1/integration/client-snippets` | Generates C#, Python, and cURL integration client snippets |
+| `GET / HEAD` | `/` | Web application dashboard |
+| `GET / HEAD` | `/health` | Service health and uptime check |
+| `GET` | `/api/v1/metrics` | Processing metrics (total processed, clean count, quarantine count) |
+| `POST` | `/api/v1/documents/process` | Upload document for OCR entity extraction and deterministic audit |
+| `GET` | `/api/v1/sample/{doc_type}` | Pre-loaded sample transport documents for testing |
+| `GET` | `/api/v1/reconcile-samples` | Three-way dossier sample set (B/L, Commercial Invoice, Packing List) |
+| `POST` | `/api/v1/reconcile-simulation` | Executes cross-document reconciliation and identifies variances |
+| `GET` | `/api/v1/recent` | Recent audit ledger entries |
+| `POST` | `/api/v1/quarantine/override` | Records authorized supervisor release on quarantined shipment |
+| `GET` | `/api/v1/integration/mssql-ddl` | MS-SQL Server DDL schema for `myscm_Staging` tables |
+| `GET` | `/api/v1/integration/client-snippets` | C#, Python, and cURL client integration code snippets |
 
 ---
 
-## 8. ERP Integration Specification (For Hermann Schmidt / mw1 IT)
+## 8. ERP Integration Specification (mw1group / myscm)
 
 ### Target Database Schema ([dbo].[myscm_Staging_Shipments])
 ```sql
@@ -231,12 +226,12 @@ public async Task<RedLineStagingResponse> IngestFreightDocumentAsync(byte[] docu
 
 ## 9. Security & Compliance
 
-* **DSGVO / GDPR Compliance:** Complies with German data protection standards. Document bytes are processed in memory and never retained on third-party cloud analytics or external training loops.
-* **Non-Root Container Security:** The Docker image runs under a dedicated unprivileged user (`gateway`, UID `1000`) complying with CIS Docker benchmarks.
-* **Audit Trail Immutability:** Every processed transaction receives a SHA-256 cryptographic digest binding document metadata, extraction timestamps, and deterministic validation outputs.
+* **Data Privacy (GDPR / DSGVO):** Complies with European data protection standards. Document bytes are processed in memory and never retained for third-party machine learning model training.
+* **Non-Root Container Security:** The Docker image runs under an unprivileged user account (`gateway`, UID `1000`) following CIS container security guidelines.
+* **Audit Trail Integrity:** Ingested documents receive a SHA-256 cryptographic digest binding document content, extraction timestamps, and deterministic validation outputs.
 
 ---
 
 ## 10. License
 
-Proprietary prototype developed for **Red Line Internationale Spedition GmbH** & **mw1group**. All rights reserved.
+Proprietary software developed for **Red Line Internationale Spedition GmbH** & **mw1group**. All rights reserved.

@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
-# RedLine Gateway - Autonomous Freight Ingestion & Customs Compliance Engine
-# Tailored for Red Line Internationale Spedition GmbH & mw1group
+# RedLine Gateway - Freight Ingestion & Customs Compliance Gateway
+# Red Line Internationale Spedition GmbH & mw1group
 # -----------------------------------------------------------------------------
 FROM python:3.11-slim
 
@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Hugging Face Spaces & CIS Benchmark require a non-root user with UID 1000
+# Run as non-root user complying with CIS container benchmarks
 RUN useradd -m -u 1000 gateway && \
     mkdir -p /app/app/static/uploads && \
     chown -R gateway:gateway /app

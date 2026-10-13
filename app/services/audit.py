@@ -45,8 +45,8 @@ def calculate_iso6346_check_digit(container_code: str) -> Tuple[bool, int, str]:
 
 def run_deterministic_audit(doc: ExtractedDocument) -> AuditReport:
     """
-    Deterministic Freight Rules Engine (Haulitz standard with explicit requirement,
-    observed_value, severity, and message). Enforces non-negotiable customs invariants.
+    Deterministic rules engine verifying customs invariants, container checksums,
+    weights, and commercial consistency before ERP ingestion.
     """
     checks: List[AuditCheck] = []
     quarantine_reasons: List[str] = []

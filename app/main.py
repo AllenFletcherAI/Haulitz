@@ -41,7 +41,7 @@ init_db()
 
 app = FastAPI(
     title="RedLine Gateway",
-    description="Autonomous Freight Ingestion & Deterministic Customs Pre-Clearance Engine for Red Line Internationale Spedition GmbH / mw1group",
+    description="Freight document ingestion and customs compliance validation service for Red Line Internationale Spedition GmbH / mw1group",
     version="1.0.0"
 )
 
@@ -93,10 +93,10 @@ def read_root():
 @app.post("/api/v1/documents/process", response_model=ProcessedShipmentResponse)
 async def process_document(file: UploadFile = File(...)):
     """
-    Primary 5-Stage Ingestion Pipeline (Haulitz & FreightMatch Industrial Architecture):
+    5-Stage Document Processing Pipeline:
     - Stage 1: INGEST (SHA-256 Digest, File Persistence, MIME validation)
-    - Stage 2: EXTRACT (Multimodal Vision Entity Mapping with Waterfall)
-    - Stage 3: AUDIT (Deterministic Steel Cage: ISO 6346, Mass Conservation, Line-Item Math)
+    - Stage 2: EXTRACT (Multimodal Vision Entity Extraction)
+    - Stage 3: AUDIT (Deterministic Verification: ISO 6346, Weight Consistency, Line-Item Math)
     - Stage 4: ROUTE (Clean -> myscm Staging, Exception -> Demurrage Quarantine)
     - Stage 5: DISPATCH (Transact-SQL Generation for MS-SQL Server)
     """
