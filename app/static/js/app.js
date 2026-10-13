@@ -2468,6 +2468,14 @@ function switchRecPreviewTab(slotKey) {
 
   if (previewUrl && img) {
     img.src = previewUrl;
+    img.onload = () => {
+      fitRecWidth();
+    };
+    if (img.complete && img.naturalWidth > 0) {
+      fitRecWidth();
+    } else {
+      applyRecZoom();
+    }
     if (recViewMode === 'preview') {
       if (intakePanel) intakePanel.classList.add('hidden');
       if (viewport) {
@@ -2484,9 +2492,8 @@ function switchRecPreviewTab(slotKey) {
       zoomControls.classList.add('flex');
     }
     if (noDocPill) noDocPill.classList.add('hidden');
-    applyRecZoom();
   } else {
-    if (recViewMode === 'preview') {
+    if (recViewMode === 'preview' && !hasAnyDoc) {
       toggleRecViewMode('intake');
     }
     if (badgeEl) {
@@ -2515,7 +2522,7 @@ function fitRecWidth() {
   const canvas = document.getElementById('rec-inspector-canvas');
   const img = document.getElementById('rec-inspector-image');
   if (canvas && img && img.naturalWidth) {
-    const availableWidth = canvas.clientWidth - 48;
+    const availableWidth = Math.max(200, canvas.clientWidth - 48);
     recZoom = Math.min(2.5, Math.max(0.3, Math.round((availableWidth / img.naturalWidth) * 100) / 100));
     applyRecZoom();
   } else {
@@ -2528,9 +2535,12 @@ function applyRecZoom() {
   const ind = document.getElementById('rec-zoom-indicator');
   if (img) {
     if (img.naturalWidth > 0) {
+      img.style.transform = '';
       img.style.width = `${Math.round(img.naturalWidth * recZoom)}px`;
       img.style.height = `${Math.round(img.naturalHeight * recZoom)}px`;
     } else {
+      img.style.width = '';
+      img.style.height = '';
       img.style.transform = `scale(${recZoom})`;
       img.style.transformOrigin = 'center top';
     }
@@ -2610,6 +2620,14 @@ function setupRecDossierDragDrop() {
       handleRecBatchUpload({ target: { files: e.dataTransfer.files } });
     }
   });
+
+  const viewport = document.getElementById('rec-inspector-viewport');
+  if (viewport) {
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      zoomRecPreview(e.deltaY < 0 ? 0.2 : -0.2);
+    }, { passive: false });
+  }
 }
 
 function getSlotEmptyButtonHtml(slotKey) {
@@ -3180,6 +3198,7 @@ async function loadRecSamples() {
   recPreviews.invoice = '/static/sample_docs/sample commercial invoice.png';
   recPreviews.packing = '/static/sample_docs/sample packing list.png';
   updateRecStatusChips();
+  toggleRecViewMode('preview');
   switchRecPreviewTab('bol');
   checkRecControls();
 
@@ -3274,6 +3293,7 @@ async function runReconciliationSim(scenario) {
   recPreviews.invoice = '/static/sample_docs/sample commercial invoice.png';
   recPreviews.packing = '/static/sample_docs/sample packing list.png';
   updateRecStatusChips();
+  toggleRecViewMode('preview');
   switchRecPreviewTab('bol');
   checkRecControls();
 
@@ -3316,9 +3336,27 @@ function renderReconciliationResult(data) {
     if (data.preview_urls.invoice) recPreviews.invoice = data.preview_urls.invoice;
     if (data.preview_urls.packing) recPreviews.packing = data.preview_urls.packing;
   }
-  updateRecStatusChips();
 
-  // 2. Show first available document in Left Dossier Pane
+  // Fallback to sample docs if missing
+  if (!recPreviews.bol) recPreviews.bol = '/static/sample_docs/sample bill of ladling.png';
+  if (!recPreviews.invoice) recPreviews.invoice = '/static/sample_docs/sample commercial invoice.png';
+  if (!recPreviews.packing) recPreviews.packing = '/static/sample_docs/sample packing list.png';
+
+  // Ensure recFiles reflect loaded state
+  if (!recFiles.bol) recFiles.bol = { name: 'sample bill of ladling.png', size: 86604 };
+  if (!recFiles.invoice) recFiles.invoice = { name: 'sample commercial invoice.png', size: 246262 };
+  if (!recFiles.packing) recFiles.packing = { name: 'sample packing list.png', size: 858097 };
+  updateSlotDisplay('bol', recFiles.bol.name, recFiles.bol.size);
+  updateSlotDisplay('invoice', recFiles.invoice.name, recFiles.invoice.size);
+  updateSlotDisplay('packing', recFiles.packing.name, recFiles.packing.size);
+
+  updateRecStatusChips();
+  checkRecControls();
+
+  // 2. Activate preview viewport mode
+  toggleRecViewMode('preview');
+
+  // 3. Show first available document in Left Dossier Pane
   const activeTab = recPreviews[currentRecPreviewTab] ? currentRecPreviewTab : (recPreviews.bol ? 'bol' : (recPreviews.invoice ? 'invoice' : 'packing'));
   switchRecPreviewTab(activeTab);
 
