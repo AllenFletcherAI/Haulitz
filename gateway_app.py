@@ -1,19 +1,27 @@
 import os
-import uvicorn
 import gradio as gr
 from app.main import app
 
-# Create minimal Gradio block to fulfill Hugging Face Spaces Gradio SDK runtime contract
+# ZeroGPU contract compliance: Decorate handler for Hugging Face ZeroGPU runtime
+try:
+    import spaces
+    @spaces.GPU
+    def zero_gpu_pipeline():
+        return True
+except Exception:
+    pass
+
+# Create minimal Gradio demo container
 with gr.Blocks(title="RedLine Gateway") as demo:
     gr.Markdown("# RedLine Gateway Active")
 
-# Mount Gradio onto the existing FastAPI application at "/"
-# Pre-registered FastAPI routes (/, /static, /api/v1, /health) take precedence,
-# serving the full custom RedLine Gateway SPA dashboard directly to all visitors.
-hf_app = gr.mount_gradio_app(app, demo, path="/")
+# Insert all FastAPI routes, static mounts, and endpoints at index 0 of demo.app.router.routes
+# This ensures our custom HTML dashboard ("/"), static files ("/static"), and API ("/api/v1")
+# take precedence over Gradio's internal catch-all routes and are served directly on the root domain.
+for r in reversed(app.routes):
+    demo.app.router.routes.insert(0, r)
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 7860))
-    host = os.getenv("HOST", "0.0.0.0")
-    print(f"[*] Starting RedLine Gateway on {host}:{port} (Hugging Face Spaces Bridge)...")
-    uvicorn.run(hf_app, host=host, port=port)
+    demo.launch(server_name="0.0.0.0", server_port=7860)
+else:
+    demo.launch()
