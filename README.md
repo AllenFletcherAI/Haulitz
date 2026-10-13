@@ -4,9 +4,11 @@ emoji: 🚢
 colorFrom: red
 colorTo: slate
 sdk: gradio
-sdk_version: 5.25.2
-app_file: app.py
+sdk_version: 6.30.0
+app_file: gateway_app.py
 pinned: false
+license: mit
+short_description: Autonomous Freight & Customs Gateway (Red Line & mw1group)
 ---
 
 # RedLine Gateway
