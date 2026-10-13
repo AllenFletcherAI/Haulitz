@@ -38,24 +38,29 @@ Custom-engineered for **[Red Line Internationale Spedition GmbH](https://www.red
 ```mermaid
 flowchart TD
     subgraph INTAKE["1. Document Ingestion"]
-        A[Scanned Ocean B/L\nCommercial Invoice\nPacking List] --> B[Multimodal Vision Extraction\nGoogle Gemini Vision API]
-        B --> C[Unverified Candidate JSON]
+        A["Scanned Ocean B/L<br/>Commercial Invoice<br/>Packing List"] --> B["Multimodal Vision Extraction<br/>Google Gemini Vision API"]
+        B --> C["Unverified Candidate JSON"]
     end
 
     subgraph STEELCAGE["2. Deterministic Audit Harness (Zero-AI)"]
-        C --> D{Rules & Math Engine}
-        D --> D1[ISO 6346 Modulo-11 Checksum]
-        D --> D2[Mass Conservation: Gross >= Net]
-        D --> D3[Line-Item Mathematical Cross-Sum]
-        D --> D4[ICC Incoterms 2020 Validation]
-        D --> D5[HS / TARIC Tariff Code Syntax]
+        C --> D{"Rules & Math Engine"}
+        D --> D1["ISO 6346 Modulo-11 Checksum"]
+        D --> D2["Mass Conservation: Gross >= Net"]
+        D --> D3["Line-Item Mathematical Cross-Sum"]
+        D --> D4["ICC Incoterms 2020 Validation"]
+        D --> D5["HS / TARIC Tariff Code Syntax"]
     end
 
     subgraph DISPATCH["3. Routing & Storage"]
-        D1 & D2 & D3 & D4 & D5 -- "All Checks Pass (100%)" --> E[VERIFIED_CLEAN\nATLAS 9.1 Pre-Clearance Ready]
-        D1 & D2 & D3 & D4 & D5 -- "Any Check Fails" --> F[QUARANTINE_HOLD\nDemurrage Clock Activated\nADSp 2017 Claim Notice Emitted]
-        E --> G[(MS-SQL Server 2022\n[dbo].[myscm_Staging])]
-        F --> H[Operations Quarantine Console\n1-Click Legal Notice to Carrier]
+        D1 --> DECISION{"Audit Outcome"}
+        D2 --> DECISION
+        D3 --> DECISION
+        D4 --> DECISION
+        D5 --> DECISION
+        DECISION -->|"All Checks Pass (100%)"| E["VERIFIED_CLEAN<br/>ATLAS 9.1 Pre-Clearance Ready"]
+        DECISION -->|"Any Check Fails"| F["QUARANTINE_HOLD<br/>Demurrage Clock Activated<br/>ADSp 2017 Claim Notice Emitted"]
+        E --> G[("MS-SQL Server 2022<br/>dbo.myscm_Staging")]
+        F --> H["Operations Quarantine Console<br/>1-Click Legal Notice to Carrier"]
     end
 
     classDef clean fill:#065f46,stroke:#34d399,stroke-width:2px,color:#fff;
@@ -63,7 +68,7 @@ flowchart TD
     classDef core fill:#1e293b,stroke:#64748b,stroke-width:1px,color:#fff;
     class E clean;
     class F hold;
-    class A,B,C,D,G,H core;
+    class A,B,C,D,D1,D2,D3,D4,D5,DECISION,G,H core;
 ```
 
 ---
