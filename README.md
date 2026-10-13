@@ -3,8 +3,9 @@ title: RedLine Gateway
 emoji: 🚢
 colorFrom: red
 colorTo: slate
-sdk: docker
-app_port: 7860
+sdk: gradio
+sdk_version: 5.25.2
+app_file: app.py
 pinned: false
 ---
 
