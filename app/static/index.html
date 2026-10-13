@@ -383,8 +383,15 @@
     .theme-light .bg-blue-600,
     .theme-light .bg-blue-600 *,
     .theme-light .bg-red-600,
-    .theme-light .bg-red-600 * {
+    .theme-light .bg-red-600 *,
+    .theme-light .bg-\[\#312783\],
+    .theme-light .bg-\[\#312783\] *,
+    .theme-light #brand-logo-badge,
+    .theme-light #brand-logo-badge * {
       color: #FFFFFF !important;
+    }
+    .theme-light #brand-logo-badge {
+      box-shadow: 0 2px 6px rgba(49, 39, 131, 0.3) !important;
     }
     .theme-light .text-slate-100,
     .theme-light .text-slate-200,
@@ -2009,7 +2016,7 @@
   <!-- Top Executive Terminal Header -->
   <header class="h-14 bg-[#0B1220] border-b border-[#1E293B] px-6 flex items-center justify-between flex-shrink-0 z-50">
     <div class="flex items-center space-x-4">
-      <div class="h-9 w-9 rounded-lg bg-[#312783] flex items-center justify-center font-bold text-white text-base shadow-md shadow-indigo-950/40">
+      <div id="brand-logo-badge" style="color: #ffffff !important;" class="h-9 w-9 rounded-lg bg-[#312783] flex items-center justify-center font-bold text-white text-base shadow-md shadow-indigo-950/40">
         RL
       </div>
       <div>
