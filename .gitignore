@@ -30,3 +30,11 @@ app/static/uploads/*
 # Temporary SQLite logs
 *.db-journal
 *.db-wal
+
+# Local confidential outreach specifications & PDFs
+Technical Integration Spec.pdf
+*Technical Integration Spec*.pdf
+Asset_*.pdf
+app/static/*Technical Integration Spec*.pdf
+app/static/Asset_*.pdf
+

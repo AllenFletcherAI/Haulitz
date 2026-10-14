@@ -831,9 +831,9 @@ def main():
     static_dir = os.path.join(project_root, "app", "static")
     artifact_dir = r"C:\Users\admin\.gemini\antigravity\brain\3a957243-4bd2-43a3-94ce-13856e152903"
     
-    out_root = os.path.join(project_root, "Asset_4_Technical_Integration_Spec.pdf")
-    out_static = os.path.join(static_dir, "Asset_4_Technical_Integration_Spec.pdf")
-    out_artifact = os.path.join(artifact_dir, "Asset_4_Technical_Integration_Spec.pdf")
+    out_root = os.path.join(project_root, "Technical Integration Spec.pdf")
+    out_static = os.path.join(static_dir, "Technical Integration Spec.pdf")
+    out_artifact = os.path.join(artifact_dir, "Technical Integration Spec.pdf")
     
     temp_dir = tempfile.mkdtemp(prefix="edge_pdf_")
     html_path = os.path.join(temp_dir, "asset_4.html")
