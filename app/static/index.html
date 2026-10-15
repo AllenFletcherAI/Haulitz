@@ -2075,10 +2075,10 @@
   <div id="main-nav-strip" class="bg-[#0A0F1D] border-b border-[#1E293B] px-4 py-1.5 flex items-center justify-between flex-shrink-0 gap-2.5 overflow-x-auto min-w-0">
     <div class="flex items-center space-x-1.5 py-0.5 flex-nowrap flex-shrink-0">
       <button onclick="switchTab('pipeline')" id="tab-pipeline" class="nav-tab-active px-2.5 py-1 rounded-lg bg-red-600 text-white font-semibold shadow-sm flex items-center gap-1.5 text-xs transition cursor-pointer whitespace-nowrap flex-shrink-0">
-        <i class="fa-solid fa-network-wired"></i> <span data-i18n="tab_pipeline">Ingestion & Workspace</span>
+        <i class="fa-solid fa-network-wired"></i> <span data-i18n="tab_pipeline">Document Audit</span>
       </button>
       <button onclick="switchTab('reconcile')" id="tab-reconcile" class="nav-tab-inactive px-2.5 py-1 rounded-lg bg-[#0E1626] hover:bg-[#16223B] border border-[#1E293B] text-slate-300 hover:text-white font-medium flex items-center gap-1.5 text-xs transition cursor-pointer whitespace-nowrap flex-shrink-0">
-        <i class="fa-solid fa-layer-group text-blue-400"></i> <span data-i18n="tab_reconcile">3-Wege-Abgleich</span>
+        <i class="fa-solid fa-layer-group text-blue-400"></i> <span data-i18n="tab_reconcile">3-Way Match</span>
       </button>
       <button onclick="switchTab('quarantine')" id="tab-quarantine" class="nav-tab-inactive px-2.5 py-1 rounded-lg bg-[#0E1626] hover:bg-[#16223B] border border-[#1E293B] text-slate-300 hover:text-white font-medium flex items-center gap-1.5 text-xs transition cursor-pointer whitespace-nowrap flex-shrink-0">
         <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> <span data-i18n="tab_quarantine">Quarantäne & Demurrage</span>
@@ -3992,13 +3992,13 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
             <div class="p-2.5 rounded-xl bg-[#0F172A] border border-[#1E293B] space-y-1">
               <div class="font-bold text-red-400 text-xs flex items-center gap-1.5">
-                <i class="fa-solid fa-network-wired text-[10px]"></i> <span data-i18n="spick_tab1_title">1. Ingestion</span>
+                <i class="fa-solid fa-network-wired text-[10px]"></i> <span data-i18n="spick_tab1_title">1. Document Audit</span>
               </div>
               <p class="text-slate-300 text-[11px] leading-snug" data-i18n="spick_tab1_desc">Frachtbelege per Upload oder Zwischenablage erfassen. Daten automatisch auslesen und prüfen.</p>
             </div>
             <div class="p-2.5 rounded-xl bg-[#0F172A] border border-[#1E293B] space-y-1">
               <div class="font-bold text-blue-400 text-xs flex items-center gap-1.5">
-                <i class="fa-solid fa-layer-group text-[10px]"></i> <span data-i18n="spick_tab2_title">2. 3-Wege-Abgleich</span>
+                <i class="fa-solid fa-layer-group text-[10px]"></i> <span data-i18n="spick_tab2_title">2. 3-Way Match</span>
               </div>
               <p class="text-slate-300 text-[11px] leading-snug" data-i18n="spick_tab2_desc">B/L, Handelsrechnung und Packliste abgleichen, um Abweichungen bei Gewichten und Positionen aufzudecken.</p>
             </div>
@@ -4391,6 +4391,6 @@
     </div>
   </div>
 
-  <script src="/static/js/app.js?v=202610140235"></script>
+  <script src="/static/js/app.js?v=202610160048"></script>
 </body>
 </html>
