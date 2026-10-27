@@ -22,12 +22,12 @@
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
-  <!-- Immediate Theme Hydration (No Flash of Unstyled Theme) -->
+  <!-- Immediate Theme & Lang Hydration: Default is German & Light Mode unless toggled -->
   <script>
     (function() {
       try {
         const savedTheme = localStorage.getItem('haulitz_theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (savedTheme === 'dark') {
           document.documentElement.setAttribute('data-theme', 'dark');
         } else {
           document.documentElement.setAttribute('data-theme', 'light');
@@ -50,13 +50,13 @@
     <div class="header-controls">
       <div class="live-beacon">
         <span class="beacon-dot"></span>
-        <span id="beacon-text">Deterministic Engine Active</span>
+        <span id="beacon-text">Deterministische Prüf-Engine Aktiv (100%)</span>
       </div>
       <button id="theme-toggle-btn" class="lang-pill-btn" aria-label="Toggle dark/light theme">
-        <i class="fa-solid fa-moon" id="theme-icon"></i> <span id="theme-text">Dark</span>
+        <i class="fa-solid fa-moon" id="theme-icon"></i> <span id="theme-text">Dunkel</span>
       </button>
-      <button id="lang-toggle-btn" class="lang-pill-btn" aria-label="Toggle language">
-        <i class="fa-solid fa-globe"></i> DE | EN
+      <button id="lang-toggle-btn" class="lang-pill-btn" aria-label="Sprache umschalten / Toggle language">
+        <i class="fa-solid fa-globe"></i> <span id="lang-btn-text">DE | EN</span>
       </button>
     </div>
   </header>
@@ -64,16 +64,16 @@
   <!-- Master Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
-      <h1 class="hero-title" id="hero-heading">The Universal Data Verification Gateway for Enterprise ERP</h1>
+      <h1 class="hero-title" id="hero-heading">Das universelle Datenverifizierungs-Gateway für Enterprise-ERP</h1>
       <p class="hero-subtitle" id="hero-subheading">
-        Eliminating AI hallucinations, accounting errors, and compliance liability with deterministic mathematical guardrails, 
-        ISO checksums, and GoBD § 147 AO cryptographic audit seal chains. Designed for direct staging into SAP S/4HANA and Microsoft SQL Server.
+        Beseitigung von KI-Halluzinationen, Buchungsfehlern und Haftungsrisiken durch deterministische mathematische Schutzschranken, 
+        ISO-Prüfziffern und GoBD § 147 AO kryptografische Prüfketten. Konzipiert für das direkte Staging in SAP S/4HANA und Microsoft SQL Server.
       </p>
       <div class="hero-badges">
-        <div class="hero-badge-pill"><i class="fa-solid fa-microchip"></i> 100% Client-Side Engine (<30ms Latency)</div>
-        <div class="hero-badge-pill"><i class="fa-solid fa-lock"></i> GoBD § 147 AO SHA-256 Ledger</div>
-        <div class="hero-badge-pill"><i class="fa-solid fa-scale-balanced"></i> Statutory German Compliance (HGB / UStG / LkSG)</div>
-        <div class="hero-badge-pill"><i class="fa-solid fa-database"></i> Parameterized T-SQL (SAP & MS SQL 2022)</div>
+        <div class="hero-badge-pill" id="badge-pill-1"><i class="fa-solid fa-microchip"></i> 100% Client-Side Engine (&lt;30ms Latenz)</div>
+        <div class="hero-badge-pill" id="badge-pill-2"><i class="fa-solid fa-lock"></i> Revisionssicheres GoBD § 147 AO Ledger</div>
+        <div class="hero-badge-pill" id="badge-pill-3"><i class="fa-solid fa-scale-balanced"></i> Deutsche Rechtskonformität (HGB / UStG / LkSG)</div>
+        <div class="hero-badge-pill" id="badge-pill-4"><i class="fa-solid fa-database"></i> Parametrisiertes T-SQL (SAP &amp; MS SQL 2022)</div>
       </div>
     </div>
   </section>
@@ -84,8 +84,8 @@
     <!-- Domain Selector Grid -->
     <div class="section-heading-bar">
       <div>
-        <h2 class="section-title" id="domain-section-title"><i class="fa-solid fa-layer-group"></i> Select Industry Domain To Audit</h2>
-        <p class="section-desc" id="domain-section-desc">Explore how Haulitz protects workflows across Germany's top corporate sectors</p>
+        <h2 class="section-title" id="domain-section-title"><i class="fa-solid fa-layer-group"></i> Wählen Sie eine Industriebranche zur Prüfung</h2>
+        <p class="section-desc" id="domain-section-desc">Erleben Sie, wie Haulitz geschäftskritische Workflows in den führenden deutschen Wirtschaftssektoren absichert</p>
       </div>
     </div>
 
@@ -99,20 +99,20 @@
         <div class="active-domain-info">
           <div class="active-domain-badge" id="active-domain-badge">01</div>
           <div class="active-domain-meta">
-            <h3 id="active-domain-title">FinTech & Corporate Invoicing</h3>
-            <p id="active-domain-targets">Target Employers: Pleo, Moss, Billie, Personio, Taxfix | Legal: § 14 UStG, GoBD § 147 AO</p>
+            <h3 id="active-domain-title">FinTech &amp; Rechnungsprüfung</h3>
+            <p id="active-domain-targets">Unternehmen: Pleo, Moss, Billie, Personio, Taxfix | Rechtsgrundlage: § 14 UStG, GoBD § 147 AO</p>
           </div>
         </div>
 
         <div class="scenario-btn-group">
           <button class="scenario-btn btn-scenario-a active" id="btn-scenario-a" data-scenario="scenario_a">
-            <i class="fa-solid fa-circle-check"></i> <span id="label-scenario-a">Scenario A: Clean Pass</span>
+            <i class="fa-solid fa-circle-check"></i> <span id="label-scenario-a">Szenario A: Valider Beleg</span>
           </button>
           <button class="scenario-btn btn-scenario-b" id="btn-scenario-b" data-scenario="scenario_b">
-            <i class="fa-solid fa-triangle-exclamation"></i> <span id="label-scenario-b">Scenario B: Arithmetic Trap</span>
+            <i class="fa-solid fa-triangle-exclamation"></i> <span id="label-scenario-b">Szenario B: Rechnerische Falle</span>
           </button>
           <button class="scenario-btn btn-scenario-c" id="btn-scenario-c" data-scenario="scenario_c">
-            <i class="fa-solid fa-gavel"></i> <span id="label-scenario-c">Scenario C: Regulatory Breach</span>
+            <i class="fa-solid fa-gavel"></i> <span id="label-scenario-c">Szenario C: Gesetzesverstoß</span>
           </button>
         </div>
       </div>
@@ -123,24 +123,24 @@
         <!-- Left Pane: Source Document Dossier -->
         <div class="left-dossier-pane">
           <div class="pane-title-bar">
-            <span class="pane-title"><i class="fa-regular fa-file-lines"></i> Source Document Dossier</span>
-            <span class="rule-badge" id="dossier-doc-type" style="background:#EEF2FF; color:#3730A3;">Vendor Tax Invoice</span>
+            <span class="pane-title"><i class="fa-regular fa-file-lines"></i> <span id="label-dossier-title">Quelldokument-Dossier</span></span>
+            <span class="rule-badge" id="dossier-doc-type" style="background:#EEF2FF; color:#3730A3;">Eingangsrechnung</span>
           </div>
 
           <div class="dossier-card" id="dossier-card-content">
             <!-- Populated dynamically by app.js -->
           </div>
 
-          <div style="font-size: 0.78rem; color: var(--color-text-muted); display:flex; align-items:center; gap:0.4rem;">
-            <i class="fa-solid fa-shield-halved"></i> Source document extracted via multimodal vision; held in quarantine buffer awaiting verification.
+          <div id="dossier-footer-note" style="font-size: 0.78rem; color: var(--color-text-muted); display:flex; align-items:center; gap:0.4rem;">
+            <i class="fa-solid fa-shield-halved"></i> Quelldokument per Multimodal Vision erfasst; im Quarantänepuffer bis zur Verifizierung gehalten.
           </div>
         </div>
 
         <!-- Right Pane: Deterministic Verification Cockpit -->
         <div class="right-cockpit-pane">
           <div class="pane-title-bar">
-            <span class="pane-title"><i class="fa-solid fa-gauge-high"></i> Deterministic Verification Cockpit</span>
-            <span class="rule-badge pass font-mono-code" id="audit-latency-badge">< 2ms EXECUTION</span>
+            <span class="pane-title"><i class="fa-solid fa-gauge-high"></i> <span id="label-cockpit-title">Deterministisches Prüf-Cockpit</span></span>
+            <span class="rule-badge pass font-mono-code" id="audit-latency-badge">&lt; 2ms AUSFÜHRUNG</span>
           </div>
 
           <!-- Status Banner -->
@@ -148,18 +148,18 @@
             <div class="status-main">
               <i class="fa-solid fa-circle-check status-main-icon" id="status-icon"></i>
               <div>
-                <div class="status-text-title" id="status-text-title">VERIFIED_CLEAN</div>
-                <div class="status-text-subtitle" id="status-text-subtitle">All mathematical and legal integrity guardrails passed. Authorized for ERP staging.</div>
+                <div class="status-text-title" id="status-text-title">REVISIONSFÄHIG_VERIFIZIERT</div>
+                <div class="status-text-subtitle" id="status-text-subtitle">Alle mathematischen und gesetzlichen Schutzschranken bestanden. Freigabe für ERP-Staging erteilt.</div>
               </div>
             </div>
             <div class="status-badge-wrapper">
-              <span class="rule-badge pass" id="status-pill-badge">STAGE_AUTHORIZED</span>
+              <span class="rule-badge pass" id="status-pill-badge">STAGING_AUTORISIERT</span>
             </div>
           </div>
 
           <!-- Rule Checklist Breakdown -->
-          <div style="margin-bottom: 0.65rem; font-weight: 700; font-size: 0.84rem; color: var(--color-navy);">
-            <i class="fa-solid fa-list-check"></i> VERIFICATION GATE CHECKLIST:
+          <div id="checklist-heading-label" style="margin-bottom: 0.65rem; font-weight: 700; font-size: 0.84rem; color: var(--color-navy);">
+            <i class="fa-solid fa-list-check"></i> VERIFIZIERUNGSSCHRANKEN:
           </div>
           <ul class="rule-checklist" id="rule-checklist-container">
             <!-- Populated dynamically by app.js -->
@@ -167,16 +167,16 @@
 
           <!-- Variance Summary Callout (Revealed when trap occurs) -->
           <div class="variance-card" id="variance-card" style="display: none;">
-            <div class="variance-title"><i class="fa-solid fa-triangle-exclamation"></i> ARITHMETIC / LEGAL VARIANCE DETECTED</div>
-            <div class="variance-body" id="variance-text">Calculated discrepancy delta detected.</div>
+            <div class="variance-title" id="variance-card-title"><i class="fa-solid fa-triangle-exclamation"></i> RECHNERISCHE / GESETZLICHE ABWEICHUNG FESTGESTELLT</div>
+            <div class="variance-body" id="variance-text">Kritische rechnerische Diskrepanz ermittelt.</div>
           </div>
 
           <!-- Legal Dispute Memo Box (Revealed when exception occurs) -->
           <div class="legal-memo-box" id="legal-memo-box" style="display: none;">
             <div class="legal-memo-header">
-              <span><i class="fa-solid fa-file-contract"></i> AUTOMATED STATUTORY DISPUTE MEMO</span>
+              <span><i class="fa-solid fa-file-contract"></i> <span id="label-memo-header">AUTOMATISIERTE GESETZLICHE MÄNGELRÜGE</span></span>
               <button class="rule-badge" id="btn-copy-memo" style="background:#FFFFFF; border:1px solid #D8B4FE; color:#6B21A8; cursor:pointer;">
-                <i class="fa-regular fa-copy"></i> Copy Memo
+                <i class="fa-regular fa-copy"></i> <span id="btn-copy-memo-text">Mahnung kopieren</span>
               </button>
             </div>
             <div class="legal-memo-content" id="legal-memo-content">
@@ -186,14 +186,14 @@
 
           <!-- GoBD SHA-256 Cryptographic Seal -->
           <div class="gobd-seal-card">
-            <div class="gobd-seal-title">
-              <i class="fa-solid fa-fingerprint"></i> GoBD § 147 AO CRYPTOGRAPHIC AUDIT SEAL (TAMPER-EVIDENT LEDGER)
+            <div class="gobd-seal-title" id="gobd-seal-title">
+              <i class="fa-solid fa-fingerprint"></i> GoBD § 147 AO KRYPTOGRAFISCHES PRÜFSIEGEL (REVISIONSSICHERE KETTE)
             </div>
             <div class="gobd-seal-hash" id="gobd-seal-hash">
-              Calculating SHA-256 hash...
+              Berechne SHA-256 Hash...
             </div>
             <div style="display:flex; justify-content:space-between; margin-top:0.4rem; font-size:0.75rem; color:var(--color-text-muted);">
-              <span>Predecessor Block: <span class="font-mono-code" id="gobd-prev-seal">0000000000000000...</span></span>
+              <span><span id="label-predecessor">Vorheriger Siegelblock:</span> <span class="font-mono-code" id="gobd-prev-seal">0000000000000000...</span></span>
               <span id="gobd-timestamp">2026-10-28T03:20:00Z</span>
             </div>
           </div>
@@ -204,13 +204,13 @@
       <!-- Enterprise Integration Console / Action Toolbar -->
       <div class="action-toolbar">
         <button class="action-btn btn-secondary" id="btn-view-tsql">
-          <i class="fa-solid fa-database"></i> Parameterized T-SQL (SAP / MS-SQL)
+          <i class="fa-solid fa-database"></i> <span id="btn-tsql-text">Parametrisiertes T-SQL (SAP / MS-SQL)</span>
         </button>
         <button class="action-btn btn-secondary" id="btn-view-csharp">
-          <i class="fa-solid fa-code"></i> C# .NET 8 Driver SDK
+          <i class="fa-solid fa-code"></i> <span id="btn-csharp-text">C# .NET 8 Treiber-SDK</span>
         </button>
         <button class="action-btn btn-export" id="btn-export-csv">
-          <i class="fa-solid fa-file-csv"></i> Export GoBD § 147 AO Ledger (.CSV)
+          <i class="fa-solid fa-file-csv"></i> <span id="btn-export-text">GoBD § 147 AO Ledger exportieren (.CSV)</span>
         </button>
       </div>
     </section>

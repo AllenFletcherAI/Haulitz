@@ -6,12 +6,20 @@
 (function() {
   'use strict';
 
+  // Read persisted user preferences (DEFAULT: German, Light Mode unless toggled)
+  let savedLang = null;
+  let savedTheme = null;
+  try {
+    savedLang = localStorage.getItem('haulitz_lang');
+    savedTheme = localStorage.getItem('haulitz_theme');
+  } catch (e) {}
+
   // Application State
   const state = {
     currentDomain: 'fintech',
     currentScenario: 'scenario_a',
-    currentLang: 'de',
-    currentTheme: document.documentElement.getAttribute('data-theme') || 'light',
+    currentLang: savedLang === 'en' ? 'en' : 'de', // Strict Default: German
+    currentTheme: savedTheme === 'dark' ? 'dark' : 'light', // Strict Default: Light Mode
     previousSeal: window.Haulitz?.GoBDHasher?.GENESIS_SEAL || '0000000000000000000000000000000000000000000000000000000000000000',
     auditHistory: [],
     lastAuditResult: null,
@@ -19,11 +27,114 @@
     lastDocPayload: null
   };
 
+  // Full Internationalization Strings (German / English)
+  const i18n = {
+    de: {
+      beacon: 'Deterministische Prüf-Engine Aktiv (100%)',
+      themeDark: 'Dunkel',
+      themeLight: 'Hell',
+      langBtn: 'DE | EN',
+      heroHeading: 'Das universelle Datenverifizierungs-Gateway für Enterprise-ERP',
+      heroSubheading: 'Beseitigung von KI-Halluzinationen, Buchungsfehlern und Haftungsrisiken durch deterministische mathematische Schutzschranken, ISO-Prüfziffern und GoBD § 147 AO kryptografische Prüfketten. Konzipiert für das direkte Staging in SAP S/4HANA und Microsoft SQL Server.',
+      badge1: '<i class="fa-solid fa-microchip"></i> 100% Client-Side Engine (<30ms Latenz)',
+      badge2: '<i class="fa-solid fa-lock"></i> Revisionssicheres GoBD § 147 AO Ledger',
+      badge3: '<i class="fa-solid fa-scale-balanced"></i> Deutsche Rechtskonformität (HGB / UStG / LkSG)',
+      badge4: '<i class="fa-solid fa-database"></i> Parametrisiertes T-SQL (SAP & MS SQL 2022)',
+      domainTitle: '<i class="fa-solid fa-layer-group"></i> Wählen Sie eine Industriebranche zur Prüfung',
+      domainDesc: 'Erleben Sie, wie Haulitz geschäftskritische Workflows in den führenden deutschen Wirtschaftssektoren absichert',
+      scenarioA: 'Szenario A: Valider Beleg',
+      scenarioB: 'Szenario B: Rechnerische Falle',
+      scenarioC: 'Szenario C: Gesetzesverstoß',
+      dossierTitle: 'Quelldokument-Dossier',
+      dossierFooter: '<i class="fa-solid fa-shield-halved"></i> Quelldokument per Multimodal Vision erfasst; im Quarantänepuffer bis zur Verifizierung gehalten.',
+      cockpitTitle: 'Deterministisches Prüf-Cockpit',
+      latencyBadge: '< 2ms AUSFÜHRUNG',
+      statusCleanTitle: 'REVISIONSFÄHIG_VERIFIZIERT',
+      statusCleanDesc: 'Alle mathematischen und gesetzlichen Schutzschranken bestanden. Freigabe für ERP-Staging erteilt.',
+      statusCleanBadge: 'STAGING_AUTORISIERT',
+      statusQuarantineTitle: 'QUARANTÄNE_SPERRE',
+      statusQuarantineDesc: 'Kritische mathematische Abweichung oder Gesetzesverstoß festgestellt. In Quarantänepuffer geleitet; Zahllauf/Zollanmeldung gesperrt.',
+      statusQuarantineBadge: 'ZAHLLAUF_GESPERRT',
+      checklistHeading: '<i class="fa-solid fa-list-check"></i> VERIFIZIERUNGSSCHRANKEN:',
+      varianceTitle: '<i class="fa-solid fa-triangle-exclamation"></i> RECHNERISCHE / GESETZLICHE ABWEICHUNG FESTGESTELLT',
+      varianceExact: 'Exakter Abweichungsbetrag:',
+      varianceBlocked: 'Nachgelagerter Zahllauf in SAP und ATLAS-Zollanmeldung automatisch blockiert.',
+      legalMemoHeader: 'AUTOMATISIERTE GESETZLICHE MÄNGELRÜGE',
+      copyMemo: 'Mahnung kopieren',
+      copiedMemo: 'Mahnung kopiert!',
+      gobdTitle: '<i class="fa-solid fa-fingerprint"></i> GoBD § 147 AO KRYPTOGRAFISCHES PRÜFSIEGEL (REVISIONSSICHERE KETTE)',
+      gobdPredecessor: 'Vorheriger Siegelblock:',
+      btnTsql: 'Parametrisiertes T-SQL (SAP / MS-SQL)',
+      btnCsharp: 'C# .NET 8 Treiber-SDK',
+      btnExport: 'GoBD § 147 AO Ledger exportieren (.CSV)',
+      employers: 'Unternehmen',
+      law: 'Rechtsgrundlage'
+    },
+    en: {
+      beacon: 'Deterministic Engine Active (100%)',
+      themeDark: 'Dark',
+      themeLight: 'Light',
+      langBtn: 'EN | DE',
+      heroHeading: 'The Universal Data Verification Gateway for Enterprise ERP',
+      heroSubheading: 'Eliminating AI hallucinations, accounting errors, and compliance liability with deterministic mathematical guardrails, ISO checksums, and GoBD § 147 AO cryptographic audit seal chains. Designed for direct staging into SAP S/4HANA and Microsoft SQL Server.',
+      badge1: '<i class="fa-solid fa-microchip"></i> 100% Client-Side Engine (<30ms Latency)',
+      badge2: '<i class="fa-solid fa-lock"></i> GoBD § 147 AO SHA-256 Ledger',
+      badge3: '<i class="fa-solid fa-scale-balanced"></i> Statutory German Compliance (HGB / UStG / LkSG)',
+      badge4: '<i class="fa-solid fa-database"></i> Parameterized T-SQL (SAP & MS SQL 2022)',
+      domainTitle: '<i class="fa-solid fa-layer-group"></i> Select Industry Domain To Audit',
+      domainDesc: 'Explore how Haulitz protects workflows across Germany\'s top corporate sectors',
+      scenarioA: 'Scenario A: Clean Pass',
+      scenarioB: 'Scenario B: Arithmetic Trap',
+      scenarioC: 'Scenario C: Regulatory Breach',
+      dossierTitle: 'Source Document Dossier',
+      dossierFooter: '<i class="fa-solid fa-shield-halved"></i> Source document extracted via multimodal vision; held in quarantine buffer awaiting verification.',
+      cockpitTitle: 'Deterministic Verification Cockpit',
+      latencyBadge: '< 2ms EXECUTION',
+      statusCleanTitle: 'VERIFIED_CLEAN',
+      statusCleanDesc: 'All mathematical and legal integrity guardrails passed. Authorized for ERP staging.',
+      statusCleanBadge: 'STAGE_AUTHORIZED',
+      statusQuarantineTitle: 'QUARANTINE_HOLD',
+      statusQuarantineDesc: 'Critical variance or legal exception detected. Routed to quarantine buffer; payment/customs blocked.',
+      statusQuarantineBadge: 'ERP_PAYMENT_BLOCKED',
+      checklistHeading: '<i class="fa-solid fa-list-check"></i> VERIFICATION GATE CHECKLIST:',
+      varianceTitle: '<i class="fa-solid fa-triangle-exclamation"></i> ARITHMETIC / LEGAL VARIANCE DETECTED',
+      varianceExact: 'Exact Discrepancy Amount:',
+      varianceBlocked: 'Downstream payment run and ATLAS submission automatically halted.',
+      legalMemoHeader: 'AUTOMATED STATUTORY DISPUTE MEMO',
+      copyMemo: 'Copy Memo',
+      copiedMemo: 'Copied Memo!',
+      gobdTitle: '<i class="fa-solid fa-fingerprint"></i> GoBD § 147 AO CRYPTOGRAPHIC AUDIT SEAL (TAMPER-EVIDENT LEDGER)',
+      gobdPredecessor: 'Predecessor Block:',
+      btnTsql: 'Parameterized T-SQL (SAP / MS-SQL)',
+      btnCsharp: 'C# .NET 8 Driver SDK',
+      btnExport: 'Export GoBD § 147 AO Ledger (.CSV)',
+      employers: 'Employers',
+      law: 'Governing Law'
+    }
+  };
+
   // DOM Elements Cache
   const DOM = {};
 
   function initDOMElements() {
+    DOM.beaconText = document.getElementById('beacon-text');
+    DOM.themeToggleBtn = document.getElementById('theme-toggle-btn');
+    DOM.themeIcon = document.getElementById('theme-icon');
+    DOM.themeText = document.getElementById('theme-text');
+    DOM.langToggleBtn = document.getElementById('lang-toggle-btn');
+    DOM.langBtnText = document.getElementById('lang-btn-text');
+
+    DOM.heroHeading = document.getElementById('hero-heading');
+    DOM.heroSubheading = document.getElementById('hero-subheading');
+    DOM.badgePill1 = document.getElementById('badge-pill-1');
+    DOM.badgePill2 = document.getElementById('badge-pill-2');
+    DOM.badgePill3 = document.getElementById('badge-pill-3');
+    DOM.badgePill4 = document.getElementById('badge-pill-4');
+
+    DOM.domainSectionTitle = document.getElementById('domain-section-title');
+    DOM.domainSectionDesc = document.getElementById('domain-section-desc');
     DOM.domainGrid = document.getElementById('domain-grid-container');
+
     DOM.activeDomainBadge = document.getElementById('active-domain-badge');
     DOM.activeDomainTitle = document.getElementById('active-domain-title');
     DOM.activeDomainTargets = document.getElementById('active-domain-targets');
@@ -36,29 +147,42 @@
     DOM.labelScenarioB = document.getElementById('label-scenario-b');
     DOM.labelScenarioC = document.getElementById('label-scenario-c');
     
+    DOM.labelDossierTitle = document.getElementById('label-dossier-title');
     DOM.dossierDocType = document.getElementById('dossier-doc-type');
     DOM.dossierContent = document.getElementById('dossier-card-content');
+    DOM.dossierFooterNote = document.getElementById('dossier-footer-note');
     
+    DOM.labelCockpitTitle = document.getElementById('label-cockpit-title');
+    DOM.auditLatencyBadge = document.getElementById('audit-latency-badge');
     DOM.auditStatusBanner = document.getElementById('audit-status-banner');
     DOM.statusIcon = document.getElementById('status-icon');
     DOM.statusTextTitle = document.getElementById('status-text-title');
     DOM.statusTextSubtitle = document.getElementById('status-text-subtitle');
     DOM.statusPillBadge = document.getElementById('status-pill-badge');
     
+    DOM.checklistHeadingLabel = document.getElementById('checklist-heading-label');
     DOM.ruleChecklist = document.getElementById('rule-checklist-container');
     DOM.varianceCard = document.getElementById('variance-card');
+    DOM.varianceCardTitle = document.getElementById('variance-card-title');
     DOM.varianceText = document.getElementById('variance-text');
     DOM.legalMemoBox = document.getElementById('legal-memo-box');
+    DOM.labelMemoHeader = document.getElementById('label-memo-header');
     DOM.legalMemoContent = document.getElementById('legal-memo-content');
     DOM.btnCopyMemo = document.getElementById('btn-copy-memo');
+    DOM.btnCopyMemoText = document.getElementById('btn-copy-memo-text');
     
+    DOM.gobdSealTitle = document.getElementById('gobd-seal-title');
     DOM.gobdSealHash = document.getElementById('gobd-seal-hash');
+    DOM.labelPredecessor = document.getElementById('label-predecessor');
     DOM.gobdPrevSeal = document.getElementById('gobd-prev-seal');
     DOM.gobdTimestamp = document.getElementById('gobd-timestamp');
     
     DOM.btnViewTsql = document.getElementById('btn-view-tsql');
+    DOM.btnTsqlText = document.getElementById('btn-tsql-text');
     DOM.btnViewCsharp = document.getElementById('btn-view-csharp');
+    DOM.btnCsharpText = document.getElementById('btn-csharp-text');
     DOM.btnExportCsv = document.getElementById('btn-export-csv');
+    DOM.btnExportText = document.getElementById('btn-export-text');
     
     DOM.modalTsql = document.getElementById('modal-tsql');
     DOM.modalCsharp = document.getElementById('modal-csharp');
@@ -67,10 +191,6 @@
     
     DOM.btnCopyTsql = document.getElementById('btn-copy-tsql');
     DOM.btnCopyCsharp = document.getElementById('btn-copy-csharp');
-    DOM.langToggleBtn = document.getElementById('lang-toggle-btn');
-    DOM.themeToggleBtn = document.getElementById('theme-toggle-btn');
-    DOM.themeIcon = document.getElementById('theme-icon');
-    DOM.themeText = document.getElementById('theme-text');
   }
 
   /**
@@ -140,13 +260,10 @@
     const fixture = window.Haulitz.Fixtures[state.currentDomain];
     if (!fixture) return;
 
-    const sA = fixture.scenarios.scenario_a;
-    const sB = fixture.scenarios.scenario_b;
-    const sC = fixture.scenarios.scenario_c;
-
-    DOM.labelScenarioA.textContent = sA ? sA.badge : 'Clean Pass';
-    DOM.labelScenarioB.textContent = sB ? sB.badge : 'Math Trap';
-    DOM.labelScenarioC.textContent = sC ? sC.badge : 'Regulatory Breach';
+    const dict = i18n[state.currentLang] || i18n.de;
+    DOM.labelScenarioA.textContent = dict.scenarioA;
+    DOM.labelScenarioB.textContent = dict.scenarioB;
+    DOM.labelScenarioC.textContent = dict.scenarioC;
 
     [DOM.btnScenarioA, DOM.btnScenarioB, DOM.btnScenarioC].forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-scenario') === state.currentScenario);
@@ -167,10 +284,12 @@
     const doc = scenario.document;
     state.lastDocPayload = doc;
 
+    const dict = i18n[state.currentLang] || i18n.de;
+
     // Update Active Domain Header
     DOM.activeDomainBadge.textContent = domain.number;
     DOM.activeDomainTitle.textContent = state.currentLang === 'de' ? (domain.germanTitle || domain.title) : domain.title;
-    DOM.activeDomainTargets.textContent = `Employers: ${domain.targetEmployers} | Law: ${domain.law}`;
+    DOM.activeDomainTargets.textContent = `${dict.employers}: ${domain.targetEmployers} | ${dict.law}: ${domain.law}`;
     DOM.dossierDocType.textContent = domain.documentType;
 
     // Execute Domain Verification Logic
@@ -550,15 +669,14 @@
    */
   function renderAuditCockpit(auditResult, legalMemoText, sealResult) {
     const isClean = auditResult.isValid;
+    const dict = i18n[state.currentLang] || i18n.de;
 
     // Status Banner
     DOM.auditStatusBanner.className = `audit-status-banner ${isClean ? 'status-clean' : 'status-quarantine'}`;
     DOM.statusIcon.className = `fa-solid ${isClean ? 'fa-circle-check' : 'fa-triangle-exclamation'} status-main-icon`;
-    DOM.statusTextTitle.textContent = isClean ? 'VERIFIED_CLEAN' : 'QUARANTINE_HOLD';
-    DOM.statusTextSubtitle.textContent = isClean
-      ? 'All mathematical and legal integrity guardrails passed. Authorized for ERP staging.'
-      : 'Critical variance or legal exception detected. Routed to quarantine buffer; payment/customs blocked.';
-    DOM.statusPillBadge.textContent = isClean ? 'STAGE_AUTHORIZED' : 'ERP_PAYMENT_BLOCKED';
+    DOM.statusTextTitle.textContent = isClean ? dict.statusCleanTitle : dict.statusQuarantineTitle;
+    DOM.statusTextSubtitle.textContent = isClean ? dict.statusCleanDesc : dict.statusQuarantineDesc;
+    DOM.statusPillBadge.textContent = isClean ? dict.statusCleanBadge : dict.statusQuarantineBadge;
     DOM.statusPillBadge.className = `rule-badge ${isClean ? 'pass' : 'fail'}`;
 
     // Checklist Breakdown
@@ -577,8 +695,8 @@
     if (!isClean && auditResult.variance) {
       DOM.varianceCard.style.display = 'block';
       DOM.varianceText.innerHTML = `
-        <strong>Exact Discrepancy Amount:</strong> € ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} EUR / Units delta.<br>
-        Downstream payment run and ATLAS submission automatically halted.
+        <strong>${dict.varianceExact}</strong> € ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} EUR / Units delta.<br>
+        ${dict.varianceBlocked}
       `;
     } else {
       DOM.varianceCard.style.display = 'none';
@@ -656,7 +774,8 @@
     });
 
     DOM.btnCopyMemo.addEventListener('click', () => {
-      copyToClipboard(DOM.legalMemoContent.textContent, DOM.btnCopyMemo, 'Copied Memo!');
+      const dict = i18n[state.currentLang] || i18n.de;
+      copyToClipboard(DOM.legalMemoContent.textContent, DOM.btnCopyMemo, dict.copiedMemo);
     });
   }
 
@@ -680,11 +799,50 @@
   }
 
   /**
+   * Internationalization Engine
+   */
+  function applyLanguageUI() {
+    const dict = i18n[state.currentLang] || i18n.de;
+    document.documentElement.lang = state.currentLang;
+
+    if (DOM.beaconText) DOM.beaconText.textContent = dict.beacon;
+    if (DOM.langBtnText) DOM.langBtnText.textContent = dict.langBtn;
+    if (DOM.heroHeading) DOM.heroHeading.textContent = dict.heroHeading;
+    if (DOM.heroSubheading) DOM.heroSubheading.textContent = dict.heroSubheading;
+    if (DOM.badgePill1) DOM.badgePill1.innerHTML = dict.badge1;
+    if (DOM.badgePill2) DOM.badgePill2.innerHTML = dict.badge2;
+    if (DOM.badgePill3) DOM.badgePill3.innerHTML = dict.badge3;
+    if (DOM.badgePill4) DOM.badgePill4.innerHTML = dict.badge4;
+    if (DOM.domainSectionTitle) DOM.domainSectionTitle.innerHTML = dict.domainTitle;
+    if (DOM.domainSectionDesc) DOM.domainSectionDesc.textContent = dict.domainDesc;
+    if (DOM.labelDossierTitle) DOM.labelDossierTitle.textContent = dict.dossierTitle;
+    if (DOM.dossierFooterNote) DOM.dossierFooterNote.innerHTML = dict.dossierFooter;
+    if (DOM.labelCockpitTitle) DOM.labelCockpitTitle.textContent = dict.cockpitTitle;
+    if (DOM.auditLatencyBadge) DOM.auditLatencyBadge.textContent = dict.latencyBadge;
+    if (DOM.checklistHeadingLabel) DOM.checklistHeadingLabel.innerHTML = dict.checklistHeading;
+    if (DOM.varianceCardTitle) DOM.varianceCardTitle.innerHTML = dict.varianceTitle;
+    if (DOM.labelMemoHeader) DOM.labelMemoHeader.textContent = dict.legalMemoHeader;
+    if (DOM.btnCopyMemoText) DOM.btnCopyMemoText.textContent = dict.copyMemo;
+    if (DOM.gobdSealTitle) DOM.gobdSealTitle.innerHTML = dict.gobdTitle;
+    if (DOM.labelPredecessor) DOM.labelPredecessor.textContent = dict.gobdPredecessor;
+    if (DOM.btnTsqlText) DOM.btnTsqlText.textContent = dict.btnTsql;
+    if (DOM.btnCsharpText) DOM.btnCsharpText.textContent = dict.btnCsharp;
+    if (DOM.btnExportText) DOM.btnExportText.textContent = dict.btnExport;
+
+    updateThemeUI();
+    updateScenarioButtonLabels();
+  }
+
+  /**
    * Language Toggle
    */
   function setupLanguageToggle() {
     DOM.langToggleBtn.addEventListener('click', () => {
       state.currentLang = state.currentLang === 'de' ? 'en' : 'de';
+      try {
+        localStorage.setItem('haulitz_lang', state.currentLang);
+      } catch (e) {}
+      applyLanguageUI();
       renderDomainGrid();
       runVerification();
     });
@@ -695,11 +853,12 @@
    */
   function updateThemeUI() {
     const isDark = state.currentTheme === 'dark';
+    const dict = i18n[state.currentLang] || i18n.de;
     if (DOM.themeIcon) {
       DOM.themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
     }
     if (DOM.themeText) {
-      DOM.themeText.textContent = isDark ? 'Light' : 'Dark';
+      DOM.themeText.textContent = isDark ? dict.themeLight : dict.themeDark;
     }
   }
 
@@ -721,6 +880,7 @@
   // Application Entry Point
   window.addEventListener('DOMContentLoaded', () => {
     initDOMElements();
+    applyLanguageUI(); // Apply default language (German) and light mode
     renderDomainGrid();
     setupScenarioButtons();
     setupModals();
