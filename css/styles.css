@@ -37,6 +37,201 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
 }
 
+/* ==========================================================================
+   DARK THEME PALETTE & OVERRIDES
+   ========================================================================== */
+[data-theme="dark"] {
+  --color-canvas: #070B12;
+  --color-surface: #0E1726;
+  --color-surface-subtle: #141F33;
+  --color-border: #1E293B;
+  --color-border-dark: #334155;
+  --color-navy: #1E3A8A;
+  --color-navy-dark: #050B14;
+  --color-navy-light: #38BDF8;
+  --color-text-main: #F8FAFC;
+  --color-text-muted: #94A3B8;
+  --color-text-light: #64748B;
+
+  --color-emerald-bg: #064E3B;
+  --color-emerald-border: #047857;
+  --color-crimson-bg: #450A0A;
+  --color-crimson-border: #7F1D1D;
+  --color-amber-bg: #451A03;
+  --color-amber-border: #78350F;
+  --color-blue-bg: #172554;
+}
+
+[data-theme="dark"] .domain-card.active {
+  background-color: #141F33;
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 2px #38BDF8, var(--shadow-md);
+}
+
+[data-theme="dark"] .domain-card.active .domain-icon {
+  background-color: #2563EB;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .sandbox-cockpit {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .sandbox-header {
+  background-color: #0A121E;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .active-domain-meta h3 {
+  color: #F8FAFC;
+}
+
+[data-theme="dark"] .section-title {
+  color: #F8FAFC;
+}
+
+[data-theme="dark"] .left-dossier-pane {
+  background-color: #0A121E;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .right-cockpit-pane {
+  background-color: var(--color-surface);
+}
+
+[data-theme="dark"] .pane-title {
+  color: #F8FAFC;
+}
+
+[data-theme="dark"] .dossier-card {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .dossier-header-table td.val {
+  color: #F1F5F9;
+}
+
+[data-theme="dark"] .dossier-table th {
+  background-color: #141F33;
+  color: #94A3B8;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .dossier-table td {
+  border-color: var(--color-border);
+  color: #F1F5F9;
+}
+
+[data-theme="dark"] .dossier-table tr.highlight-error {
+  background-color: rgba(220, 38, 38, 0.2);
+}
+
+[data-theme="dark"] .rule-item {
+  background-color: #111C2D;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .variance-card {
+  background-color: #2D1214;
+  border-color: #7F1D1D;
+}
+
+[data-theme="dark"] .variance-title {
+  color: #F87171;
+}
+
+[data-theme="dark"] .variance-body {
+  color: #FECACA;
+}
+
+[data-theme="dark"] .legal-memo-box {
+  background-color: #1F132B;
+  border-color: #4C1D95;
+}
+
+[data-theme="dark"] .legal-memo-header {
+  color: #D8B4FE;
+}
+
+[data-theme="dark"] .legal-memo-content {
+  background-color: #0D0714;
+  color: #E9D5FF;
+  border-color: #4C1D95;
+}
+
+[data-theme="dark"] .gobd-seal-card {
+  background-color: #111C2D;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .gobd-seal-title {
+  color: #94A3B8;
+}
+
+[data-theme="dark"] .gobd-seal-hash {
+  background-color: #0A121E;
+  color: #38BDF8;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .action-toolbar {
+  background-color: #0A121E;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .btn-secondary {
+  background-color: #141F33;
+  color: #F1F5F9;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background-color: #1E293B;
+  border-color: #38BDF8;
+}
+
+[data-theme="dark"] .modal-card {
+  background-color: #0E1726;
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .modal-footer {
+  background-color: #0A121E;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .status-clean {
+  background-color: rgba(5, 150, 105, 0.15);
+  border-color: #059669;
+  color: #34D399;
+}
+
+[data-theme="dark"] .status-quarantine {
+  background-color: rgba(220, 38, 38, 0.15);
+  border-color: #DC2626;
+  color: #F87171;
+}
+
+[data-theme="dark"] .btn-scenario-a {
+  background-color: rgba(5, 150, 105, 0.15);
+  color: #34D399;
+  border-color: rgba(5, 150, 105, 0.4);
+}
+
+[data-theme="dark"] .btn-scenario-b {
+  background-color: rgba(217, 119, 6, 0.15);
+  color: #FBBF24;
+  border-color: rgba(217, 119, 6, 0.4);
+}
+
+[data-theme="dark"] .btn-scenario-c {
+  background-color: rgba(220, 38, 38, 0.15);
+  color: #F87171;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

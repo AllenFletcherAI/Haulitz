@@ -11,6 +11,7 @@
     currentDomain: 'fintech',
     currentScenario: 'scenario_a',
     currentLang: 'de',
+    currentTheme: document.documentElement.getAttribute('data-theme') || 'light',
     previousSeal: window.Haulitz?.GoBDHasher?.GENESIS_SEAL || '0000000000000000000000000000000000000000000000000000000000000000',
     auditHistory: [],
     lastAuditResult: null,
@@ -67,6 +68,9 @@
     DOM.btnCopyTsql = document.getElementById('btn-copy-tsql');
     DOM.btnCopyCsharp = document.getElementById('btn-copy-csharp');
     DOM.langToggleBtn = document.getElementById('lang-toggle-btn');
+    DOM.themeToggleBtn = document.getElementById('theme-toggle-btn');
+    DOM.themeIcon = document.getElementById('theme-icon');
+    DOM.themeText = document.getElementById('theme-text');
   }
 
   /**
@@ -686,6 +690,34 @@
     });
   }
 
+  /**
+   * Dark / Light Theme Toggle
+   */
+  function updateThemeUI() {
+    const isDark = state.currentTheme === 'dark';
+    if (DOM.themeIcon) {
+      DOM.themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    }
+    if (DOM.themeText) {
+      DOM.themeText.textContent = isDark ? 'Light' : 'Dark';
+    }
+  }
+
+  function setupThemeToggle() {
+    updateThemeUI();
+    if (DOM.themeToggleBtn) {
+      DOM.themeToggleBtn.addEventListener('click', () => {
+        const nextTheme = state.currentTheme === 'dark' ? 'light' : 'dark';
+        state.currentTheme = nextTheme;
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        try {
+          localStorage.setItem('haulitz_theme', nextTheme);
+        } catch (e) {}
+        updateThemeUI();
+      });
+    }
+  }
+
   // Application Entry Point
   window.addEventListener('DOMContentLoaded', () => {
     initDOMElements();
@@ -693,6 +725,7 @@
     setupScenarioButtons();
     setupModals();
     setupLanguageToggle();
+    setupThemeToggle();
     updateScenarioButtonLabels();
     runVerification();
   });

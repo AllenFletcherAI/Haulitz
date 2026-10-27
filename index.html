@@ -21,6 +21,20 @@
   
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Immediate Theme Hydration (No Flash of Unstyled Theme) -->
+  <script>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('haulitz_theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -38,6 +52,9 @@
         <span class="beacon-dot"></span>
         <span id="beacon-text">Deterministic Engine Active</span>
       </div>
+      <button id="theme-toggle-btn" class="lang-pill-btn" aria-label="Toggle dark/light theme">
+        <i class="fa-solid fa-moon" id="theme-icon"></i> <span id="theme-text">Dark</span>
+      </button>
       <button id="lang-toggle-btn" class="lang-pill-btn" aria-label="Toggle language">
         <i class="fa-solid fa-globe"></i> DE | EN
       </button>
