@@ -19,7 +19,8 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
     - Verified 100.0% Non-Hallucinatory Mathematical Proof SLA.
 - **10 Dedicated Standalone Webpages (Fresh URL Routes)**:
   - Created and deployed 10 dedicated standalone HTML pages in the root: `fintech.html`, `logistics.html`, `supply-chain.html`, `insurtech.html`, `legaltech.html`, `healthtech.html`, `ecommerce.html`, `cleantech.html`, `proptech.html`, `erp-staging.html`.
-  - Replaced anchor link auto-scrolling: Clicking any industry card in `index.html` navigates directly to that fresh dedicated webpage.
+  - Removed the bulky embedded sandbox cockpit floor from `index.html`: The landing page now cleanly showcases the 10 domain directory cards, live Frankfurt GoBD ledger, and deployment SOPs.
+  - Clicking any industry card navigates directly to that fresh dedicated webpage.
   - Each dedicated page includes: `← Zurück zum Haulitz Gateway` breadcrumb, live Frankfurt ping beacon, Clerk Enterprise authentication, light/dark theme toggle, language switcher (DE/EN), authentic physical document canvas with dark slate ink, deterministic rule checklist, GoBD cryptographic seal commit, and Resend dispute dispatch.
 - **Fixed Light Mode Text Bleaching**:
   - Overrode `.hud-title .gradient-text` in light mode to dark slate (`#0f172a`), eliminating invisible white text.
