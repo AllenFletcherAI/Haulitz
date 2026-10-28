@@ -499,8 +499,8 @@
 
   function handleHashNavigation() {
     const hash = window.location.hash.replace('#', '').trim();
-    if (hash && window.Haulitz.Domains[hash]) {
-      selectDomain(hash);
+    if (hash && domainPages[hash]) {
+      window.location.href = domainPages[hash];
     }
   }
 
@@ -535,6 +535,8 @@
    * 8. Execute Deterministic Verification Engine
    */
   async function runVerification() {
+    if (!DOM.dossierContent && !DOM.auditStatusBanner) return;
+
     const domain = window.Haulitz.Domains[state.currentDomain];
     const fixtureObj = window.Haulitz.Fixtures[state.currentDomain];
     if (!domain || !fixtureObj) return;
