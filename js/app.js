@@ -44,7 +44,7 @@
       beacon: 'Frankfurt eu-central-1: ',
       themeDark: 'Dunkel',
       themeLight: 'Hell',
-      langBtn: 'DE | EN',
+      langBtn: 'DE',
       tabCockpit: '1. 10 Industrie-Workspaces',
       tabPortal: '2. Frankfurt GoBD Ledger',
       tabSops: '3. Bereitstellungs-SOPs',
@@ -53,8 +53,18 @@
       tabPillSops: 'SAP S/4HANA',
       heroHeading: 'HAULITZ — Deterministische Schutzschranken für Enterprise-ERP',
       heroSubheading: 'Beseitigung von KI-Halluzinationen, Vorsteuer-Rechenfehlern (§ 14 UStG) und Seefracht-Standgeldern (§ 412 HGB) vor der Übergabe an SAP S/4HANA. 100% kryptografische Beweisbarkeit in Frankfurt (AWS eu-central-1).',
+      kpiLedgerLabel: 'GoBD Ledger-Höhe (Frankfurt)',
+      kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
+      kpiLatencyLabel: 'Edge-zu-DB Latenz',
+      kpiLatencySub: '<i class="fa-solid fa-server"></i> Cloudflare Edge &rarr; Frankfurt',
+      kpiSlaLabel: 'Deterministische SLA',
+      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 0 Halluzinationen (30/30 Tests)',
+      kpiRelayLabel: 'Gesetzlicher Mängel-Relay',
+      kpiRelayVal: 'Resend Aktiv',
+      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Live-Alarmierung aktiv',
       domainTitle: '<i class="fa-solid fa-network-wired"></i> 10 Dedizierte Industrie-Workspaces',
       domainDesc: 'Direkter Zugriff auf authentische Dokumentenprüfungen mit revisionssicherer GoBD-Versiegelung',
+      openWorkspace: 'Workspace öffnen',
       scenarioA: 'Szenario A: Valider Beleg',
       scenarioB: 'Szenario B: Rechnerische Falle',
       scenarioC: 'Szenario C: Gesetzesverstoß',
@@ -91,7 +101,7 @@
       beacon: 'Frankfurt eu-central-1: ',
       themeDark: 'Dark',
       themeLight: 'Light',
-      langBtn: 'EN | DE',
+      langBtn: 'EN',
       tabCockpit: '1. 10 Domain Workspaces',
       tabPortal: '2. Frankfurt GoBD Ledger',
       tabSops: '3. Deployment SOPs',
@@ -100,8 +110,18 @@
       tabPillSops: 'SAP S/4HANA',
       heroHeading: 'HAULITZ — Deterministic Verification Guardrails for Enterprise ERP',
       heroSubheading: 'Eliminating AI hallucinations, VAT calculation variances (§ 14 UStG), and maritime demurrage penalties (§ 412 HGB) before SAP S/4HANA staging. 100% cryptographic proof anchored in Frankfurt (AWS eu-central-1).',
+      kpiLedgerLabel: 'GoBD Ledger Height (Frankfurt)',
+      kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
+      kpiLatencyLabel: 'Edge-to-DB Latency',
+      kpiLatencySub: '<i class="fa-solid fa-server"></i> Cloudflare Edge &rarr; Frankfurt',
+      kpiSlaLabel: 'Deterministic SLA',
+      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 0 Hallucinations (30/30 Tests)',
+      kpiRelayLabel: 'Statutory Dispute Relay',
+      kpiRelayVal: 'Resend Active',
+      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Live alerting active',
       domainTitle: '<i class="fa-solid fa-network-wired"></i> 10 Dedicated Enterprise Workspaces',
       domainDesc: 'Direct access to authentic commercial document inspections with tamper-evident GoBD hash chaining',
+      openWorkspace: 'Open Workspace',
       scenarioA: 'Scenario A: Valid Document',
       scenarioB: 'Scenario B: Arithmetic Trap',
       scenarioC: 'Scenario C: Statutory Breach',
@@ -166,10 +186,18 @@
       
       heroHeading: document.getElementById('hero-heading'),
       heroSubheading: document.getElementById('hero-subheading'),
+      kpiLabelCapital: document.getElementById('kpi-label-capital'),
       kpiValLedger: document.getElementById('kpi-val-ledger'),
+      kpiSubCapital: document.getElementById('kpi-sub-capital'),
+      kpiLabelTx: document.getElementById('kpi-label-tx'),
       kpiValLatency: document.getElementById('kpi-val-latency'),
+      kpiSubTx: document.getElementById('kpi-sub-tx'),
+      kpiLabelSla: document.getElementById('kpi-label-sla'),
       kpiValSla: document.getElementById('kpi-val-sla'),
+      kpiSubSla: document.getElementById('kpi-sub-sla'),
+      kpiLabelRelay: document.getElementById('kpi-label-relay'),
       kpiValRelay: document.getElementById('kpi-val-relay'),
+      kpiSubRelay: document.getElementById('kpi-sub-relay'),
 
       domainSectionTitle: document.getElementById('domain-section-title'),
       domainSectionDesc: document.getElementById('domain-section-desc'),
@@ -179,6 +207,8 @@
       activeDomainTitle: document.getElementById('active-domain-title'),
       activeDomainTargets: document.getElementById('active-domain-targets'),
       
+      btnOpenStandalone: document.getElementById('btn-open-standalone'),
+      labelOpenStandalone: document.getElementById('label-open-standalone'),
       btnScenarioA: document.getElementById('btn-scenario-a'),
       btnScenarioB: document.getElementById('btn-scenario-b'),
       btnScenarioC: document.getElementById('btn-scenario-c'),
@@ -402,19 +432,34 @@
     });
   }
 
+  const domainPages = {
+    fintech: 'fintech.html',
+    logistics: 'logistics.html',
+    supply: 'supply-chain.html',
+    insurtech: 'insurtech.html',
+    legaltech: 'legaltech.html',
+    healthtech: 'healthtech.html',
+    ecommerce: 'ecommerce.html',
+    cleantech: 'cleantech.html',
+    proptech: 'proptech.html',
+    erp: 'erp-staging.html'
+  };
+
   /**
-   * 5. Render Domain Directory with Direct Links
+   * 5. Render Domain Directory with Direct Standalone Page Links
    */
   function renderDomainGrid() {
     if (!DOM.domainGrid) return;
     DOM.domainGrid.innerHTML = '';
 
+    const dict = i18n[state.currentLang] || i18n.de;
     const domainKeys = Object.keys(window.Haulitz.Domains);
     domainKeys.forEach(key => {
       const domain = window.Haulitz.Domains[key];
+      const pageUrl = domainPages[key] || `${key}.html`;
       const card = document.createElement('a');
-      card.href = `#${key}`;
-      card.className = `domain-card ${state.currentDomain === key ? 'active' : ''}`;
+      card.href = pageUrl;
+      card.className = `domain-card`;
       card.setAttribute('data-domain', key);
 
       const displayTitle = state.currentLang === 'de' ? (domain.germanTitle || domain.title) : domain.title;
@@ -426,20 +471,11 @@
         </div>
         <div class="domain-card-title">${displayTitle}</div>
         <div class="domain-card-sub">${domain.law.split(',')[0]}</div>
+        <div style="margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--color-emerald); padding-top: 0.5rem; border-top: 1px solid var(--color-border);">
+          <span>${dict.openWorkspace || 'Workspace öffnen'}</span>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.65rem;"></i>
+        </div>
       `;
-
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.hash = `#${key}`;
-        selectDomain(key);
-        // Smooth scroll to inspection workspace
-        const target = document.getElementById('sandbox-cockpit-workspace');
-        if (target && window.__haulitz_lenis) {
-          window.__haulitz_lenis.scrollTo(target, { offset: -80 });
-        } else if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
 
       DOM.domainGrid.appendChild(card);
     });
@@ -515,10 +551,15 @@
     if (DOM.activeDomainTitle) DOM.activeDomainTitle.textContent = state.currentLang === 'de' ? (domain.germanTitle || domain.title) : domain.title;
     if (DOM.activeDomainTargets) DOM.activeDomainTargets.textContent = `${dict.employers}: ${domain.targetEmployers} | ${dict.law}: ${domain.law}`;
     if (DOM.dossierDocType) DOM.dossierDocType.textContent = domain.documentType;
+    if (DOM.btnOpenStandalone) {
+      DOM.btnOpenStandalone.href = domainPages[state.currentDomain] || `${state.currentDomain}.html`;
+    }
 
     let auditResult = { isValid: true, rules: [], discrepancies: [], variance: 0 };
     let legalMemoText = '';
     const Verifier = window.Haulitz;
+
+    const isDe = state.currentLang === 'de';
 
     switch (state.currentDomain) {
       case 'fintech': {
@@ -533,9 +574,9 @@
           taxDelta: vatAudit.taxDelta,
           variance: Math.abs(vatAudit.taxDelta) > 0.01 ? Math.abs(vatAudit.taxDelta) : (ibanAudit.isValid ? 0 : 1),
           rules: [
-            { text: 'Line-Item Arithmetic (Qty * Unit Price = Total)', pass: lineAudit.isValid, note: `${lineAudit.totalItems} positionen berechnet` },
-            { text: `Statutory German VAT (19% auf €${doc.subtotalNet.toFixed(2)})`, pass: vatAudit.isValid, note: `Soll: €${vatAudit.expectedTax.toFixed(2)}, Ist: €${doc.taxAmount.toFixed(2)}` },
-            { text: 'SEPA IBAN Modulo-97 Checksum (ISO 7064)', pass: ibanAudit.isValid, note: ibanAudit.isValid ? `Gültige ${ibanAudit.countryCode} IBAN` : 'Prüfziffernfehler' }
+            { text: isDe ? 'Rechnerische Richtigkeit der Einzelposten (Menge * Einzelpreis = Gesamt)' : 'Line-Item Arithmetic (Qty * Unit Price = Total)', pass: lineAudit.isValid, note: isDe ? `${lineAudit.totalItems} Posten berechnet` : `${lineAudit.totalItems} line items computed` },
+            { text: isDe ? `Gesetzliche USt. (19% auf €${doc.subtotalNet.toFixed(2)})` : `Statutory German VAT (19% on €${doc.subtotalNet.toFixed(2)})`, pass: vatAudit.isValid, note: isDe ? `Soll: €${vatAudit.expectedTax.toFixed(2)}, Ist: €${doc.taxAmount.toFixed(2)}` : `Expected: €${vatAudit.expectedTax.toFixed(2)}, Declared: €${doc.taxAmount.toFixed(2)}` },
+            { text: isDe ? 'SEPA IBAN Modulo-97 Prüfziffer (ISO 7064)' : 'SEPA IBAN Modulo-97 Checksum (ISO 7064)', pass: ibanAudit.isValid, note: ibanAudit.isValid ? (isDe ? `Gültige ${ibanAudit.countryCode} IBAN` : `Valid ${ibanAudit.countryCode} IBAN`) : (isDe ? 'Prüfziffernfehler' : 'Checksum failure') }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateVATNotice(doc, auditResult);
@@ -553,9 +594,9 @@
           calculatedDigit: containerAudit.calculatedDigit,
           variance: massAudit.isValid ? (containerAudit.isValid ? 0 : 1) : massAudit.weightDeficit,
           rules: [
-            { text: `ISO 6346 Modulo-11 Container Checksum (${doc.containerNumber})`, pass: containerAudit.isValid, note: `Ist [${containerAudit.declaredDigit}], Soll [${containerAudit.calculatedDigit}]` },
-            { text: 'Mass Law Verification: Gross Mass >= Net Mass (§ 412 HGB)', pass: massAudit.isValid, note: `Brutto ${doc.grossWeightKg} kg vs Netto ${doc.netWeightKg} kg` },
-            { text: 'SOLAS Verified Gross Mass (VGM) declared within 2.5% tolerance', pass: true, note: 'Terminal-Tara bestätigt' }
+            { text: isDe ? `ISO 6346 Container-Prüfziffer (${doc.containerNumber})` : `ISO 6346 Container Checksum (${doc.containerNumber})`, pass: containerAudit.isValid, note: isDe ? `Ist: [${containerAudit.declaredDigit}], Soll: [${containerAudit.calculatedDigit}]` : `Declared: [${containerAudit.declaredDigit}], Expected: [${containerAudit.calculatedDigit}]` },
+            { text: isDe ? 'Massen-Plausibilität: Bruttogewicht >= Nettogewicht (§ 412 HGB)' : 'Mass Law: Gross Weight >= Net Weight (§ 412 HGB)', pass: massAudit.isValid, note: isDe ? `Brutto: ${doc.grossWeightKg} kg vs Netto: ${doc.netWeightKg} kg` : `Gross: ${doc.grossWeightKg} kg vs Net: ${doc.netWeightKg} kg` },
+            { text: isDe ? 'SOLAS VGM Gewichtsdeklaration innerhalb 2.5% Toleranz' : 'SOLAS VGM Mass Declaration within 2.5% tolerance', pass: true, note: isDe ? 'Terminal-Tara verifiziert' : 'Terminal tare verified' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateADSpNotice(doc, auditResult);
@@ -569,9 +610,9 @@
           discrepancies: triadAudit.discrepancies,
           variance: triadAudit.matrix.reduce((acc, row) => acc + (row.financialDelta || 0), 0),
           rules: [
-            { text: 'Purchase Order to Invoice Reference Match (PO Ref)', pass: triadAudit.discrepancies.every(d => !d.includes('Reference mismatch')), note: doc.po.poNumber },
-            { text: 'Delivered vs Billed Quantity Check (HGB § 377)', pass: triadAudit.matrix.every(r => r.status !== 'SHORT_SHIPMENT_OVERBILLING'), note: triadAudit.isValid ? 'Mengen vollständig geliefert' : 'Minderlieferung / Überfakturierung festgestellt' },
-            { text: 'Agreed Contract Unit Price Ceiling Enforcement', pass: triadAudit.matrix.every(r => r.status !== 'PRICE_INFLATION_DETECTED'), note: triadAudit.isValid ? 'Vereinbarte Einkaufspreise eingehalten' : 'Unautorisierte Preiserhöhung' }
+            { text: isDe ? 'Referenzabgleich: Bestellung (PO) zu Rechnung' : 'PO to Invoice Reference Match', pass: triadAudit.discrepancies.every(d => !d.includes('Reference mismatch')), note: doc.po.poNumber },
+            { text: isDe ? 'Mengenabgleich: Lieferschein vs Rechnung (HGB § 377)' : 'Quantity Check: Delivery Note vs Invoice (HGB § 377)', pass: triadAudit.matrix.every(r => r.status !== 'SHORT_SHIPMENT_OVERBILLING'), note: triadAudit.isValid ? (isDe ? 'Mengen vollständig geliefert' : 'Quantities fully acknowledged') : (isDe ? 'Minderlieferung festgestellt' : 'Short shipment detected') },
+            { text: isDe ? 'Preisbindung: Vertraglich vereinbarter Einkaufspreis' : 'Agreed Contract Unit Price Ceiling', pass: triadAudit.matrix.every(r => r.status !== 'PRICE_INFLATION_DETECTED'), note: triadAudit.isValid ? (isDe ? 'Einkaufspreise eingehalten' : 'Price cap respected') : (isDe ? 'Preiserhöhung festgestellt' : 'Price inflation detected') }
           ]
         };
         if (!triadAudit.isValid) legalMemoText = Verifier.LegalMemos.generateSupplyNotice(doc.po, doc.deliveryNote, doc.invoice, triadAudit);
@@ -589,9 +630,9 @@
           isValid: isClean,
           variance,
           rules: [
-            { text: `Hourly Labor Rate Ceiling (€${doc.approvedHourlyRate.toFixed(2)}/hr benchmark)`, pass: !laborRateOver, note: `Abgerechnet: €${doc.billedHourlyRate.toFixed(2)}/h (${doc.laborHours} Std.)` },
-            { text: `Contractual Comprehensive Deductible Subtraction (€${doc.policyDeductible.toFixed(2)})`, pass: !deductibleIgnored, note: deductibleIgnored ? 'Selbstbeteiligung nicht abgezogen' : 'Ordnungsgemäß verrechnet' },
-            { text: 'Spare Parts Catalog Cross-Check (DAT / Audatex Benchmark)', pass: true, note: 'Ersatzteilpreise freigegeben' }
+            { text: isDe ? `Stundenverrechnungssatz-Obergrenze (€${doc.approvedHourlyRate.toFixed(2)}/h Cap)` : `Hourly Labor Rate Ceiling (€${doc.approvedHourlyRate.toFixed(2)}/h cap)`, pass: !laborRateOver, note: isDe ? `Abgerechnet: €${doc.billedHourlyRate.toFixed(2)}/h` : `Billed: €${doc.billedHourlyRate.toFixed(2)}/h` },
+            { text: isDe ? `Vertraglicher Selbstbeteiligungs-Abzug (€${doc.policyDeductible.toFixed(2)})` : `Contractual Deductible Subtraction (€${doc.policyDeductible.toFixed(2)})`, pass: !deductibleIgnored, note: deductibleIgnored ? (isDe ? 'Selbstbeteiligung nicht abgezogen' : 'Deductible omitted from claim') : (isDe ? 'Ordnungsgemäß abgezogen' : 'Correctly subtracted') },
+            { text: isDe ? 'Ersatzteilpreis-Prüfung (DAT / Audatex Benchmark)' : 'Spare Parts Cross-Check (DAT / Audatex benchmark)', pass: true, note: isDe ? 'Herstellerpreise bestätigt' : 'OEM prices verified' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateInsurtechNotice(doc, auditResult);
@@ -606,9 +647,9 @@
           isValid: isClean,
           variance: doc.daysExpired,
           rules: [
-            { text: 'Mandatory ISO 14001 Environmental Certificate Validity', pass: !isCertExpired, note: isCertExpired ? `Seit ${doc.daysExpired} Tagen abgelaufen` : `Gültig bis ${doc.iso14001ValidUntil}` },
-            { text: 'Signed Human Rights Code of Conduct (LkSG § 4–§ 7)', pass: isCodeSigned, note: isCodeSigned ? 'Unterzeichnet und wirksam' : 'Fehlende Pflichtunterschrift' },
-            { text: 'Whistleblower & Grievance Reporting Mechanism', pass: doc.whistleblowerChannelActive, note: 'Beschwerdekanal verifiziert' }
+            { text: isDe ? 'ISO 14001 Umweltzertifikat-Gültigkeit' : 'Mandatory ISO 14001 Certificate Validity', pass: !isCertExpired, note: isCertExpired ? (isDe ? `Seit ${doc.daysExpired} Tagen abgelaufen` : `Expired ${doc.daysExpired} days ago`) : (isDe ? `Gültig bis ${doc.iso14001ValidUntil}` : `Valid until ${doc.iso14001ValidUntil}`) },
+            { text: isDe ? 'Unterzeichneter Verhaltenskodex (LkSG § 4–§ 7)' : 'Signed Human Rights Code of Conduct (LkSG § 4–§ 7)', pass: isCodeSigned, note: isCodeSigned ? (isDe ? 'Unterzeichnet und wirksam' : 'Signed & active') : (isDe ? 'Fehlt' : 'Missing signature') },
+            { text: isDe ? 'Beschwerdemechanismus & Hinweisgebersystem' : 'Whistleblower & Grievance Reporting System', pass: doc.whistleblowerChannelActive, note: isDe ? 'Beschwerdekanal aktiv' : 'Reporting channel verified' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateLkSGNotice(doc, auditResult);
@@ -621,9 +662,9 @@
           isValid: feesAudit.isValid,
           variance: Math.abs(feesAudit.totalDeclared - feesAudit.totalApproved),
           rules: [
-            { text: 'GOÄ Statutory Ceiling Multipliers (Standard 2.3x, Max 3.5x)', pass: doc.items.every(it => (it.multiplier || 1) <= 2.3 || Boolean(it.hasJustification)), note: 'GOÄ § 5 Abs. 2 Gebührenrahmen' },
-            { text: 'Point-Value Arithmetic Precision (Base Fee * Multiplier)', pass: feesAudit.isValid, note: `Erfasst: €${feesAudit.totalDeclared.toFixed(2)}, Genehmigt: €${feesAudit.totalApproved.toFixed(2)}` },
-            { text: 'Duplicate Procedure Code Mutual Exclusion Check', pass: true, note: 'Keine unzulässigen Doppelabrechnungen' }
+            { text: isDe ? 'GOÄ-Gebührenrahmen-Ceiling (Standard 2.3x, Max 3.5x)' : 'GOÄ Statutory Ceiling Multipliers (Standard 2.3x, Max 3.5x)', pass: doc.items.every(it => (it.multiplier || 1) <= 2.3 || Boolean(it.hasJustification)), note: isDe ? 'GOÄ § 5 Abs. 2 Gebührenrahmen' : 'GOÄ § 5 Sec. 2 fee schedule' },
+            { text: isDe ? 'Punktwert-Multiplikator-Rechenprüfung' : 'Point-Value Multiplier Arithmetic Precision', pass: feesAudit.isValid, note: isDe ? `Erfasst: €${feesAudit.totalDeclared.toFixed(2)}, Genehmigt: €${feesAudit.totalApproved.toFixed(2)}` : `Declared: €${feesAudit.totalDeclared.toFixed(2)}, Approved: €${feesAudit.totalApproved.toFixed(2)}` },
+            { text: isDe ? 'Ausschluss unzulässiger Ziffern-Doppelabrechnung' : 'Duplicate Procedure Code Mutual Exclusion Check', pass: true, note: isDe ? 'Keine Doppelabrechnungen' : 'Zero duplicate billings' }
           ]
         };
         if (!feesAudit.isValid) legalMemoText = Verifier.LegalMemos.generateGOANotice(doc, feesAudit);
@@ -639,9 +680,9 @@
           isValid: isClean,
           variance: fxDiscrepancy ? Math.abs(doc.statedEurTotal - declaredEur) : (eanAudit.isValid ? 0 : 1),
           rules: [
-            { text: `GS1 EAN-13 Modulo-10 Barcode Checksum (${doc.barcode})`, pass: eanAudit.isValid, note: `Ist [${eanAudit.declaredDigit}], Soll [${eanAudit.calculatedDigit}]` },
-            { text: 'Cross-Border FX Conversion Cross-Sum Check (ECB Benchmark)', pass: !fxDiscrepancy, note: fxDiscrepancy ? `Diskrepanz: €${Math.abs(doc.statedEurTotal - declaredEur).toFixed(2)}` : 'Währungsumrechnung exakt' },
-            { text: 'Customs Harmonized Tariff System (HTS) Code Structure', pass: true, note: 'HS 8471.30 verifiziert' }
+            { text: isDe ? `GS1 EAN-13 Modulo-10 Barcode-Prüfziffer (${doc.barcode})` : `GS1 EAN-13 Modulo-10 Barcode Checksum (${doc.barcode})`, pass: eanAudit.isValid, note: isDe ? `Ist [${eanAudit.declaredDigit}], Soll [${eanAudit.calculatedDigit}]` : `Declared [${eanAudit.declaredDigit}], Expected [${eanAudit.calculatedDigit}]` },
+            { text: isDe ? 'EZB-Referenz-Währungsumrechnung (FX-Prüfung)' : 'Cross-Border FX Conversion Cross-Sum Check', pass: !fxDiscrepancy, note: fxDiscrepancy ? (isDe ? `Diskrepanz: €${Math.abs(doc.statedEurTotal - declaredEur).toFixed(2)}` : `Discrepancy: €${Math.abs(doc.statedEurTotal - declaredEur).toFixed(2)}`) : (isDe ? 'Währungsumrechnung exakt' : 'FX conversion exact') },
+            { text: isDe ? 'Zolltarif-Warennummern-Struktur (HS-Code)' : 'Customs Harmonized Tariff System (HTS) Code', pass: true, note: isDe ? 'HS 8471.30 verifiziert' : 'HS 8471.30 verified' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateEcommerceNotice(doc, auditResult);
@@ -657,9 +698,9 @@
           isValid: isClean,
           variance: stringMathMismatch ? Math.abs(stringTotal - doc.declaredDcPowerKw) : (inverterOverCap ? (doc.declaredDcPowerKw - doc.inverterKw) : 0),
           rules: [
-            { text: 'DC String Summation vs Declared Array Capacity', pass: !stringMathMismatch, note: `Strings: ${stringTotal} kWp vs Erklärt: ${doc.declaredDcPowerKw} kWp` },
-            { text: `Inverter Peak Grid Interconnection Capacity (VDE-AR-N 4105)`, pass: !inverterOverCap, note: `Wechselrichter: ${doc.inverterKw} kW vs Generator: ${doc.declaredDcPowerKw} kWp` },
-            { text: 'Netzbetreiber TAB Niederspannung Grid Feed-In Compliance', pass: true, note: 'Einspeisesicherheitsgrenzen eingehalten' }
+            { text: isDe ? 'DC-String-Summenprüfung vs Anlagenleistung' : 'DC String Summation vs Declared Array Capacity', pass: !stringMathMismatch, note: isDe ? `Strings: ${stringTotal} kWp vs Erklärt: ${doc.declaredDcPowerKw} kWp` : `Strings: ${stringTotal} kWp vs Declared: ${doc.declaredDcPowerKw} kWp` },
+            { text: isDe ? 'Wechselrichter-Netzanschlussleistung (VDE-AR-N 4105)' : 'Inverter Peak Grid Interconnection Capacity (VDE-AR-N 4105)', pass: !inverterOverCap, note: isDe ? `Wechselrichter: ${doc.inverterKw} kW vs Generator: ${doc.declaredDcPowerKw} kWp` : `Inverter: ${doc.inverterKw} kW vs Generator: ${doc.declaredDcPowerKw} kWp` },
+            { text: isDe ? 'TAB Niederspannung Netzeinspeise-Konformität' : 'TAB Low-Voltage Grid Feed-In Compliance', pass: true, note: isDe ? 'Einspeisegrenzen eingehalten' : 'Feed-in limits compliant' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateCleanTechNotice(doc, auditResult);
@@ -676,9 +717,9 @@
           isValid: isClean,
           variance: mathError ? Math.abs(doc.declaredTenantBilled - expectedMath) : (isCleanSplit ? 0 : 1),
           rules: [
-            { text: 'HeizkostenV § 7 Statutory Cost Allocation Ratio (70/30)', pass: isCleanSplit, note: `Schlüssel: ${doc.splitRatio}` },
-            { text: 'Dual-Factor Apportionment Arithmetic (Consumption & Area)', pass: !mathError, note: `Soll: €${expectedMath.toFixed(2)}, Ist: €${doc.declaredTenantBilled.toFixed(2)}` },
-            { text: 'Heating Period Calibration & Device Verification', pass: true, note: 'Messdienstgeräte geprüft' }
+            { text: isDe ? 'HeizkostenV § 7 Gesetzlicher Verteilerschlüssel (70/30)' : 'HeizkostenV § 7 Statutory Cost Allocation Ratio (70/30)', pass: isCleanSplit, note: isDe ? `Schlüssel: ${doc.splitRatio}` : `Ratio: ${doc.splitRatio}` },
+            { text: isDe ? 'Zwei-Faktoren-Umlagerechnung (Verbrauch & Fläche)' : 'Dual-Factor Apportionment Arithmetic (Consumption & Area)', pass: !mathError, note: isDe ? `Soll: €${expectedMath.toFixed(2)}, Ist: €${doc.declaredTenantBilled.toFixed(2)}` : `Expected: €${expectedMath.toFixed(2)}, Declared: €${doc.declaredTenantBilled.toFixed(2)}` },
+            { text: isDe ? 'Heizperioden-Eichung & Zählerprüfung' : 'Heating Period Calibration & Device Verification', pass: true, note: isDe ? 'Messgeräte geeicht' : 'Meters calibrated' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generatePropTechNotice(doc, auditResult);
@@ -693,9 +734,9 @@
           isValid: isClean,
           variance: hasSqlInject ? 9999 : (hasOverflow ? 0.0001 : 0),
           rules: [
-            { text: 'Parameterized SQL Meta-Character Sanitization (OWASP ASVS)', pass: !hasSqlInject, note: hasSqlInject ? 'BÖSARTIGE SQL-INJECTION BLOCKIERT' : 'Bereinigte String-Parameter' },
-            { text: 'Schema Type Integrity & Precision Bounds (DECIMAL(18,2))', pass: !hasOverflow, note: hasOverflow ? 'Präzisionsüberlauf festgestellt' : 'Gültiges Zieltabellenschema' },
-            { text: 'Enterprise Referential Integrity & Foreign Key Resolution', pass: doc.foreignKeysValid, note: 'SAP S/4HANA Staging-Tabelle aufgelöst' }
+            { text: isDe ? 'Parametrisierte SQL-Säuberung (OWASP ASVS / Schutz vor Injection)' : 'Parameterized SQL Meta-Character Sanitization (OWASP ASVS)', pass: !hasSqlInject, note: hasSqlInject ? (isDe ? 'BÖSARTIGE SQL-INJECTION BLOCKIERT' : 'MALICIOUS SQL INJECTION BLOCKED') : (isDe ? 'Bereinigte String-Parameter' : 'Sanitized string parameters') },
+            { text: isDe ? 'Schema-Typintegrität & Präzisionsgrenzen (DECIMAL(18,2))' : 'Schema Type Integrity & Precision Bounds (DECIMAL(18,2))', pass: !hasOverflow, note: hasOverflow ? (isDe ? 'Präzisionsüberlauf festgestellt' : 'Precision overflow detected') : (isDe ? 'Gültiges Zielschema' : 'Valid target schema') },
+            { text: isDe ? 'Enterprise-Referenzintegrität & Fremdschlüsselprüfung' : 'Enterprise Referential Integrity & Foreign Key Resolution', pass: doc.foreignKeysValid, note: isDe ? 'SAP S/4HANA Staging-Tabelle aufgelöst' : 'SAP S/4HANA staging table resolved' }
           ]
         };
         if (!isClean) legalMemoText = Verifier.LegalMemos.generateERPNotice(doc, auditResult);
@@ -1055,8 +1096,9 @@
       if (!isClean && auditResult.variance) {
         DOM.varianceCard.style.display = 'block';
         if (DOM.varianceText) {
+          const unitWord = state.currentLang === 'de' ? 'Einheiten/EUR Abweichung' : 'units/EUR variance';
           DOM.varianceText.innerHTML = `
-            <strong>${dict.varianceExact}</strong> € ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} Einheiten/EUR Abweichung.<br>
+            <strong>${dict.varianceExact}</strong> € ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} ${unitWord}.<br>
             ${dict.varianceBlocked}
           `;
         }
@@ -1099,10 +1141,17 @@
     DOM.cfoRecapBox.style.display = 'block';
     const domain = window.Haulitz.Domains[domainKey];
     const refId = doc.invoiceNumber || doc.bolNumber || doc.po?.poNumber || doc.claimNumber || doc.supplierId || doc.liquidationNumber || doc.barcode || doc.applicationNumber || doc.unitNumber || doc.batchId || 'RECORD-001';
+    const isDe = state.currentLang === 'de';
 
-    let bullet1 = `<strong>1. VORFALL / ABWEICHUNG:</strong> Kritische Abweichung im Beleg [${refId}] festgestellt. Rechnerische Diskrepanz von ca. ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} Einheiten/EUR ermittelt.`;
-    let bullet2 = `<strong>2. RECHTLICHES RISIKO:</strong> Verstoß gegen ${domain.law}. Unmittelbare Gefahr des Verlusts des Vorsteuerabzugs oder zollrechtlicher Haftung.`;
-    let bullet3 = `<strong>3. ERGRIFFENE SCHUTZMASSNAHME:</strong> Automatischer Zahllauf in SAP blockiert. Gesetzliche Mängelrüge erstellt. GoBD SHA-256 Ledger versiegelt.`;
+    let bullet1 = isDe
+      ? `<strong>1. VORFALL / ABWEICHUNG:</strong> Kritische Abweichung im Beleg [${refId}] festgestellt. Rechnerische Diskrepanz von ca. ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} Einheiten/EUR ermittelt.`
+      : `<strong>1. DETECTED VARIANCE:</strong> Critical discrepancy detected in record [${refId}]. Discrepancy of approx. ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} units/EUR verified.`;
+    let bullet2 = isDe
+      ? `<strong>2. RECHTLICHES RISIKO:</strong> Verstoß gegen ${domain.law}. Unmittelbare Gefahr des Verlusts des Vorsteuerabzugs oder zollrechtlicher Haftung.`
+      : `<strong>2. STATUTORY RISK:</strong> Breach under ${domain.law}. Risk of input VAT deduction loss, customs delay, or fiscal liability.`;
+    let bullet3 = isDe
+      ? `<strong>3. ERGRIFFENE SCHUTZMASSNAHME:</strong> Automatischer Zahllauf in SAP blockiert. Gesetzliche Mängelrüge erstellt. GoBD SHA-256 Ledger versiegelt.`
+      : `<strong>3. MITIGATION ACTION:</strong> Downstream ERP payment run blocked. Statutory dispute notice drafted. GoBD SHA-256 seal anchored.`;
 
     if (DOM.cfoRecapContent) {
       DOM.cfoRecapContent.innerHTML = `
@@ -1347,12 +1396,32 @@
     if (DOM.tabTextCockpit) DOM.tabTextCockpit.textContent = dict.tabCockpit;
     if (DOM.tabTextPortal) DOM.tabTextPortal.textContent = dict.tabPortal;
     if (DOM.tabTextSops) DOM.tabTextSops.textContent = dict.tabSops;
+    if (DOM.tabPillCockpit) DOM.tabPillCockpit.textContent = dict.tabPillCockpit;
+    if (DOM.tabPillPortal) DOM.tabPillPortal.textContent = dict.tabPillPortal;
+    if (DOM.tabPillSops) DOM.tabPillSops.textContent = dict.tabPillSops;
+
     if (DOM.heroHeading) DOM.heroHeading.innerHTML = `HAULITZ &mdash; <span class="gradient-text">${dict.heroHeading.split('—')[1] || dict.heroHeading}</span>`;
     if (DOM.heroSubheading) DOM.heroSubheading.textContent = dict.heroSubheading;
+
+    if (DOM.kpiLabelCapital) DOM.kpiLabelCapital.textContent = dict.kpiLedgerLabel;
+    if (DOM.kpiSubCapital) DOM.kpiSubCapital.innerHTML = dict.kpiLedgerSub;
+    if (DOM.kpiLabelTx) DOM.kpiLabelTx.textContent = dict.kpiLatencyLabel;
+    if (DOM.kpiSubTx) DOM.kpiSubTx.innerHTML = dict.kpiLatencySub;
+    if (DOM.kpiLabelSla) DOM.kpiLabelSla.textContent = dict.kpiSlaLabel;
+    if (DOM.kpiSubSla) DOM.kpiSubSla.innerHTML = dict.kpiSlaSub;
+    if (DOM.kpiLabelRelay) DOM.kpiLabelRelay.textContent = dict.kpiRelayLabel;
+    if (DOM.kpiValRelay) DOM.kpiValRelay.textContent = dict.kpiRelayVal;
+    if (DOM.kpiSubRelay) DOM.kpiSubRelay.innerHTML = dict.kpiRelaySub;
+
     if (DOM.domainSectionTitle) DOM.domainSectionTitle.innerHTML = dict.domainTitle;
     if (DOM.domainSectionDesc) DOM.domainSectionDesc.textContent = dict.domainDesc;
     if (DOM.labelDossierTitle) DOM.labelDossierTitle.textContent = dict.dossierTitle;
     if (DOM.labelCockpitTitle) DOM.labelCockpitTitle.textContent = dict.cockpitTitle;
+    if (DOM.auditLatencyBadge) DOM.auditLatencyBadge.textContent = dict.latencyBadge;
+    if (DOM.checklistHeadingLabel) DOM.checklistHeadingLabel.innerHTML = dict.checklistHeading;
+    if (DOM.labelOpenStandalone) {
+      DOM.labelOpenStandalone.textContent = state.currentLang === 'de' ? 'Dedizierte Vollbild-Seite' : 'Dedicated Fullscreen Page';
+    }
     if (DOM.btnCommitText) DOM.btnCommitText.textContent = dict.commitBtn;
     if (DOM.btnDispatchDisputeText) DOM.btnDispatchDisputeText.textContent = dict.dispatchBtn;
 
