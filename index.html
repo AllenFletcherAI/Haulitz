@@ -61,19 +61,59 @@
     </div>
   </header>
 
-  <!-- Master Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title" id="hero-heading">Das universelle Datenverifizierungs-Gateway für Enterprise-ERP</h1>
-      <p class="hero-subtitle" id="hero-subheading">
-        Beseitigung von KI-Halluzinationen, Buchungsfehlern und Haftungsrisiken durch deterministische mathematische Schutzschranken, 
-        ISO-Prüfziffern und GoBD § 147 AO kryptografische Prüfketten. Konzipiert für das direkte Staging in SAP S/4HANA und Microsoft SQL Server.
-      </p>
-      <div class="hero-badges">
-        <div class="hero-badge-pill" id="badge-pill-1"><i class="fa-solid fa-microchip"></i> 100% Client-Side Engine (&lt;30ms Latenz)</div>
-        <div class="hero-badge-pill" id="badge-pill-2"><i class="fa-solid fa-lock"></i> Revisionssicheres GoBD § 147 AO Ledger</div>
-        <div class="hero-badge-pill" id="badge-pill-3"><i class="fa-solid fa-scale-balanced"></i> Deutsche Rechtskonformität (HGB / UStG / LkSG)</div>
-        <div class="hero-badge-pill" id="badge-pill-4"><i class="fa-solid fa-database"></i> Parametrisiertes T-SQL (SAP &amp; MS SQL 2022)</div>
+  <!-- Master Top-Level 3-Tab Bar -->
+  <nav class="master-tab-bar" aria-label="Master Navigation">
+    <div class="tab-bar-container">
+      <button class="nav-tab-btn active" id="tab-btn-cockpit" data-tab="cockpit">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span id="tab-text-cockpit">1. Verifizierungs-Cockpit</span>
+        <span class="tab-pill-badge" id="tab-pill-cockpit">10 Branchen</span>
+      </button>
+      <button class="nav-tab-btn" id="tab-btn-portal" data-tab="portal">
+        <i class="fa-solid fa-diagram-project"></i>
+        <span id="tab-text-portal">2. Kunden-Portal &amp; Roadmap</span>
+        <span class="tab-pill-badge" id="tab-pill-portal">SAP S/4HANA</span>
+      </button>
+      <button class="nav-tab-btn" id="tab-btn-sops" data-tab="sops">
+        <i class="fa-solid fa-book-bookmark"></i>
+        <span id="tab-text-sops">3. Bereitstellungs-SOPs</span>
+        <span class="tab-pill-badge" id="tab-pill-sops">Rechtssicher</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Executive Status HUD (Replaces bulky hero banner) -->
+  <section class="executive-hud">
+    <div class="hud-inner">
+      <div class="hud-brand-lead">
+        <h1 class="hud-title" id="hero-heading">HAULITZ &mdash; Das universelle Verifizierungs-Gateway für Enterprise-ERP</h1>
+        <p class="hud-subtitle" id="hero-subheading">
+          Beseitigung von KI-Halluzinationen, Buchungsfehlern und Haftungsrisiken durch deterministische mathematische Schutzschranken, 
+          ISO-Prüfziffern und GoBD § 147 AO kryptografische Prüfketten. Konzipiert für SAP S/4HANA und MS SQL Server 2022.
+        </p>
+      </div>
+
+      <div class="hud-kpi-strip">
+        <div class="hud-kpi-card">
+          <span class="hud-kpi-label" id="kpi-label-capital">Geschütztes Kapital</span>
+          <span class="hud-kpi-val text-emerald font-mono-code" id="kpi-val-capital">€ 184.250,00</span>
+          <span class="hud-kpi-sub" id="kpi-sub-capital"><i class="fa-solid fa-shield-halved"></i> Haftungsschäden verhindert</span>
+        </div>
+        <div class="hud-kpi-card">
+          <span class="hud-kpi-label" id="kpi-label-tx">Geprüfte Belege</span>
+          <span class="hud-kpi-val font-mono-code" id="kpi-val-tx">12.840</span>
+          <span class="hud-kpi-sub" id="kpi-sub-tx"><i class="fa-solid fa-bolt"></i> 10 Industrie-Branchen</span>
+        </div>
+        <div class="hud-kpi-card">
+          <span class="hud-kpi-label" id="kpi-label-sla">Deterministische SLA</span>
+          <span class="hud-kpi-val text-emerald font-mono-code" id="kpi-val-sla">100,0 %</span>
+          <span class="hud-kpi-sub" id="kpi-sub-sla"><i class="fa-solid fa-lock"></i> 0 Halluzinationen</span>
+        </div>
+        <div class="hud-kpi-card">
+          <span class="hud-kpi-label" id="kpi-label-latency">Prüf-Latenz (Client)</span>
+          <span class="hud-kpi-val font-mono-code" id="kpi-val-latency">&lt; 20 ms</span>
+          <span class="hud-kpi-sub" id="kpi-sub-latency"><i class="fa-solid fa-server"></i> Cloudflare Edge CDN</span>
+        </div>
       </div>
     </div>
   </section>
@@ -81,137 +121,495 @@
   <!-- Main Container -->
   <main class="main-container">
     
-    <!-- Domain Selector Grid -->
-    <div class="section-heading-bar">
-      <div>
-        <h2 class="section-title" id="domain-section-title"><i class="fa-solid fa-layer-group"></i> Wählen Sie eine Industriebranche zur Prüfung</h2>
-        <p class="section-desc" id="domain-section-desc">Erleben Sie, wie Haulitz geschäftskritische Workflows in den führenden deutschen Wirtschaftssektoren absichert</p>
-      </div>
-    </div>
-
-    <div class="domain-grid" id="domain-grid-container">
-      <!-- Populated dynamically by app.js -->
-    </div>
-
-    <!-- Sandbox Execution Cockpit -->
-    <section class="sandbox-cockpit">
-      <div class="sandbox-header">
-        <div class="active-domain-info">
-          <div class="active-domain-badge" id="active-domain-badge">01</div>
-          <div class="active-domain-meta">
-            <h3 id="active-domain-title">FinTech &amp; Rechnungsprüfung</h3>
-            <p id="active-domain-targets">Unternehmen: Pleo, Moss, Billie, Personio, Taxfix | Rechtsgrundlage: § 14 UStG, GoBD § 147 AO</p>
-          </div>
-        </div>
-
-        <div class="scenario-btn-group">
-          <button class="scenario-btn btn-scenario-a active" id="btn-scenario-a" data-scenario="scenario_a">
-            <i class="fa-solid fa-circle-check"></i> <span id="label-scenario-a">Szenario A: Valider Beleg</span>
-          </button>
-          <button class="scenario-btn btn-scenario-b" id="btn-scenario-b" data-scenario="scenario_b">
-            <i class="fa-solid fa-triangle-exclamation"></i> <span id="label-scenario-b">Szenario B: Rechnerische Falle</span>
-          </button>
-          <button class="scenario-btn btn-scenario-c" id="btn-scenario-c" data-scenario="scenario_c">
-            <i class="fa-solid fa-gavel"></i> <span id="label-scenario-c">Szenario C: Gesetzesverstoß</span>
-          </button>
+    <!-- ====================================================================
+         TAB 1: VERIFICATION COCKPIT (The 10-Domain Engine)
+         ==================================================================== -->
+    <section class="tab-pane active" id="tab-cockpit">
+      
+      <!-- Domain Selector Grid -->
+      <div class="section-heading-bar">
+        <div>
+          <h2 class="section-title" id="domain-section-title"><i class="fa-solid fa-layer-group"></i> Wählen Sie eine Industriebranche zur Prüfung</h2>
+          <p class="section-desc" id="domain-section-desc">Erleben Sie, wie Haulitz geschäftskritische Workflows in den führenden deutschen Wirtschaftssektoren absichert</p>
         </div>
       </div>
 
-      <!-- Split Inspection Workspace -->
-      <div class="inspection-workspace">
-        
-        <!-- Left Pane: Source Document Dossier -->
-        <div class="left-dossier-pane">
-          <div class="pane-title-bar">
-            <span class="pane-title"><i class="fa-regular fa-file-lines"></i> <span id="label-dossier-title">Quelldokument-Dossier</span></span>
-            <span class="rule-badge" id="dossier-doc-type" style="background:#EEF2FF; color:#3730A3;">Eingangsrechnung</span>
+      <div class="domain-grid" id="domain-grid-container">
+        <!-- Populated dynamically by app.js -->
+      </div>
+
+      <!-- Sandbox Execution Cockpit -->
+      <div class="sandbox-cockpit">
+        <div class="sandbox-header">
+          <div class="active-domain-info">
+            <div class="active-domain-badge" id="active-domain-badge">01</div>
+            <div class="active-domain-meta">
+              <h3 id="active-domain-title">FinTech &amp; Rechnungsprüfung</h3>
+              <p id="active-domain-targets">Unternehmen: Pleo, Moss, Billie, Personio, Taxfix | Rechtsgrundlage: § 14 UStG, GoBD § 147 AO</p>
+            </div>
           </div>
 
-          <div class="dossier-card" id="dossier-card-content">
-            <!-- Populated dynamically by app.js -->
-          </div>
-
-          <div id="dossier-footer-note" style="font-size: 0.78rem; color: var(--color-text-muted); display:flex; align-items:center; gap:0.4rem;">
-            <i class="fa-solid fa-shield-halved"></i> Quelldokument per Multimodal Vision erfasst; im Quarantänepuffer bis zur Verifizierung gehalten.
+          <div class="scenario-btn-group">
+            <button class="scenario-btn btn-scenario-a active" id="btn-scenario-a" data-scenario="scenario_a">
+              <i class="fa-solid fa-circle-check"></i> <span id="label-scenario-a">Szenario A: Valider Beleg</span>
+            </button>
+            <button class="scenario-btn btn-scenario-b" id="btn-scenario-b" data-scenario="scenario_b">
+              <i class="fa-solid fa-triangle-exclamation"></i> <span id="label-scenario-b">Szenario B: Rechnerische Falle</span>
+            </button>
+            <button class="scenario-btn btn-scenario-c" id="btn-scenario-c" data-scenario="scenario_c">
+              <i class="fa-solid fa-gavel"></i> <span id="label-scenario-c">Szenario C: Gesetzesverstoß</span>
+            </button>
           </div>
         </div>
 
-        <!-- Right Pane: Deterministic Verification Cockpit -->
-        <div class="right-cockpit-pane">
-          <div class="pane-title-bar">
-            <span class="pane-title"><i class="fa-solid fa-gauge-high"></i> <span id="label-cockpit-title">Deterministisches Prüf-Cockpit</span></span>
-            <span class="rule-badge pass font-mono-code" id="audit-latency-badge">&lt; 2ms AUSFÜHRUNG</span>
+        <!-- Split Inspection Workspace -->
+        <div class="inspection-workspace">
+          
+          <!-- Left Pane: Authentic Document Canvas -->
+          <div class="left-dossier-pane">
+            <div class="pane-title-bar">
+              <span class="pane-title"><i class="fa-regular fa-file-lines"></i> <span id="label-dossier-title">Quelldokument-Dossier</span></span>
+              <span class="rule-badge" id="dossier-doc-type" style="background:#EEF2FF; color:#3730A3;">Eingangsrechnung</span>
+            </div>
+
+            <!-- Authentic Paper Document Container -->
+            <div class="document-canvas-container" id="dossier-card-content">
+              <!-- Rendered dynamically as realistic German DIN 5008 / B/L paper sheet by app.js -->
+            </div>
+
+            <div id="dossier-footer-note" style="font-size: 0.74rem; color: var(--color-text-muted); display:flex; align-items:center; gap:0.4rem; margin-top: auto;">
+              <i class="fa-solid fa-shield-halved"></i> Quelldokument per Multimodal Vision erfasst; im Quarantänepuffer bis zur Verifizierung gehalten.
+            </div>
           </div>
 
-          <!-- Status Banner -->
-          <div class="audit-status-banner status-clean" id="audit-status-banner">
-            <div class="status-main">
-              <i class="fa-solid fa-circle-check status-main-icon" id="status-icon"></i>
-              <div>
-                <div class="status-text-title" id="status-text-title">REVISIONSFÄHIG_VERIFIZIERT</div>
-                <div class="status-text-subtitle" id="status-text-subtitle">Alle mathematischen und gesetzlichen Schutzschranken bestanden. Freigabe für ERP-Staging erteilt.</div>
+          <!-- Right Pane: Deterministic Verification Cockpit -->
+          <div class="right-cockpit-pane">
+            <div class="pane-title-bar">
+              <span class="pane-title"><i class="fa-solid fa-gauge-high"></i> <span id="label-cockpit-title">Deterministisches Prüf-Cockpit</span></span>
+              <span class="rule-badge pass font-mono-code" id="audit-latency-badge">&lt; 2ms AUSFÜHRUNG</span>
+            </div>
+
+            <!-- Status Banner -->
+            <div class="audit-status-banner status-clean" id="audit-status-banner">
+              <div class="status-main">
+                <i class="fa-solid fa-circle-check status-main-icon" id="status-icon"></i>
+                <div>
+                  <div class="status-text-title" id="status-text-title">REVISIONSFÄHIG_VERIFIZIERT</div>
+                  <div class="status-text-subtitle" id="status-text-subtitle">Alle mathematischen und gesetzlichen Schutzschranken bestanden. Freigabe für ERP-Staging erteilt.</div>
+                </div>
+              </div>
+              <div class="status-badge-wrapper">
+                <span class="rule-badge pass" id="status-pill-badge">STAGING_AUTORISIERT</span>
               </div>
             </div>
-            <div class="status-badge-wrapper">
-              <span class="rule-badge pass" id="status-pill-badge">STAGING_AUTORISIERT</span>
+
+            <!-- Rule Checklist Breakdown -->
+            <div id="checklist-heading-label" style="margin-bottom: 0.55rem; font-weight: 700; font-size: 0.8rem; color: var(--color-navy);">
+              <i class="fa-solid fa-list-check"></i> VERIFIZIERUNGSSCHRANKEN:
+            </div>
+            <ul class="rule-checklist" id="rule-checklist-container">
+              <!-- Populated dynamically by app.js -->
+            </ul>
+
+            <!-- Variance Summary Callout (Revealed when trap occurs) -->
+            <div class="variance-card" id="variance-card" style="display: none;">
+              <div class="variance-title" id="variance-card-title"><i class="fa-solid fa-triangle-exclamation"></i> RECHNERISCHE / GESETZLICHE ABWEICHUNG FESTGESTELLT</div>
+              <div class="variance-body" id="variance-text">Kritische rechnerische Diskrepanz ermittelt.</div>
+            </div>
+
+            <!-- CFO Executive Recap Box (1-Click Concise Summary for CFO / Accounting Leads) -->
+            <div class="cfo-recap-box" id="cfo-recap-box" style="display: none;">
+              <div class="cfo-recap-header">
+                <span class="cfo-recap-title" id="label-cfo-recap-title">
+                  <i class="fa-solid fa-briefcase"></i> CFO-EXEKUTIV-ZUSAMMENFASSUNG (1-KLICK BERICHT)
+                </span>
+                <button class="btn-copy-action" id="btn-copy-cfo-recap">
+                  <i class="fa-regular fa-copy"></i> <span id="btn-copy-cfo-text">CFO-Bericht kopieren</span>
+                </button>
+              </div>
+              <div class="cfo-recap-content" id="cfo-recap-content">
+                <!-- 3 concise bullets generated dynamically -->
+              </div>
+            </div>
+
+            <!-- Legal Dispute Memo Box (Revealed when exception occurs) -->
+            <div class="legal-memo-box" id="legal-memo-box" style="display: none;">
+              <div class="legal-memo-header">
+                <span><i class="fa-solid fa-file-contract"></i> <span id="label-memo-header">AUTOMATISIERTE GESETZLICHE MÄNGELRÜGE</span></span>
+                <button class="rule-badge" id="btn-copy-memo" style="background:#FFFFFF; border:1px solid #D8B4FE; color:#6B21A8; cursor:pointer;">
+                  <i class="fa-regular fa-copy"></i> <span id="btn-copy-memo-text">Mahnung kopieren</span>
+                </button>
+              </div>
+              <div class="legal-memo-content" id="legal-memo-content">
+                <!-- Legal letter text populated dynamically -->
+              </div>
+            </div>
+
+            <!-- GoBD SHA-256 Cryptographic Seal -->
+            <div class="gobd-seal-card">
+              <div class="gobd-seal-title" id="gobd-seal-title">
+                <i class="fa-solid fa-fingerprint"></i> GoBD § 147 AO KRYPTOGRAFISCHES PRÜFSIEGEL (REVISIONSSICHERE KETTE)
+              </div>
+              <div class="gobd-seal-hash" id="gobd-seal-hash">
+                Berechne SHA-256 Hash...
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-top:0.35rem; font-size:0.72rem; color:var(--color-text-muted);">
+                <span><span id="label-predecessor">Vorheriger Siegelblock:</span> <span class="font-mono-code" id="gobd-prev-seal">0000000000000000...</span></span>
+                <span id="gobd-timestamp">2026-10-28T03:20:00Z</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Enterprise Integration Console / Action Toolbar -->
+        <div class="action-toolbar">
+          <button class="action-btn btn-secondary" id="btn-view-tsql">
+            <i class="fa-solid fa-database"></i> <span id="btn-tsql-text">Parametrisiertes T-SQL (SAP / MS-SQL)</span>
+          </button>
+          <button class="action-btn btn-secondary" id="btn-view-csharp">
+            <i class="fa-solid fa-code"></i> <span id="btn-csharp-text">C# .NET 8 Treiber-SDK</span>
+          </button>
+          <button class="action-btn btn-export" id="btn-export-csv">
+            <i class="fa-solid fa-file-csv"></i> <span id="btn-export-text">GoBD § 147 AO Ledger exportieren (.CSV)</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: CLIENT PORTAL & IMPLEMENTATION ROADMAP
+         ==================================================================== -->
+    <section class="tab-pane" id="tab-portal">
+      <div class="portal-container">
+        
+        <!-- Top Metrics & Health Score Grid -->
+        <div class="portal-top-grid">
+          
+          <!-- Health Score Radial Card -->
+          <div class="health-card">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.84rem; font-weight:700; color:var(--color-navy);"><i class="fa-solid fa-heart-pulse"></i> <span id="label-health-title">System-Gesundheitsindex</span></span>
+                <span class="rule-badge pass" id="health-status-badge">OPTIMAL (100%)</span>
+              </div>
+              <div class="health-gauge-center">
+                <div class="health-radial-circle">
+                  <span class="health-score-number" id="health-score-num">98</span>
+                  <span class="health-score-max">/ 100 INDEX</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="health-metric-rows">
+              <div class="health-metric-row">
+                <span style="color:var(--color-text-muted);" id="label-metric-math">Mathematische Integrität</span>
+                <strong class="font-mono-code text-emerald">100,0 %</strong>
+              </div>
+              <div class="health-metric-row">
+                <span style="color:var(--color-text-muted);" id="label-metric-legal">Rechtliche Compliance</span>
+                <strong class="font-mono-code text-emerald">100,0 %</strong>
+              </div>
+              <div class="health-metric-row">
+                <span style="color:var(--color-text-muted);" id="label-metric-latency">Gateway-Latenz (Client)</span>
+                <strong class="font-mono-code">14 ms</strong>
+              </div>
+              <div class="health-metric-row" style="border-bottom:none;">
+                <span style="color:var(--color-text-muted);" id="label-metric-gobd">GoBD SHA-256 Prüfkette</span>
+                <strong class="font-mono-code text-emerald"><i class="fa-solid fa-link"></i> Lückenlos</strong>
+              </div>
             </div>
           </div>
 
-          <!-- Rule Checklist Breakdown -->
-          <div id="checklist-heading-label" style="margin-bottom: 0.65rem; font-weight: 700; font-size: 0.84rem; color: var(--color-navy);">
-            <i class="fa-solid fa-list-check"></i> VERIFIZIERUNGSSCHRANKEN:
-          </div>
-          <ul class="rule-checklist" id="rule-checklist-container">
-            <!-- Populated dynamically by app.js -->
-          </ul>
+          <!-- Capital Results & Prevention Tracker -->
+          <div class="portal-results-card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h3 style="font-size:1.05rem; font-weight:700; color:var(--color-navy);" id="portal-results-title">
+                  <i class="fa-solid fa-chart-line"></i> Revisions-Ergebnisse &amp; Haftungsschutz
+                </h3>
+                <p style="font-size:0.78rem; color:var(--color-text-muted);" id="portal-results-sub">
+                  Live-Übersicht der durch deterministische Schutzschranken abgewendeten Vermögens- und Steuerschäden
+                </p>
+              </div>
+              <span class="rule-badge" style="background:#F1F5F9; color:#475569;" id="label-period-badge">Q4 2026 AUDIT</span>
+            </div>
 
-          <!-- Variance Summary Callout (Revealed when trap occurs) -->
-          <div class="variance-card" id="variance-card" style="display: none;">
-            <div class="variance-title" id="variance-card-title"><i class="fa-solid fa-triangle-exclamation"></i> RECHNERISCHE / GESETZLICHE ABWEICHUNG FESTGESTELLT</div>
-            <div class="variance-body" id="variance-text">Kritische rechnerische Diskrepanz ermittelt.</div>
+            <div class="results-metric-grid">
+              <div class="results-tile">
+                <span class="results-tile-title" id="tile-lbl-capital">Geschütztes Kapital</span>
+                <span class="results-tile-val text-emerald font-mono-code">€ 184.250,00</span>
+                <span class="results-tile-sub" id="tile-sub-capital">Abgewendete Vorsteuer- &amp; Frachtverluste</span>
+              </div>
+              <div class="results-tile">
+                <span class="results-tile-title" id="tile-lbl-audited">Belege Auditiert</span>
+                <span class="results-tile-val font-mono-code">12.840</span>
+                <span class="results-tile-sub" id="tile-sub-audited">Verarbeitet über 10 Branchen</span>
+              </div>
+              <div class="results-tile">
+                <span class="results-tile-title" id="tile-lbl-quarantined">In Quarantäne Gestoppt</span>
+                <span class="results-tile-val font-mono-code" style="color:#DC2626;">148</span>
+                <span class="results-tile-sub" id="tile-sub-quarantined">Fehlerhafte Belege abgefangen</span>
+              </div>
+              <div class="results-tile">
+                <span class="results-tile-title" id="tile-lbl-disputes">Gesetzliche Mängelrügen</span>
+                <span class="results-tile-val font-mono-code" style="color:#D97706;">148</span>
+                <span class="results-tile-sub" id="tile-sub-disputes">Automatisch nach § 14 UStG / ADSp erstellt</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Week SAP S/4HANA Staging & Onboarding Roadmap -->
+        <div class="roadmap-section">
+          <div>
+            <h3 style="font-size:1.05rem; font-weight:700; color:var(--color-navy);" id="roadmap-heading">
+              <i class="fa-solid fa-timeline"></i> 4-Wöchige SAP S/4HANA &amp; Enterprise-ERP Integrations-Roadmap
+            </h3>
+            <p style="font-size:0.78rem; color:var(--color-text-muted);" id="roadmap-desc">
+              Strukturierter Rollout-Plan für deutsche Industrieunternehmen ohne Betriebsunterbrechung im Produktiv-ERP
+            </p>
           </div>
 
-          <!-- Legal Dispute Memo Box (Revealed when exception occurs) -->
-          <div class="legal-memo-box" id="legal-memo-box" style="display: none;">
-            <div class="legal-memo-header">
-              <span><i class="fa-solid fa-file-contract"></i> <span id="label-memo-header">AUTOMATISIERTE GESETZLICHE MÄNGELRÜGE</span></span>
-              <button class="rule-badge" id="btn-copy-memo" style="background:#FFFFFF; border:1px solid #D8B4FE; color:#6B21A8; cursor:pointer;">
-                <i class="fa-regular fa-copy"></i> <span id="btn-copy-memo-text">Mahnung kopieren</span>
+          <div class="roadmap-grid">
+            <!-- Week 1 -->
+            <div class="roadmap-card completed">
+              <div class="roadmap-card-header">
+                <span class="roadmap-week-tag">WOCHE 01</span>
+                <span class="roadmap-status-badge rule-badge pass">ABGESCHLOSSEN</span>
+              </div>
+              <div class="roadmap-title" id="rm-title-w1">Architektur-Review &amp; Schnittstellen-Spezifikation</div>
+              <div class="roadmap-desc" id="rm-desc-w1">
+                Analyse der bestehenden Staging-Tabellen in Microsoft SQL Server und SAP S/4HANA. Definition der GoBD § 147 AO Revisions-Anforderungen.
+              </div>
+              <ul class="roadmap-deliverables">
+                <li><i class="fa-solid fa-check text-emerald"></i> Tabellenschema-Audit für SAP Side-Car</li>
+                <li><i class="fa-solid fa-check text-emerald"></i> GoBD Revisionsprotokoll-Spezifikation</li>
+                <li><i class="fa-solid fa-check text-emerald"></i> API-Payload Verträge &amp; Sicherheitsgrenzen</li>
+              </ul>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="roadmap-card completed">
+              <div class="roadmap-card-header">
+                <span class="roadmap-week-tag">WOCHE 02</span>
+                <span class="roadmap-status-badge rule-badge pass">ABGESCHLOSSEN</span>
+              </div>
+              <div class="roadmap-title" id="rm-title-w2">Deterministische Schutzschranken &amp; Vorprüfung</div>
+              <div class="roadmap-desc" id="rm-desc-w2">
+                Implementierung der ISO 6346 Modulo-11, SEPA ISO 7064, § 14 UStG und 3-Way Triad Verifizierungsregeln im isolierten Quarantänepuffer.
+              </div>
+              <ul class="roadmap-deliverables">
+                <li><i class="fa-solid fa-check text-emerald"></i> 30/30 Validierungsszenarien bestanden</li>
+                <li><i class="fa-solid fa-check text-emerald"></i> Quarantäne-Routing &amp; Zahllaufsperren</li>
+                <li><i class="fa-solid fa-check text-emerald"></i> Zero-Hallucination Garantie validiert</li>
+              </ul>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="roadmap-card in-progress">
+              <div class="roadmap-card-header">
+                <span class="roadmap-week-tag">WOCHE 03</span>
+                <span class="roadmap-status-badge rule-badge" style="background:#EFF6FF; color:#1D4ED8;">IN BEARBEITUNG</span>
+              </div>
+              <div class="roadmap-title" id="rm-title-w3">Staging-Konnektor &amp; Treiber-Deployment</div>
+              <div class="roadmap-desc" id="rm-desc-w3">
+                Bereitstellung der parametrisierten T-SQL Staging-Skripte und des asynchronen C# .NET 8 Treibers für MS SQL Server 2022 und SAP RFC.
+              </div>
+              <ul class="roadmap-deliverables">
+                <li><i class="fa-solid fa-spinner fa-spin text-blue"></i> T-SQL Staging-Prozeduren kompiliert</li>
+                <li><i class="fa-solid fa-spinner fa-spin text-blue"></i> C# .NET 8 Client-Treiber integriert</li>
+                <li><i class="fa-solid fa-circle text-muted" style="font-size:0.5rem;"></i> SAP BAPI / OData Schnittstellentest</li>
+              </ul>
+            </div>
+
+            <!-- Week 4 -->
+            <div class="roadmap-card upcoming">
+              <div class="roadmap-card-header">
+                <span class="roadmap-week-tag">WOCHE 04</span>
+                <span class="roadmap-status-badge rule-badge" style="background:#F1F5F9; color:#64748B;">GEPLANT</span>
+              </div>
+              <div class="roadmap-title" id="rm-title-w4">End-to-End Lasttest &amp; Produktiv-Freigabe</div>
+              <div class="roadmap-desc" id="rm-desc-w4">
+                Simulierte Verarbeitung von 50.000 Belegen unter Last. DATEV/SAP Exportprüfung und Übergabe der Betriebsdokumentation an den Kunden.
+              </div>
+              <ul class="roadmap-deliverables">
+                <li><i class="fa-solid fa-circle text-muted" style="font-size:0.5rem;"></i> 50.000 Belege Stresstest (&lt;20ms)</li>
+                <li><i class="fa-solid fa-circle text-muted" style="font-size:0.5rem;"></i> DATEV UTF-8 BOM Audit Export Abnahme</li>
+                <li><i class="fa-solid fa-circle text-muted" style="font-size:0.5rem;"></i> Betriebsübergabe &amp; SLA-Aktivierung</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: DEPLOYMENT SOP LIBRARY (Practical Operational Procedures)
+         ==================================================================== -->
+    <section class="tab-pane" id="tab-sops">
+      <div class="sops-container">
+        <div class="section-heading-bar">
+          <div>
+            <h2 class="section-title" id="sops-heading"><i class="fa-solid fa-book-bookmark"></i> Betriebliche Standard-Arbeitsanweisungen (SOPs)</h2>
+            <p class="section-desc" id="sops-subheading">Verbindliche Handlungsschritte zur Behebung von Quarantänefällen und revisionssicheren Prüfpfaden</p>
+          </div>
+        </div>
+
+        <div class="sops-grid">
+          
+          <!-- SOP-01 -->
+          <div class="sop-card">
+            <div class="sop-card-header">
+              <span class="sop-code-badge">SOP-01</span>
+              <span class="rule-badge" style="background:#EEF2FF; color:#3730A3;">LOGISTIK &amp; TRANSPORT</span>
+            </div>
+            <div class="sop-card-body">
+              <h3 class="sop-title" id="sop1-title">Quarantäne-Freigabe &amp; ADSp 2017 Speditionsprüfung</h3>
+              <div class="sop-statutory-cite" id="sop1-cite">
+                <i class="fa-solid fa-scale-balanced"></i> Gesetzliche Basis: ADSp 2017 Ziff. 19, § 412 HGB, ISO 6346 Modulo-11
+              </div>
+              <p style="font-size:0.78rem; color:var(--color-text-muted); margin-bottom:0.75rem;" id="sop1-purpose">
+                <strong>Zweck:</strong> Bereinigung von Speditionsdokumenten mit ungültiger ISO-Containerprüfziffer oder Massendefizit vor Weiterleitung an ATLAS-Zoll.
+              </p>
+              
+              <ul class="sop-steps-list">
+                <li class="sop-step-item">
+                  <span class="sop-step-number">1</span>
+                  <div class="sop-step-text" id="sop1-s1">
+                    <strong>Erkennung im Quarantänepuffer:</strong> Die Prüf-Engine flaggt den Beleg mit <code>IS_QUARANTINED = 1</code>. Das ATLAS-Zoll-Gate wird automatisch gesperrt.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">2</span>
+                  <div class="sop-step-text" id="sop1-s2">
+                    <strong>Massen- &amp; Prüfziffernabgleich:</strong> Berechne die ISO 6346 Modulo-11 Prüfziffer. Bei Massendefizit (§ 412 HGB: Brutto &lt; Netto) Tatbestandsaufnahme auslösen.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">3</span>
+                  <div class="sop-step-text" id="sop1-s3">
+                    <strong>Mängelrüge versenden:</strong> Automatisierte Mängelrüge gemäß ADSp Ziff. 19 an den ausstellenden Reeder/Spediteur übermitteln.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">4</span>
+                  <div class="sop-step-text" id="sop1-s4">
+                    <strong>Freigabe &amp; Re-Versiegelung:</strong> Nach Vorlage des berichtigten B/L erneute Prüfung und Aufnahme in die GoBD SHA-256 Kette.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="sop-card-footer">
+              <span style="font-size:0.72rem; color:var(--color-text-muted);"><i class="fa-solid fa-clock"></i> SLA: 60 Minuten Bearbeitungszeit</span>
+              <button class="btn-copy-action" onclick="window.HaulitzApp.switchTabAndScenario('logistics', 'scenario_b')">
+                <i class="fa-solid fa-play"></i> <span id="sop1-btn">Im Cockpit simulieren</span>
               </button>
             </div>
-            <div class="legal-memo-content" id="legal-memo-content">
-              <!-- Legal letter text populated dynamically -->
+          </div>
+
+          <!-- SOP-02 -->
+          <div class="sop-card">
+            <div class="sop-card-header">
+              <span class="sop-code-badge">SOP-02</span>
+              <span class="rule-badge" style="background:#ECFDF5; color:#065F46;">FINANZEN &amp; STEUERN</span>
+            </div>
+            <div class="sop-card-body">
+              <h3 class="sop-title" id="sop2-title">Behebung von Vorsteuer-Diskrepanzen (§ 14 UStG)</h3>
+              <div class="sop-statutory-cite" id="sop2-cite">
+                <i class="fa-solid fa-scale-balanced"></i> Gesetzliche Basis: § 14 Abs. 4 UStG, § 15 UStG, GoBD § 147 AO
+              </div>
+              <p style="font-size:0.78rem; color:var(--color-text-muted); margin-bottom:0.75rem;" id="sop2-purpose">
+                <strong>Zweck:</strong> Schutz des Vorsteuerabzugs und Abwendung von Steuernachzahlungszinsen bei fehlerhaft berechneter Mehrwertsteuer.
+              </p>
+              
+              <ul class="sop-steps-list">
+                <li class="sop-step-item">
+                  <span class="sop-step-number">1</span>
+                  <div class="sop-step-text" id="sop2-s1">
+                    <strong>Automatische Zahllaufsperre:</strong> Weicht der Steuerbetrag um &gt; €0,00 vom statutory 19% Satz ab, wird in SAP S/4HANA <code>ZLSPR = 'A'</code> gesetzt.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">2</span>
+                  <div class="sop-step-text" id="sop2-s2">
+                    <strong>Rechnungskorrektur anfordern:</strong> Das generierte Mängelschreiben (§ 14 Abs. 6 UStG) per 1-Klick an die Buchhaltung des Lieferanten zustellen.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">3</span>
+                  <div class="sop-step-text" id="sop2-s3">
+                    <strong>Gutschrift oder Storno erfassen:</strong> Korrekturbeleg gegen die ursprüngliche Quarantäne-ID abgleichen.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">4</span>
+                  <div class="sop-step-text" id="sop2-s4">
+                    <strong>Zahlungsfreigabe erteilen:</strong> Nach Ausgleich der Abweichung Zahlungssperre im ERP aufheben und Buchung freigeben.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="sop-card-footer">
+              <span style="font-size:0.72rem; color:var(--color-text-muted);"><i class="fa-solid fa-shield-check"></i> Haftungsschutz: 100% Vorsteuer</span>
+              <button class="btn-copy-action" onclick="window.HaulitzApp.switchTabAndScenario('fintech', 'scenario_b')">
+                <i class="fa-solid fa-play"></i> <span id="sop2-btn">Im Cockpit simulieren</span>
+              </button>
             </div>
           </div>
 
-          <!-- GoBD SHA-256 Cryptographic Seal -->
-          <div class="gobd-seal-card">
-            <div class="gobd-seal-title" id="gobd-seal-title">
-              <i class="fa-solid fa-fingerprint"></i> GoBD § 147 AO KRYPTOGRAFISCHES PRÜFSIEGEL (REVISIONSSICHERE KETTE)
+          <!-- SOP-03 -->
+          <div class="sop-card">
+            <div class="sop-card-header">
+              <span class="sop-code-badge">SOP-03</span>
+              <span class="rule-badge" style="background:#FFFBEB; color:#92400E;">COMPLIANCE &amp; AUDIT</span>
             </div>
-            <div class="gobd-seal-hash" id="gobd-seal-hash">
-              Berechne SHA-256 Hash...
+            <div class="sop-card-body">
+              <h3 class="sop-title" id="sop3-title">Revisionssichere Prüfung von GoBD SHA-256 Prüfketten</h3>
+              <div class="sop-statutory-cite" id="sop3-cite">
+                <i class="fa-solid fa-scale-balanced"></i> Gesetzliche Basis: GoBD § 147 Abs. 1 AO, BSI TR-03105, DATEV-Standard
+              </div>
+              <p style="font-size:0.78rem; color:var(--color-text-muted); margin-bottom:0.75rem;" id="sop3-purpose">
+                <strong>Zweck:</strong> Unveränderbarkeitsnachweis digitaler Buchungsbelege für Betriebsprüfungen durch die deutsche Finanzverwaltung.
+              </p>
+              
+              <ul class="sop-steps-list">
+                <li class="sop-step-item">
+                  <span class="sop-step-number">1</span>
+                  <div class="sop-step-text" id="sop3-s1">
+                    <strong>Kryptografische Verkettung prüfen:</strong> Jeder Beleg hash (`SHA-256`) muss den Hash des direkten Vorgängerbelegs deterministisch einbinden.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">2</span>
+                  <div class="sop-step-text" id="sop3-s2">
+                    <strong>Sequenzielle Lückenlosigkeit:</strong> Prüfung auf fehlende Zeitstempel oder Sprünge im Prüfledger. Keine nachträgliche Manipulation möglich.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">3</span>
+                  <div class="sop-step-text" id="sop3-s3">
+                    <strong>Export für den Betriebsprüfer:</strong> Generierung der UTF-8 BOM CSV Datei mit allen Hash-Ketten zur Vorlage beim Finanzamt.
+                  </div>
+                </li>
+                <li class="sop-step-item">
+                  <span class="sop-step-number">4</span>
+                  <div class="sop-step-text" id="sop3-s4">
+                    <strong>Langzeitarchivierung (10 Jahre):</strong> Revisionssichere Übergabe an den WORM-Speicher nach § 147 Abs. 3 AO.
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-top:0.4rem; font-size:0.75rem; color:var(--color-text-muted);">
-              <span><span id="label-predecessor">Vorheriger Siegelblock:</span> <span class="font-mono-code" id="gobd-prev-seal">0000000000000000...</span></span>
-              <span id="gobd-timestamp">2026-10-28T03:20:00Z</span>
+            <div class="sop-card-footer">
+              <span style="font-size:0.72rem; color:var(--color-text-muted);"><i class="fa-solid fa-lock"></i> Revisionssicher nach GoBD</span>
+              <button class="btn-copy-action" onclick="window.HaulitzApp.switchTabAndScenario('erp', 'scenario_a')">
+                <i class="fa-solid fa-play"></i> <span id="sop3-btn">Im Cockpit simulieren</span>
+              </button>
             </div>
           </div>
 
         </div>
-      </div>
-
-      <!-- Enterprise Integration Console / Action Toolbar -->
-      <div class="action-toolbar">
-        <button class="action-btn btn-secondary" id="btn-view-tsql">
-          <i class="fa-solid fa-database"></i> <span id="btn-tsql-text">Parametrisiertes T-SQL (SAP / MS-SQL)</span>
-        </button>
-        <button class="action-btn btn-secondary" id="btn-view-csharp">
-          <i class="fa-solid fa-code"></i> <span id="btn-csharp-text">C# .NET 8 Treiber-SDK</span>
-        </button>
-        <button class="action-btn btn-export" id="btn-export-csv">
-          <i class="fa-solid fa-file-csv"></i> <span id="btn-export-text">GoBD § 147 AO Ledger exportieren (.CSV)</span>
-        </button>
       </div>
     </section>
 
@@ -225,14 +623,14 @@
         <button class="modal-close-btn" data-close="modal-tsql">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="font-size:0.84rem; color:var(--color-text-muted); margin-bottom:0.75rem;">
+        <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:0.65rem;">
           Production-grade script targeting Microsoft SQL Server 2019/2022 and SAP S/4HANA side-car staging buffer.
           Enforces parameterized inserts, explicit transactions, and GoBD SHA-256 audit chaining.
         </p>
         <pre class="code-snippet-box" id="modal-tsql-content"></pre>
       </div>
       <div class="modal-footer">
-        <span style="font-size:0.8rem; color:var(--color-text-muted);"><i class="fa-solid fa-shield-halved"></i> SQL Injection Protected via Typed Parameters</span>
+        <span style="font-size:0.76rem; color:var(--color-text-muted);"><i class="fa-solid fa-shield-halved"></i> SQL Injection Protected via Typed Parameters</span>
         <button class="action-btn btn-primary" id="btn-copy-tsql"><i class="fa-regular fa-copy"></i> Copy T-SQL</button>
       </div>
     </div>
@@ -246,13 +644,13 @@
         <button class="modal-close-btn" data-close="modal-csharp">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="font-size:0.84rem; color:var(--color-text-muted); margin-bottom:0.75rem;">
+        <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:0.65rem;">
           Production C# client driver using <code>Microsoft.Data.SqlClient</code> and <code>System.Text.Json</code> for synchronous ERP dispatch.
         </p>
         <pre class="code-snippet-box" id="modal-csharp-content"></pre>
       </div>
       <div class="modal-footer">
-        <span style="font-size:0.8rem; color:var(--color-text-muted);"><i class="fa-solid fa-bolt"></i> Async / Await High-Throughput Driver</span>
+        <span style="font-size:0.76rem; color:var(--color-text-muted);"><i class="fa-solid fa-bolt"></i> Async / Await High-Throughput Driver</span>
         <button class="action-btn btn-primary" id="btn-copy-csharp"><i class="fa-regular fa-copy"></i> Copy C# Code</button>
       </div>
     </div>
@@ -262,7 +660,7 @@
   <footer class="master-footer">
     <div class="footer-content">
       <div>
-        <div class="footer-candidate">Allen Fletcher (23 yrs) &mdash; Systems & AI Integration Engineer</div>
+        <div class="footer-candidate">Allen Fletcher (23 yrs) &mdash; Systems &amp; AI Integration Engineer</div>
         <div style="margin-top:0.35rem; color:#94A3B8;">
           5-Year Integrated M.Tech in Artificial Intelligence (VIT Bhopal) &bull; ZAB Anabin H+ Evaluated: <em>Entspricht Magister / Consecutive Master</em>
         </div>

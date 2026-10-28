@@ -27,7 +27,12 @@ Every extracted record must pass **100% deterministic mathematical, regulatory, 
 
 ---
 
-## 2. THE AIRBAG ARCHITECTURE
+## 2. THE AIRBAG ARCHITECTURE & ENTERPRISE WORKSPACE
+
+Haulitz is organized into three primary operational tiers:
+1. **Verification Cockpit:** The 10-domain deterministic Airbag engine featuring an **Authentic German Document Canvas** (DIN 5008 letterheads, Ocean Bills of Lading, fold marks, barcode scan lines, and visual red variance highlighters).
+2. **Client Portal & Implementation Roadmap:** A 4-week SAP S/4HANA onboarding framework, an active Client Health Index (98/100), and a Capital Protection Tracker (€184,250.00 protected).
+3. **Deployment SOP Library:** Practical Standard Operating Procedures (SOP-01 ADSp Quarantine, SOP-02 § 14 UStG VAT Variances, SOP-03 GoBD SHA-256 Chains) with 1-click simulation triggers.
 
 ```mermaid
 flowchart TD
