@@ -7,15 +7,28 @@
 (function() {
   'use strict';
 
-  const domainKey = document.body.dataset.domain || 'fintech';
-
   // Read persisted preferences
   let savedLang = null;
   let savedTheme = null;
+  let rememberMe = false;
+  let hasLocalAuth = false;
+  let hasSessionAuth = false;
+
   try {
     savedLang = localStorage.getItem('haulitz_lang');
     savedTheme = localStorage.getItem('haulitz_theme');
+    rememberMe = localStorage.getItem('haulitz_remember_me') === 'true';
+    hasLocalAuth = localStorage.getItem('haulitz_auth') === 'true';
+    hasSessionAuth = sessionStorage.getItem('haulitz_auth') === 'true';
   } catch (e) {}
+
+  const isAuthenticated = (rememberMe && hasLocalAuth) || hasSessionAuth;
+  if (!isAuthenticated) {
+    window.location.replace('index.html');
+    return;
+  }
+
+  const domainKey = document.body.dataset.domain || 'fintech';
 
   const state = {
     domainKey,
@@ -67,7 +80,9 @@
       commitSuccess: 'GoBD § 147 AO Block unveränderbar in Frankfurt (AWS eu-central-1) festgeschrieben!',
       dispatchBtn: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com senden',
       dispatchingText: 'Versende über Resend API an allensimeonfletcher@gmail.com...',
-      dispatchedSuccess: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com übermittelt!'
+      dispatchedSuccess: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com übermittelt!',
+      hdrDropdownLabel: 'Workspaces (10)',
+      hdrDropdownModal: 'Vollbild-Auswahl öffnen...'
     },
     en: {
       backLink: '← Back to Haulitz Gateway',
@@ -105,7 +120,9 @@
       commitSuccess: 'GoBD § 147 AO Block immutably committed to Frankfurt (AWS eu-central-1)!',
       dispatchBtn: 'Dispatch Statutory Dispute via Resend to allensimeonfletcher@gmail.com',
       dispatchingText: 'Dispatching via Resend API to allensimeonfletcher@gmail.com...',
-      dispatchedSuccess: 'Statutory dispute notice dispatched via Resend to allensimeonfletcher@gmail.com!'
+      dispatchedSuccess: 'Statutory dispute notice dispatched via Resend to allensimeonfletcher@gmail.com!',
+      hdrDropdownLabel: 'Workspaces (10)',
+      hdrDropdownModal: 'Open Fullscreen Selector...'
     }
   };
 
@@ -483,6 +500,7 @@
 
   function renderRealisticDocument(doc, domainKey, scenarioKey, auditResult) {
     if (!DOM.dossierContent) return;
+    const isDe = state.currentLang === 'de';
     let html = '';
 
     const guideMarks = `
@@ -513,17 +531,17 @@
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; font-size:0.78rem;">
             <div style="border:1px solid #cbd5e1; padding:0.6rem; border-radius:4px; background:#f8fafc; color:#0f172a;">
-              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">SHIPPER / EXPORTER</div>
+              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">${isDe ? 'ABSENDER / EXPORTEUR' : 'SHIPPER / EXPORTER'}</div>
               <strong style="color:#0f172a;">Hanseatic Industrial Parts GmbH</strong><br>
               Am Sandtorkai 48, 20457 Hamburg<br>
               Tel: +49 40 8820-0 &bull; customs@hanseatic-parts.de
             </div>
             <div style="border:1px solid #cbd5e1; padding:0.6rem; border-radius:4px; background:#f8fafc; color:#0f172a;">
               <table style="width:100%; border-collapse:collapse; color:#0f172a;">
-                <tr><td style="color:#64748b;">B/L Number:</td><td style="font-family:var(--font-mono); font-weight:700; text-align:right; color:#0f172a;">${doc.bolNumber}</td></tr>
-                <tr><td style="color:#64748b;">Booking Ref:</td><td style="font-family:var(--font-mono); text-align:right; color:#0f172a;">${doc.bookingNumber}</td></tr>
-                <tr><td style="color:#64748b;">Vessel / Voyage:</td><td style="text-align:right; color:#0f172a;">${doc.vessel}</td></tr>
-                <tr><td style="color:#64748b;">Port of Discharge:</td><td style="text-align:right; color:#0f172a;">${doc.portOfDischarge}</td></tr>
+                <tr><td style="color:#64748b;">${isDe ? 'Konnossement-Nr.:' : 'B/L Number:'}</td><td style="font-family:var(--font-mono); font-weight:700; text-align:right; color:#0f172a;">${doc.bolNumber}</td></tr>
+                <tr><td style="color:#64748b;">${isDe ? 'Buchungs-Ref.:' : 'Booking Ref:'}</td><td style="font-family:var(--font-mono); text-align:right; color:#0f172a;">${doc.bookingNumber}</td></tr>
+                <tr><td style="color:#64748b;">${isDe ? 'Schiff / Reise:' : 'Vessel / Voyage:'}</td><td style="text-align:right; color:#0f172a;">${doc.vessel}</td></tr>
+                <tr><td style="color:#64748b;">${isDe ? 'Löschhafen:' : 'Port of Discharge:'}</td><td style="text-align:right; color:#0f172a;">${doc.portOfDischarge}</td></tr>
               </table>
             </div>
           </div>
@@ -531,11 +549,11 @@
           <table style="width:100%; border-collapse:collapse; font-size:0.76rem; margin-bottom:1rem; color:#0f172a;">
             <thead>
               <tr style="border-bottom:2px solid #cbd5e1; text-align:left;">
-                <th style="padding:0.4rem 0; color:#0f172a;">Container No &amp; Seal</th>
-                <th style="padding:0.4rem 0; color:#0f172a;">Type</th>
-                <th style="padding:0.4rem 0; color:#0f172a;">Cargo Description</th>
-                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Net Mass</th>
-                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Gross Mass</th>
+                <th style="padding:0.4rem 0; color:#0f172a;">${isDe ? 'Container-Nr. & Siegel' : 'Container No & Seal'}</th>
+                <th style="padding:0.4rem 0; color:#0f172a;">${isDe ? 'Typ' : 'Type'}</th>
+                <th style="padding:0.4rem 0; color:#0f172a;">${isDe ? 'Warenbeschreibung' : 'Cargo Description'}</th>
+                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Nettomasse' : 'Net Mass'}</th>
+                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Bruttomasse' : 'Gross Mass'}</th>
               </tr>
             </thead>
             <tbody>
@@ -543,14 +561,14 @@
                 <td style="padding:0.6rem 0; font-family:var(--font-mono); ${isContainerError ? 'color:#dc2626 !important; font-weight:800;' : 'color:#0f172a;'}">
                   ${doc.containerNumber}<br>
                   <span style="font-size:0.68rem; color:#64748b;">Seal: ${doc.sealNumber}</span>
-                  ${isContainerError ? `<br><span style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626 !important; padding:1px 4px; border-radius:3px; font-size:0.65rem;">ISO 6346 CHECKSUM FEHLER</span>` : ''}
+                  ${isContainerError ? `<br><span style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626 !important; padding:1px 4px; border-radius:3px; font-size:0.65rem;">${isDe ? 'ISO 6346 PRÜFZIFFERN-FEHLER' : 'ISO 6346 CHECKSUM ERROR'}</span>` : ''}
                 </td>
                 <td style="padding:0.6rem 0; color:#0f172a;">${doc.isoSize}</td>
                 <td style="padding:0.6rem 0; color:#0f172a;">${doc.cargoDescription}<br><span style="font-size:0.68rem; color:#64748b;">HS Code: ${doc.hsCode}</span></td>
                 <td style="padding:0.6rem 0; text-align:right; font-family:var(--font-mono); color:#0f172a;">${doc.netWeightKg.toLocaleString()} kg</td>
                 <td style="padding:0.6rem 0; text-align:right; font-family:var(--font-mono); ${isWeightError ? 'color:#dc2626 !important; font-weight:800;' : 'color:#0f172a;'}">
                   ${doc.grossWeightKg.toLocaleString()} kg
-                  ${isWeightError ? `<br><span style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626 !important; padding:1px 4px; border-radius:3px; font-size:0.65rem;">§ 412 HGB FEHLER: Brutto &lt; Netto</span>` : ''}
+                  ${isWeightError ? `<br><span style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626 !important; padding:1px 4px; border-radius:3px; font-size:0.65rem;">${isDe ? '§ 412 HGB FEHLER: Brutto < Netto' : '§ 412 HGB ERROR: Gross < Net'}</span>` : ''}
                 </td>
               </tr>
             </tbody>
@@ -558,11 +576,11 @@
 
           <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:4px; padding:0.6rem; font-size:0.75rem; color:#0f172a;">
             <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Tare Weight:</span>
+              <span style="color:#64748b;">${isDe ? 'Taragewicht:' : 'Tare Weight:'}</span>
               <span style="font-family:var(--font-mono); color:#0f172a;">${doc.tareWeightKg.toLocaleString()} kg</span>
             </div>
             <div style="display:flex; justify-content:space-between; border-top:1px solid #cbd5e1; padding-top:0.35rem; font-weight:800; font-size:0.85rem;">
-              <span style="color:#0f172a;">Declared Total Gross:</span>
+              <span style="color:#0f172a;">${isDe ? 'Deklarierte Bruttomasse:' : 'Declared Total Gross:'}</span>
               <span style="font-family:var(--font-mono); color:#0f172a;">${doc.grossWeightKg.toLocaleString()} kg</span>
             </div>
           </div>
@@ -579,7 +597,7 @@
           <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0f172a; padding-bottom:0.75rem; margin-bottom:1rem;">
             <div>
               <div style="font-size:1.15rem; font-weight:900; letter-spacing:1px; color:#0f172a;">SIEMENS AG &bull; WERK REGENSBURG</div>
-              <div style="font-size:0.7rem; color:#475569; text-transform:uppercase;">Beschaffungslogistik &bull; 3-Wege-Revisionsabgleich nach HGB § 377</div>
+              <div style="font-size:0.7rem; color:#475569; text-transform:uppercase;">${isDe ? 'Beschaffungslogistik &bull; 3-Wege-Revisionsabgleich nach HGB § 377' : 'Procurement Logistics &bull; 3-Way Triad Reconciliation per HGB § 377'}</div>
             </div>
             <div style="text-align:right;">
               <div style="font-family:monospace; font-size:1rem; letter-spacing:2px; font-weight:800; color:#0f172a;">|||| || | |||| ||| ||</div>
@@ -591,10 +609,10 @@
             <thead>
               <tr style="border-bottom:2px solid #cbd5e1; text-align:left;">
                 <th style="padding:0.4rem 0; color:#0f172a;">SKU</th>
-                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Bestellt</th>
-                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Geliefert</th>
-                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Fakturiert</th>
-                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Preis</th>
+                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Bestellt' : 'Ordered'}</th>
+                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Geliefert' : 'Delivered'}</th>
+                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Fakturiert' : 'Billed'}</th>
+                <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Preis' : 'Price'}</th>
               </tr>
             </thead>
             <tbody>
@@ -610,11 +628,11 @@
                     <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); color:#0f172a;">${dnIt?.receivedQuantity || 0}</td>
                     <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); ${hasQtyMismatch ? 'color:#dc2626 !important; font-weight:800;' : 'color:#0f172a;'}">
                       ${it.billedQuantity}
-                      ${hasQtyMismatch ? `<br><span style="font-size:0.65rem; color:#dc2626;">+20 ZUVIEL</span>` : ''}
+                      ${hasQtyMismatch ? `<br><span style="font-size:0.65rem; color:#dc2626;">${isDe ? '+20 ZUVIEL' : '+20 OVERBILL'}</span>` : ''}
                     </td>
                     <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); ${hasPriceMismatch ? 'color:#dc2626 !important; font-weight:800;' : 'color:#0f172a;'}">
                       € ${it.billedUnitPrice.toFixed(2)}
-                      ${hasPriceMismatch ? `<br><span style="font-size:0.65rem; color:#dc2626;">+15 € TEURER</span>` : ''}
+                      ${hasPriceMismatch ? `<br><span style="font-size:0.65rem; color:#dc2626;">${isDe ? '+15 € TEURER' : '+15 € INFLATED'}</span>` : ''}
                     </td>
                   </tr>
                 `;
@@ -624,11 +642,11 @@
 
           <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:4px; padding:0.6rem; font-size:0.75rem; color:#0f172a;">
             <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Nettobetrag:</span>
+              <span style="color:#64748b;">${isDe ? 'Nettobetrag:' : 'Net Amount:'}</span>
               <span style="font-family:var(--font-mono); color:#0f172a;">€ ${inv.netTotal.toFixed(2)}</span>
             </div>
             <div style="display:flex; justify-content:space-between; border-top:1px solid #cbd5e1; padding-top:0.35rem; font-weight:800; font-size:0.85rem;">
-              <span style="color:#0f172a;">Rechnungsbetrag Brutto:</span>
+              <span style="color:#0f172a;">${isDe ? 'Rechnungsbetrag Brutto:' : 'Gross Invoice Total:'}</span>
               <span style="font-family:var(--font-mono); color:#0f172a;">€ ${inv.grossTotal.toFixed(2)}</span>
             </div>
           </div>
@@ -657,22 +675,22 @@
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; font-size:0.78rem;">
             <div style="border:1px solid #cbd5e1; padding:0.6rem; border-radius:4px; background:#f8fafc; color:#0f172a;">
-              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">EMPFÄNGER / RECIPIENT</div>
+              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">${isDe ? 'EMPFÄNGER / RECIPIENT' : 'RECIPIENT / EMPFÄNGER'}</div>
               <strong style="color:#0f172a;">${doc.customerName || doc.claimantName || 'Haulitz Industrial Gateway AG'}</strong><br>
               ERP Staging Pufferzone 4<br>
               60329 Frankfurt am Main, Deutschland
             </div>
             <div style="border:1px solid #cbd5e1; padding:0.6rem; border-radius:4px; background:#f8fafc; color:#0f172a;">
               <table style="width:100%; border-collapse:collapse; color:#0f172a;">
-                <tr><td style="color:#64748b;">Beleg-Nr.:</td><td style="font-family:var(--font-mono); font-weight:700; text-align:right; color:#0f172a;">${docRefNumber}</td></tr>
-                <tr><td style="color:#64748b;">Datum:</td><td style="font-family:var(--font-mono); text-align:right; color:#0f172a;">${doc.issueDate || '2026-10-28'}</td></tr>
-                ${doc.supplierTaxId ? `<tr><td style="color:#64748b;">USt-IdNr.:</td><td style="font-family:var(--font-mono); text-align:right; color:#0f172a;">${doc.supplierTaxId}</td></tr>` : ''}
+                <tr><td style="color:#64748b;">${isDe ? 'Beleg-Nr.:' : 'Document Ref:'}</td><td style="font-family:var(--font-mono); font-weight:700; text-align:right; color:#0f172a;">${docRefNumber}</td></tr>
+                <tr><td style="color:#64748b;">${isDe ? 'Datum:' : 'Date:'}</td><td style="font-family:var(--font-mono); text-align:right; color:#0f172a;">${doc.issueDate || '2026-10-28'}</td></tr>
+                ${doc.supplierTaxId ? `<tr><td style="color:#64748b;">${isDe ? 'USt-IdNr.:' : 'VAT ID:'}</td><td style="font-family:var(--font-mono); text-align:right; color:#0f172a;">${doc.supplierTaxId}</td></tr>` : ''}
                 ${doc.iban ? `
                   <tr>
                     <td style="color:#64748b;">SEPA IBAN:</td>
                     <td style="font-family:var(--font-mono); text-align:right; ${isFintechIbanError ? 'color:#dc2626 !important; font-weight:800;' : 'color:#0f172a;'}">
                       ${doc.iban}
-                      ${isFintechIbanError ? `<br><span style="font-size:0.65rem; color:#dc2626;">MODULO-97 FEHLER</span>` : ''}
+                      ${isFintechIbanError ? `<br><span style="font-size:0.65rem; color:#dc2626;">${isDe ? 'MODULO-97 FEHLER' : 'MODULO-97 ERROR'}</span>` : ''}
                     </td>
                   </tr>
                 ` : ''}
@@ -684,18 +702,18 @@
             <table style="width:100%; border-collapse:collapse; font-size:0.76rem; margin-bottom:1rem; color:#0f172a;">
               <thead>
                 <tr style="border-bottom:2px solid #cbd5e1; text-align:left;">
-                  <th style="padding:0.4rem 0; color:#0f172a;">Pos.</th>
-                  <th style="padding:0.4rem 0; color:#0f172a;">Beschreibung</th>
-                  <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Menge</th>
-                  <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Einzelpreis</th>
-                  <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">Gesamt</th>
+                  <th style="padding:0.4rem 0; color:#0f172a;">${isDe ? 'Pos.' : 'Item'}</th>
+                  <th style="padding:0.4rem 0; color:#0f172a;">${isDe ? 'Beschreibung' : 'Description'}</th>
+                  <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Menge' : 'Qty'}</th>
+                  <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Einzelpreis' : 'Unit Price'}</th>
+                  <th style="padding:0.4rem 0; text-align:right; color:#0f172a;">${isDe ? 'Gesamt' : 'Total'}</th>
                 </tr>
               </thead>
               <tbody>
                 ${doc.items.map((it, idx) => `
                   <tr style="border-bottom:1px solid #e2e8f0;">
                     <td style="padding:0.5rem 0; font-family:var(--font-mono); color:#0f172a;">${(idx + 1).toString().padStart(2, '0')}</td>
-                    <td style="padding:0.5rem 0; color:#0f172a;">${it.description || 'Enterprise Komponente'}</td>
+                    <td style="padding:0.5rem 0; color:#0f172a;">${it.description || (isDe ? 'Enterprise Komponente' : 'Enterprise Component')}</td>
                     <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); color:#0f172a;">${it.quantity || 1}</td>
                     <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); color:#0f172a;">€ ${(it.unitPrice || 0).toFixed(2)}</td>
                     <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); color:#0f172a;">€ ${(it.declaredTotal || 0).toFixed(2)}</td>
@@ -708,22 +726,22 @@
           <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:4px; padding:0.6rem; font-size:0.75rem; color:#0f172a;">
             ${doc.subtotalNet !== undefined ? `
               <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-                <span style="color:#64748b;">Nettobetrag:</span>
+                <span style="color:#64748b;">${isDe ? 'Nettobetrag:' : 'Net Amount:'}</span>
                 <span style="font-family:var(--font-mono); color:#0f172a;">€ ${doc.subtotalNet.toFixed(2)}</span>
               </div>
             ` : ''}
             ${doc.taxAmount !== undefined ? `
               <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem; ${isFintechVatError ? 'color:#dc2626 !important; font-weight:800;' : ''}">
-                <span style="color:#64748b;">Mehrwertsteuer (19%):</span>
+                <span style="color:#64748b;">${isDe ? 'Mehrwertsteuer (19%):' : 'VAT (19%):'}</span>
                 <span style="font-family:var(--font-mono); color:#0f172a;">
                   € ${doc.taxAmount.toFixed(2)}
-                  ${isFintechVatError ? `<span style="font-size:0.65rem; color:#dc2626; margin-left:6px;">(-120,00 € UStG-Falle)</span>` : ''}
+                  ${isFintechVatError ? `<span style="font-size:0.65rem; color:#dc2626; margin-left:6px;">${isDe ? '(-120,00 € UStG-Falle)' : '(-120.00 € VAT Trap)'}</span>` : ''}
                 </span>
               </div>
             ` : ''}
             ${doc.grossTotal !== undefined ? `
               <div style="display:flex; justify-content:space-between; border-top:1px solid #cbd5e1; padding-top:0.35rem; font-weight:800; font-size:0.85rem;">
-                <span style="color:#0f172a;">Rechnungsbetrag Brutto:</span>
+                <span style="color:#0f172a;">${isDe ? 'Rechnungsbetrag Brutto:' : 'Gross Invoice Total:'}</span>
                 <span style="font-family:var(--font-mono); color:#0f172a;">€ ${doc.grossTotal.toFixed(2)}</span>
               </div>
             ` : ''}
@@ -979,13 +997,34 @@
       applyLanguageUI();
       runVerification();
     });
+
+    // Header Industry Switcher Dropdown
+    const hdrDropdown = document.getElementById('hdr-industry-dropdown');
+    const hdrDropdownBtn = document.getElementById('hdr-industry-dropdown-btn');
+    if (hdrDropdownBtn && hdrDropdown) {
+      hdrDropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hdrDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!hdrDropdown.contains(e.target)) {
+          hdrDropdown.classList.remove('open');
+        }
+      });
+    }
   }
 
   function updateThemeUI() {
     const isDark = state.currentTheme === 'dark';
     const dict = i18n[state.currentLang] || i18n.de;
-    if (DOM.themeIcon) DOM.themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-    if (DOM.themeText) DOM.themeText.textContent = isDark ? dict.themeLight : dict.themeDark;
+    if (DOM.themeIcon) DOM.themeIcon.className = isDark ? 'fa-solid fa-moon text-emerald' : 'fa-solid fa-sun text-emerald';
+    if (DOM.themeText) DOM.themeText.textContent = isDark ? dict.themeDark : dict.themeLight;
+    if (DOM.themeToggleBtn) {
+      DOM.themeToggleBtn.setAttribute('title', isDark 
+        ? (state.currentLang === 'de' ? 'Zu hellem Modus wechseln' : 'Switch to light mode')
+        : (state.currentLang === 'de' ? 'Zu dunklem Modus wechseln' : 'Switch to dark mode')
+      );
+    }
   }
 
   function applyLanguageUI() {
@@ -1010,10 +1049,16 @@
     if (DOM.btnCommitText) DOM.btnCommitText.textContent = dict.commitBtn;
     if (DOM.btnDispatchDisputeText) DOM.btnDispatchDisputeText.textContent = dict.dispatchBtn;
 
+    const hdrDropdownLabel = document.getElementById('hdr-industry-dropdown-label');
+    if (hdrDropdownLabel) hdrDropdownLabel.textContent = dict.hdrDropdownLabel;
+    const labelModalOpen = document.getElementById('label-dropdown-modal-open');
+    if (labelModalOpen) labelModalOpen.textContent = dict.hdrDropdownModal;
+
     updateThemeUI();
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
+  // Master Boot Engine
+  function boot() {
     initDOMElements();
     initLenis();
     initClerk();
@@ -1021,6 +1066,12 @@
     setupEventListeners();
     runVerification();
     fetchFrankfurtPing();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
 
 })();

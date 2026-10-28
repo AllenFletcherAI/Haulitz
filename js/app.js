@@ -95,7 +95,37 @@
       commitBtn: 'In Frankfurt Neon DB festschreiben',
       commitSuccess: 'GoBD § 147 AO Block unveränderbar in Frankfurt (AWS eu-central-1) festgeschrieben!',
       dispatchBtn: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com senden',
-      dispatchedSuccess: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com übermittelt!'
+      dispatchedSuccess: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com übermittelt!',
+      
+      // Tab 1: Product & Founder Showcase
+      workspacesBannerTag: '10 Dedizierte Industrie-Workspaces',
+      workspacesBannerTitle: 'Rechtssichere Belegprüfung für Ihre Branche',
+      workspacesBannerDesc: 'Wählen Sie Ihren Zielbereich für die deterministische Validierung von Rechnungen, Frachtbriefen, LkSG-Zertifikaten und ERP-Payloads mit GoBD § 147 AO Prüfsiegel.',
+      btnLaunchWorkspaces: 'Industrie-Workspace auswählen (10 Branchen) →',
+      whatIsTag: 'Architektur & Funktionsweise',
+      whatIsTitle: 'Was ist HAULITZ?',
+      whatIsP1: 'HAULITZ ist eine <strong style="color:var(--color-text-main);">deterministische Verifizierungs-Schutzschranke</strong> für unternehmensweite ERP-Systeme (SAP S/4HANA, Microsoft Dynamics 365, Oracle Cloud ERP). In einer Zeit, in der Unternehmen zunehmend auf generative KI und probabilistische LLMs zur Dokumentenerfassung setzen, entstehen gravierende finanzielle und rechtliche Risiken: Sprachmodelle halluzinieren Vorsteuer-Rechenschritte (§ 14 UStG), übersehen fehlerhafte Container-Prüfziffern (ISO 6346) und akzeptieren unbemerkt Lieferanten-Kurzlieferungen oder Preisaufschläge (HGB § 377).',
+      whatIsP2: 'HAULITZ schaltet sich als kompromisslose mathematische Firewall vor das ERP-Staging. Jeder Beleg wird auf den Cent genau geprüft, gegen geltendes deutsches und europäisches Handelsrecht abgeglichen und mit einer unveränderlichen GoBD § 147 AO SHA-256 Hash-Kette in unserer Frankfurter Datenbank (AWS eu-central-1) revisionssicher versiegelt.',
+      pillar1Title: 'Deterministische Präzision',
+      pillar1Desc: 'Keine probabilistischen Schätzungen. Exakte Cent-Arithmetik, Modulo-97 (IBAN), Modulo-11 (ISO 6346) und Modulo-10 (GS1 EAN-13) Prüfziffernprüfungen.',
+      pillar2Title: 'GoBD § 147 AO Hash-Kette',
+      pillar2Desc: 'Jeder Prüflauf wird kryptografisch mit dem vorherigen Siegel verknüpft und unveränderbar in Frankfurt auf AWS eu-central-1 festgeschrieben.',
+      pillar3Title: 'Staging Armor für SAP',
+      pillar3Desc: 'Automatische Quarantäne fehlerhafter Datensätze, Abwehr von SQL-Injections (OWASP ASVS) und sofortige Erstellung gesetzlicher Mängelrügen per Resend.',
+      founderTag: 'Gründer & Lead Systems Architect',
+      founderRole: 'Senior Systems Architect • AI Verification Engineer',
+      founderBio: 'Allen Simeon Fletcher entwickelte HAULITZ aus einer klaren Ingenieursdisziplin: <em>"Defend What You Ship"</em>. Nach eingehender Analyse der Risiken beim produktiven Einsatz generativer KI im Finanz- und Logistiksektor entwarf er eine deterministische Verifizierungsarchitektur, die Zuverlässigkeit, Sicherheit und Gesetzeskonformität vor oberflächliche KI-Versprechungen stellt.',
+      founderBio2: 'Mit Fokus auf hochperformante verteilte Systeme, Cloudflare Edge Worker und revisionssichere Datenbankstrukturen auf AWS eu-central-1 stellt er sicher, dass Enterprise-Workflows vollständig gegen fehlerhafte Datenströme, Standgelder und Steuerstrafen geschützt sind.',
+      
+      // Auth Gate & Modals
+      authTitle: 'HAULITZ Enterprise Gateway',
+      authSub: 'Rechtssichere Verifizierung für SAP S/4HANA & ATLAS Zoll',
+      authRemember: 'Angemeldet bleiben (auf diesem Arbeitsplatz)',
+      authBtn: 'Sicher anmelden & Fortfahren',
+      selectorTitle: 'Wählen Sie Ihren Industrie-Workspace',
+      selectorSub: '10 spezialisierte Verifizierungs-Pipelines mit deterministischen Schutzschranken',
+      hdrDropdownLabel: 'Workspaces (10)',
+      hdrDropdownModal: 'Vollbild-Auswahl öffnen...'
     },
     en: {
       beacon: 'Frankfurt eu-central-1: ',
@@ -152,7 +182,37 @@
       commitBtn: 'Commit to Frankfurt Neon DB',
       commitSuccess: 'GoBD § 147 AO Block immutably committed to Frankfurt (AWS eu-central-1)!',
       dispatchBtn: 'Dispatch Statutory Dispute via Resend to allensimeonfletcher@gmail.com',
-      dispatchedSuccess: 'Statutory dispute notice dispatched via Resend to allensimeonfletcher@gmail.com!'
+      dispatchedSuccess: 'Statutory dispute notice dispatched via Resend to allensimeonfletcher@gmail.com!',
+
+      // Tab 1: Product & Founder Showcase
+      workspacesBannerTag: '10 Dedicated Industry Workspaces',
+      workspacesBannerTitle: 'Statutory Document Verification for Your Industry',
+      workspacesBannerDesc: 'Select your target domain for deterministic validation of invoices, bills of lading, LkSG certificates, and ERP payloads with GoBD § 147 AO audit seals.',
+      btnLaunchWorkspaces: 'Select Industry Workspace (10 Domains) →',
+      whatIsTag: 'Architecture & Mechanics',
+      whatIsTitle: 'What is HAULITZ?',
+      whatIsP1: 'HAULITZ is a <strong style="color:var(--color-text-main);">deterministic verification guardrail</strong> for enterprise ERP systems (SAP S/4HANA, Microsoft Dynamics 365, Oracle Cloud ERP). As enterprises increasingly adopt generative AI and probabilistic LLMs for document ingestion, severe financial and legal liabilities emerge: large language models hallucinate VAT deduction calculations (§ 14 UStG), miss invalid container check digits (ISO 6346), and blindly accept short shipments or unagreed unit price inflations (HGB § 377).',
+      whatIsP2: 'HAULITZ operates as an uncompromising mathematical firewall ahead of ERP staging. Every commercial record is verified to the cent, reconciled against German and European statutory law, and sealed with an immutable GoBD § 147 AO SHA-256 hash chain anchored in our Frankfurt database (AWS eu-central-1).',
+      pillar1Title: 'Deterministic Precision',
+      pillar1Desc: 'Zero probabilistic estimations. Exact cent arithmetic, Modulo-97 (IBAN), Modulo-11 (ISO 6346), and Modulo-10 (GS1 EAN-13) checksum enforcement.',
+      pillar2Title: 'GoBD § 147 AO Hash Chaining',
+      pillar2Desc: 'Every verification run is cryptographically chained to its predecessor seal and immutably recorded in Frankfurt on AWS eu-central-1.',
+      pillar3Title: 'Staging Armor for SAP',
+      pillar3Desc: 'Automated quarantine of corrupted payloads, SQL injection prevention (OWASP ASVS), and instant statutory dispute notices via Resend.',
+      founderTag: 'Founder & Lead Systems Architect',
+      founderRole: 'Senior Systems Architect • AI Verification Engineer',
+      founderBio: 'Allen Simeon Fletcher engineered HAULITZ under a strict engineering discipline: <em>"Defend What You Ship"</em>. Following in-depth analysis of the vulnerabilities introduced by probabilistic AI in financial and logistics workflows, he architected a deterministic verification framework that places statutory correctness and reliability above AI hype.',
+      founderBio2: 'Focusing on high-performance distributed systems, Cloudflare Edge Workers, and tamper-evident database structures in AWS eu-central-1, he ensures enterprise back-offices are completely defended against corrupted data feeds, customs demurrage, and tax penalties.',
+      
+      // Auth Gate & Modals
+      authTitle: 'HAULITZ Enterprise Gateway',
+      authSub: 'Statutory Verification for SAP S/4HANA & ATLAS Customs',
+      authRemember: 'Keep me signed in (on this workstation)',
+      authBtn: 'Sign In Securely & Proceed',
+      selectorTitle: 'Select Your Industry Workspace',
+      selectorSub: '10 specialized verification pipelines with deterministic statutory guardrails',
+      hdrDropdownLabel: 'Workspaces (10)',
+      hdrDropdownModal: 'Open Fullscreen Selector...'
     }
   };
 
@@ -1381,13 +1441,108 @@
       renderDomainGrid();
       runVerification();
     });
+
+    // Header Industry Switcher Dropdown
+    const hdrDropdown = document.getElementById('hdr-industry-dropdown');
+    const hdrDropdownBtn = document.getElementById('hdr-industry-dropdown-btn');
+    if (hdrDropdownBtn && hdrDropdown) {
+      hdrDropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hdrDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!hdrDropdown.contains(e.target)) {
+          hdrDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    // Fullscreen 10-Industry Selector Modal Controls
+    const industryModal = document.getElementById('industry-selector-modal');
+    const btnOpenIndustryModal = document.getElementById('btn-open-industry-modal');
+    const dropdownOpenModalTrigger = document.getElementById('dropdown-open-modal-trigger');
+    const btnCloseSelectorModal = document.getElementById('btn-close-selector-modal');
+
+    if (btnOpenIndustryModal && industryModal) {
+      btnOpenIndustryModal.addEventListener('click', () => {
+        industryModal.classList.add('active');
+      });
+    }
+
+    if (dropdownOpenModalTrigger && industryModal) {
+      dropdownOpenModalTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        hdrDropdown?.classList.remove('open');
+        industryModal.classList.add('active');
+      });
+    }
+
+    if (btnCloseSelectorModal && industryModal) {
+      btnCloseSelectorModal.addEventListener('click', () => {
+        industryModal.classList.remove('active');
+      });
+    }
+
+    // Close modal when clicking on the blurred backdrop outside the dialog
+    if (industryModal) {
+      industryModal.addEventListener('click', (e) => {
+        if (e.target === industryModal) {
+          industryModal.classList.remove('active');
+        }
+      });
+    }
+
+    // Persist industry selection when navigating from modal or cards
+    document.querySelectorAll('.selector-industry-card, .domain-card-link').forEach(card => {
+      card.addEventListener('click', () => {
+        try {
+          sessionStorage.setItem('haulitz_industry_selected', 'true');
+        } catch (e) {}
+      });
+    });
+
+    // Auth Gate Form Submission with Remember Me
+    const authForm = document.getElementById('auth-gate-form');
+    const authModal = document.getElementById('auth-gate-modal');
+    if (authForm) {
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const rememberCheckbox = document.getElementById('auth-remember-checkbox');
+        const isRemembered = rememberCheckbox ? rememberCheckbox.checked : false;
+
+        try {
+          if (isRemembered) {
+            localStorage.setItem('haulitz_remember_me', 'true');
+            localStorage.setItem('haulitz_auth', 'true');
+          } else {
+            localStorage.removeItem('haulitz_remember_me');
+            localStorage.removeItem('haulitz_auth');
+            sessionStorage.setItem('haulitz_auth', 'true');
+          }
+        } catch (err) {}
+
+        if (authModal) authModal.classList.remove('active');
+        if (industryModal) industryModal.classList.add('active');
+
+        showToast(state.currentLang === 'de' 
+          ? 'Erfolgreich angemeldet. Bitte wählen Sie Ihren Industrie-Workspace.' 
+          : 'Successfully signed in. Please select your industry workspace.'
+        );
+      });
+    }
   }
 
   function updateThemeUI() {
     const isDark = state.currentTheme === 'dark';
     const dict = i18n[state.currentLang] || i18n.de;
-    if (DOM.themeIcon) DOM.themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-    if (DOM.themeText) DOM.themeText.textContent = isDark ? dict.themeLight : dict.themeDark;
+    if (DOM.themeIcon) DOM.themeIcon.className = isDark ? 'fa-solid fa-moon text-emerald' : 'fa-solid fa-sun text-emerald';
+    if (DOM.themeText) DOM.themeText.textContent = isDark ? dict.themeDark : dict.themeLight;
+    if (DOM.themeToggleBtn) {
+      DOM.themeToggleBtn.setAttribute('title', isDark 
+        ? (state.currentLang === 'de' ? 'Zu hellem Modus wechseln' : 'Switch to light mode')
+        : (state.currentLang === 'de' ? 'Zu dunklem Modus wechseln' : 'Switch to dark mode')
+      );
+    }
   }
 
   function applyLanguageUI() {
@@ -1427,12 +1582,90 @@
     if (DOM.btnCommitText) DOM.btnCommitText.textContent = dict.commitBtn;
     if (DOM.btnDispatchDisputeText) DOM.btnDispatchDisputeText.textContent = dict.dispatchBtn;
 
+    // Helper functions for updating element contents
+    const setElemText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    const setElemHTML = (id, html) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = html;
+    };
+
+    // Tab 1: Product Showcase & Founder Section
+    setElemText('label-workspaces-banner-tag', dict.workspacesBannerTag);
+    setElemText('label-workspaces-banner-title', dict.workspacesBannerTitle);
+    setElemText('label-workspaces-banner-desc', dict.workspacesBannerDesc);
+    setElemText('btn-launch-workspaces-text', dict.btnLaunchWorkspaces);
+    setElemText('label-what-is-tag', dict.whatIsTag);
+    setElemText('label-what-is-title', dict.whatIsTitle);
+    setElemHTML('label-what-is-p1', dict.whatIsP1);
+    setElemHTML('label-what-is-p2', dict.whatIsP2);
+    setElemText('pillar-1-title', dict.pillar1Title);
+    setElemText('pillar-1-desc', dict.pillar1Desc);
+    setElemText('pillar-2-title', dict.pillar2Title);
+    setElemText('pillar-2-desc', dict.pillar2Desc);
+    setElemText('pillar-3-title', dict.pillar3Title);
+    setElemText('pillar-3-desc', dict.pillar3Desc);
+
+    setElemText('label-founder-tag', dict.founderTag);
+    setElemText('label-founder-role', dict.founderRole);
+    setElemHTML('label-founder-bio', dict.founderBio);
+    setElemHTML('label-founder-bio2', dict.founderBio2);
+
+    // Auth Gate & Industry Selector Modals
+    setElemText('auth-gate-title', dict.authTitle);
+    setElemText('auth-gate-sub', dict.authSub);
+    setElemText('auth-remember-label', dict.authRemember);
+    setElemText('btn-auth-text', dict.authBtn);
+
+    setElemText('selector-modal-title', dict.selectorTitle);
+    setElemText('selector-modal-sub', dict.selectorSub);
+    setElemText('hdr-industry-dropdown-label', dict.hdrDropdownLabel);
+    setElemText('label-dropdown-modal-open', dict.hdrDropdownModal);
+
     updateThemeUI();
     updateScenarioButtonLabels();
   }
 
-  // Master Initialization
-  window.addEventListener('DOMContentLoaded', () => {
+  /**
+   * 16. Authentication & Industry Gate Controller
+   */
+  function checkAuthAndIndustryGate() {
+    let rememberMe = false;
+    let hasLocalAuth = false;
+    let hasSessionAuth = false;
+    let hasPickedIndustry = false;
+
+    try {
+      rememberMe = localStorage.getItem('haulitz_remember_me') === 'true';
+      hasLocalAuth = localStorage.getItem('haulitz_auth') === 'true';
+      hasSessionAuth = sessionStorage.getItem('haulitz_auth') === 'true';
+      hasPickedIndustry = sessionStorage.getItem('haulitz_industry_selected') === 'true';
+    } catch (e) {}
+
+    const isAuthenticated = (rememberMe && hasLocalAuth) || hasSessionAuth;
+
+    const authModal = document.getElementById('auth-gate-modal');
+    const industryModal = document.getElementById('industry-selector-modal');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceShowSelector = urlParams.get('select_industry') === 'true';
+
+    if (!isAuthenticated) {
+      if (authModal) authModal.classList.add('active');
+      if (industryModal) industryModal.classList.remove('active');
+    } else if (!hasPickedIndustry || forceShowSelector) {
+      if (authModal) authModal.classList.remove('active');
+      if (industryModal) industryModal.classList.add('active');
+    } else {
+      if (authModal) authModal.classList.remove('active');
+      if (industryModal) industryModal.classList.remove('active');
+    }
+  }
+
+  // Master Initialization Engine
+  function boot() {
     initDOMElements();
     initLenis();
     initClerk();
@@ -1444,6 +1677,13 @@
     runVerification();
     fetchFrankfurtPing();
     fetchLedgerStats();
-  });
+    checkAuthAndIndustryGate();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
 
 })();

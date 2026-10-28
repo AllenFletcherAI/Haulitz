@@ -1380,3 +1380,665 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* --------------------------------------------------------------------------
+   16. Modal Blur Overlays & Industry Selector System
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(7, 8, 10, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-theme="light"] .modal-overlay {
+  background: rgba(248, 250, 252, 0.85);
+}
+
+.modal-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-glow);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+[data-theme="light"] .modal-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.modal-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-emerald-bg);
+  border: 1px solid var(--color-emerald-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-emerald);
+  font-size: 1.25rem;
+}
+
+.modal-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.5px;
+}
+
+.modal-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+.btn-close-modal {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+}
+
+.btn-close-modal:hover {
+  color: var(--color-text-main);
+  border-color: var(--color-border-light);
+  background: var(--color-surface-hover);
+}
+
+/* --------------------------------------------------------------------------
+   17. Authentication Gate Modal with "Remember Me"
+   -------------------------------------------------------------------------- */
+.auth-gate-card {
+  max-width: 460px;
+  text-align: center;
+  padding: 2.5rem 2.25rem;
+}
+
+.auth-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #07080a;
+  font-size: 1.4rem;
+  font-weight: 900;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.auth-input-group label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
+  font-size: 0.88rem;
+  font-family: var(--font-sans);
+  transition: var(--transition-fast);
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: var(--color-emerald);
+  box-shadow: 0 0 0 2px var(--color-emerald-glow);
+}
+
+[data-theme="light"] .auth-input {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.auth-remember-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--color-text-main);
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-remember-row input[type="checkbox"] {
+  accent-color: var(--color-emerald);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.btn-auth-submit {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #07080a;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+  transition: var(--transition-fast);
+}
+
+.btn-auth-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(16, 185, 129, 0.5);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+  font-size: 0.74rem;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-divider::before, .auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   18. Industry Selector Grid Inside Blurred Modal
+   -------------------------------------------------------------------------- */
+.selector-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .selector-modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.selector-industry-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-fast);
+}
+
+.selector-industry-card:hover {
+  border-color: var(--color-emerald-border);
+  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
+}
+
+[data-theme="light"] .selector-industry-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .selector-industry-card:hover {
+  background: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+}
+
+.selector-num-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--color-emerald);
+  background: var(--color-emerald-bg);
+  border: 1px solid var(--color-emerald-border);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.selector-card-body h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.25rem;
+}
+
+.selector-card-body p {
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+
+.selector-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.45rem;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--color-blue);
+}
+
+/* --------------------------------------------------------------------------
+   19. Header Industry Switcher Dropdown (Optimal Placement on All Pages)
+   -------------------------------------------------------------------------- */
+.industry-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.industry-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.industry-dropdown-btn:hover {
+  border-color: var(--color-border-glow);
+  background: var(--color-surface-hover);
+}
+
+[data-theme="light"] .industry-dropdown-btn {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.industry-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 290px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-glow);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: none;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.industry-dropdown-container.open .industry-dropdown-menu {
+  display: block;
+}
+
+[data-theme="light"] .industry-dropdown-menu {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.15);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.dropdown-item:hover, .dropdown-item.active {
+  background: var(--color-surface-hover);
+  color: var(--color-emerald);
+}
+
+[data-theme="light"] .dropdown-item:hover,
+[data-theme="light"] .dropdown-item.active {
+  background: #f1f5f9;
+  color: #059669;
+}
+
+.dropdown-item-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 0.4rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   20. Founder Showcase & "What is Haulitz" Layouts
+   -------------------------------------------------------------------------- */
+.founder-overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 1rem;
+}
+
+.about-haulitz-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="light"] .about-haulitz-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.about-lead-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--color-text-main);
+  letter-spacing: -0.5px;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pillar-item {
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  transition: var(--transition-fast);
+}
+
+[data-theme="light"] .pillar-item {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.pillar-item:hover {
+  border-color: var(--color-emerald-border);
+  transform: translateY(-2px);
+}
+
+.pillar-icon {
+  font-size: 1.35rem;
+  color: var(--color-emerald);
+  margin-bottom: 0.75rem;
+}
+
+.pillar-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.35rem;
+}
+
+.pillar-desc {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* Founder Showcase Card */
+.founder-card {
+  background: linear-gradient(145deg, var(--color-surface) 0%, var(--color-surface-subtle) 100%);
+  border: 1px solid var(--color-border-glow);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+[data-theme="light"] .founder-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.1);
+}
+
+@media (max-width: 850px) {
+  .founder-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.5rem;
+  }
+}
+
+.founder-photo-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+}
+
+.founder-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--color-emerald);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
+}
+
+.founder-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.founder-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-emerald);
+  background: var(--color-emerald-bg);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-emerald-border);
+  align-self: flex-start;
+}
+
+@media (max-width: 850px) {
+  .founder-tag {
+    align-self: center;
+  }
+}
+
+.founder-name {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: var(--color-text-main);
+  letter-spacing: -0.5px;
+}
+
+.founder-role {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-blue);
+}
+
+.founder-bio {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.founder-links-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 850px) {
+  .founder-links-row {
+    justify-content: center;
+  }
+}
+
+.founder-contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.founder-contact-pill:hover {
+  border-color: var(--color-emerald);
+  color: var(--color-emerald);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .founder-contact-pill {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* Call to Action Button to Open Industry Modal */
+.btn-launch-workspaces {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.95rem 1.85rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #07080a;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
+  transition: var(--transition-fast);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-launch-workspaces:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(16, 185, 129, 0.55);
+}
+

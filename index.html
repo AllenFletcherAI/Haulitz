@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=3.0">
+  <link rel="stylesheet" href="css/styles.css?v=3.2">
 
   <!-- Lenis Smooth Inertial Scroll CDN -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -28,15 +28,21 @@
   <!-- Clerk Authentication Web SDK -->
   <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_YXB0LWxlb3BhcmQtMTc0Ny5jbGVyay5hY2NvdW50cy5kZXYk" src="https://apt-leopard-1747.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"></script>
 
-  <!-- Theme Hydration: Strict Obsidian Darkroom Default -->
+  <!-- Instantaneous Theme & Language Hydration: Zero Flash -->
   <script>
     (function() {
       try {
-        const savedTheme = localStorage.getItem('haulitz_theme');
+        var savedTheme = localStorage.getItem('haulitz_theme');
+        var savedLang = localStorage.getItem('haulitz_lang');
         if (savedTheme === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
         } else {
           document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if (savedLang === 'en') {
+          document.documentElement.setAttribute('lang', 'en');
+        } else {
+          document.documentElement.setAttribute('lang', 'de');
         }
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -48,15 +54,38 @@
 
   <!-- Top Executive Navigation Bar -->
   <header class="header-bar">
-    <div class="brand-wrapper">
+    <a href="index.html" class="brand-wrapper" style="text-decoration:none; color:inherit;">
       <div class="brand-badge">HZ</div>
       <div>
         <span class="brand-name">HAULITZ</span>
         <span class="brand-subtitle">Enterprise Verification Gateway</span>
       </div>
-    </div>
+    </a>
 
     <div class="header-controls">
+      <!-- Optimal Header Industry Switcher Dropdown -->
+      <div class="industry-dropdown-container" id="hdr-industry-dropdown">
+        <button class="industry-dropdown-btn" id="hdr-industry-dropdown-btn" aria-label="Select industry workspace">
+          <i class="fa-solid fa-layer-group text-emerald"></i>
+          <span id="hdr-industry-dropdown-label">Workspaces (10)</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:0.65rem; margin-left:2px;"></i>
+        </button>
+        <div class="industry-dropdown-menu" id="hdr-industry-dropdown-menu">
+          <a href="fintech.html" class="dropdown-item"><span class="dropdown-item-num">01</span> <i class="fa-solid fa-file-invoice-dollar"></i> FinTech &amp; Invoicing</a>
+          <a href="logistics.html" class="dropdown-item"><span class="dropdown-item-num">02</span> <i class="fa-solid fa-ship"></i> Freight &amp; Maritime</a>
+          <a href="supply-chain.html" class="dropdown-item"><span class="dropdown-item-num">03</span> <i class="fa-solid fa-industry"></i> Supply Chain Triad</a>
+          <a href="insurtech.html" class="dropdown-item"><span class="dropdown-item-num">04</span> <i class="fa-solid fa-shield-halved"></i> InsurTech Claims</a>
+          <a href="legaltech.html" class="dropdown-item"><span class="dropdown-item-num">05</span> <i class="fa-solid fa-scale-balanced"></i> LegalTech (LkSG)</a>
+          <a href="healthtech.html" class="dropdown-item"><span class="dropdown-item-num">06</span> <i class="fa-solid fa-hospital-user"></i> HealthTech (GOÄ)</a>
+          <a href="ecommerce.html" class="dropdown-item"><span class="dropdown-item-num">07</span> <i class="fa-solid fa-cart-shopping"></i> E-Commerce WMS</a>
+          <a href="cleantech.html" class="dropdown-item"><span class="dropdown-item-num">08</span> <i class="fa-solid fa-bolt"></i> CleanTech Solar</a>
+          <a href="proptech.html" class="dropdown-item"><span class="dropdown-item-num">09</span> <i class="fa-solid fa-building"></i> PropTech Real Estate</a>
+          <a href="erp-staging.html" class="dropdown-item"><span class="dropdown-item-num">10</span> <i class="fa-solid fa-database"></i> ERP Staging Armor</a>
+          <div class="dropdown-divider"></div>
+          <a href="#" id="dropdown-open-modal-trigger" class="dropdown-item text-emerald"><i class="fa-solid fa-table-cells"></i> <span id="label-dropdown-modal-open">Vollbild-Auswahl öffnen...</span></a>
+        </div>
+      </div>
+
       <!-- Live Frankfurt Database Latency Beacon -->
       <div class="live-beacon">
         <span class="beacon-dot"></span>
@@ -77,7 +106,7 @@
 
       <!-- Language Switcher (DE / EN) -->
       <button id="lang-toggle-btn" class="lang-pill-btn" aria-label="Sprache umschalten / Toggle language">
-        <i class="fa-solid fa-globe"></i> <span id="lang-btn-text">DE | EN</span>
+        <i class="fa-solid fa-globe"></i> <span id="lang-btn-text">DE</span>
       </button>
     </div>
   </header>
@@ -86,9 +115,9 @@
   <nav class="master-tab-bar" aria-label="Master Navigation">
     <div class="tab-bar-container">
       <button class="nav-tab-btn active" id="tab-btn-cockpit" data-tab="cockpit">
-        <i class="fa-solid fa-layer-group"></i>
-        <span id="tab-text-cockpit">1. 10 Industrie-Workspaces</span>
-        <span class="tab-pill-badge" id="tab-pill-cockpit">Deterministisch</span>
+        <i class="fa-solid fa-compass"></i>
+        <span id="tab-text-cockpit">1. Über Haulitz &amp; Gründer</span>
+        <span class="tab-pill-badge" id="tab-pill-cockpit">Architektur</span>
       </button>
       <button class="nav-tab-btn" id="tab-btn-portal" data-tab="portal">
         <i class="fa-solid fa-database"></i>
@@ -150,20 +179,110 @@
   <main class="main-container">
     
     <!-- ====================================================================
-         TAB 1: 10 DEDICATED DOMAIN WORKSPACES (The 10 Direct Links)
+         TAB 1: FOUNDER & PRODUCT SHOWCASE (WHAT HAULITZ IS & WHO ALLEN IS)
          ==================================================================== -->
     <section class="tab-pane active" id="tab-cockpit">
       
-      <!-- Domain Direct Links Grid -->
-      <div class="section-heading-bar">
+      <!-- Top Action Launchpad: Direct Access to 10 Industry Workspaces -->
+      <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.08) 100%); border: 1px solid var(--color-emerald-border); border-radius: var(--radius-lg); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem;">
         <div>
-          <h2 class="section-title" id="domain-section-title"><i class="fa-solid fa-network-wired"></i> 10 Dedizierte Industrie-Workspaces</h2>
-          <p class="section-desc" id="domain-section-desc">Direkter Zugriff auf authentische Dokumentenprüfungen mit revisionssicherer GoBD-Versiegelung</p>
+          <div style="font-size: 0.72rem; font-weight: 800; color: var(--color-emerald); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.35rem;">
+            <i class="fa-solid fa-network-wired"></i> <span id="label-workspaces-banner-tag">10 Dedizierte Industrie-Workspaces</span>
+          </div>
+          <h2 style="font-size: 1.35rem; font-weight: 900; color: var(--color-text-main); letter-spacing: -0.5px; margin: 0 0 0.35rem 0;" id="label-workspaces-banner-title">
+            Rechtssichere Belegprüfung für Ihre Branche
+          </h2>
+          <p style="font-size: 0.82rem; color: var(--color-text-muted); margin: 0; max-width: 650px;" id="label-workspaces-banner-desc">
+            Wählen Sie Ihren Zielbereich für die deterministische Validierung von Rechnungen, Frachtbriefen, LkSG-Zertifikaten und ERP-Payloads mit GoBD § 147 AO Prüfsiegel.
+          </p>
+        </div>
+        <div>
+          <button class="btn-launch-workspaces" id="btn-open-industry-modal">
+            <i class="fa-solid fa-layer-group"></i>
+            <span id="btn-launch-workspaces-text">Industrie-Workspace auswählen (10 Branchen) &rarr;</span>
+          </button>
         </div>
       </div>
 
-      <div class="domain-grid" id="domain-grid-container">
-        <!-- Populated dynamically with deep links (#fintech, #logistics, etc.) -->
+      <div class="founder-overview-section">
+        
+        <!-- Section 1: What is Haulitz? -->
+        <div class="about-haulitz-card">
+          <div class="about-header">
+            <div>
+              <div class="hero-pill-tag" style="margin-bottom:0.6rem;">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span id="label-what-is-tag">Architektur &amp; Funktionsweise</span>
+              </div>
+              <h2 class="about-lead-title" id="label-what-is-title">Was ist HAULITZ?</h2>
+            </div>
+            <div class="rule-badge pass font-mono-code" style="padding: 0.4rem 0.85rem; font-size: 0.76rem;">
+              <i class="fa-solid fa-check-double"></i> 0% Halluzinationen
+            </div>
+          </div>
+
+          <p style="font-size: 0.88rem; line-height: 1.65; color: var(--color-text-muted);" id="label-what-is-p1">
+            HAULITZ ist eine <strong style="color:var(--color-text-main);">deterministische Verifizierungs-Schutzschranke</strong> für unternehmensweite ERP-Systeme (SAP S/4HANA, Microsoft Dynamics 365, Oracle Cloud ERP). In einer Zeit, in der Unternehmen zunehmend auf generative KI und probabilistische LLMs zur Dokumentenerfassung setzen, entstehen gravierende finanzielle und rechtliche Risiken: Sprachmodelle halluzinieren Vorsteuer-Rechenschritte (§ 14 UStG), übersehen fehlerhafte Container-Prüfziffern (ISO 6346) und akzeptieren unbemerkt Lieferanten-Kurzlieferungen oder Preisaufschläge (HGB § 377).
+          </p>
+          <p style="font-size: 0.88rem; line-height: 1.65; color: var(--color-text-muted);" id="label-what-is-p2">
+            HAULITZ schaltet sich als kompromisslose mathematische Firewall vor das ERP-Staging. Jeder Beleg wird auf den Cent genau geprüft, gegen geltendes deutsches und europäisches Handelsrecht abgeglichen und mit einer unveränderlichen GoBD § 147 AO SHA-256 Hash-Kette in unserer Frankfurter Datenbank (AWS eu-central-1) revisionssicher versiegelt.
+          </p>
+
+          <!-- 3 Architectural Pillars -->
+          <div class="pillars-grid">
+            <div class="pillar-item">
+              <i class="fa-solid fa-calculator pillar-icon"></i>
+              <div class="pillar-title" id="pillar-1-title">Deterministische Präzision</div>
+              <div class="pillar-desc" id="pillar-1-desc">Keine probabilistischen Schätzungen. Exakte Cent-Arithmetik, Modulo-97 (IBAN), Modulo-11 (ISO 6346) und Modulo-10 (GS1 EAN-13) Prüfziffernprüfungen.</div>
+            </div>
+            <div class="pillar-item">
+              <i class="fa-solid fa-fingerprint pillar-icon"></i>
+              <div class="pillar-title" id="pillar-2-title">GoBD § 147 AO Hash-Kette</div>
+              <div class="pillar-desc" id="pillar-2-desc">Jeder Prüflauf wird kryptografisch mit dem vorherigen Siegel verknüpft und unveränderbar in Frankfurt auf AWS eu-central-1 festgeschrieben.</div>
+            </div>
+            <div class="pillar-item">
+              <i class="fa-solid fa-shield-virus pillar-icon"></i>
+              <div class="pillar-title" id="pillar-3-title">Staging Armor für SAP</div>
+              <div class="pillar-desc" id="pillar-3-desc">Automatische Quarantäne fehlerhafter Datensätze, Abwehr von SQL-Injections (OWASP ASVS) und sofortige Erstellung gesetzlicher Mängelrügen per Resend.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Who is Allen Simeon Fletcher? -->
+        <div class="founder-card">
+          <div class="founder-photo-wrap">
+            <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Founder & Lead Systems Architect" class="founder-photo">
+          </div>
+          
+          <div class="founder-details">
+            <div class="founder-tag">
+              <i class="fa-solid fa-crown text-emerald"></i> <span id="label-founder-tag">Gründer &amp; Lead Systems Architect</span>
+            </div>
+            
+            <h2 class="founder-name">Allen Simeon Fletcher</h2>
+            <div class="founder-role" id="label-founder-role">Senior Systems Architect &bull; AI Verification Engineer</div>
+            
+            <p class="founder-bio" id="label-founder-bio">
+              Allen Simeon Fletcher entwickelte HAULITZ aus einer klaren Ingenieursdisziplin: <em>"Defend What You Ship"</em>. Nach eingehender Analyse der Risiken beim produktiven Einsatz generativer KI im Finanz- und Logistiksektor entwarf er eine deterministische Verifizierungsarchitektur, die Zuverlässigkeit, Sicherheit und Gesetzeskonformität vor oberflächliche KI-Versprechungen stellt.
+            </p>
+            <p class="founder-bio" id="label-founder-bio2" style="margin-top:-0.25rem;">
+              Mit Fokus auf hochperformante verteilte Systeme, Cloudflare Edge Worker und revisionssichere Datenbankstrukturen auf AWS eu-central-1 stellt er sicher, dass Enterprise-Workflows vollständig gegen fehlerhafte Datenströme, Standgelder und Steuerstrafen geschützt sind.
+            </p>
+
+            <div class="founder-links-row">
+              <a href="mailto:allensimeonfletcher@gmail.com" class="founder-contact-pill">
+                <i class="fa-solid fa-envelope text-emerald"></i> <span>allensimeonfletcher@gmail.com</span>
+              </a>
+              <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="founder-contact-pill">
+                <i class="fa-brands fa-github text-emerald"></i> <span>github.com/AllenFletcherAI/Haulitz</span>
+              </a>
+              <div class="founder-contact-pill" style="cursor:default;">
+                <i class="fa-solid fa-server text-emerald"></i> <span>Frankfurt AWS eu-central-1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </section>
@@ -374,6 +493,153 @@ public class HaulitzVerificationGateway
   <div class="toast-notification" id="toast-notification">
     <i class="fa-solid fa-circle-check text-emerald" id="toast-icon"></i>
     <span id="toast-message">Meldung erfolgreich gesendet</span>
+  </div>
+
+  <!-- ====================================================================
+       AUTHENTICATION GATE MODAL (WITH REMEMBER ME)
+       ==================================================================== -->
+  <div class="modal-overlay" id="auth-gate-modal">
+    <div class="modal-card auth-gate-card">
+      <div class="auth-brand-logo">HZ</div>
+      <h2 style="font-size:1.4rem; font-weight:900; color:var(--color-text-main); margin-bottom:0.25rem;" id="auth-modal-title">
+        Enterprise Gateway Sign-In
+      </h2>
+      <p style="font-size:0.8rem; color:var(--color-text-muted);" id="auth-modal-subtitle">
+        Geschützter Zugang für revisionssichere ERP-Validierung
+      </p>
+
+      <form class="auth-form" id="auth-gate-form">
+        <div class="auth-input-group">
+          <label for="auth-email-input" id="auth-label-email">Unternehmens-E-Mail / Identität</label>
+          <input type="email" id="auth-email-input" class="auth-input" value="allensimeonfletcher@gmail.com" required autocomplete="email" />
+        </div>
+        <div class="auth-input-group">
+          <label for="auth-key-input" id="auth-label-key">Enterprise Key / Terminal-PIN</label>
+          <input type="password" id="auth-key-input" class="auth-input" value="••••••••••••••••" required />
+        </div>
+        <label class="auth-remember-row" id="auth-label-remember">
+          <input type="checkbox" id="auth-remember-checkbox" checked />
+          <span>Auf diesem Gerät angemeldet bleiben (Remember Me)</span>
+        </label>
+        <button type="submit" class="btn-auth-submit" id="btn-auth-submit-gate">
+          <i class="fa-solid fa-lock-open"></i> <span id="auth-btn-text">Gateway freischalten &rarr;</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       BLURRED BACKGROUND INDUSTRY SELECTION MODAL (THE 10 WORKSPACES)
+       ==================================================================== -->
+  <div class="modal-overlay" id="industry-selector-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div>
+            <h2 class="modal-title" id="selector-modal-title">Industrie-Workspace auswählen</h2>
+            <div class="modal-subtitle" id="selector-modal-subtitle">Wählen Sie Ihre Branche für deterministische Belegprüfungen und GoBD-Versiegelung</div>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btn-close-selector-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="selector-modal-grid">
+        <a href="fintech.html" class="selector-industry-card" data-domain="fintech">
+          <div class="selector-num-badge">01</div>
+          <div class="selector-card-body">
+            <h4>FinTech &amp; Corporate Invoicing</h4>
+            <p id="sel-desc-fintech">Eingangsrechnungen, Vorsteuer-Rechenschranken und SEPA Modulo-97 IBAN-Prüfung.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-scale-balanced"></i> § 14 UStG, GoBD § 147 AO</div>
+          </div>
+        </a>
+
+        <a href="logistics.html" class="selector-industry-card" data-domain="logistics">
+          <div class="selector-num-badge">02</div>
+          <div class="selector-card-body">
+            <h4>Freight &amp; Maritime Logistics</h4>
+            <p id="sel-desc-logistics">Ocean Bill of Lading, ISO 6346 Container-Prüfziffern und § 412 HGB Massenplausibilität.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-ship"></i> ADSp 2017, § 412 HGB</div>
+          </div>
+        </a>
+
+        <a href="supply-chain.html" class="selector-industry-card" data-domain="supply">
+          <div class="selector-num-badge">03</div>
+          <div class="selector-card-body">
+            <h4>Supply Chain &amp; Manufacturing</h4>
+            <p id="sel-desc-supply">3-Wege-Revisionsabgleich: Bestellung, Lieferschein und Rechnung nach HGB § 377.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-industry"></i> HGB § 377 Rügeobliegenheit</div>
+          </div>
+        </a>
+
+        <a href="insurtech.html" class="selector-industry-card" data-domain="insurtech">
+          <div class="selector-num-badge">04</div>
+          <div class="selector-card-body">
+            <h4>InsurTech &amp; Claims Processing</h4>
+            <p id="sel-desc-insurtech">Werkstattrechnungen, Stundensatz-Benchmark-Caps und Selbstbeteiligungs-Prüfung.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-shield-halved"></i> VVG § 86, BGB § 249</div>
+          </div>
+        </a>
+
+        <a href="legaltech.html" class="selector-industry-card" data-domain="legaltech">
+          <div class="selector-num-badge">05</div>
+          <div class="selector-card-body">
+            <h4>LegalTech &amp; Regulatory Contracts</h4>
+            <p id="sel-desc-legaltech">Lieferkettensorgfaltspflicht (LkSG § 4–§ 7) und ISO 14001 ESG-Zertifikatsvalidierung.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD</div>
+          </div>
+        </a>
+
+        <a href="healthtech.html" class="selector-industry-card" data-domain="healthtech">
+          <div class="selector-num-badge">06</div>
+          <div class="selector-card-body">
+            <h4>HealthTech &amp; Medical Admin</h4>
+            <p id="sel-desc-healthtech">Privatärztliche GOÄ-Liquidationen, 2,3x/3,5x Gebührenrahmen und Ziffernausschluss.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-hospital-user"></i> GOÄ § 5 Abs. 2</div>
+          </div>
+        </a>
+
+        <a href="ecommerce.html" class="selector-industry-card" data-domain="ecommerce">
+          <div class="selector-num-badge">07</div>
+          <div class="selector-card-body">
+            <h4>E-Commerce &amp; Retail Operations</h4>
+            <p id="sel-desc-ecommerce">GS1 EAN-13 Modulo-10 Barcode-Prüfung und EZB-Referenz-Währungsumrechnung.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-cart-shopping"></i> GS1 Standard, HS 8471.30</div>
+          </div>
+        </a>
+
+        <a href="cleantech.html" class="selector-industry-card" data-domain="cleantech">
+          <div class="selector-num-badge">08</div>
+          <div class="selector-card-body">
+            <h4>CleanTech &amp; Renewable Energy</h4>
+            <p id="sel-desc-cleantech">PV-Netzanschlussprüfung, Wechselrichter-Ceiling und VDE-AR-N 4105 Einspeisekonformität.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-bolt"></i> VDE-AR-N 4105, EEG § 9</div>
+          </div>
+        </a>
+
+        <a href="proptech.html" class="selector-industry-card" data-domain="proptech">
+          <div class="selector-num-badge">09</div>
+          <div class="selector-card-body">
+            <h4>PropTech &amp; Real Estate</h4>
+            <p id="sel-desc-proptech">Heizkostenabrechnung, gesetzlicher 70/30 Verteilerschlüssel und Kürzungsrechte.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-building"></i> HeizkostenV § 7 &amp; § 12</div>
+          </div>
+        </a>
+
+        <a href="erp-staging.html" class="selector-industry-card" data-domain="erp">
+          <div class="selector-num-badge">10</div>
+          <div class="selector-card-body">
+            <h4>Enterprise ERP &amp; IT Consulting</h4>
+            <p id="sel-desc-erp">Parametrisierte T-SQL-Säuberung, OWASP ASVS Schutz vor Injection und C# .NET 8 SDK.</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-database"></i> BSI IT-Grundschutz, OWASP</div>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- Master JavaScript Application Engine -->

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=3.1">
+  <link rel="stylesheet" href="css/styles.css?v=3.2">
 
   <!-- Lenis Smooth Inertial Scroll CDN -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -25,15 +25,21 @@
   <!-- Clerk Authentication Web SDK -->
   <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_YXB0LWxlb3BhcmQtMTc0Ny5jbGVyay5hY2NvdW50cy5kZXYk" src="https://apt-leopard-1747.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"></script>
 
-  <!-- Theme Hydration -->
+  <!-- Instantaneous Theme & Language Hydration: Zero Flash -->
   <script>
     (function() {
       try {
-        const savedTheme = localStorage.getItem('haulitz_theme');
+        var savedTheme = localStorage.getItem('haulitz_theme');
+        var savedLang = localStorage.getItem('haulitz_lang');
         if (savedTheme === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
         } else {
           document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if (savedLang === 'en') {
+          document.documentElement.setAttribute('lang', 'en');
+        } else {
+          document.documentElement.setAttribute('lang', 'de');
         }
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -46,13 +52,38 @@
   <!-- Global Header Bar -->
   <header class="header-bar">
     <div class="brand-wrapper">
-      <div class="brand-badge">HZ</div>
+      <a href="index.html" style="text-decoration:none; display:flex; align-items:center;">
+        <div class="brand-badge">HZ</div>
+      </a>
       <a href="index.html" class="back-gateway-link" id="back-link">
         <i class="fa-solid fa-arrow-left"></i> Zurück zum Haulitz Gateway
       </a>
     </div>
 
     <div class="header-controls">
+      <!-- Optimal Header Industry Switcher Dropdown -->
+      <div class="industry-dropdown-container" id="hdr-industry-dropdown">
+        <button class="industry-dropdown-btn" id="hdr-industry-dropdown-btn" aria-label="Select industry workspace">
+          <i class="fa-solid fa-layer-group text-emerald"></i>
+          <span id="hdr-industry-dropdown-label">Workspaces (10)</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:0.65rem; margin-left:2px;"></i>
+        </button>
+        <div class="industry-dropdown-menu" id="hdr-industry-dropdown-menu">
+          <a href="fintech.html" class="dropdown-item "><span class="dropdown-item-num">01</span> <i class="fa-solid fa-file-invoice-dollar"></i> FinTech &amp; Invoicing</a>
+          <a href="logistics.html" class="dropdown-item "><span class="dropdown-item-num">02</span> <i class="fa-solid fa-ship"></i> Freight &amp; Maritime</a>
+          <a href="supply-chain.html" class="dropdown-item "><span class="dropdown-item-num">03</span> <i class="fa-solid fa-industry"></i> Supply Chain Triad</a>
+          <a href="insurtech.html" class="dropdown-item "><span class="dropdown-item-num">04</span> <i class="fa-solid fa-shield-halved"></i> InsurTech Claims</a>
+          <a href="legaltech.html" class="dropdown-item "><span class="dropdown-item-num">05</span> <i class="fa-solid fa-scale-balanced"></i> LegalTech (LkSG)</a>
+          <a href="healthtech.html" class="dropdown-item "><span class="dropdown-item-num">06</span> <i class="fa-solid fa-hospital-user"></i> HealthTech (GOÄ)</a>
+          <a href="ecommerce.html" class="dropdown-item "><span class="dropdown-item-num">07</span> <i class="fa-solid fa-cart-shopping"></i> E-Commerce WMS</a>
+          <a href="cleantech.html" class="dropdown-item active"><span class="dropdown-item-num">08</span> <i class="fa-solid fa-bolt"></i> CleanTech Solar</a>
+          <a href="proptech.html" class="dropdown-item "><span class="dropdown-item-num">09</span> <i class="fa-solid fa-building"></i> PropTech Real Estate</a>
+          <a href="erp-staging.html" class="dropdown-item "><span class="dropdown-item-num">10</span> <i class="fa-solid fa-database"></i> ERP Staging Armor</a>
+          <div class="dropdown-divider"></div>
+          <a href="index.html?select_industry=true" class="dropdown-item text-emerald"><i class="fa-solid fa-table-cells"></i> <span id="label-dropdown-modal-open">Vollbild-Auswahl öffnen...</span></a>
+        </div>
+      </div>
+
       <!-- Live Frankfurt Database Latency Beacon -->
       <div class="live-beacon">
         <span class="beacon-dot"></span>
@@ -68,7 +99,7 @@
 
       <!-- Theme Switcher -->
       <button id="theme-toggle-btn" class="lang-pill-btn" aria-label="Toggle dark/light theme">
-        <i class="fa-solid fa-moon" id="theme-icon"></i> <span id="theme-text">Dunkel</span>
+        <i class="fa-solid fa-moon text-emerald" id="theme-icon"></i> <span id="theme-text">Dunkel</span>
       </button>
 
       <!-- Language Switcher -->
@@ -227,6 +258,6 @@
   <script src="js/generators/sql_staging.js"></script>
   <script src="js/fixtures/cleantech_fixtures.js"></script>
   <script src="js/domains.js"></script>
-  <script src="js/domain_page.js?v=3.1"></script>
+  <script src="js/domain_page.js?v=3.2"></script>
 </body>
 </html>
