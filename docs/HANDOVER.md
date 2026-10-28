@@ -17,14 +17,20 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
     - Real-time edge-to-Frankfurt ping benchmark (<30ms roundtrip).
     - Real GoBD Ledger Block height pulled live from Frankfurt PostgreSQL.
     - Verified 100.0% Non-Hallucinatory Mathematical Proof SLA.
-- **The 10 Dedicated Link Directs**:
-  - Independent URL hash deep-linking (`/#fintech`, `/#logistics`, `/#supply`, `/#insurtech`, `/#legaltech`, `/#healthtech`, `/#ecommerce`, `/#cleantech`, `/#proptech`, `/#erp`).
-  - Physical Document Sheet Canvas for each domain (DIN 5008 German Invoice with fold marks, Ocean Bill of Lading with container checksums, 3-Way Triad reconciliation sheet).
-  - Real database commit button: `POST /api/audit` saves GoBD block to Frankfurt Neon DB.
-  - Real Resend dispute dispatch button: `POST /api/dispute` fires actual statutory notice to `allensimeonfletcher@gmail.com`.
+- **10 Dedicated Standalone Webpages (Fresh URL Routes)**:
+  - Created and deployed 10 dedicated standalone HTML pages in the root: `fintech.html`, `logistics.html`, `supply-chain.html`, `insurtech.html`, `legaltech.html`, `healthtech.html`, `ecommerce.html`, `cleantech.html`, `proptech.html`, `erp-staging.html`.
+  - Replaced anchor link auto-scrolling: Clicking any industry card in `index.html` navigates directly to that fresh dedicated webpage.
+  - Each dedicated page includes: `← Zurück zum Haulitz Gateway` breadcrumb, live Frankfurt ping beacon, Clerk Enterprise authentication, light/dark theme toggle, language switcher (DE/EN), authentic physical document canvas with dark slate ink, deterministic rule checklist, GoBD cryptographic seal commit, and Resend dispute dispatch.
+- **Fixed Light Mode Text Bleaching**:
+  - Overrode `.hud-title .gradient-text` in light mode to dark slate (`#0f172a`), eliminating invisible white text.
+  - Enforced crisp `#0f172a` ink for all physical document paper sheets with `#ffffff` background and dark borders (`#cbd5e1`).
+  - Added high-contrast styles for toast notifications, KPI cards, and code snippets in light mode.
+- **Fixed Language Toggle & Eliminated Hybrid Strings**:
+  - Standardized all UI text, rule descriptions, status banners, scenario buttons, ledger headers, and CFO memos according to `state.currentLang` ('de' or 'en').
+  - Removed all mixed German/English strings (e.g. English rule titles with German notes).
 - **Proof & Receipts**:
   - `verify_haulitz.js`: 30 / 30 deterministic test scenarios pass with 100% accuracy.
-  - Live Edge: `https://haulitz.allensimeonfletcher.workers.dev/` returns HTTP 200 (Length: 26,825 bytes).
+  - Live Edge: `https://haulitz.allensimeonfletcher.workers.dev/` and `/fintech`, `/logistics` return HTTP 200.
   - GitHub Push Protection: 0 secrets leaked, clean environment separation.
 
 ## 2. What We Are Working On Now
