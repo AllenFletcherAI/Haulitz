@@ -1,32 +1,39 @@
 /* ==========================================================================
-   HAULITZ ENTERPRISE GATEWAY DESIGN SYSTEM
+   HAULITZ ENTERPRISE GATEWAY DESIGN SYSTEM (v2.2)
    Standard: ASD-STE100 Simplified Technical English
-   Colorway: Prussian Navy (#0F2942), Light Slate Canvas (#F8FAFC)
-   Accents: Emerald Verified (#059669), Crimson Quarantine (#DC2626)
-   Aesthetic Standard: Linear / Stripe Corporate Enterprise Dignity
+   Palette: Prussian Navy (#0F2942), Light Slate Canvas (#F8FAFC)
+   Accents: Emerald (#059669), Crimson (#DC2626), Amber (#D97706)
+   Design Aesthetic: Linear / Stripe Corporate Enterprise Dignity
    ========================================================================== */
 
 :root {
   --color-canvas: #F8FAFC;
   --color-surface: #FFFFFF;
   --color-surface-subtle: #F1F5F9;
+  --color-surface-hover: #E2E8F0;
   --color-border: #E2E8F0;
   --color-border-dark: #CBD5E1;
+  
   --color-navy: #0F2942;
   --color-navy-dark: #0A1C2E;
   --color-navy-light: #1E3A8A;
+  
   --color-text-main: #0F172A;
   --color-text-muted: #475569;
   --color-text-light: #94A3B8;
+  
   --color-emerald: #059669;
   --color-emerald-bg: #ECFDF5;
   --color-emerald-border: #A7F3D0;
+  
   --color-crimson: #DC2626;
   --color-crimson-bg: #FEF2F2;
   --color-crimson-border: #FECACA;
+  
   --color-amber: #D97706;
   --color-amber-bg: #FFFBEB;
   --color-amber-border: #FDE68A;
+  
   --color-blue: #2563EB;
   --color-blue-bg: #EFF6FF;
 
@@ -36,21 +43,24 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
-  --shadow-paper: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-paper: 0 4px 20px -2px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.06);
 }
 
 /* ==========================================================================
-   DARK THEME PALETTE & OVERRIDES (Refined, no glowing neon effects)
+   DARK THEME PALETTE & OVERRIDES (Dignified Dark Workbench, Zero Neon Glow)
    ========================================================================== */
 [data-theme="dark"] {
   --color-canvas: #090E17;
   --color-surface: #0F172A;
   --color-surface-subtle: #162036;
+  --color-surface-hover: #1E293B;
   --color-border: #1E293B;
   --color-border-dark: #334155;
+  
   --color-navy: #1E3A8A;
   --color-navy-dark: #070D18;
   --color-navy-light: #60A5FA;
+  
   --color-text-main: #F8FAFC;
   --color-text-muted: #94A3B8;
   --color-text-light: #64748B;
@@ -62,7 +72,7 @@
   --color-amber-bg: #451A03;
   --color-amber-border: #78350F;
   --color-blue-bg: #172554;
-  --shadow-paper: 0 4px 24px -2px rgba(0, 0, 0, 0.5);
+  --shadow-paper: 0 4px 25px -2px rgba(0, 0, 0, 0.6);
 }
 
 *, *::before, *::after {
@@ -88,7 +98,7 @@ body {
 }
 
 /* ==========================================================================
-   TOP EXECUTIVE HEADER
+   TOP EXECUTIVE HEADER BAR
    ========================================================================== */
 .header-bar {
   background-color: var(--color-navy);
@@ -138,14 +148,14 @@ body {
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
 }
 
 .live-beacon {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: #34D399;
   background: rgba(5, 150, 105, 0.15);
@@ -190,32 +200,33 @@ body {
 }
 
 /* ==========================================================================
-   TOP-LEVEL 3-TAB NAVIGATION
+   MASTER TOP-LEVEL TAB BAR (Segmented Control Standard)
    ========================================================================== */
 .master-tab-bar {
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-  padding: 0 1.75rem;
+  padding: 0.5rem 1.75rem;
   display: flex;
   position: sticky;
   top: 51px;
   z-index: 40;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .tab-bar-container {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5rem;
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
 }
 
 .nav-tab-btn {
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  padding: 0.75rem 1.15rem;
-  font-size: 0.84rem;
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -223,47 +234,42 @@ body {
   align-items: center;
   gap: 0.5rem;
   transition: all 0.15s ease;
-  position: relative;
-  top: 1px;
 }
 
 .nav-tab-btn:hover {
-  color: var(--color-navy-light);
-  background-color: var(--color-surface-subtle);
+  color: var(--color-text-main);
+  background-color: var(--color-surface-hover);
 }
 
 .nav-tab-btn.active {
-  color: var(--color-navy);
-  border-bottom-color: var(--color-navy);
-  font-weight: 700;
+  background-color: var(--color-navy);
+  color: #FFFFFF;
+  border-color: var(--color-navy);
+  box-shadow: var(--shadow-sm);
 }
 
 [data-theme="dark"] .nav-tab-btn.active {
-  color: #60A5FA;
-  border-bottom-color: #60A5FA;
+  background-color: #2563EB;
+  border-color: #2563EB;
+  color: #FFFFFF;
 }
 
 .tab-pill-badge {
   font-size: 0.68rem;
   padding: 0.1rem 0.45rem;
   border-radius: 9999px;
-  background-color: var(--color-surface-subtle);
-  color: var(--color-text-muted);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: inherit;
   font-weight: 600;
 }
 
-.nav-tab-btn.active .tab-pill-badge {
-  background-color: var(--color-blue-bg);
-  color: var(--color-blue);
-}
-
-[data-theme="dark"] .nav-tab-btn.active .tab-pill-badge {
-  background-color: #1E3A8A;
-  color: #93C5FD;
+.nav-tab-btn:not(.active) .tab-pill-badge {
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
 }
 
 /* ==========================================================================
-   EXECUTIVE STATUS HUD (Replaces bulky hero banner)
+   EXECUTIVE STATUS HUD (Compact, Dignified 4-KPI Grid)
    ========================================================================== */
 .executive-hud {
   background: linear-gradient(180deg, #0A1C2E 0%, #0F2942 100%);
@@ -317,7 +323,7 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
-  padding: 0.5rem 0.85rem;
+  padding: 0.55rem 0.85rem;
   min-width: 145px;
   display: flex;
   flex-direction: column;
@@ -344,14 +350,14 @@ body {
 
 .hud-kpi-sub {
   font-size: 0.66rem;
-  color: #64748B;
+  color: #94A3B8;
   display: flex;
   align-items: center;
   gap: 0.3rem;
 }
 
 /* ==========================================================================
-   MAIN CONTAINER & TAB PANES
+   MAIN CONTAINER & TAB PANES (Strict Tab Encapsulation)
    ========================================================================== */
 .main-container {
   max-width: 1400px;
@@ -362,11 +368,11 @@ body {
 }
 
 .tab-pane {
-  display: none;
+  display: none !important;
 }
 
 .tab-pane.active {
-  display: block;
+  display: block !important;
 }
 
 /* ==========================================================================
@@ -397,9 +403,9 @@ body {
 
 .domain-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
   gap: 0.75rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .domain-card {
@@ -419,30 +425,23 @@ body {
 
 .domain-card:hover {
   transform: translateY(-1px);
-  border-color: var(--color-navy-light);
+  border-color: var(--color-border-dark);
   box-shadow: var(--shadow-md);
 }
 
+/* Active Domain Card: Dignified Navy Top Stripe, Zero Neon Glowing */
 .domain-card.active {
   background-color: var(--color-surface);
   border-color: var(--color-navy);
-  box-shadow: 0 0 0 1px var(--color-navy), var(--shadow-sm);
-}
-
-.domain-card.active::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #1E3A8A, #059669);
+  border-top: 3px solid #0F2942;
+  box-shadow: var(--shadow-sm);
 }
 
 [data-theme="dark"] .domain-card.active {
   background-color: var(--color-surface-subtle);
   border-color: #3B82F6;
-  box-shadow: 0 0 0 1px #3B82F6;
+  border-top: 3px solid #3B82F6;
+  box-shadow: none;
 }
 
 .domain-card-header {
@@ -605,24 +604,8 @@ body {
   border-color: #B91C1C;
 }
 
-[data-theme="dark"] .btn-scenario-a {
-  background-color: rgba(5, 150, 105, 0.15);
-  color: #34D399;
-  border-color: rgba(5, 150, 105, 0.4);
-}
-[data-theme="dark"] .btn-scenario-b {
-  background-color: rgba(217, 119, 6, 0.15);
-  color: #FBBF24;
-  border-color: rgba(217, 119, 6, 0.4);
-}
-[data-theme="dark"] .btn-scenario-c {
-  background-color: rgba(220, 38, 38, 0.15);
-  color: #F87171;
-  border-color: rgba(220, 38, 38, 0.4);
-}
-
 /* ==========================================================================
-   SPLIT INSPECTION WORKSPACE (Left: Document Canvas, Right: Verification)
+   SPLIT INSPECTION WORKSPACE (Left: Document Paper, Right: Cockpit)
    ========================================================================== */
 .inspection-workspace {
   display: grid;
@@ -640,13 +623,13 @@ body {
 .left-dossier-pane {
   padding: 1.25rem;
   border-right: 1px solid var(--color-border);
-  background-color: #F8FAFC;
+  background-color: #F1F5F9;
   display: flex;
   flex-direction: column;
 }
 
 [data-theme="dark"] .left-dossier-pane {
-  background-color: #0A121E;
+  background-color: #080D18;
   border-color: var(--color-border);
 }
 
@@ -682,34 +665,28 @@ body {
 }
 
 /* ==========================================================================
-   AUTHENTIC DOCUMENT CANVAS (Simulated German DIN 5008 & Ocean B/L Paper)
+   AUTHENTIC DOCUMENT CANVAS ("WHITE PAPER ALWAYS" RULE)
+   The document is ALWAYS a crisp physical white sheet (#FFFFFF) with dark ink
    ========================================================================== */
 .document-canvas-container {
   flex: 1;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .document-sheet {
-  background-color: #FFFFFF;
-  border: 1px solid var(--color-border);
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
   border-radius: 4px;
   box-shadow: var(--shadow-paper);
   padding: 1.75rem 1.5rem;
   font-family: var(--font-sans);
-  color: #1E293B;
   position: relative;
   min-height: 480px;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-}
-
-[data-theme="dark"] .document-sheet {
-  background-color: #0E1726;
-  border-color: #1E293B;
-  color: #E2E8F0;
 }
 
 /* DIN 5008 Fold & Punch Marks */
@@ -720,7 +697,7 @@ body {
   bottom: 0;
   width: 12px;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.4;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -748,24 +725,16 @@ body {
   border-bottom: 2px solid #0F2942;
 }
 
-[data-theme="dark"] .doc-top-bar {
-  border-bottom-color: #334155;
-}
-
 .doc-company-name {
   font-size: 1.15rem;
   font-weight: 800;
-  color: var(--color-navy);
+  color: #0F2942 !important;
   letter-spacing: -0.2px;
-}
-
-[data-theme="dark"] .doc-company-name {
-  color: #93C5FD;
 }
 
 .doc-company-sub {
   font-size: 0.72rem;
-  color: var(--color-text-muted);
+  color: #475569 !important;
   line-height: 1.3;
 }
 
@@ -781,22 +750,18 @@ body {
   letter-spacing: 2px;
   font-size: 0.95rem;
   line-height: 1;
-  color: #0F172A;
+  color: #0F172A !important;
   opacity: 0.85;
-}
-
-[data-theme="dark"] .doc-barcode-graphic {
-  color: #F8FAFC;
 }
 
 .doc-barcode-text {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: var(--color-text-muted);
+  color: #64748B !important;
   margin-top: 0.2rem;
 }
 
-/* DIN 5008 Address & Metadata Grid */
+/* Address & Metadata Grid */
 .doc-address-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -806,8 +771,8 @@ body {
 
 .doc-sender-line {
   font-size: 0.65rem;
-  color: var(--color-text-light);
-  border-bottom: 1px solid var(--color-border);
+  color: #64748B !important;
+  border-bottom: 1px solid #CBD5E1;
   padding-bottom: 0.2rem;
   margin-bottom: 0.35rem;
 }
@@ -815,7 +780,7 @@ body {
 .doc-recipient-box {
   font-size: 0.8rem;
   line-height: 1.4;
-  color: var(--color-text-main);
+  color: #0F172A !important;
 }
 
 .doc-meta-table {
@@ -826,16 +791,17 @@ body {
 
 .doc-meta-table td {
   padding: 0.2rem 0.35rem;
+  color: #0F172A !important;
 }
 
 .doc-meta-table td.lbl {
-  color: var(--color-text-muted);
+  color: #475569 !important;
   font-weight: 500;
 }
 
 .doc-meta-table td.val {
   font-weight: 700;
-  color: var(--color-text-main);
+  color: #0F172A !important;
   text-align: right;
 }
 
@@ -848,13 +814,9 @@ body {
 }
 
 .doc-subject-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  color: var(--color-navy);
-}
-
-[data-theme="dark"] .doc-subject-title {
-  color: #FFFFFF;
+  color: #0F2942 !important;
 }
 
 .doc-stamp-badge {
@@ -863,15 +825,15 @@ body {
   gap: 0.3rem;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #059669;
-  border: 1px dashed #059669;
+  color: #059669 !important;
+  border: 1px dashed #059669 !important;
   padding: 0.15rem 0.5rem;
   border-radius: 3px;
-  background-color: rgba(5, 150, 105, 0.05);
+  background-color: #ECFDF5 !important;
   font-family: var(--font-mono);
 }
 
-/* Document Line Items Table */
+/* Line Items Table (Always crisp on white paper) */
 .doc-items-table {
   width: 100%;
   border-collapse: collapse;
@@ -880,19 +842,19 @@ body {
 }
 
 .doc-items-table th {
-  background-color: var(--color-surface-subtle);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  background-color: #F8FAFC !important;
+  border-top: 1px solid #CBD5E1 !important;
+  border-bottom: 1px solid #CBD5E1 !important;
   padding: 0.45rem 0.5rem;
   font-weight: 700;
-  color: var(--color-text-muted);
+  color: #475569 !important;
   text-align: left;
 }
 
 .doc-items-table td {
   padding: 0.45rem 0.5rem;
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-main);
+  border-bottom: 1px solid #E2E8F0 !important;
+  color: #0F172A !important;
 }
 
 .doc-items-table td.num {
@@ -902,7 +864,7 @@ body {
 /* Summary Calculation Box */
 .doc-summary-box {
   margin-left: auto;
-  width: 260px;
+  width: 270px;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -915,40 +877,36 @@ body {
 
 .doc-summary-table td {
   padding: 0.25rem 0.35rem;
+  color: #0F172A !important;
 }
 
 .doc-summary-table td.lbl {
-  color: var(--color-text-muted);
+  color: #475569 !important;
 }
 
 .doc-summary-table td.val {
   text-align: right;
   font-weight: 600;
+  color: #0F172A !important;
 }
 
 .doc-summary-table tr.total-row td {
-  border-top: 1.5px solid var(--color-navy);
+  border-top: 1.5px solid #0F2942 !important;
   font-weight: 800;
   font-size: 0.84rem;
-  color: var(--color-navy);
+  color: #0F2942 !important;
   padding-top: 0.4rem;
 }
 
-[data-theme="dark"] .doc-summary-table tr.total-row td {
-  border-top-color: #334155;
-  color: #FFFFFF;
-}
-
-/* Document Footer & Ingestion Seal Stamp */
 .doc-footer-bar {
   margin-top: auto;
   padding-top: 0.75rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid #CBD5E1 !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.68rem;
-  color: var(--color-text-light);
+  color: #64748B !important;
 }
 
 /* ==========================================================================
@@ -964,11 +922,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background-color: #DC2626;
-  color: #FFFFFF;
+  background-color: #DC2626 !important;
+  color: #FFFFFF !important;
   font-size: 0.64rem;
   font-weight: 700;
-  padding: 0.1rem 0.4rem;
+  padding: 0.12rem 0.45rem;
   border-radius: 3px;
   font-family: var(--font-mono);
   margin-left: 0.45rem;
@@ -1033,7 +991,7 @@ body {
   opacity: 0.9;
 }
 
-/* Verification Rule Checklist */
+/* Rule Checklist */
 .rule-checklist {
   list-style: none;
   margin-bottom: 1rem;
@@ -1125,10 +1083,10 @@ body {
 }
 
 /* ==========================================================================
-   CFO EXECUTIVE RECAP BOX (1-Click Executive Memo)
+   CFO EXECUTIVE RECAP BOX (1-Click Concise Summary)
    ========================================================================== */
 .cfo-recap-box {
-  background-color: #F8FAFC;
+  background-color: var(--color-surface-subtle);
   border: 1px solid var(--color-border-dark);
   border-radius: 6px;
   padding: 0.85rem 1rem;
@@ -1475,7 +1433,7 @@ body {
   margin-top: 0.35rem;
 }
 
-/* 4-Week SAP S/4HANA Implementation Roadmap */
+/* 4-Week SAP Implementation Roadmap */
 .roadmap-section {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -1498,7 +1456,6 @@ body {
   padding: 1.15rem;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .roadmap-card.completed {
@@ -1781,7 +1738,7 @@ body {
 }
 
 /* ==========================================================================
-   FOOTER
+   MASTER EXECUTIVE FOOTER
    ========================================================================== */
 .master-footer {
   background-color: #0A1C2E;

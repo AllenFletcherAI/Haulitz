@@ -1,5 +1,5 @@
 /**
- * HAULITZ ENTERPRISE GATEWAY - MASTER CONTROLLER & APPLICATION ENGINE
+ * HAULITZ ENTERPRISE GATEWAY - MASTER CONTROLLER & APPLICATION ENGINE (v2.2)
  * Standard: ASD-STE100 Simplified Technical English
  * Default Settings: German Language (de), Light Mode (light)
  */
@@ -322,10 +322,15 @@
   }
 
   /**
-   * Top-Level Tab Switching
+   * Top-Level Tab Switching (Strict Encapsulation)
    */
   function switchTab(tabId) {
     state.currentTab = tabId;
+
+    // Strict inline display manipulation to prevent any leakage
+    if (DOM.tabCockpit) DOM.tabCockpit.style.display = 'none';
+    if (DOM.tabPortal) DOM.tabPortal.style.display = 'none';
+    if (DOM.tabSops) DOM.tabSops.style.display = 'none';
 
     [DOM.tabCockpit, DOM.tabPortal, DOM.tabSops].forEach(pane => {
       if (pane) pane.classList.remove('active');
@@ -336,12 +341,15 @@
     });
 
     if (tabId === 'cockpit' && DOM.tabCockpit && DOM.tabBtnCockpit) {
+      DOM.tabCockpit.style.display = 'block';
       DOM.tabCockpit.classList.add('active');
       DOM.tabBtnCockpit.classList.add('active');
     } else if (tabId === 'portal' && DOM.tabPortal && DOM.tabBtnPortal) {
+      DOM.tabPortal.style.display = 'block';
       DOM.tabPortal.classList.add('active');
       DOM.tabBtnPortal.classList.add('active');
     } else if (tabId === 'sops' && DOM.tabSops && DOM.tabBtnSops) {
+      DOM.tabSops.style.display = 'block';
       DOM.tabSops.classList.add('active');
       DOM.tabBtnSops.classList.add('active');
     }
@@ -743,17 +751,17 @@
   }
 
   /**
-   * Render Authentic German Business Document / Ocean B/L Canvas in Left Pane
+   * Render Authentic Physical White Paper Document Canvas in Left Pane
+   * ("WHITE PAPER ALWAYS" RULE: Always #FFFFFF paper with dark typography)
    */
   function renderRealisticDocument(doc, domainKey, scenarioKey, auditResult) {
-    const isError = !auditResult.isValid;
     let html = '';
 
-    // DIN Guide Marks
+    // DIN 5008 Guide Marks (Left margin fold lines)
     const guideMarks = `
       <div class="din-guide-marks">
         <div class="din-fold-mark din-fold-top" title="DIN 5008 Faltmarke 1"></div>
-        <div class="din-fold-mark din-punch-center" title="DIN 5008 Lochmarke"></div>
+        <div class="din-punch-center" title="DIN 5008 Lochmarke"></div>
         <div class="din-fold-mark din-fold-bottom" title="DIN 5008 Faltmarke 2"></div>
       </div>
     `;
@@ -816,11 +824,11 @@
               <tr>
                 <td class="font-mono-code ${isContainerError ? 'doc-highlight-error' : ''}">
                   <strong>${doc.containerNumber}</strong><br>
-                  <span style="font-size:0.7rem; color:var(--color-text-muted);">Seal: ${doc.sealNumber}</span>
-                  ${isContainerError ? `<br><span class="doc-error-tag"><i class="fa-solid fa-triangle-exclamation"></i> ISO 6346 CHECKSUM ERROR (Calc 6 vs Dec 0)</span>` : ''}
+                  <span style="font-size:0.7rem; color:#64748B;">Seal: ${doc.sealNumber}</span>
+                  ${isContainerError ? `<br><span class="doc-error-tag"><i class="fa-solid fa-triangle-exclamation"></i> ISO 6346 PRÜFZIFFERNFEHLER (Calc 6 vs Dec 0)</span>` : ''}
                 </td>
                 <td>${doc.isoSize}</td>
-                <td>${doc.cargoDescription}<br><span style="font-size:0.68rem; color:var(--color-text-muted);">HS Code: ${doc.hsCode}</span></td>
+                <td>${doc.cargoDescription}<br><span style="font-size:0.68rem; color:#64748B;">HS Code: ${doc.hsCode}</span></td>
                 <td class="num font-mono-code">${doc.netWeightKg.toLocaleString()} kg</td>
                 <td class="num font-mono-code ${isWeightError ? 'doc-highlight-error' : ''}">
                   <strong>${doc.grossWeightKg.toLocaleString()} kg</strong>
@@ -998,7 +1006,7 @@
                     <td class="lbl">SEPA IBAN:</td>
                     <td class="val font-mono-code">
                       ${doc.iban}
-                      ${isFintechIbanError ? `<br><span class="doc-error-tag"><i class="fa-solid fa-triangle-exclamation"></i> MODULO-97 PRÜFZIFFER FEHLER</span>` : ''}
+                      ${isFintechIbanError ? `<br><span class="doc-error-tag"><i class="fa-solid fa-triangle-exclamation"></i> MODULO-97 FEHLER</span>` : ''}
                     </td>
                   </tr>
                 ` : ''}
@@ -1348,7 +1356,7 @@ Timestamp: ${new Date().toISOString()} | Status: QUARANTINE_HOLD
   }
 
   /**
-   * Internationalization Engine
+   * Internationalization Engine (100% Strict Alignment)
    */
   function applyLanguageUI() {
     const dict = i18n[state.currentLang] || i18n.de;
