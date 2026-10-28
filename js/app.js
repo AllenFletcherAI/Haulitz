@@ -51,19 +51,19 @@
       tabPillCockpit: 'Deterministisch',
       tabPillPortal: 'Live DB',
       tabPillSops: 'SAP S/4HANA',
-      heroHeading: 'HAULITZ — Deterministische Schutzschranken für Enterprise-ERP',
-      heroSubheading: 'Beseitigung von KI-Halluzinationen, Vorsteuer-Rechenfehlern (§ 14 UStG) und Seefracht-Standgeldern (§ 412 HGB) vor der Übergabe an SAP S/4HANA. 100% kryptografische Beweisbarkeit in Frankfurt (AWS eu-central-1).',
+      heroHeading: 'HAULITZ — Verifizierungs-Gateway für Geschäftsbelege',
+      heroSubheading: 'Automatische Cent-Prüfung, Steuerberechnung nach § 14 UStG und HGB § 377 sowie Prüfziffern-Validierung vor dem Eintrag in ERP-Systeme.',
       kpiLedgerLabel: 'GoBD Ledger-Höhe (Frankfurt)',
       kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
       kpiLatencyLabel: 'Edge-zu-DB Latenz',
       kpiLatencySub: '<i class="fa-solid fa-server"></i> Cloudflare Edge &rarr; Frankfurt',
       kpiSlaLabel: 'Deterministische SLA',
-      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 0 Halluzinationen (30/30 Tests)',
-      kpiRelayLabel: 'Gesetzlicher Mängel-Relay',
+      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 30/30 Tests bestanden',
+      kpiRelayLabel: 'Mängelrügen-Relay',
       kpiRelayVal: 'Resend Aktiv',
-      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Live-Alarmierung aktiv',
-      domainTitle: '<i class="fa-solid fa-network-wired"></i> 10 Dedizierte Industrie-Workspaces',
-      domainDesc: 'Direkter Zugriff auf authentische Dokumentenprüfungen mit revisionssicherer GoBD-Versiegelung',
+      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Alarmierung aktiv',
+      domainTitle: '<i class="fa-solid fa-layer-group"></i> 10 Branchen-Workspaces',
+      domainDesc: 'Dedizierte Validierungs-Seiten für branchenspezifische Belegprüfungen',
       openWorkspace: 'Workspace öffnen',
       scenarioA: 'Szenario A: Valider Beleg',
       scenarioB: 'Szenario B: Rechnerische Falle',
@@ -100,30 +100,32 @@
       // Tab 1: Product & Founder Showcase
       workspacesBannerTag: '10 Dedizierte Industrie-Workspaces',
       workspacesBannerTitle: 'Rechtssichere Belegprüfung für Ihre Branche',
-      workspacesBannerDesc: 'Wählen Sie Ihren Zielbereich für die deterministische Validierung von Rechnungen, Frachtbriefen, LkSG-Zertifikaten und ERP-Payloads mit GoBD § 147 AO Prüfsiegel.',
+      workspacesBannerDesc: 'Wählen Sie Ihren Zielbereich für die deterministische Validierung von Rechnungen, Frachtbriefen, LkSG-Zertifikaten und ERP-Payloads.',
       btnLaunchWorkspaces: 'Industrie-Workspace auswählen (10 Branchen) →',
-      whatIsTag: 'Architektur & Funktionsweise',
+      whatIsTag: 'Funktionsweise',
       whatIsTitle: 'Was ist HAULITZ?',
-      whatIsP1: 'HAULITZ ist eine <strong style="color:var(--color-text-main);">deterministische Verifizierungs-Schutzschranke</strong> für unternehmensweite ERP-Systeme (SAP S/4HANA, Microsoft Dynamics 365, Oracle Cloud ERP). In einer Zeit, in der Unternehmen zunehmend auf generative KI und probabilistische LLMs zur Dokumentenerfassung setzen, entstehen gravierende finanzielle und rechtliche Risiken: Sprachmodelle halluzinieren Vorsteuer-Rechenschritte (§ 14 UStG), übersehen fehlerhafte Container-Prüfziffern (ISO 6346) und akzeptieren unbemerkt Lieferanten-Kurzlieferungen oder Preisaufschläge (HGB § 377).',
-      whatIsP2: 'HAULITZ schaltet sich als kompromisslose mathematische Firewall vor das ERP-Staging. Jeder Beleg wird auf den Cent genau geprüft, gegen geltendes deutsches und europäisches Handelsrecht abgeglichen und mit einer unveränderlichen GoBD § 147 AO SHA-256 Hash-Kette in unserer Frankfurter Datenbank (AWS eu-central-1) revisionssicher versiegelt.',
-      pillar1Title: 'Deterministische Präzision',
-      pillar1Desc: 'Keine probabilistischen Schätzungen. Exakte Cent-Arithmetik, Modulo-97 (IBAN), Modulo-11 (ISO 6346) und Modulo-10 (GS1 EAN-13) Prüfziffernprüfungen.',
-      pillar2Title: 'GoBD § 147 AO Hash-Kette',
-      pillar2Desc: 'Jeder Prüflauf wird kryptografisch mit dem vorherigen Siegel verknüpft und unveränderbar in Frankfurt auf AWS eu-central-1 festgeschrieben.',
-      pillar3Title: 'Staging Armor für SAP',
-      pillar3Desc: 'Automatische Quarantäne fehlerhafter Datensätze, Abwehr von SQL-Injections (OWASP ASVS) und sofortige Erstellung gesetzlicher Mängelrügen per Resend.',
-      founderTag: 'Gründer & Lead Systems Architect',
-      founderRole: 'Senior Systems Architect • AI Verification Engineer',
-      founderBio: 'Allen Simeon Fletcher entwickelte HAULITZ aus einer klaren Ingenieursdisziplin: <em>"Defend What You Ship"</em>. Nach eingehender Analyse der Risiken beim produktiven Einsatz generativer KI im Finanz- und Logistiksektor entwarf er eine deterministische Verifizierungsarchitektur, die Zuverlässigkeit, Sicherheit und Gesetzeskonformität vor oberflächliche KI-Versprechungen stellt.',
-      founderBio2: 'Mit Fokus auf hochperformante verteilte Systeme, Cloudflare Edge Worker und revisionssichere Datenbankstrukturen auf AWS eu-central-1 stellt er sicher, dass Enterprise-Workflows vollständig gegen fehlerhafte Datenströme, Standgelder und Steuerstrafen geschützt sind.',
+      whatIsP1: 'HAULITZ ist eine automatisierte Prüfschicht für geschäftliche Belege wie Eingangsrechnungen, Frachtbriefe und Lieferscheine. Anstatt Belegdaten ungeprüft in Datenbanken oder ERP-Systeme einzupflegen, führt HAULITZ mathematische Summenprüfungen und Prüfziffern-Algorithmen durch.',
+      whatIsP2: 'Gültige Belege werden mit einem SHA-256 Prüfsiegel in der PostgreSQL-Audit-Datenbank in Frankfurt (AWS eu-central-1) protokolliert. Rechnerische Differenzen oder falsche Prüfziffern werden gestoppt, bevor Zahlungen ausgelöst werden.',
+      pillar1Title: 'Exakte Arithmetik',
+      pillar1Desc: 'Cent-genaue Berechnung von Zwischensummen, Steuersätzen (§ 14 UStG) und Prüfziffern (IBAN Modulo-97, ISO 6346, GS1 EAN-13).',
+      pillar2Title: 'Audit-Protokoll',
+      pillar2Desc: 'Jeder Prüflauf wird mit einem SHA-256 Hash und Zeitstempel unveränderbar in PostgreSQL dokumentiert.',
+      pillar3Title: 'Strukturierte Mängelrügen',
+      pillar3Desc: 'Rechnerische Differenzen und Formfehler erzeugen strukturierte Beanstandungen zur schnellen Klärung mit Lieferanten.',
+      founderTag: 'Gründer & Software-Entwickler',
+      founderRole: 'Software Developer',
+      founderBio: 'Allen Simeon Fletcher hat HAULITZ entwickelt, um ein konkretes Problem zu lösen: Geschäftsbelege enthalten häufig Rechenfehler, falsche Steuersätze oder fehlerhafte Prüfziffern, die in nachgelagerten Systemen zu Zahlungsdifferenzen führen.',
+      founderBio2: 'HAULITZ führt diese Prüfungen automatisiert und nachvollziehbar durch – direkt im Code, bevor Daten in Buchhaltungs- oder ERP-Systeme übernommen werden.',
       
       // Auth Gate & Modals
-      authTitle: 'HAULITZ Enterprise Gateway',
-      authSub: 'Rechtssichere Verifizierung für SAP S/4HANA & ATLAS Zoll',
-      authRemember: 'Angemeldet bleiben (auf diesem Arbeitsplatz)',
-      authBtn: 'Sicher anmelden & Fortfahren',
-      selectorTitle: 'Wählen Sie Ihren Industrie-Workspace',
-      selectorSub: '10 spezialisierte Verifizierungs-Pipelines mit deterministischen Schutzschranken',
+      authTitle: 'HAULITZ Gateway Sign-In',
+      authSub: 'Authentifizieren Sie sich für den Zugriff auf die 10 Industrie-Workspaces',
+      authGoogle: 'Mit Google anmelden (Gmail)',
+      authClerk: 'Mit geschäftlicher E-Mail / SSO anmelden',
+      authRemember: 'Auf diesem Gerät angemeldet bleiben',
+      authBtn: 'Anmelden & Fortfahren',
+      selectorTitle: 'Industrie-Workspace auswählen',
+      selectorSub: 'Wählen Sie Ihre Branche für Belegprüfungen und GoBD-Versiegelung',
       hdrDropdownLabel: 'Workspaces (10)',
       hdrDropdownModal: 'Vollbild-Auswahl öffnen...'
     },
@@ -138,19 +140,19 @@
       tabPillCockpit: 'Deterministic',
       tabPillPortal: 'Live DB',
       tabPillSops: 'SAP S/4HANA',
-      heroHeading: 'HAULITZ — Deterministic Verification Guardrails for Enterprise ERP',
-      heroSubheading: 'Eliminating AI hallucinations, VAT calculation variances (§ 14 UStG), and maritime demurrage penalties (§ 412 HGB) before SAP S/4HANA staging. 100% cryptographic proof anchored in Frankfurt (AWS eu-central-1).',
+      heroHeading: 'HAULITZ — Verification Gateway for Commercial Documents',
+      heroSubheading: 'Automated cent-level arithmetic, tax reconciliation under § 14 UStG and HGB § 377, and checksum verification before ERP ingestion.',
       kpiLedgerLabel: 'GoBD Ledger Height (Frankfurt)',
       kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
       kpiLatencyLabel: 'Edge-to-DB Latency',
       kpiLatencySub: '<i class="fa-solid fa-server"></i> Cloudflare Edge &rarr; Frankfurt',
       kpiSlaLabel: 'Deterministic SLA',
-      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 0 Hallucinations (30/30 Tests)',
-      kpiRelayLabel: 'Statutory Dispute Relay',
+      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 30/30 Tests Passed',
+      kpiRelayLabel: 'Dispute Relay',
       kpiRelayVal: 'Resend Active',
-      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Live alerting active',
-      domainTitle: '<i class="fa-solid fa-network-wired"></i> 10 Dedicated Enterprise Workspaces',
-      domainDesc: 'Direct access to authentic commercial document inspections with tamper-evident GoBD hash chaining',
+      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Alerting active',
+      domainTitle: '<i class="fa-solid fa-layer-group"></i> 10 Domain Workspaces',
+      domainDesc: 'Dedicated validation workspaces for industry-specific document inspections',
       openWorkspace: 'Open Workspace',
       scenarioA: 'Scenario A: Valid Document',
       scenarioB: 'Scenario B: Arithmetic Trap',
@@ -187,30 +189,32 @@
       // Tab 1: Product & Founder Showcase
       workspacesBannerTag: '10 Dedicated Industry Workspaces',
       workspacesBannerTitle: 'Statutory Document Verification for Your Industry',
-      workspacesBannerDesc: 'Select your target domain for deterministic validation of invoices, bills of lading, LkSG certificates, and ERP payloads with GoBD § 147 AO audit seals.',
+      workspacesBannerDesc: 'Select your target domain for deterministic validation of invoices, bills of lading, LkSG certificates, and ERP payloads.',
       btnLaunchWorkspaces: 'Select Industry Workspace (10 Domains) →',
-      whatIsTag: 'Architecture & Mechanics',
+      whatIsTag: 'System Overview',
       whatIsTitle: 'What is HAULITZ?',
-      whatIsP1: 'HAULITZ is a <strong style="color:var(--color-text-main);">deterministic verification guardrail</strong> for enterprise ERP systems (SAP S/4HANA, Microsoft Dynamics 365, Oracle Cloud ERP). As enterprises increasingly adopt generative AI and probabilistic LLMs for document ingestion, severe financial and legal liabilities emerge: large language models hallucinate VAT deduction calculations (§ 14 UStG), miss invalid container check digits (ISO 6346), and blindly accept short shipments or unagreed unit price inflations (HGB § 377).',
-      whatIsP2: 'HAULITZ operates as an uncompromising mathematical firewall ahead of ERP staging. Every commercial record is verified to the cent, reconciled against German and European statutory law, and sealed with an immutable GoBD § 147 AO SHA-256 hash chain anchored in our Frankfurt database (AWS eu-central-1).',
-      pillar1Title: 'Deterministic Precision',
-      pillar1Desc: 'Zero probabilistic estimations. Exact cent arithmetic, Modulo-97 (IBAN), Modulo-11 (ISO 6346), and Modulo-10 (GS1 EAN-13) checksum enforcement.',
-      pillar2Title: 'GoBD § 147 AO Hash Chaining',
-      pillar2Desc: 'Every verification run is cryptographically chained to its predecessor seal and immutably recorded in Frankfurt on AWS eu-central-1.',
-      pillar3Title: 'Staging Armor for SAP',
-      pillar3Desc: 'Automated quarantine of corrupted payloads, SQL injection prevention (OWASP ASVS), and instant statutory dispute notices via Resend.',
-      founderTag: 'Founder & Lead Systems Architect',
-      founderRole: 'Senior Systems Architect • AI Verification Engineer',
-      founderBio: 'Allen Simeon Fletcher engineered HAULITZ under a strict engineering discipline: <em>"Defend What You Ship"</em>. Following in-depth analysis of the vulnerabilities introduced by probabilistic AI in financial and logistics workflows, he architected a deterministic verification framework that places statutory correctness and reliability above AI hype.',
-      founderBio2: 'Focusing on high-performance distributed systems, Cloudflare Edge Workers, and tamper-evident database structures in AWS eu-central-1, he ensures enterprise back-offices are completely defended against corrupted data feeds, customs demurrage, and tax penalties.',
+      whatIsP1: 'HAULITZ is an automated verification layer for commercial documents such as vendor invoices, bills of lading, and delivery receipts. Instead of loading unverified data into ERP systems, HAULITZ validates line-item math and statutory checksums.',
+      whatIsP2: 'Valid documents receive a SHA-256 audit seal logged to our Frankfurt PostgreSQL database (AWS eu-central-1). Arithmetic errors and invalid checksums are halted before payment runs occur.',
+      pillar1Title: 'Exact Arithmetic',
+      pillar1Desc: 'Cent-accurate verification of subtotals, VAT calculations (§ 14 UStG), and checksums (IBAN Modulo-97, ISO 6346, GS1 EAN-13).',
+      pillar2Title: 'Audit Ledger',
+      pillar2Desc: 'Every audit run is immutably recorded in PostgreSQL with a SHA-256 hash and UTC timestamp.',
+      pillar3Title: 'Structured Dispute Notices',
+      pillar3Desc: 'Arithmetic variances and regulatory discrepancies generate structured dispute notices for prompt vendor resolution.',
+      founderTag: 'Founder & Software Developer',
+      founderRole: 'Software Developer',
+      founderBio: 'Allen Simeon Fletcher developed HAULITZ to address a direct engineering challenge: commercial documents frequently contain rounding variances, invalid tax rates, and incorrect check digits that corrupt downstream ERP records.',
+      founderBio2: 'HAULITZ executes these statutory and mathematical checks deterministically in code before data commits to financial ledgers.',
       
       // Auth Gate & Modals
-      authTitle: 'HAULITZ Enterprise Gateway',
-      authSub: 'Statutory Verification for SAP S/4HANA & ATLAS Customs',
-      authRemember: 'Keep me signed in (on this workstation)',
-      authBtn: 'Sign In Securely & Proceed',
+      authTitle: 'HAULITZ Gateway Sign-In',
+      authSub: 'Authenticate to access the 10 dedicated industry workspaces',
+      authGoogle: 'Sign in with Google (Gmail)',
+      authClerk: 'Sign in with Work Email / SSO',
+      authRemember: 'Keep me signed in on this device',
+      authBtn: 'Sign In & Proceed',
       selectorTitle: 'Select Your Industry Workspace',
-      selectorSub: '10 specialized verification pipelines with deterministic statutory guardrails',
+      selectorSub: 'Select your target domain for deterministic statutory verification',
       hdrDropdownLabel: 'Workspaces (10)',
       hdrDropdownModal: 'Open Fullscreen Selector...'
     }
@@ -363,11 +367,32 @@
    * 2. Initialize Clerk Authentication
    */
   async function initClerk() {
+    const handleAuthChange = () => {
+      updateClerkUI();
+      if (window.Clerk?.user) {
+        try {
+          const rememberMe = localStorage.getItem('haulitz_remember_me') === 'true';
+          if (rememberMe) {
+            localStorage.setItem('haulitz_auth', 'true');
+          } else {
+            sessionStorage.setItem('haulitz_auth', 'true');
+          }
+        } catch (e) {}
+        document.getElementById('auth-gate-modal')?.classList.remove('active');
+        if (!sessionStorage.getItem('haulitz_industry_selected')) {
+          document.getElementById('industry-selector-modal')?.classList.add('active');
+        }
+      }
+    };
+
     if (!window.Clerk) {
       window.addEventListener('load', async () => {
         if (window.Clerk) {
-          await window.Clerk.load();
-          updateClerkUI();
+          try {
+            await window.Clerk.load();
+            handleAuthChange();
+            window.Clerk.addListener(handleAuthChange);
+          } catch (err) {}
         }
       });
       return;
@@ -375,7 +400,8 @@
 
     try {
       await window.Clerk.load();
-      updateClerkUI();
+      handleAuthChange();
+      window.Clerk.addListener(handleAuthChange);
     } catch (e) {
       console.warn('Clerk load bypassed:', e);
     }
@@ -402,8 +428,16 @@
 
       document.getElementById('clerk-sign-out-btn')?.addEventListener('click', async () => {
         await window.Clerk.signOut();
+        try {
+          localStorage.removeItem('haulitz_auth');
+          localStorage.removeItem('haulitz_remember_me');
+          sessionStorage.removeItem('haulitz_auth');
+          sessionStorage.removeItem('haulitz_industry_selected');
+        } catch (e) {}
         updateClerkUI();
-        showToast('Erfolgreich abgemeldet / Signed out');
+        document.getElementById('auth-gate-modal')?.classList.add('active');
+        document.getElementById('industry-selector-modal')?.classList.remove('active');
+        showToast(state.currentLang === 'de' ? 'Erfolgreich abgemeldet / Signed out' : 'Successfully signed out');
       });
     } else {
       DOM.clerkAuthContainer.innerHTML = `
@@ -1501,35 +1535,41 @@
       });
     });
 
-    // Auth Gate Form Submission with Remember Me
-    const authForm = document.getElementById('auth-gate-form');
+    // Auth Gate Actions with Remember Me (Official Google & Clerk SSO)
     const authModal = document.getElementById('auth-gate-modal');
-    if (authForm) {
-      authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const rememberCheckbox = document.getElementById('auth-remember-checkbox');
-        const isRemembered = rememberCheckbox ? rememberCheckbox.checked : false;
+    const handleAuthLogin = (provider) => {
+      const rememberCheckbox = document.getElementById('auth-remember-checkbox');
+      const isRemembered = rememberCheckbox ? rememberCheckbox.checked : false;
 
+      try {
+        if (isRemembered) {
+          localStorage.setItem('haulitz_remember_me', 'true');
+          localStorage.setItem('haulitz_auth', 'true');
+        } else {
+          localStorage.removeItem('haulitz_remember_me');
+          sessionStorage.setItem('haulitz_auth', 'true');
+        }
+      } catch (err) {}
+
+      if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
         try {
-          if (isRemembered) {
-            localStorage.setItem('haulitz_remember_me', 'true');
-            localStorage.setItem('haulitz_auth', 'true');
-          } else {
-            localStorage.removeItem('haulitz_remember_me');
-            localStorage.removeItem('haulitz_auth');
-            sessionStorage.setItem('haulitz_auth', 'true');
-          }
-        } catch (err) {}
-
-        if (authModal) authModal.classList.remove('active');
-        if (industryModal) industryModal.classList.add('active');
-
+          window.Clerk.openSignIn();
+        } catch (e) {
+          authModal?.classList.remove('active');
+          industryModal?.classList.add('active');
+        }
+      } else {
+        authModal?.classList.remove('active');
+        industryModal?.classList.add('active');
         showToast(state.currentLang === 'de' 
-          ? 'Erfolgreich angemeldet. Bitte wählen Sie Ihren Industrie-Workspace.' 
-          : 'Successfully signed in. Please select your industry workspace.'
+          ? 'Angemeldet. Bitte wählen Sie Ihren Industrie-Workspace.' 
+          : 'Signed in. Please select your industry workspace.'
         );
-      });
-    }
+      }
+    };
+
+    document.getElementById('btn-auth-google')?.addEventListener('click', () => handleAuthLogin('google'));
+    document.getElementById('btn-auth-clerk')?.addEventListener('click', () => handleAuthLogin('clerk'));
   }
 
   function updateThemeUI() {
@@ -1614,13 +1654,15 @@
     setElemHTML('label-founder-bio2', dict.founderBio2);
 
     // Auth Gate & Industry Selector Modals
-    setElemText('auth-gate-title', dict.authTitle);
-    setElemText('auth-gate-sub', dict.authSub);
+    setElemText('auth-modal-title', dict.authTitle);
+    setElemText('auth-modal-subtitle', dict.authSub);
+    setElemText('btn-google-text', dict.authGoogle);
+    setElemText('btn-clerk-text', dict.authClerk);
     setElemText('auth-remember-label', dict.authRemember);
     setElemText('btn-auth-text', dict.authBtn);
 
     setElemText('selector-modal-title', dict.selectorTitle);
-    setElemText('selector-modal-sub', dict.selectorSub);
+    setElemText('selector-modal-subtitle', dict.selectorSub);
     setElemText('hdr-industry-dropdown-label', dict.hdrDropdownLabel);
     setElemText('label-dropdown-modal-open', dict.hdrDropdownModal);
 
