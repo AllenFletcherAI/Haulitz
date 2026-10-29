@@ -131,20 +131,91 @@
       hdrDropdownModal: 'Vollbild-Auswahl öffnen...',
 
       // Real-time Telemetry & Pipeline
+      cmdKText: 'Suchen...',
       telLatencyLabel: 'Verifikations-Latenz',
+      telLatencySub: '<i class="fa-solid fa-bolt text-emerald"></i> Deterministisch im Browser',
       telScenariosLabel: 'Gesetzliche Szenarien',
+      telScenariosSub: '<i class="fa-solid fa-shield-check text-emerald"></i> 100% Prüfpräzision',
       telSlaLabel: 'Deterministische SLA',
+      telSlaSub: '<i class="fa-solid fa-calculator text-emerald"></i> 0 Rechenabweichungen',
       telLedgerLabel: 'Frankfurt Ledger',
+      telLedgerSub: '<i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon',
       pipelineTagText: 'REVISIONSWEG IN 3 SCHRITTEN',
       pipelineTitleText: 'Von unstrukturierten Belegen zur verifizierten ERP-Verbuchung',
+      pipeStep1Badge: '01 EINGANG',
       pipeStep1Title: 'Unstrukturierte Belege',
       pipeStep1Desc: 'PDF-Rechnungen, Frachtbriefe &amp; Lieferscheine mit typischen Rechenabweichungen oder unvollständigen UStG-Angaben.',
+      pipeStep1Tag: '<i class="fa-solid fa-triangle-exclamation"></i> Rechnerische Fehlerquelle',
+      pipeStep2Badge: '02 HAULITZ FIREWALL',
       pipeStep2Title: 'Deterministische Prüfung',
       pipeStep2Desc: 'Cent-genaue Posten-Arithmetik (§&nbsp;14&nbsp;UStG), Prüfziffern (IBAN, ISO 6346, GS1) und GoBD SHA-256 Hash-Kette.',
+      pipeStep2Tag: '<i class="fa-solid fa-check-double"></i> &lt; 2ms In-Browser-Audit',
+      pipeStep3Badge: '03 ZIELSYSTEM',
       pipeStep3Title: 'ERP-Staging / Mängelrüge',
       pipeStep3Desc: 'Geprüfte Belege werden für SAP&nbsp;S/4HANA autorisiert; fehlerhafte Belege lösen automatisch eine Mängelrüge nach HGB&nbsp;§&nbsp;377 aus.',
-      floatingPillLabel: '10 Industrie-Workspaces',
-      cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...'
+      pipeStep3Tag: '<i class="fa-solid fa-server"></i> Revisionssicher gebucht',
+      cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...',
+
+      // Top 10 Workspaces on page
+      wsDesc01: '§ 14 UStG &amp; SEPA Modulo-97',
+      wsMeta01: '<i class="fa-solid fa-scale-balanced"></i> § 14 UStG, GoBD',
+      wsDesc02: 'ISO 6346 &amp; § 412 HGB Masse',
+      wsMeta02: '<i class="fa-solid fa-ship"></i> ADSp 2017, HGB',
+      wsDesc03: 'HGB § 377 3-Wege-Abgleich',
+      wsMeta03: '<i class="fa-solid fa-industry"></i> HGB § 377 Rüge',
+      wsDesc04: 'VVG § 86 &amp; BGB § 249 Caps',
+      wsMeta04: '<i class="fa-solid fa-shield-halved"></i> VVG § 86, BGB',
+      wsDesc05: 'LkSG § 4–§ 7 &amp; ISO 14001',
+      wsMeta05: '<i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD',
+      wsDesc06: 'GOÄ § 5 Abs. 2 Gebührenrahmen',
+      wsMeta06: '<i class="fa-solid fa-hospital-user"></i> GOÄ § 5 Abs. 2',
+      wsDesc07: 'GS1 EAN-13 &amp; FX-Konvertierung',
+      wsMeta07: '<i class="fa-solid fa-cart-shopping"></i> GS1 Standard',
+      wsDesc08: 'VDE-AR-N 4105 &amp; EEG § 9',
+      wsMeta08: '<i class="fa-solid fa-bolt"></i> VDE-AR-N 4105',
+      wsDesc09: 'HeizkostenV § 7 &amp; § 12 (70/30)',
+      wsMeta09: '<i class="fa-solid fa-building"></i> HeizkostenV',
+      wsDesc10: 'Parametrisierte T-SQL &amp; OWASP',
+      wsMeta10: '<i class="fa-solid fa-database"></i> OWASP ASVS',
+
+      // Discrepancy Inspector
+      inspHeaderTag: 'INTERAKTIVER BELEGABGLEICH',
+      inspHeaderTitle: 'Arithmetik-Abgleich in Echtzeit: Vorher vs. Nachher',
+      tabLabelRaw: '1. Ungeprüfter Lieferantenbeleg',
+      tabLabelVerified: '2. HAULITZ Revisionsprüfung',
+      metaLblSupplier: 'Lieferant:',
+      metaLblDocno: 'Beleg-Nr.:',
+      metaLblType: 'Eingangskanal:',
+      tdItemName: 'Hochleistungs-Servomotor',
+      calcNetLbl: 'Nettobetrag:',
+      calcVatClaimedLbl: 'Ausgewiesene USt. (19%):',
+      trapPillBadge: '+120,00 € ABWEICHUNG',
+      calcGrossClaimedLbl: 'Rechnungsbetrag brutto:',
+      alertTrapHeading: 'RECHNERISCHE ABWEICHUNG FESTGESTELLT (§ 14 UStG)',
+      alertTrapDesc: 'Die berechnete Umsatzsteuer für 4.200,00 € bei 19% beträgt 798,00 €. Die Rechnung weist 918,00 € aus (+120,00 € Überfakturation).',
+      alertTrapAction: 'Zahllauf in SAP S/4HANA gesperrt • HGB § 377 Mängelrüge generiert',
+      metaLblStatus: 'Audit-Status:',
+      metaLblLatency: 'Prüfzeit:',
+      metaLblLedger: 'Ledger:',
+      tdVLineTitle: 'Posten-Arithmetik',
+      tdVTaxTitle: 'USt-Satz (19%)',
+      tdVIbanTitle: 'SEPA IBAN Prüfziffer',
+      calcVNetLbl: 'Auditierter Nettobetrag:',
+      calcVVatLbl: 'Gesetzeskonforme USt (19%):',
+      calcVGrossLbl: 'Freigegebener Zahlbetrag brutto:',
+      alertVHeading: 'KRYPTOGRAFISCHES GoBD § 147 AO PRÜFSIEGEL VERGEBEN',
+      alertVAction: 'Freigabe für SAP S/4HANA Staging erteilt • Verbuchungs-Payload bereit',
+
+      // Founder 3-Pillar Narrative & Tooltips
+      fpTitle1: 'Die Problemstellung',
+      fpDesc1: 'Unstrukturierte Lieferantenbelege und Frachtdokumente enthalten häufig Rundungsdifferenzen, falsche Steuersätze und ungültige Prüfziffern, die ERP-Datenbanken unbemerkt korrumpieren.',
+      fpTitle2: 'Die technische Brücke',
+      fpDesc2: 'Mit HAULITZ baue ich ein deterministisches Schnittstellen-Gateway. Es rechnet Posten-Arithmetik auf den Cent nach (§ 14 UStG, HGB § 377), prüft internationale Prüfziffern und versiegelt jeden Beleg unveränderbar in PostgreSQL in Frankfurt vor der SAP-Verbuchung.',
+      fpTitle3: 'Qualifikation als Solutions & Integration Engineer',
+      fpDesc3: 'Das System belegt meine Kernkompetenz: die fehlerfreie Überführung unstrukturierter Drittsystem-Daten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzesstandards (GoBD, HGB, UStG) mit deterministischer Zuverlässigkeit.',
+      tooltipAnabin: 'Vollwertig anerkannter ausländischer Hochschulabschluss (Master-Ebene in Deutschland)',
+      tooltipBluecard: 'Beschleunigtes Fachkräfteverfahren nach § 81a / § 18g AufenthG (EU Blue Card)',
+      tooltipScenarios: '100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger'
     },
     en: {
       beacon: 'Frankfurt eu-central-1: ',
@@ -237,20 +308,91 @@
       hdrDropdownModal: 'Open Fullscreen Selector...',
 
       // Real-time Telemetry & Pipeline
+      cmdKText: 'Search...',
       telLatencyLabel: 'Verification Latency',
+      telLatencySub: '<i class="fa-solid fa-bolt text-emerald"></i> In-browser deterministic',
       telScenariosLabel: 'Statutory Scenarios',
+      telScenariosSub: '<i class="fa-solid fa-shield-check text-emerald"></i> 100% audit precision',
       telSlaLabel: 'Deterministic SLA',
+      telSlaSub: '<i class="fa-solid fa-calculator text-emerald"></i> 0 calculation variances',
       telLedgerLabel: 'Frankfurt Ledger',
+      telLedgerSub: '<i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon',
       pipelineTagText: '3-STEP AUDIT PIPELINE',
       pipelineTitleText: 'From unstructured supplier documents to certified ERP staging',
+      pipeStep1Badge: '01 INBOUND',
       pipeStep1Title: 'Unstructured Documents',
       pipeStep1Desc: 'PDF invoices, bills of lading &amp; delivery receipts with math variances or missing statutory details.',
+      pipeStep1Tag: '<i class="fa-solid fa-triangle-exclamation"></i> Arithmetic Variance Trap',
+      pipeStep2Badge: '02 HAULITZ FIREWALL',
       pipeStep2Title: 'Deterministic Verification',
       pipeStep2Desc: 'Cent-accurate line item math (§&nbsp;14&nbsp;UStG), check digits (IBAN, ISO 6346, GS1), and GoBD SHA-256 hash chaining.',
+      pipeStep2Tag: '<i class="fa-solid fa-check-double"></i> &lt; 2ms Deterministic Audit',
+      pipeStep3Badge: '03 ERP STAGING',
       pipeStep3Title: 'ERP Staging / Dispute Dispatch',
       pipeStep3Desc: 'Compliant records staged to SAP&nbsp;S/4HANA; non-compliant records trigger automated HGB&nbsp;§&nbsp;377 disputes.',
-      floatingPillLabel: '10 Industry Workspaces',
-      cmdSearchPlaceholder: 'Search workspaces (e.g. Invoicing, Freight, Supply Chain, Solar)...'
+      pipeStep3Tag: '<i class="fa-solid fa-server"></i> Certified for SAP S/4HANA',
+      cmdSearchPlaceholder: 'Search workspaces (e.g. Invoicing, Freight, Supply Chain, Solar)...',
+
+      // Top 10 Workspaces on page
+      wsDesc01: '§ 14 UStG &amp; SEPA Modulo-97',
+      wsMeta01: '<i class="fa-solid fa-scale-balanced"></i> § 14 UStG, GoBD',
+      wsDesc02: 'ISO 6346 &amp; § 412 HGB Mass',
+      wsMeta02: '<i class="fa-solid fa-ship"></i> ADSp 2017, HGB',
+      wsDesc03: 'HGB § 377 3-Way Triad Match',
+      wsMeta03: '<i class="fa-solid fa-industry"></i> HGB § 377 Notice',
+      wsDesc04: 'VVG § 86 &amp; BGB § 249 Caps',
+      wsMeta04: '<i class="fa-solid fa-shield-halved"></i> VVG § 86, BGB',
+      wsDesc05: 'LkSG § 4–§ 7 &amp; ISO 14001',
+      wsMeta05: '<i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD',
+      wsDesc06: 'GOÄ § 5 (2) Fee Schedule Caps',
+      wsMeta06: '<i class="fa-solid fa-hospital-user"></i> GOÄ § 5 (2)',
+      wsDesc07: 'GS1 EAN-13 &amp; FX Conversion',
+      wsMeta07: '<i class="fa-solid fa-cart-shopping"></i> GS1 Standard',
+      wsDesc08: 'VDE-AR-N 4105 &amp; EEG § 9',
+      wsMeta08: '<i class="fa-solid fa-bolt"></i> VDE-AR-N 4105',
+      wsDesc09: 'HeizkostenV § 7 &amp; § 12 (70/30)',
+      wsMeta09: '<i class="fa-solid fa-building"></i> HeizkostenV',
+      wsDesc10: 'Parameterized T-SQL &amp; OWASP',
+      wsMeta10: '<i class="fa-solid fa-database"></i> OWASP ASVS',
+
+      // Discrepancy Inspector
+      inspHeaderTag: 'INTERACTIVE AUDIT INSPECTION',
+      inspHeaderTitle: 'Real-Time Arithmetic Reconciliation: Before vs. After',
+      tabLabelRaw: '1. Unverified Supplier Invoice',
+      tabLabelVerified: '2. HAULITZ Certified Audit',
+      metaLblSupplier: 'Supplier:',
+      metaLblDocno: 'Document No:',
+      metaLblType: 'Ingestion Channel:',
+      tdItemName: 'High-Torque Servo Actuator',
+      calcNetLbl: 'Subtotal Net:',
+      calcVatClaimedLbl: 'Claimed 19% VAT:',
+      trapPillBadge: '+€120.00 VARIANCE',
+      calcGrossClaimedLbl: 'Invoice Gross Total:',
+      alertTrapHeading: 'ARITHMETIC DISCREPANCY DETECTED (§ 14 UStG)',
+      alertTrapDesc: 'Calculated VAT for €4,200.00 at 19% is €798.00. The invoice claimed €918.00 (+€120.00 overcharge variance).',
+      alertTrapAction: 'SAP S/4HANA Payment Run Blocked • Statutory Dispute Notice Drafted',
+      metaLblStatus: 'Audit Status:',
+      metaLblLatency: 'Audit Latency:',
+      metaLblLedger: 'Ledger:',
+      tdVLineTitle: 'Line-Item Math',
+      tdVTaxTitle: 'VAT Rate (19%)',
+      tdVIbanTitle: 'SEPA IBAN Check Digit',
+      calcVNetLbl: 'Audited Subtotal Net:',
+      calcVVatLbl: 'Statutory 19% VAT:',
+      calcVGrossLbl: 'Authorized Gross Total:',
+      alertVHeading: 'CRYPTOGRAPHIC GoBD § 147 AO AUDIT SEAL ASSIGNED',
+      alertVAction: 'Authorized for SAP S/4HANA Staging • Ingestion Payload Ready',
+
+      // Founder 3-Pillar Narrative & Tooltips
+      fpTitle1: 'The Problem',
+      fpDesc1: 'Unstructured vendor invoices and freight documents frequently contain rounding variances, invalid tax rates, and corrupted check digits that silently pollute downstream ERP systems.',
+      fpTitle2: 'The Engineering Bridge',
+      fpDesc2: 'Built HAULITZ as a deterministic interface gateway. It recalculates line items to the exact cent (§ 14 UStG, HGB § 377), enforces check digit algorithms, and seals records with SHA-256 in PostgreSQL in Frankfurt before ERP staging.',
+      fpTitle3: 'Solutions & Integration Engineer Fit',
+      fpDesc3: 'Demonstrates direct qualifications for Solutions & Integration Engineering: ingesting messy real-world documents into SAP S/4HANA and PostgreSQL under German statutory frameworks (GoBD, HGB, UStG) with zero data loss or drift.',
+      tooltipAnabin: 'Fully recognized foreign university degree (Master level in Germany, Anabin H+)',
+      tooltipBluecard: 'Accelerated skilled worker procedure under § 18g AufenthG (EU Blue Card)',
+      tooltipScenarios: '100% deterministic verification: cent-accurate math, check digits, and GoBD ledger'
     }
   };
 
@@ -1569,6 +1711,13 @@
       const el = document.getElementById(id);
       if (el) el.innerHTML = html;
     };
+    const setElemAttr = (id, attr, val) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute(attr, val);
+    };
+
+    // Header Search Bar
+    setElemText('cmd-k-text', dict.cmdKText || (state.currentLang === 'de' ? 'Suchen...' : 'Search...'));
 
     // Product Showcase & Founder Section
     setElemText('label-what-is-title', dict.whatIsTitle);
@@ -1585,6 +1734,19 @@
     setElemHTML('label-founder-bio', dict.founderBio);
     setElemHTML('label-founder-bio2', dict.founderBio2);
 
+    // Founder 3-Pillars Narrative
+    setElemText('fp-title-1', dict.fpTitle1);
+    setElemText('fp-desc-1', dict.fpDesc1);
+    setElemText('fp-title-2', dict.fpTitle2);
+    setElemText('fp-desc-2', dict.fpDesc2);
+    setElemText('fp-title-3', dict.fpTitle3);
+    setElemText('fp-desc-3', dict.fpDesc3);
+
+    // Founder Tooltips
+    setElemAttr('badge-pill-anabin', 'data-tooltip', dict.tooltipAnabin);
+    setElemAttr('badge-pill-bluecard', 'data-tooltip', dict.tooltipBluecard);
+    setElemAttr('badge-pill-scenarios', 'data-tooltip', dict.tooltipScenarios);
+
     // Auth Gate & Industry Selector Modals
     setElemText('auth-modal-title', dict.authTitle);
     setElemText('auth-modal-subtitle', dict.authSub);
@@ -1597,22 +1759,95 @@
     setElemText('selector-modal-title', dict.selectorTitle);
     setElemText('selector-modal-subtitle', dict.selectorSub);
 
-    // Telemetry Counters & Pipeline
+    // Telemetry Counters & Subtitles
     setElemText('tel-latency-label', dict.telLatencyLabel);
+    setElemHTML('tel-latency-sub', dict.telLatencySub);
     setElemText('tel-scenarios-label', dict.telScenariosLabel);
+    setElemHTML('tel-scenarios-sub', dict.telScenariosSub);
     setElemText('tel-sla-label', dict.telSlaLabel);
+    setElemHTML('tel-sla-sub', dict.telSlaSub);
     setElemText('tel-ledger-label', dict.telLedgerLabel);
+    setElemHTML('tel-ledger-sub', dict.telLedgerSub);
 
+    // Pipeline Steps & Status Tags
     setElemText('pipeline-tag-text', dict.pipelineTagText);
     setElemText('pipeline-title-text', dict.pipelineTitleText);
+    setElemText('pipe-step1-badge', dict.pipeStep1Badge);
     setElemText('pipe-step1-title', dict.pipeStep1Title);
     setElemHTML('pipe-step1-desc', dict.pipeStep1Desc);
+    setElemHTML('pipe-step1-tag', dict.pipeStep1Tag);
+    setElemText('pipe-step2-badge', dict.pipeStep2Badge);
     setElemText('pipe-step2-title', dict.pipeStep2Title);
     setElemHTML('pipe-step2-desc', dict.pipeStep2Desc);
+    setElemHTML('pipe-step2-tag', dict.pipeStep2Tag);
+    setElemText('pipe-step3-badge', dict.pipeStep3Badge);
     setElemText('pipe-step3-title', dict.pipeStep3Title);
     setElemHTML('pipe-step3-desc', dict.pipeStep3Desc);
+    setElemHTML('pipe-step3-tag', dict.pipeStep3Tag);
 
-    setElemText('floating-pill-label', dict.floatingPillLabel);
+    // 10 Workspaces on page
+    setElemHTML('ws-desc-01', dict.wsDesc01);
+    setElemHTML('ws-meta-01', dict.wsMeta01);
+    setElemHTML('ws-desc-02', dict.wsDesc02);
+    setElemHTML('ws-meta-02', dict.wsMeta02);
+    setElemHTML('ws-desc-03', dict.wsDesc03);
+    setElemHTML('ws-meta-03', dict.wsMeta03);
+    setElemHTML('ws-desc-04', dict.wsDesc04);
+    setElemHTML('ws-meta-04', dict.wsMeta04);
+    setElemHTML('ws-desc-05', dict.wsDesc05);
+    setElemHTML('ws-meta-05', dict.wsMeta05);
+    setElemHTML('ws-desc-06', dict.wsDesc06);
+    setElemHTML('ws-meta-06', dict.wsMeta06);
+    setElemHTML('ws-desc-07', dict.wsDesc07);
+    setElemHTML('ws-meta-07', dict.wsMeta07);
+    setElemHTML('ws-desc-08', dict.wsDesc08);
+    setElemHTML('ws-meta-08', dict.wsMeta08);
+    setElemHTML('ws-desc-09', dict.wsDesc09);
+    setElemHTML('ws-meta-09', dict.wsMeta09);
+    setElemHTML('ws-desc-10', dict.wsDesc10);
+    setElemHTML('ws-meta-10', dict.wsMeta10);
+
+    // Modal workspace descriptions
+    setElemHTML('sel-desc-fintech', dict.wsDesc01);
+    setElemHTML('sel-desc-logistics', dict.wsDesc02);
+    setElemHTML('sel-desc-supply', dict.wsDesc03);
+    setElemHTML('sel-desc-insurtech', dict.wsDesc04);
+    setElemHTML('sel-desc-legaltech', dict.wsDesc05);
+    setElemHTML('sel-desc-healthtech', dict.wsDesc06);
+    setElemHTML('sel-desc-ecommerce', dict.wsDesc07);
+    setElemHTML('sel-desc-cleantech', dict.wsDesc08);
+    setElemHTML('sel-desc-proptech', dict.wsDesc09);
+    setElemHTML('sel-desc-erp', dict.wsDesc10);
+
+    // Discrepancy Inspector
+    setElemText('insp-header-tag', dict.inspHeaderTag);
+    setElemText('insp-header-title', dict.inspHeaderTitle);
+    setElemText('tab-label-raw', dict.tabLabelRaw);
+    setElemText('tab-label-verified', dict.tabLabelVerified);
+    setElemText('meta-lbl-supplier', dict.metaLblSupplier);
+    setElemText('meta-lbl-docno', dict.metaLblDocno);
+    setElemText('meta-lbl-type', dict.metaLblType);
+    setElemText('td-item-name', dict.tdItemName);
+    setElemText('calc-net-lbl', dict.calcNetLbl);
+    setElemText('calc-vat-claimed-lbl', dict.calcVatClaimedLbl);
+    setElemText('trap-pill-badge', dict.trapPillBadge);
+    setElemText('calc-gross-claimed-lbl', dict.calcGrossClaimedLbl);
+    setElemText('alert-trap-heading', dict.alertTrapHeading);
+    setElemText('alert-trap-desc', dict.alertTrapDesc);
+    setElemText('alert-trap-action', dict.alertTrapAction);
+
+    setElemText('meta-lbl-status', dict.metaLblStatus);
+    setElemText('meta-lbl-latency', dict.metaLblLatency);
+    setElemText('meta-lbl-ledger', dict.metaLblLedger);
+    setElemText('td-v-line-title', dict.tdVLineTitle);
+    setElemText('td-v-tax-title', dict.tdVTaxTitle);
+    setElemText('td-v-iban-title', dict.tdVIbanTitle);
+    setElemText('calc-v-net-lbl', dict.calcVNetLbl);
+    setElemText('calc-v-vat-lbl', dict.calcVVatLbl);
+    setElemText('calc-v-gross-lbl', dict.calcVGrossLbl);
+    setElemText('alert-v-heading', dict.alertVHeading);
+    setElemText('alert-v-action', dict.alertVAction);
+
     const cmdInput = document.getElementById('command-search-input');
     if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
 
@@ -1715,28 +1950,29 @@
   }
 
   /**
-   * 19. Floating Sticky Quick-Switch Switcher
+   * 19. Interactive Discrepancy Inspector (Show, Don't Just Tell)
    */
-  function initFloatingQuickSwitch() {
-    const floatSwitch = document.getElementById('floating-quick-switch');
-    const floatBtn = document.getElementById('floating-pill-btn');
-    const industryModal = document.getElementById('industry-selector-modal');
+  function initDiscrepancyInspector() {
+    const tabRaw = document.getElementById('btn-tab-raw');
+    const tabVerified = document.getElementById('btn-tab-verified');
+    const panelRaw = document.getElementById('panel-raw-doc');
+    const panelVerified = document.getElementById('panel-verified-doc');
 
-    if (!floatSwitch) return;
+    if (!tabRaw || !tabVerified || !panelRaw || !panelVerified) return;
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 380) {
-        floatSwitch.classList.add('visible');
-      } else {
-        floatSwitch.classList.remove('visible');
-      }
-    }, { passive: true });
+    tabRaw.addEventListener('click', () => {
+      tabRaw.classList.add('active');
+      tabVerified.classList.remove('active');
+      panelRaw.style.display = 'block';
+      panelVerified.style.display = 'none';
+    });
 
-    if (floatBtn && industryModal) {
-      floatBtn.addEventListener('click', () => {
-        industryModal.classList.add('active');
-      });
-    }
+    tabVerified.addEventListener('click', () => {
+      tabVerified.classList.add('active');
+      tabRaw.classList.remove('active');
+      panelVerified.style.display = 'block';
+      panelRaw.style.display = 'none';
+    });
   }
 
   /**
@@ -1886,7 +2122,7 @@
     checkAuthAndIndustryGate();
     initSpotlightTracking();
     initTelemetryCounters();
-    initFloatingQuickSwitch();
+    initDiscrepancyInspector();
     initCommandPalette();
   }
 

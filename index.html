@@ -66,7 +66,7 @@
       <!-- Spotlight Command Palette Trigger (Cmd+K / Ctrl+K) -->
       <button id="cmd-k-btn" class="cmd-k-trigger" aria-label="Search workspaces (Ctrl+K)" title="Workspace suchen (Strg+K / ⌘K)">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <span class="cmd-k-text">Suchen...</span>
+        <span class="cmd-k-text" id="cmd-k-text">Suchen...</span>
         <kbd class="cmd-k-kbd">⌘K</kbd>
       </button>
 
@@ -104,22 +104,22 @@
         <div class="telemetry-card">
           <div class="telemetry-val">&lt; <span class="counter-num" data-target="2">2</span> <span class="telemetry-unit">ms</span></div>
           <div class="telemetry-label" id="tel-latency-label">Verifikations-Latenz</div>
-          <div class="telemetry-sub"><i class="fa-solid fa-bolt text-emerald"></i> Deterministisch im Browser</div>
+          <div class="telemetry-sub" id="tel-latency-sub"><i class="fa-solid fa-bolt text-emerald"></i> Deterministisch im Browser</div>
         </div>
         <div class="telemetry-card">
           <div class="telemetry-val"><span class="counter-num" data-target="30">30</span><span class="telemetry-unit">/30</span></div>
           <div class="telemetry-label" id="tel-scenarios-label">Gesetzliche Szenarien</div>
-          <div class="telemetry-sub"><i class="fa-solid fa-shield-check text-emerald"></i> 100% Prüfpräzision</div>
+          <div class="telemetry-sub" id="tel-scenarios-sub"><i class="fa-solid fa-shield-check text-emerald"></i> 100% Prüfpräzision</div>
         </div>
         <div class="telemetry-card">
           <div class="telemetry-val"><span class="counter-num" data-target="100">100.0</span><span class="telemetry-unit">%</span></div>
           <div class="telemetry-label" id="tel-sla-label">Deterministische SLA</div>
-          <div class="telemetry-sub"><i class="fa-solid fa-calculator text-emerald"></i> 0 Rechenabweichungen</div>
+          <div class="telemetry-sub" id="tel-sla-sub"><i class="fa-solid fa-calculator text-emerald"></i> 0 Rechenabweichungen</div>
         </div>
         <div class="telemetry-card">
           <div class="telemetry-val">GoBD <span class="telemetry-unit">§ 147 AO</span></div>
           <div class="telemetry-label" id="tel-ledger-label">Frankfurt Ledger</div>
-          <div class="telemetry-sub"><i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon</div>
+          <div class="telemetry-sub" id="tel-ledger-sub"><i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon</div>
         </div>
       </div>
     </div>
@@ -155,8 +155,8 @@
           </div>
           <div class="selector-card-body">
             <h4>FinTech &amp; Invoicing</h4>
-            <p>§&nbsp;14&nbsp;UStG &amp; SEPA Modulo-97</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-scale-balanced"></i> §&nbsp;14&nbsp;UStG, GoBD</div>
+            <p id="ws-desc-01">§&nbsp;14&nbsp;UStG &amp; SEPA Modulo-97</p>
+            <div class="selector-card-meta" id="ws-meta-01"><i class="fa-solid fa-scale-balanced"></i> §&nbsp;14&nbsp;UStG, GoBD</div>
           </div>
         </a>
 
@@ -167,8 +167,8 @@
           </div>
           <div class="selector-card-body">
             <h4>Freight &amp; Maritime</h4>
-            <p>ISO 6346 &amp; §&nbsp;412&nbsp;HGB Masse</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-ship"></i> ADSp 2017, HGB</div>
+            <p id="ws-desc-02">ISO 6346 &amp; §&nbsp;412&nbsp;HGB Masse</p>
+            <div class="selector-card-meta" id="ws-meta-02"><i class="fa-solid fa-ship"></i> ADSp 2017, HGB</div>
           </div>
         </a>
 
@@ -179,8 +179,8 @@
           </div>
           <div class="selector-card-body">
             <h4>Supply Chain Triad</h4>
-            <p>HGB&nbsp;§&nbsp;377 3-Wege-Abgleich</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-industry"></i> HGB&nbsp;§&nbsp;377 Rüge</div>
+            <p id="ws-desc-03">HGB&nbsp;§&nbsp;377 3-Wege-Abgleich</p>
+            <div class="selector-card-meta" id="ws-meta-03"><i class="fa-solid fa-industry"></i> HGB&nbsp;§&nbsp;377 Rüge</div>
           </div>
         </a>
 
@@ -191,8 +191,8 @@
           </div>
           <div class="selector-card-body">
             <h4>InsurTech Claims</h4>
-            <p>VVG §&nbsp;86 &amp; BGB §&nbsp;249 Caps</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-shield-halved"></i> VVG §&nbsp;86, BGB</div>
+            <p id="ws-desc-04">VVG §&nbsp;86 &amp; BGB §&nbsp;249 Caps</p>
+            <div class="selector-card-meta" id="ws-meta-04"><i class="fa-solid fa-shield-halved"></i> VVG §&nbsp;86, BGB</div>
           </div>
         </a>
 
@@ -203,8 +203,8 @@
           </div>
           <div class="selector-card-body">
             <h4>LegalTech Compliance</h4>
-            <p>LkSG §&nbsp;4–§&nbsp;7 &amp; ISO 14001</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD</div>
+            <p id="ws-desc-05">LkSG §&nbsp;4–§&nbsp;7 &amp; ISO 14001</p>
+            <div class="selector-card-meta" id="ws-meta-05"><i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD</div>
           </div>
         </a>
 
@@ -215,8 +215,8 @@
           </div>
           <div class="selector-card-body">
             <h4>HealthTech &amp; GOÄ</h4>
-            <p>GOÄ §&nbsp;5 Abs.&nbsp;2 Gebührenrahmen</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-hospital-user"></i> GOÄ §&nbsp;5 Abs.&nbsp;2</div>
+            <p id="ws-desc-06">GOÄ §&nbsp;5 Abs.&nbsp;2 Gebührenrahmen</p>
+            <div class="selector-card-meta" id="ws-meta-06"><i class="fa-solid fa-hospital-user"></i> GOÄ §&nbsp;5 Abs.&nbsp;2</div>
           </div>
         </a>
 
@@ -227,8 +227,8 @@
           </div>
           <div class="selector-card-body">
             <h4>E-Commerce WMS</h4>
-            <p>GS1 EAN-13 &amp; FX-Konvertierung</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-cart-shopping"></i> GS1 Standard</div>
+            <p id="ws-desc-07">GS1 EAN-13 &amp; FX-Konvertierung</p>
+            <div class="selector-card-meta" id="ws-meta-07"><i class="fa-solid fa-cart-shopping"></i> GS1 Standard</div>
           </div>
         </a>
 
@@ -239,8 +239,8 @@
           </div>
           <div class="selector-card-body">
             <h4>CleanTech Solar</h4>
-            <p>VDE-AR-N 4105 &amp; EEG §&nbsp;9</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-bolt"></i> VDE-AR-N 4105</div>
+            <p id="ws-desc-08">VDE-AR-N 4105 &amp; EEG §&nbsp;9</p>
+            <div class="selector-card-meta" id="ws-meta-08"><i class="fa-solid fa-bolt"></i> VDE-AR-N 4105</div>
           </div>
         </a>
 
@@ -251,8 +251,8 @@
           </div>
           <div class="selector-card-body">
             <h4>PropTech Real Estate</h4>
-            <p>HeizkostenV §&nbsp;7 &amp; §&nbsp;12 (70/30)</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-building"></i> HeizkostenV</div>
+            <p id="ws-desc-09">HeizkostenV §&nbsp;7 &amp; §&nbsp;12 (70/30)</p>
+            <div class="selector-card-meta" id="ws-meta-09"><i class="fa-solid fa-building"></i> HeizkostenV</div>
           </div>
         </a>
 
@@ -263,8 +263,8 @@
           </div>
           <div class="selector-card-body">
             <h4>Enterprise ERP</h4>
-            <p>Parametrisierte T-SQL &amp; OWASP</p>
-            <div class="selector-card-meta"><i class="fa-solid fa-database"></i> OWASP ASVS</div>
+            <p id="ws-desc-10">Parametrisierte T-SQL &amp; OWASP</p>
+            <div class="selector-card-meta" id="ws-meta-10"><i class="fa-solid fa-database"></i> OWASP ASVS</div>
           </div>
         </a>
       </div>
@@ -299,12 +299,12 @@
             <!-- Step 1 -->
             <div class="pipeline-step-card">
               <div class="pipeline-step-top">
-                <span class="pipeline-step-badge step-1">01 EINGANG</span>
+                <span class="pipeline-step-badge step-1" id="pipe-step1-badge">01 EINGANG</span>
                 <i class="fa-solid fa-file-invoice pipeline-step-icon"></i>
               </div>
               <h4 id="pipe-step1-title">Unstrukturierte Belege</h4>
               <p id="pipe-step1-desc">PDF-Rechnungen, Frachtbriefe &amp; Lieferscheine mit typischen Rechenabweichungen oder unvollständigen UStG-Angaben.</p>
-              <div class="pipeline-status-tag warning"><i class="fa-solid fa-triangle-exclamation"></i> Rechnerische Fehlerquelle</div>
+              <div class="pipeline-status-tag warning" id="pipe-step1-tag"><i class="fa-solid fa-triangle-exclamation"></i> Rechnerische Fehlerquelle</div>
             </div>
 
             <div class="pipeline-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -312,12 +312,12 @@
             <!-- Step 2 -->
             <div class="pipeline-step-card highlight">
               <div class="pipeline-step-top">
-                <span class="pipeline-step-badge step-2">02 HAULITZ FIREWALL</span>
+                <span class="pipeline-step-badge step-2" id="pipe-step2-badge">02 HAULITZ FIREWALL</span>
                 <i class="fa-solid fa-microchip pipeline-step-icon text-emerald"></i>
               </div>
               <h4 id="pipe-step2-title">Deterministische Prüfung</h4>
               <p id="pipe-step2-desc">Cent-genaue Posten-Arithmetik (§&nbsp;14&nbsp;UStG), Prüfziffern (IBAN, ISO 6346, GS1) und GoBD SHA-256 Hash-Kette.</p>
-              <div class="pipeline-status-tag success"><i class="fa-solid fa-check-double"></i> &lt; 2ms In-Browser-Audit</div>
+              <div class="pipeline-status-tag success" id="pipe-step2-tag"><i class="fa-solid fa-check-double"></i> &lt; 2ms In-Browser-Audit</div>
             </div>
 
             <div class="pipeline-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -325,12 +325,162 @@
             <!-- Step 3 -->
             <div class="pipeline-step-card">
               <div class="pipeline-step-top">
-                <span class="pipeline-step-badge step-3">03 ZIELSYSTEM</span>
+                <span class="pipeline-step-badge step-3" id="pipe-step3-badge">03 ZIELSYSTEM</span>
                 <i class="fa-solid fa-shield-halved pipeline-step-icon"></i>
               </div>
               <h4 id="pipe-step3-title">ERP-Staging / Mängelrüge</h4>
               <p id="pipe-step3-desc">Geprüfte Belege werden für SAP&nbsp;S/4HANA autorisiert; fehlerhafte Belege lösen automatisch eine Mängelrüge nach HGB&nbsp;§&nbsp;377 aus.</p>
-              <div class="pipeline-status-tag info"><i class="fa-solid fa-server"></i> Revisionssicher gebucht</div>
+              <div class="pipeline-status-tag info" id="pipe-step3-tag"><i class="fa-solid fa-server"></i> Revisionssicher gebucht</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             INTERACTIVE DISCREPANCY INSPECTOR (SHOW, DON'T JUST TELL)
+             ================================================================ -->
+        <div class="discrepancy-inspector-card" id="discrepancy-inspector">
+          <div class="inspector-header">
+            <div class="inspector-title-block">
+              <span class="inspector-badge"><i class="fa-solid fa-flask-vial text-emerald"></i> <span id="insp-header-tag">INTERAKTIVER BELEGABGLEICH</span></span>
+              <h3 class="inspector-title" id="insp-header-title">Arithmetik-Abgleich in Echtzeit: Vorher vs. Nachher</h3>
+            </div>
+            <div class="inspector-nav-tabs">
+              <button type="button" class="inspector-tab-btn active" id="btn-tab-raw" data-target="raw">
+                <i class="fa-solid fa-triangle-exclamation text-amber"></i> <span id="tab-label-raw">1. Ungeprüfter Lieferantenbeleg</span>
+              </button>
+              <button type="button" class="inspector-tab-btn" id="btn-tab-verified" data-target="verified">
+                <i class="fa-solid fa-circle-check text-emerald"></i> <span id="tab-label-verified">2. HAULITZ Revisionsprüfung</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel 1: Raw Inbound Document with Math Deficit -->
+          <div class="inspector-panel active" id="panel-raw-doc">
+            <div class="inspector-doc-meta">
+              <div class="meta-item"><span class="meta-label" id="meta-lbl-supplier">Lieferant:</span> <strong class="meta-val">Nordic Industrial Supply GmbH</strong></div>
+              <div class="meta-item"><span class="meta-label" id="meta-lbl-docno">Beleg-Nr.:</span> <span class="meta-val font-mono-code">INV-2024-8841</span></div>
+              <div class="meta-item"><span class="meta-label" id="meta-lbl-type">Eingangskanal:</span> <span class="meta-val">PDF-Eingang (OCR / EDI)</span></div>
+            </div>
+            
+            <div class="inspector-table-wrap">
+              <table class="inspector-table">
+                <thead>
+                  <tr>
+                    <th id="th-pos">Pos</th>
+                    <th id="th-desc">Bezeichnung / Spezifikation</th>
+                    <th class="text-right" id="th-qty">Menge</th>
+                    <th class="text-right" id="th-unit">Einzelpreis</th>
+                    <th class="text-right" id="th-total">Gesamtbetrag</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>01</td>
+                    <td><strong id="td-item-name">Hochleistungs-Servomotor</strong> <span class="text-muted">(SKU-492)</span></td>
+                    <td class="text-right font-mono-code">12 Stk</td>
+                    <td class="text-right font-mono-code">350,00 €</td>
+                    <td class="text-right font-mono-code font-bold">4.200,00 €</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="inspector-calc-summary">
+              <div class="calc-row">
+                <span id="calc-net-lbl">Nettobetrag:</span>
+                <span class="font-mono-code">4.200,00 €</span>
+              </div>
+              <div class="calc-row text-danger font-bold highlight-trap">
+                <span><i class="fa-solid fa-triangle-exclamation"></i> <span id="calc-vat-claimed-lbl">Ausgewiesene USt. (19%):</span></span>
+                <span class="font-mono-code">918,00 € <span class="trap-pill" id="trap-pill-badge">+120,00 € ABWEICHUNG</span></span>
+              </div>
+              <div class="calc-row total-row">
+                <span id="calc-gross-claimed-lbl">Rechnungsbetrag brutto:</span>
+                <span class="font-mono-code text-danger">5.118,00 €</span>
+              </div>
+            </div>
+
+            <div class="inspector-alert-box alert-danger">
+              <div class="alert-icon"><i class="fa-solid fa-ban"></i></div>
+              <div class="alert-content">
+                <div class="alert-heading" id="alert-trap-heading">RECHNERISCHE ABWEICHUNG FESTGESTELLT (§ 14 UStG)</div>
+                <p class="alert-desc" id="alert-trap-desc">
+                  Die berechnete Umsatzsteuer für 4.200,00 € bei 19% beträgt 798,00 €. Die Rechnung weist 918,00 € aus (+120,00 € Überfakturation).
+                </p>
+                <div class="alert-action-badge"><i class="fa-solid fa-lock"></i> <span id="alert-trap-action">Zahllauf in SAP S/4HANA gesperrt • HGB § 377 Mängelrüge generiert</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Verified HAULITZ Audit Ledger Record -->
+          <div class="inspector-panel" id="panel-verified-doc" style="display:none;">
+            <div class="inspector-doc-meta verified-meta">
+              <div class="meta-item"><span class="meta-label" id="meta-lbl-status">Audit-Status:</span> <strong class="meta-val text-emerald"><i class="fa-solid fa-circle-check"></i> AUDIT_VERIFIED_CLEAN</strong></div>
+              <div class="meta-item"><span class="meta-label" id="meta-lbl-latency">Prüfzeit:</span> <span class="meta-val font-mono-code text-emerald">1.34 ms</span></div>
+              <div class="meta-item"><span class="meta-label" id="meta-lbl-ledger">Ledger:</span> <span class="meta-val font-mono-code">AWS eu-central-1 (Frankfurt)</span></div>
+            </div>
+
+            <div class="inspector-table-wrap">
+              <table class="inspector-table">
+                <thead>
+                  <tr>
+                    <th id="th-v-check">Prüfschranke</th>
+                    <th id="th-v-rule">Gesetzliche Norm</th>
+                    <th id="th-v-expected">Erwarteter Soll-Wert</th>
+                    <th id="th-v-actual">Festgestellter Ist-Wert</th>
+                    <th class="text-right" id="th-v-result">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong id="td-v-line-title">Posten-Arithmetik</strong></td>
+                    <td>§ 14 UStG</td>
+                    <td class="font-mono-code">4.200,00 € Netto</td>
+                    <td class="font-mono-code">4.200,00 € Netto</td>
+                    <td class="text-right"><span class="badge-status-pass"><i class="fa-solid fa-check"></i> 0,00 € Drift</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong id="td-v-tax-title">USt-Satz (19%)</strong></td>
+                    <td>§ 14 Abs. 4 Nr. 8 UStG</td>
+                    <td class="font-mono-code">798,00 € USt</td>
+                    <td class="font-mono-code text-emerald">798,00 € korrigiert</td>
+                    <td class="text-right"><span class="badge-status-pass"><i class="fa-solid fa-check"></i> Cent-genau</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong id="td-v-iban-title">SEPA IBAN Prüfziffer</strong></td>
+                    <td>ISO 7064 Modulo-97</td>
+                    <td class="font-mono-code">DE89 3704 0044 ...</td>
+                    <td class="font-mono-code text-emerald">Rest == 1</td>
+                    <td class="text-right"><span class="badge-status-pass"><i class="fa-solid fa-check"></i> Valide</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="inspector-calc-summary">
+              <div class="calc-row">
+                <span id="calc-v-net-lbl">Auditierter Nettobetrag:</span>
+                <span class="font-mono-code">4.200,00 €</span>
+              </div>
+              <div class="calc-row text-emerald font-bold">
+                <span><i class="fa-solid fa-check-double"></i> <span id="calc-v-vat-lbl">Gesetzeskonforme USt (19%):</span></span>
+                <span class="font-mono-code">798,00 €</span>
+              </div>
+              <div class="calc-row total-row text-emerald">
+                <span id="calc-v-gross-lbl">Freigegebener Zahlbetrag brutto:</span>
+                <span class="font-mono-code">4.998,00 €</span>
+              </div>
+            </div>
+
+            <div class="inspector-alert-box alert-success">
+              <div class="alert-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="alert-content">
+                <div class="alert-heading" id="alert-v-heading">KRYPTOGRAFISCHES GoBD § 147 AO PRÜFSIEGEL VERGEBEN</div>
+                <p class="alert-desc font-mono-code" style="font-size:0.75rem; word-break:break-all;">
+                  SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                </p>
+                <div class="alert-action-badge success"><i class="fa-solid fa-check"></i> <span id="alert-v-action">Freigabe für SAP S/4HANA Staging erteilt • Verbuchungs-Payload bereit</span></div>
+              </div>
             </div>
           </div>
         </div>
@@ -371,23 +521,38 @@
           
           <!-- "The Bridge Engineer" Credential Badges with Pure CSS Micro-Tooltips -->
           <div class="founder-badges-row">
-            <span class="founder-badge-pill" data-tooltip="Vollwertig anerkannter ausländischer Hochschulabschluss (Master-Ebene in Deutschland)">
+            <span class="founder-badge-pill" id="badge-pill-anabin" data-tooltip="Vollwertig anerkannter ausländischer Hochschulabschluss (Master-Ebene in Deutschland)">
               <i class="fa-solid fa-graduation-cap text-emerald"></i> <span>M.Sc. AI (Anabin H+)</span>
             </span>
-            <span class="founder-badge-pill" data-tooltip="Beschleunigtes Fachkräfteverfahren nach § 81a / § 18g AufenthG (EU Blue Card)">
+            <span class="founder-badge-pill" id="badge-pill-bluecard" data-tooltip="Beschleunigtes Fachkräfteverfahren nach § 81a / § 18g AufenthG (EU Blue Card)">
               <i class="fa-solid fa-id-card text-emerald"></i> <span>§ 18g EU Blue Card Ready</span>
             </span>
-            <span class="founder-badge-pill" data-tooltip="100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger">
+            <span class="founder-badge-pill" id="badge-pill-scenarios" data-tooltip="100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger">
               <i class="fa-solid fa-code-merge text-emerald"></i> <span>30/30 Verified Scenarios</span>
             </span>
           </div>
 
-          <p class="founder-bio" id="label-founder-bio">
-            Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.
-          </p>
-          <p class="founder-bio" id="label-founder-bio2" style="margin-top:-0.25rem;">
-            Das Projekt belegt seine Kernkompetenz als Solutions &amp; Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP&nbsp;S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD&nbsp;§&nbsp;147&nbsp;AO, §&nbsp;14&nbsp;UStG, HGB&nbsp;§&nbsp;377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.
-          </p>
+          <!-- Structured Executive Narrative (The Problem, The Technical Bridge, The Qualifications) -->
+          <div class="founder-pillars-wrap">
+            <div class="founder-pillar-box">
+              <div class="fp-title"><i class="fa-solid fa-triangle-exclamation text-amber"></i> <span id="fp-title-1">Die Problemstellung</span></div>
+              <p class="fp-desc" id="fp-desc-1">
+                Unstrukturierte Lieferantenbelege und Frachtdokumente enthalten häufig Rundungsdifferenzen, falsche Steuersätze und ungültige Prüfziffern, die ERP-Datenbanken unbemerkt korrumpieren.
+              </p>
+            </div>
+            <div class="founder-pillar-box">
+              <div class="fp-title"><i class="fa-solid fa-network-wired text-emerald"></i> <span id="fp-title-2">Die technische Brücke</span></div>
+              <p class="fp-desc" id="fp-desc-2">
+                Mit HAULITZ baue ich ein deterministisches Schnittstellen-Gateway. Es rechnet Posten-Arithmetik auf den Cent nach (§ 14 UStG, HGB § 377), prüft internationale Prüfziffern und versiegelt jeden Beleg unveränderbar in PostgreSQL in Frankfurt vor der SAP-Verbuchung.
+              </p>
+            </div>
+            <div class="founder-pillar-box">
+              <div class="fp-title"><i class="fa-solid fa-briefcase text-blue"></i> <span id="fp-title-3">Qualifikation als Solutions &amp; Integration Engineer</span></div>
+              <p class="fp-desc" id="fp-desc-3">
+                Das System belegt meine Kernkompetenz: die fehlerfreie Überführung unstrukturierter Drittsystem-Daten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzesstandards (GoBD, HGB, UStG) mit deterministischer Zuverlässigkeit.
+              </p>
+            </div>
+          </div>
 
           <div class="founder-links-row">
             <a href="mailto:allensimeonfletcher@gmail.com" class="founder-contact-pill">
@@ -600,15 +765,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Floating Sticky Workspace Switcher Pill -->
-  <aside class="floating-quick-switch" id="floating-quick-switch" aria-label="Workspace Switcher">
-    <div class="floating-pill-inner" id="floating-pill-btn">
-      <span class="live-pulse-dot"></span>
-      <span class="floating-pill-text" id="floating-pill-label">10 Industrie-Workspaces</span>
-      <i class="fa-solid fa-arrow-up-right-from-square floating-pill-icon" style="font-size:0.75rem; margin-left:0.25rem;"></i>
-    </div>
-  </aside>
 
   <!-- Quick Command Palette Spotlight Modal (Ctrl+K / Cmd+K) -->
   <div class="modal-overlay" id="command-palette-modal">

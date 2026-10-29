@@ -27,3 +27,33 @@ We chose **Option 3: Cloudflare Pages Edge Deployment**. All verification algori
 
 ### 4. When to Reconsider
 If customers require private on-premise relational database synchronization behind corporate firewalls with real SAP NetWeaver RFC connectors, build an optional sovereign microservice container. For the public evaluation portal, Option 3 remains permanent.
+
+
+---
+
+## ADR-002: Luxury Obsidian Design System & Interactive Discrepancy Inspector
+- **Date:** 2026-10-29
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+Screen feedback revealed that a repeating 32px coordinate grid gave the interface the look of a student math workbook rather than enterprise B2B SaaS. In addition, a sticky quick-switch pill floating at the bottom center occluded key content in pipeline step 02 and covered the founder's direct contact links. Text subtitles also suffered from partial German translation leakage ("Denglish") in English mode.
+
+### 2. The Three Options Considered
+1. **Option 1: Minimal text edits only**
+   - *Drawback:* Leaves the coordinate grid and floating pill in place; page remains cluttered and covers core UI elements.
+2. **Option 2: Shift floating switcher to a side dock**
+   - *Drawback:* Competes with mobile viewports and adds visual noise; redundant with top navbar and top workspaces grid.
+3. **Option 3: Complete Luxury Elevation & Intentional Layout**
+   - Eradicate floating obstruction pill completely (rely on top navbar `Ctrl+K` command palette and prominent top 10 workspaces section).
+   - Replace harsh coordinate grid with luxury obsidian radial illumination.
+   - Implement an interactive Before/After Discrepancy Inspector widget ("Show, Don't Just Tell").
+   - 100% complete bilingual isolation across all telemetry, pipeline tags, and card metadata.
+   - Refactor founder presentation into a crisp 3-pillar executive format (The Problem, The Technical Bridge, The Qualifications).
+
+### 3. The Decision
+We chose **Option 3**. The resulting interface delivers zero content occlusion, specular glassmorphism, instant interactive proof of deterministic verification, and 100% linguistic purity.
+
+### 4. When to Reconsider
+If user telemetry shows high demand for persistent navigation on ultrawide monitors, implement an unobtrusive top-bar breadcrumb rather than a floating viewport obstruction.

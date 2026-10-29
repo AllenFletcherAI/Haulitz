@@ -2,30 +2,39 @@
 Standard: ASD-STE100 Simplified Technical English · Habit 01
 
 ## 1. What We Finished (Done)
-- **Award-Winning UI/UX Suite Implementation (htmlBurger Inspiration)**:
-  - **3-Step Visual Verification Pipeline Rail (Show, Don't Just Tell)**: Placed an interactive pipeline rail in the "What is HAULITZ?" section showing: (1) Raw Unstructured Inbound Documents &rarr; (2) In-Browser Deterministic Pre-Flight Math Firewall (< 2ms) &rarr; (3) Certified SAP S/4HANA Staging or Automated HGB § 377 Legal Dispute Memo via Resend API.
-  - **Dynamic Cursor Spotlight Border Illumination**: Applied radial cursor tracking on workspace cards using pure CSS custom properties (`--mouse-x`, `--mouse-y`) and GPU-accelerated gradients. Cards illuminate dynamically right where the cursor moves.
-  - **Live Animated Telemetry Counters**: Added a 4-card telemetry strip in the Executive HUD (< 2ms Latency, 30/30 Scenarios, 100.0% SLA, GoBD § 147 AO Ledger Height) that counts up smoothly using `IntersectionObserver` when scrolled into view.
-  - **Frictionless Navigation (Floating Quick-Switch & Command Palette)**:
-    - Added a floating glassmorphic quick-switch pill (`.floating-quick-switch`) that slides in smoothly when scrolling past the workspaces section, allowing 1-click industry switching from anywhere on the page.
-    - Added a Spotlight Command Palette (`Ctrl+K` / `⌘K`) modal allowing instant search, arrow-key navigation, and direct jumping to any of the 10 domain workspaces.
-  - **"The Bridge Engineer" Narrative & Interactive Micro-Tooltips**: Added credential badge pills on Allen's calling card for M.Sc. AI (Anabin H+), § 18g EU Blue Card readiness, and 30/30 verified code with pure CSS micro-tooltips on hover.
-- **Top Border Zero-Clipping Fix (Cards 01–05)**:
-  - Removed `overflow: hidden !important;` and set `padding: 6px 4px 8px !important;` and `overflow: visible !important;` on `.selector-modal-grid` and `.selector-modal-card`.
-- **Typographic Runts & Orphan Elimination**:
-  - Native `text-wrap: balance;` on headings and `text-wrap: pretty;` on copy.
-- **All 30/30 Test Scenarios Passing**:
-  - `node verify_haulitz.js` passes with 100% precision.
+- **Complete Elimination of the Floating Switcher Pill**:
+  - Removed `#floating-quick-switch` markup, CSS rules, and JavaScript listeners.
+  - Eliminated the occlusion of Pipeline Node 02 and unblocked the Founder contact buttons (Email and GitHub).
+- **100% Bilingual Language Isolation (Eradication of "Denglish")**:
+  - Header search trigger correctly displays `Search... ⌘K` in English mode and `Suchen... ⌘K` in German mode.
+  - All 4 telemetry card subtitles translate dynamically (`⚡ In-browser deterministic`, `100% audit precision`, `0 calculation variances`, `AWS eu-central-1 Neon`).
+  - Pipeline badges and status tags localized (`01 INBOUND`, `02 HAULITZ FIREWALL`, `03 ERP STAGING`; `⚠ Arithmetic Variance Trap`, `✔ < 2ms Deterministic Audit`, `Certified for SAP S/4HANA`).
+  - All 10 workspace card descriptions and statutory badges localized on both the main page grid and the modal dialog.
+  - Pure CSS micro-tooltips on founder badges dynamically localized.
+- **Luxury Obsidian Canvas & Specular Elevation**:
+  - Removed harsh 32px coordinate graph paper grid lines.
+  - Implemented an obsidian background (`#07080b`) with subtle ambient radial illumination (`rgba(16, 185, 129, 0.08)` and `rgba(59, 130, 246, 0.03)`).
+  - Enhanced cards with multi-tier glassmorphism, specular top borders, and soft drop shadows.
+- **Interactive Discrepancy Inspector ("Show, Don't Just Tell")**:
+  - Integrated a live Before vs. After reconciliation inspector inside "What is HAULITZ?".
+  - Tab 1 displays a raw vendor invoice with an arithmetic discrepancy (+€120.00 VAT overcharge) and an automated SAP payment hold notice.
+  - Tab 2 displays the certified cent-exact audit with SHA-256 seal and SAP S/4HANA authorization.
+- **Executive Founder Presentation**:
+  - Replaced radioactive neon green radar glow on portrait with an executive frame (neutral border and deep ambient shadow).
+  - Restructured narrative into 3 crisp executive pillars: The Problem, The Engineering Bridge, and the Solutions & Integration Engineer Fit.
+- **Verification Integrity**:
+  - `node verify_haulitz.js` passes all 30/30 scenarios with 100% precision.
 
 ## 2. What We Are Working On Now
-- Stage, commit, and push updates to `origin main` for automated Cloudflare Edge deployment.
-- Verify live production URL `https://haulitz.allensimeonfletcher.workers.dev/`.
+- Stage, commit, and push updates to `origin main`.
+- Verify live production deployment on Cloudflare Edge at `https://haulitz.allensimeonfletcher.workers.dev/`.
 
 ## 3. Broken Or Dangerous Items
-- None. 30 / 30 test scenarios pass with 100% precision. $0/month total cost, 0 credit cards attached.
+- None. All statutory and mathematical test suites pass deterministically.
 
 ## 4. What To Do Next
-- Verify live deployment on Cloudflare Edge and review visual rendering.
+- Run git push to trigger Cloudflare Edge sync.
+- Verify live rendering on production URL.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main`.
