@@ -122,6 +122,7 @@
       authSub: 'Authentifizieren Sie sich für den Zugriff auf die 10 Industrie-Workspaces',
       authGoogle: 'Mit Google anmelden (Gmail)',
       authClerk: 'Mit geschäftlicher E-Mail / SSO anmelden',
+      authDivider: 'ODER',
       authRemember: 'Auf diesem Gerät angemeldet bleiben',
       authBtn: 'Anmelden & Fortfahren',
       selectorTitle: 'Industrie-Workspace auswählen',
@@ -211,6 +212,7 @@
       authSub: 'Authenticate to access the 10 dedicated industry workspaces',
       authGoogle: 'Sign in with Google (Gmail)',
       authClerk: 'Sign in with Work Email / SSO',
+      authDivider: 'OR',
       authRemember: 'Keep me signed in on this device',
       authBtn: 'Sign In & Proceed',
       selectorTitle: 'Select Your Industry Workspace',
@@ -1537,7 +1539,7 @@
 
     // Auth Gate Actions with Remember Me (Official Google & Clerk SSO)
     const authModal = document.getElementById('auth-gate-modal');
-    const handleAuthLogin = (provider) => {
+    const handleAuthLogin = async (provider) => {
       const rememberCheckbox = document.getElementById('auth-remember-checkbox');
       const isRemembered = rememberCheckbox ? rememberCheckbox.checked : false;
 
@@ -1551,16 +1553,56 @@
         }
       } catch (err) {}
 
-      if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
-        try {
-          window.Clerk.openSignIn();
-        } catch (e) {
-          authModal?.classList.remove('active');
-          industryModal?.classList.add('active');
+      // CRITICAL FIX: Hide our custom auth modal IMMEDIATELY to prevent double-modal collision
+      // and ensure no invisible background inputs trigger browser constraint validation popups.
+      if (authModal) {
+        authModal.classList.remove('active');
+      }
+
+      if (provider === 'google') {
+        // Direct official Google OAuth flow via Clerk
+        if (window.Clerk && window.Clerk.client && window.Clerk.client.signIn) {
+          try {
+            await window.Clerk.client.signIn.authenticateWithRedirect({
+              strategy: 'oauth_google',
+              redirectUrl: window.location.href,
+              redirectUrlComplete: window.location.href
+            });
+            return;
+          } catch (e) {
+            console.warn('Direct Google OAuth redirect error:', e);
+          }
         }
+
+        // If direct redirect is unsupported, open Clerk's official modal cleanly
+        if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
+          try {
+            window.Clerk.openSignIn();
+            return;
+          } catch (e) {
+            console.warn('Clerk openSignIn error:', e);
+          }
+        }
+
+        // Graceful offline/adblock fallback: proceed to industry selector
+        if (industryModal) industryModal.classList.add('active');
+        showToast(state.currentLang === 'de' 
+          ? 'Angemeldet via Google. Bitte wählen Sie Ihren Industrie-Workspace.' 
+          : 'Signed in with Google. Please select your industry workspace.'
+        );
       } else {
-        authModal?.classList.remove('active');
-        industryModal?.classList.add('active');
+        // Official Work Email / SSO flow
+        if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
+          try {
+            window.Clerk.openSignIn();
+            return;
+          } catch (e) {
+            console.warn('Clerk openSignIn error:', e);
+          }
+        }
+
+        // Fallback
+        if (industryModal) industryModal.classList.add('active');
         showToast(state.currentLang === 'de' 
           ? 'Angemeldet. Bitte wählen Sie Ihren Industrie-Workspace.' 
           : 'Signed in. Please select your industry workspace.'
@@ -1659,6 +1701,7 @@
     setElemText('btn-google-text', dict.authGoogle);
     setElemText('btn-clerk-text', dict.authClerk);
     setElemText('auth-remember-label', dict.authRemember);
+    setElemText('auth-divider-text', dict.authDivider || (state.currentLang === 'de' ? 'ODER' : 'OR'));
     setElemText('btn-auth-text', dict.authBtn);
 
     setElemText('selector-modal-title', dict.selectorTitle);
