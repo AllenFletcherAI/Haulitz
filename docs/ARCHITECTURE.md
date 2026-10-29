@@ -44,3 +44,44 @@ Haulitz is a Universal Data Verification Gateway for enterprise ERP systems (SAP
 3. **Branching Outcome:**
    - **PASS (`VERIFIED_CLEAN`):** Generates immutable SHA-256 GoBD seal and parameterized T-SQL staging script.
    - **FAIL (`QUARANTINE_HOLD`):** Highlights exact arithmetic or regulatory variance and auto-drafts German legal dispute notice citing relevant code (§ 14 UStG, ADSp 2017, § 412 HGB, LkSG § 7, GOÄ § 12).
+
+
+## 3. Directory Hierarchy & Clean Root Encapsulation
+The codebase organizes all assets, code, workspaces, and tests into a clean, intuitive structure:
+
+```
+Haulitz/
+├── index.html                      # Central deterministic gateway portal & interactive scanner
+├── _worker.js                      # Cloudflare Workers edge router with route aliasing & security headers
+├── package.json                    # Project manifest & standard scripts (npm test, npm start)
+├── README.md                       # Repository overview and setup guide
+├── .gitignore                      # Git exclusion rules
+├── .assetsignore                   # Edge CDN packaging exclusion rules
+├── css/                            # Global design system & studio styles
+│   ├── styles.css
+│   └── workspace-modern.css
+├── js/                             # Client-side core logic & domain modules
+│   ├── app.js                      # Central application controller & scanner presets
+│   ├── verification-engine.js      # Core statutory mathematics & checksum formulas
+│   └── domains/                    # 10 domain rule modules (fintech, maritime, etc.)
+├── workspaces/                     # 10 dedicated full-screen industry workspace interfaces
+│   ├── cleantech.html
+│   ├── ecommerce.html
+│   ├── erp-staging.html
+│   ├── fintech.html
+│   ├── healthtech.html
+│   ├── insurtech.html
+│   ├── legaltech.html
+│   ├── logistics.html
+│   ├── proptech.html
+│   └── supply-chain.html
+├── tests/                          # Automated verification test suite
+│   └── verify_haulitz.js           # 30/30 statutory verification scenarios test runner
+├── scripts/                        # Build & code generation utilities
+│   └── generate_domain_pages.js    # Workspace HTML template generator
+└── docs/                           # Senior engineering memory bank (11 core files)
+    ├── ARCHITECTURE.md
+    ├── DECISIONS.md
+    ├── HANDOVER.md
+    └── ...
+```

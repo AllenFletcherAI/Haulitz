@@ -1,7 +1,7 @@
 # Cloudflare Pages / Workers Assets ignore file
-# Prevent sensitive files from being deployed to edge CDNs
+# Prevent sensitive and build files from being deployed to edge CDNs
 
-# Git internals (CRITICAL SECURITY FIX)
+# Git internals
 .git/
 .git/**
 .git*
@@ -12,9 +12,9 @@
 *.env
 
 # Internal verification tests & scripts
-verify_haulitz.js
 tests/
 test/
+scripts/
 
 # Internal documentation
 docs/

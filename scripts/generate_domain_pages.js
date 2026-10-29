@@ -26,8 +26,8 @@ function generateHTML(p) {
   <title>HAULITZ | ${p.title} Workspace</title>
   
   <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
   <meta name="theme-color" content="#07080a">
 
   <!-- Typography & Icons -->
@@ -37,7 +37,7 @@ function generateHTML(p) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=3.2">
+  <link rel="stylesheet" href="../css/styles.css?v=3.2">
 
   <!-- Lenis Smooth Inertial Scroll CDN -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -72,10 +72,10 @@ function generateHTML(p) {
   <!-- Global Header Bar -->
   <header class="header-bar">
     <div class="brand-wrapper" style="align-items: center;">
-      <a href="index.html" style="text-decoration:none; display:flex; align-items:center;">
+      <a href="../index.html" style="text-decoration:none; display:flex; align-items:center;">
         <div class="brand-badge" style="margin-top: 0;">HZ</div>
       </a>
-      <a href="index.html" class="back-gateway-link" id="back-link">
+      <a href="../index.html" class="back-gateway-link" id="back-link">
         <i class="fa-solid fa-arrow-left"></i> Zurück zum Haulitz Gateway
       </a>
     </div>
@@ -228,22 +228,27 @@ function generateHTML(p) {
   </div>
 
   <!-- Master JavaScript Application Engine -->
-  <script src="js/verifier/arithmetic.js"></script>
-  <script src="js/verifier/checksums.js"></script>
-  <script src="js/verifier/gobd_hasher.js"></script>
-  <script src="js/verifier/reconciler.js"></script>
-  <script src="js/generators/legal_memos.js"></script>
-  <script src="js/generators/sql_staging.js"></script>
-  <script src="${p.fixture}"></script>
-  <script src="js/domains.js"></script>
-  <script src="js/domain_page.js?v=3.2"></script>
+  <script src="../js/verifier/arithmetic.js"></script>
+  <script src="../js/verifier/checksums.js"></script>
+  <script src="../js/verifier/gobd_hasher.js"></script>
+  <script src="../js/verifier/reconciler.js"></script>
+  <script src="../js/generators/legal_memos.js"></script>
+  <script src="../js/generators/sql_staging.js"></script>
+  <script src="../${p.fixture}"></script>
+  <script src="../js/domains.js"></script>
+  <script src="../js/domain_page.js?v=3.2"></script>
 </body>
 </html>
 `;
 }
 
+const workspacesDir = path.join(__dirname, '..', 'workspaces');
+if (!fs.existsSync(workspacesDir)) {
+  fs.mkdirSync(workspacesDir, { recursive: true });
+}
+
 pages.forEach(p => {
-  const filePath = path.join(__dirname, '..', p.file);
+  const filePath = path.join(workspacesDir, p.file);
   fs.writeFileSync(filePath, generateHTML(p), 'utf8');
-  console.log('Created standalone domain page:', p.file);
+  console.log('Created standalone domain page:', filePath);
 });

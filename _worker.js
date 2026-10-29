@@ -285,7 +285,39 @@ export default {
       }
     }
 
-    // 7. Default fallback: serve static assets via Cloudflare Pages / Workers Assets
+    // 7. Workspace clean routing & legacy backward compatibility aliases
+    const workspaceAliases = {
+      '/fintech': '/workspaces/fintech.html',
+      '/fintech.html': '/workspaces/fintech.html',
+      '/logistics': '/workspaces/logistics.html',
+      '/logistics.html': '/workspaces/logistics.html',
+      '/supply-chain': '/workspaces/supply-chain.html',
+      '/supply-chain.html': '/workspaces/supply-chain.html',
+      '/supply': '/workspaces/supply-chain.html',
+      '/insurtech': '/workspaces/insurtech.html',
+      '/insurtech.html': '/workspaces/insurtech.html',
+      '/legaltech': '/workspaces/legaltech.html',
+      '/legaltech.html': '/workspaces/legaltech.html',
+      '/healthtech': '/workspaces/healthtech.html',
+      '/healthtech.html': '/workspaces/healthtech.html',
+      '/ecommerce': '/workspaces/ecommerce.html',
+      '/ecommerce.html': '/workspaces/ecommerce.html',
+      '/cleantech': '/workspaces/cleantech.html',
+      '/cleantech.html': '/workspaces/cleantech.html',
+      '/proptech': '/workspaces/proptech.html',
+      '/proptech.html': '/workspaces/proptech.html',
+      '/erp': '/workspaces/erp-staging.html',
+      '/erp-staging': '/workspaces/erp-staging.html',
+      '/erp-staging.html': '/workspaces/erp-staging.html'
+    };
+
+    if (workspaceAliases[url.pathname] && env && env.ASSETS && typeof env.ASSETS.fetch === 'function') {
+      const rewritten = new URL(request.url);
+      rewritten.pathname = workspaceAliases[url.pathname];
+      return env.ASSETS.fetch(new Request(rewritten, request));
+    }
+
+    // 8. Default fallback: serve static assets via Cloudflare Pages / Workers Assets
     if (env && env.ASSETS && typeof env.ASSETS.fetch === 'function') {
       return env.ASSETS.fetch(request);
     }

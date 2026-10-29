@@ -34,11 +34,17 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
 - **Global Anti-Runt Typography**:
   - Applied `text-wrap: balance` to headings and `text-wrap: pretty` to body text.
 - **Deterministic Verification Suite**:
-  - `node verify_haulitz.js` passed all 30/30 scenarios with 100% precision.
-  - `node -c js/app.js` passed clean syntax validation.
+  - `npm test` (`node tests/verify_haulitz.js`) passed all 30/30 statutory verification scenarios with 100% precision.
+  - `node -c js/app.js` and `node -c _worker.js` passed clean syntax validation.
+- **Project Directory Reorganization & Clean Root Layout (ADR-003)**:
+  - Created `workspaces/` directory containing all 10 dedicated industry workspace pages (`cleantech.html`, `ecommerce.html`, `erp-staging.html`, `fintech.html`, `healthtech.html`, `insurtech.html`, `legaltech.html`, `logistics.html`, `proptech.html`, `supply-chain.html`).
+  - Created `tests/` directory and relocated the verification test runner to `tests/verify_haulitz.js`.
+  - Added root `package.json` with standard npm commands (`npm test`, `npm run generate:workspaces`, `npm start`).
+  - Added backward-compatible route aliasing in `_worker.js` (both `/fintech` and `/workspaces/fintech.html` resolve cleanly).
+  - Cleaned repository root to contain only entry points (`index.html`, `_worker.js`, `package.json`, `README.md`) and configuration files.
 
 ## 2. What We Are Working On Now
-- Commit all changes to git and push to GitHub (`origin main`).
+- Commit directory reorganization and updates to git and push to GitHub (`origin main`).
 - Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
 
 ## 3. Broken Or Dangerous Items

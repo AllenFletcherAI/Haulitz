@@ -1,0 +1,23 @@
+{
+  "name": "haulitz",
+  "version": "3.2.0",
+  "description": "Universal Deterministic Verification Gateway for Enterprise ERP & Supply Chain",
+  "private": true,
+  "scripts": {
+    "test": "node tests/verify_haulitz.js",
+    "generate:workspaces": "node scripts/generate_domain_pages.js",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": [
+    "erp",
+    "sap",
+    "verification-gateway",
+    "gobd",
+    "audit-trail",
+    "deterministic",
+    "hgb",
+    "ustg"
+  ],
+  "author": "Allen Simeon Fletcher",
+  "license": "UNLICENSED"
+}

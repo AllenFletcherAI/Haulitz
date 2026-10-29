@@ -57,3 +57,31 @@ We chose **Option 3**. The resulting interface delivers zero content occlusion, 
 
 ### 4. When to Reconsider
 If user telemetry shows high demand for persistent navigation on ultrawide monitors, implement an unobtrusive top-bar breadcrumb rather than a floating viewport obstruction.
+
+---
+
+## ADR-003: Project Directory Reorganization & Workspace Encapsulation
+- **Date:** 2026-10-29
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+The root project directory contained 10 loose HTML workspace files and a test script floating beside `index.html`. This created clutter and made the repository appear disorganized.
+
+### 2. The Three Options Considered
+1. **Option 1: Leave all HTML files in root**
+   - *Drawback:* Cluttered root directory; violates professional enterprise codebase standards.
+2. **Option 2: Bundle everything into a single massive index.html file**
+   - *Drawback:* Bloats bundle size; breaks deep linking and clean isolation between industry domains.
+3. **Option 3: Dedicated `workspaces/` and `tests/` directories with edge alias rewrites**
+   - Move all 10 domain pages into `workspaces/`.
+   - Move test suite into `tests/verify_haulitz.js` with `package.json` test runner.
+   - Configure `_worker.js` with route aliases so both `/fintech` and `/workspaces/fintech.html` resolve seamlessly.
+
+### 3. The Decision
+We chose **Option 3**. The root directory now contains only core entrypoints (`index.html`, `_worker.js`, `package.json`, `README.md`) and cleanly separated directories (`workspaces/`, `tests/`, `scripts/`, `functions/`, `docs/`, `js/`, `css/`, `assets/`).
+
+### 4. When to Reconsider
+If the project migrates to a full server-side framework (e.g., Astro or Next.js), use file-based routing. For static edge architecture, Option 3 is optimal.
+

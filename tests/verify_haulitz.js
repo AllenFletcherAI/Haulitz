@@ -3,24 +3,24 @@
  * Habit 08: Show the Receipt - Run the actual screen verification
  */
 
-const Checksums = require('./js/verifier/checksums.js');
-const Arithmetic = require('./js/verifier/arithmetic.js');
-const Reconciler = require('./js/verifier/reconciler.js');
-const GoBDHasher = require('./js/verifier/gobd_hasher.js');
-const SQLStaging = require('./js/generators/sql_staging.js');
-const LegalMemos = require('./js/generators/legal_memos.js');
-const Domains = require('./js/domains.js');
+const Checksums = require('../js/verifier/checksums.js');
+const Arithmetic = require('../js/verifier/arithmetic.js');
+const Reconciler = require('../js/verifier/reconciler.js');
+const GoBDHasher = require('../js/verifier/gobd_hasher.js');
+const SQLStaging = require('../js/generators/sql_staging.js');
+const LegalMemos = require('../js/generators/legal_memos.js');
+const Domains = require('../js/domains.js');
 
-const Fintech = require('./js/fixtures/fintech_fixtures.js');
-const Logistics = require('./js/fixtures/logistics_fixtures.js');
-const Supply = require('./js/fixtures/supply_fixtures.js');
-const Insurtech = require('./js/fixtures/insurtech_fixtures.js');
-const Legaltech = require('./js/fixtures/legaltech_fixtures.js');
-const Healthtech = require('./js/fixtures/healthtech_fixtures.js');
-const Ecommerce = require('./js/fixtures/ecommerce_fixtures.js');
-const Cleantech = require('./js/fixtures/cleantech_fixtures.js');
-const Proptech = require('./js/fixtures/proptech_fixtures.js');
-const Erp = require('./js/fixtures/erp_fixtures.js');
+const Fintech = require('../js/fixtures/fintech_fixtures.js');
+const Logistics = require('../js/fixtures/logistics_fixtures.js');
+const Supply = require('../js/fixtures/supply_fixtures.js');
+const Insurtech = require('../js/fixtures/insurtech_fixtures.js');
+const Legaltech = require('../js/fixtures/legaltech_fixtures.js');
+const Healthtech = require('../js/fixtures/healthtech_fixtures.js');
+const Ecommerce = require('../js/fixtures/ecommerce_fixtures.js');
+const Cleantech = require('../js/fixtures/cleantech_fixtures.js');
+const Proptech = require('../js/fixtures/proptech_fixtures.js');
+const Erp = require('../js/fixtures/erp_fixtures.js');
 
 const fixturesMap = {
   fintech: Fintech,

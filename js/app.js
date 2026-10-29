@@ -700,16 +700,16 @@
   }
 
   const domainPages = {
-    fintech: 'fintech.html',
-    logistics: 'logistics.html',
-    supply: 'supply-chain.html',
-    insurtech: 'insurtech.html',
-    legaltech: 'legaltech.html',
-    healthtech: 'healthtech.html',
-    ecommerce: 'ecommerce.html',
-    cleantech: 'cleantech.html',
-    proptech: 'proptech.html',
-    erp: 'erp-staging.html'
+    fintech: 'workspaces/fintech.html',
+    logistics: 'workspaces/logistics.html',
+    supply: 'workspaces/supply-chain.html',
+    insurtech: 'workspaces/insurtech.html',
+    legaltech: 'workspaces/legaltech.html',
+    healthtech: 'workspaces/healthtech.html',
+    ecommerce: 'workspaces/ecommerce.html',
+    cleantech: 'workspaces/cleantech.html',
+    proptech: 'workspaces/proptech.html',
+    erp: 'workspaces/erp-staging.html'
   };
 
   /**
@@ -2161,16 +2161,16 @@
     if (!cmdModal || !cmdInput || !cmdResults) return;
 
     const domainsList = [
-      { id: 'fintech', num: '01', title: 'FinTech & Corporate Invoicing', deTitle: 'FinTech & Rechnungsprüfung', law: '§ 14 UStG, GoBD', icon: 'fa-file-invoice-dollar', url: 'fintech.html' },
-      { id: 'logistics', num: '02', title: 'Freight & Maritime Logistics', deTitle: 'Seefracht & Zolldokumentation', law: 'ADSp 2017, § 412 HGB', icon: 'fa-ship', url: 'logistics.html' },
-      { id: 'supply', num: '03', title: 'Supply Chain & Manufacturing', deTitle: 'Supply Chain & Dreiseitiger Abgleich', law: 'HGB § 377 Rüge', icon: 'fa-industry', url: 'supply-chain.html' },
-      { id: 'insurtech', num: '04', title: 'InsurTech & Claims Processing', deTitle: 'InsurTech Schadensprüfung', law: 'VVG § 86, BGB', icon: 'fa-shield-halved', url: 'insurtech.html' },
-      { id: 'legaltech', num: '05', title: 'LegalTech & Regulatory Contracts', deTitle: 'LegalTech & Lieferkettengesetz', law: 'LkSG, EU CSDDD', icon: 'fa-scale-balanced', url: 'legaltech.html' },
-      { id: 'healthtech', num: '06', title: 'HealthTech & Medical Admin', deTitle: 'HealthTech & GOÄ-Abrechnung', law: 'GOÄ § 5 Abs. 2', icon: 'fa-hospital-user', url: 'healthtech.html' },
-      { id: 'ecommerce', num: '07', title: 'E-Commerce & Retail Operations', deTitle: 'E-Commerce WMS & Barcodes', law: 'GS1 EAN-13, FX', icon: 'fa-cart-shopping', url: 'ecommerce.html' },
-      { id: 'cleantech', num: '08', title: 'CleanTech & Renewable Energy', deTitle: 'CleanTech Solar Einspeisung', law: 'VDE-AR-N 4105, EEG', icon: 'fa-bolt', url: 'cleantech.html' },
-      { id: 'proptech', num: '09', title: 'PropTech & Real Estate', deTitle: 'PropTech Nebenkostenabrechnung', law: 'HeizkostenV § 7 & 12', icon: 'fa-building', url: 'proptech.html' },
-      { id: 'erp', num: '10', title: 'Enterprise ERP & IT Consulting', deTitle: 'Enterprise ERP Staging & T-SQL', law: 'OWASP ASVS, T-SQL', icon: 'fa-database', url: 'erp-staging.html' }
+      { id: 'fintech', num: '01', title: 'FinTech & Corporate Invoicing', deTitle: 'FinTech & Rechnungsprüfung', law: '§ 14 UStG, GoBD', icon: 'fa-file-invoice-dollar', url: 'workspaces/fintech.html' },
+      { id: 'logistics', num: '02', title: 'Freight & Maritime Logistics', deTitle: 'Seefracht & Zolldokumentation', law: 'ADSp 2017, § 412 HGB', icon: 'fa-ship', url: 'workspaces/logistics.html' },
+      { id: 'supply', num: '03', title: 'Supply Chain & Manufacturing', deTitle: 'Supply Chain & Dreiseitiger Abgleich', law: 'HGB § 377 Rüge', icon: 'fa-industry', url: 'workspaces/supply-chain.html' },
+      { id: 'insurtech', num: '04', title: 'InsurTech & Claims Processing', deTitle: 'InsurTech Schadensprüfung', law: 'VVG § 86, BGB', icon: 'fa-shield-halved', url: 'workspaces/insurtech.html' },
+      { id: 'legaltech', num: '05', title: 'LegalTech & Regulatory Contracts', deTitle: 'LegalTech & Lieferkettengesetz', law: 'LkSG, EU CSDDD', icon: 'fa-scale-balanced', url: 'workspaces/legaltech.html' },
+      { id: 'healthtech', num: '06', title: 'HealthTech & Medical Admin', deTitle: 'HealthTech & GOÄ-Abrechnung', law: 'GOÄ § 5 Abs. 2', icon: 'fa-hospital-user', url: 'workspaces/healthtech.html' },
+      { id: 'ecommerce', num: '07', title: 'E-Commerce & Retail Operations', deTitle: 'E-Commerce WMS & Barcodes', law: 'GS1 EAN-13, FX', icon: 'fa-cart-shopping', url: 'workspaces/ecommerce.html' },
+      { id: 'cleantech', num: '08', title: 'CleanTech & Renewable Energy', deTitle: 'CleanTech Solar Einspeisung', law: 'VDE-AR-N 4105, EEG', icon: 'fa-bolt', url: 'workspaces/cleantech.html' },
+      { id: 'proptech', num: '09', title: 'PropTech & Real Estate', deTitle: 'PropTech Nebenkostenabrechnung', law: 'HeizkostenV § 7 & 12', icon: 'fa-building', url: 'workspaces/proptech.html' },
+      { id: 'erp', num: '10', title: 'Enterprise ERP & IT Consulting', deTitle: 'Enterprise ERP Staging & T-SQL', law: 'OWASP ASVS, T-SQL', icon: 'fa-database', url: 'workspaces/erp-staging.html' }
     ];
 
     let selectedIndex = 0;
@@ -2286,7 +2286,7 @@
    */
   const SCANNER_PRESETS = {
     fintech: {
-      url: 'fintech.html',
+      url: 'workspaces/fintech.html',
       icon: 'fa-microchip',
       ruleIcon: 'fa-shield-halved',
       docBadge: 'INV-2024-8841',
@@ -2335,7 +2335,7 @@
       }
     },
     logistics: {
-      url: 'logistics.html',
+      url: 'workspaces/logistics.html',
       icon: 'fa-ship',
       ruleIcon: 'fa-anchor',
       docBadge: 'BOL-HAM-9042',
@@ -2384,7 +2384,7 @@
       }
     },
     supply: {
-      url: 'supply-chain.html',
+      url: 'workspaces/supply-chain.html',
       icon: 'fa-industry',
       ruleIcon: 'fa-clock',
       docBadge: 'GR-2024-5519',
@@ -2433,7 +2433,7 @@
       }
     },
     insurtech: {
-      url: 'insurtech.html',
+      url: 'workspaces/insurtech.html',
       icon: 'fa-shield-halved',
       ruleIcon: 'fa-handshake',
       docBadge: 'CLM-2024-7712',
@@ -2482,7 +2482,7 @@
       }
     },
     legaltech: {
-      url: 'legaltech.html',
+      url: 'workspaces/legaltech.html',
       icon: 'fa-scale-balanced',
       ruleIcon: 'fa-gavel',
       docBadge: 'ESG-2024-3011',
@@ -2531,7 +2531,7 @@
       }
     },
     healthtech: {
-      url: 'healthtech.html',
+      url: 'workspaces/healthtech.html',
       icon: 'fa-hospital-user',
       ruleIcon: 'fa-user-doctor',
       docBadge: 'GOA-2024-4190',
@@ -2580,7 +2580,7 @@
       }
     },
     ecommerce: {
-      url: 'ecommerce.html',
+      url: 'workspaces/ecommerce.html',
       icon: 'fa-cart-shopping',
       ruleIcon: 'fa-barcode',
       docBadge: 'ASN-2024-9128',
@@ -2629,7 +2629,7 @@
       }
     },
     cleantech: {
-      url: 'cleantech.html',
+      url: 'workspaces/cleantech.html',
       icon: 'fa-bolt',
       ruleIcon: 'fa-plug',
       docBadge: 'PV-2024-1184',
@@ -2678,7 +2678,7 @@
       }
     },
     proptech: {
-      url: 'proptech.html',
+      url: 'workspaces/proptech.html',
       icon: 'fa-building',
       ruleIcon: 'fa-leaf',
       docBadge: 'HKV-2024-6022',
@@ -2727,7 +2727,7 @@
       }
     },
     erp: {
-      url: 'erp-staging.html',
+      url: 'workspaces/erp-staging.html',
       icon: 'fa-database',
       ruleIcon: 'fa-server',
       docBadge: 'SQL-2024-0019',
@@ -2932,16 +2932,16 @@
     const domainsData = (window.Haulitz && window.Haulitz.Domains) || {};
 
     const domainPages = {
-      fintech: 'fintech.html',
-      logistics: 'logistics.html',
-      supply: 'supply-chain.html',
-      insurtech: 'insurtech.html',
-      legaltech: 'legaltech.html',
-      healthtech: 'healthtech.html',
-      ecommerce: 'ecommerce.html',
-      cleantech: 'cleantech.html',
-      proptech: 'proptech.html',
-      erp: 'erp-staging.html'
+      fintech: 'workspaces/fintech.html',
+      logistics: 'workspaces/logistics.html',
+      supply: 'workspaces/supply-chain.html',
+      insurtech: 'workspaces/insurtech.html',
+      legaltech: 'workspaces/legaltech.html',
+      healthtech: 'workspaces/healthtech.html',
+      ecommerce: 'workspaces/ecommerce.html',
+      cleantech: 'workspaces/cleantech.html',
+      proptech: 'workspaces/proptech.html',
+      erp: 'workspaces/erp-staging.html'
     };
 
     updateShowcaseGlobal = (domainKey) => {
