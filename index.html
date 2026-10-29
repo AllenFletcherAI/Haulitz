@@ -3,32 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAULITZ | Deterministic ERP Verification</title>
+  <title>HAULITZ | Deterministic ERP Verification Gateway</title>
 
   <meta name="description" content="Deterministic document verification gateway by Allen Simeon Fletcher. Eliminates rounding drift, statutory tax errors, and corrupted bank checksums before ERP staging.">
   <meta name="author" content="Allen Simeon Fletcher">
   <link rel="canonical" href="https://haulitz.allensimeonfletcher.workers.dev/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="HAULITZ | Deterministic ERP Verification">
+  <meta property="og:title" content="HAULITZ | Deterministic ERP Verification Gateway">
   <meta property="og:description" content="Stops invoice drift, math errors, and corrupted bank checksums before ERP staging.">
   <meta property="og:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/haulitz-social-card.png">
   <meta property="og:url" content="https://haulitz.allensimeonfletcher.workers.dev/">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HAULITZ | Deterministic ERP Verification">
+  <meta name="twitter:title" content="HAULITZ | Deterministic ERP Verification Gateway">
   <meta name="twitter:description" content="Catches rounding drift, statutory tax errors, and corrupted bank checksums in 0.4ms.">
   <meta name="twitter:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/haulitz-social-card.png">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#030712">
+  <meta name="theme-color" content="#070a13">
 
   <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css?v=6.0">
+  <link rel="stylesheet" href="css/styles.css?v=6.1">
 
   <script defer src="js/vendor/lenis.min.js"></script>
-  <script defer src="js/app.js?v=6.0"></script>
+  <script defer src="js/app.js?v=6.1"></script>
 
   <script type="application/ld+json">
   {
@@ -47,7 +47,7 @@
         "name": "Allen Simeon Fletcher",
         "jobTitle": "Solutions & Integration Engineer",
         "url": "https://www.linkedin.com/in/allen-fletcher/",
-        "sameAs": ["https://github.com/AllenFletcherAI/Haulitz", "https://www.linkedin.com/in/allen-fletcher/"]
+        "sameAs": ["https://github.com/AllenFletcherAI", "https://www.linkedin.com/in/allen-fletcher/"]
       }
     ]
   }
@@ -55,20 +55,30 @@
 </head>
 <body>
 
-  <!-- Kinetic Cursor -->
+  <!-- Kinetic Reticle Cursor -->
   <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
-  <!-- Ambient Canvas -->
+  <!-- Ambient Background Canvas & Grid Guides -->
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="grid-guides" aria-hidden="true">
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+  </div>
+
+  <!-- Noise Overlay for Materiality -->
+  <div class="noise-overlay" aria-hidden="true"></div>
 
   <!-- Skip link -->
   <a href="#hero" class="skip-link">Direkt zum Inhalt springen</a>
 
   <!-- =====================================================================
-       NAV: Minimal floating capsule dock
+       NAV: Frosted capsule dock with top blur shield
        ===================================================================== -->
   <header class="nav-shell" role="banner">
+    <div class="nav-blur-shield" aria-hidden="true"></div>
     <nav class="nav-dock" aria-label="Hauptnavigation">
 
       <div class="nav-left">
@@ -105,7 +115,7 @@
   </header>
 
   <!-- =====================================================================
-       HERO: Editorial monumental typography
+       HERO: Architectural display typography (unbroken word-wrap)
        ===================================================================== -->
   <section id="hero" class="hero-section">
     <div class="hero-inner">
@@ -116,7 +126,7 @@
       </div>
 
       <h1 class="hero-headline">
-        <span class="hero-line" id="hero-line-1">Rechnungs&shy;fehler</span>
+        <span class="hero-line" id="hero-line-1">Rechnungsfehler</span>
         <span class="hero-line hero-line-accent" id="hero-line-2">stoppen.</span>
       </h1>
 
@@ -135,29 +145,46 @@
            target="_blank" rel="noopener noreferrer"
            class="btn-ghost mono">
           <i class="fa-brands fa-github" aria-hidden="true"></i>
-          <span>GitHub</span>
+          <span>Repository</span>
         </a>
       </div>
+
+      <a href="#document" class="hero-scroll-cue mono" aria-label="Zur Live-Verifikation scrollen">
+        <span>Inspektion starten</span>
+        <span class="cue-arrow" aria-hidden="true">↓</span>
+      </a>
 
     </div>
   </section>
 
   <!-- =====================================================================
-       DOCUMENT: Single pristine glass invoice
+       DOCUMENT: Architectural Inspection Bay with Integrated Chaos Deck
        ===================================================================== -->
   <section id="document" class="document-section">
     <div class="section-inner">
 
-      <div class="section-label mono">
-        <span class="label-dot label-dot-blue"></span>
-        <span>Live-Verifikation · Klicke &quot;Fehler einschleusen&quot; oben</span>
-      </div>
+      <div class="inspection-bay" id="inspection-bay">
+        <div class="bay-corner corner-tl">+</div>
+        <div class="bay-corner corner-tr">+</div>
+        <div class="bay-corner corner-bl">+</div>
+        <div class="bay-corner corner-br">+</div>
 
-      <!-- THE GLASS INVOICE CARD -->
-      <div class="invoice-stage" id="invoice-stage">
+        <!-- Bay Header Bar -->
+        <div class="bay-header">
+          <div class="bay-label mono">
+            <span class="label-dot label-dot-blue"></span>
+            <span>VERIFICATION GATEWAY // AUDIT STAGE</span>
+          </div>
+          <div class="bay-telemetry mono">
+            <span class="telemetry-dot"></span>
+            <span>LATENZ: 0,38 ms · GoBD-KONFORM</span>
+          </div>
+        </div>
+
+        <!-- THE GLASS INVOICE CARD -->
         <div class="invoice-card" id="invoice-card">
 
-          <!-- Specular sheen -->
+          <!-- Specular mouse sheen -->
           <div class="invoice-sheen" id="invoice-sheen" aria-hidden="true"></div>
 
           <!-- Verdict bar -->
@@ -245,28 +272,35 @@
 
         </div>
 
-        <!-- Chaos attack pills — beneath the card -->
-        <div class="chaos-strip" role="group" aria-label="Fehlertyp auswählen">
-          <button class="chaos-pill active" id="chaos-clean" data-chaos="clean">
-            <span class="chaos-dot chaos-dot-green"></span> Sauber
-          </button>
-          <button class="chaos-pill" id="chaos-math" data-chaos="math">
-            <span class="chaos-dot chaos-dot-red"></span> Steuer-Drift
-          </button>
-          <button class="chaos-pill" id="chaos-iban" data-chaos="iban">
-            <span class="chaos-dot chaos-dot-amber"></span> IBAN-Bruch
-          </button>
-          <button class="chaos-pill" id="chaos-sql" data-chaos="sql">
-            <span class="chaos-dot chaos-dot-purple"></span> SQL-Angriff
-          </button>
+        <!-- Integrated Chaos Deck -->
+        <div class="chaos-deck">
+          <div class="chaos-deck-label mono">
+            <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+            <span>Fehlerszenario testen:</span>
+          </div>
+          <div class="chaos-strip" role="group" aria-label="Fehlertyp auswählen">
+            <button class="chaos-pill active" id="chaos-clean" data-chaos="clean">
+              <span class="chaos-dot chaos-dot-green"></span> 01 Sauber
+            </button>
+            <button class="chaos-pill" id="chaos-math" data-chaos="math">
+              <span class="chaos-dot chaos-dot-red"></span> 02 Steuer-Drift
+            </button>
+            <button class="chaos-pill" id="chaos-iban" data-chaos="iban">
+              <span class="chaos-dot chaos-dot-amber"></span> 03 IBAN-Bruch
+            </button>
+            <button class="chaos-pill" id="chaos-sql" data-chaos="sql">
+              <span class="chaos-dot chaos-dot-purple"></span> 04 SQL-Angriff
+            </button>
+          </div>
         </div>
 
       </div>
+
     </div>
   </section>
 
   <!-- =====================================================================
-       INSTRUMENTS: 2 master instruments only
+       INSTRUMENTS: 2 Precision Laboratory Instruments
        ===================================================================== -->
   <section id="instruments" class="instruments-section">
     <div class="section-inner">
@@ -274,10 +308,10 @@
       <div class="section-header">
         <div class="section-label mono">
           <span class="label-dot label-dot-emerald"></span>
-          <span>Instrumente</span>
+          <span>Prüfinstrumente</span>
         </div>
         <h2 class="section-heading">Prüf&shy;mechanismen live testen.</h2>
-        <p class="section-sub">Testen Sie direkt im Browser — kein Server, kein Login.</p>
+        <p class="section-sub">Testen Sie direkt im Browser — 100% deterministisch, ohne Server oder Login.</p>
       </div>
 
       <div class="instruments-grid">
@@ -289,30 +323,39 @@
             <h3 class="instrument-title">Float-Drift vs. exakte Cent-Math</h3>
             <p class="instrument-desc">
               Standard-Computer-Arithmetik: 0,10&nbsp;€ + 0,20&nbsp;€ ergibt im Speicher 0,30000000000000004&nbsp;€.
-              HAULITZ verwendet 64-Bit-Ganzzahl-Cents, die immer exakt sind.
+              HAULITZ arretiert 64-Bit-Ganzzahl-Cents dauerhaft auf 0,00&nbsp;€ Toleranz.
             </p>
           </div>
 
           <div class="math-display">
             <div class="math-column flawed">
               <div class="math-label mono">IEEE-754 Float</div>
-              <div class="math-value mono" id="float-result">0.30000000000000004</div>
+              <div class="math-value mono num-tabular" id="float-result">0.30000000000000004</div>
               <div class="math-unit">€ (Drift)</div>
             </div>
             <div class="math-divider" aria-hidden="true">≠</div>
             <div class="math-column clean">
               <div class="math-label mono">HAULITZ Cent-Math</div>
-              <div class="math-value mono" id="cent-result">0.30</div>
+              <div class="math-value mono num-tabular" id="cent-result">0.30</div>
               <div class="math-unit">€ (Exakt)</div>
             </div>
           </div>
 
           <div class="slider-block">
-            <div class="slider-label mono">
-              Transaktionen: <strong id="slider-qty">100</strong>
+            <div class="slider-top-row mono">
+              <span class="slider-title">Transaktionen:</span>
+              <span class="slider-badge" id="slider-qty">100</span>
             </div>
-            <input type="range" id="math-slider" min="1" max="10000" value="100"
-                   class="clean-slider" aria-label="Anzahl der Transaktionen für Drift-Berechnung">
+            <div class="slider-track-wrap">
+              <input type="range" id="math-slider" min="1" max="10000" value="100"
+                     class="clean-slider" aria-label="Anzahl der Transaktionen für Drift-Berechnung">
+              <div class="slider-ticks mono" aria-hidden="true">
+                <span>1</span>
+                <span>1k</span>
+                <span>5k</span>
+                <span>10k</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -363,7 +406,7 @@
   </section>
 
   <!-- =====================================================================
-       BENCHMARK: 5,000 TPS hold-to-test
+       BENCHMARK: 5,000 TPS Phosphor Oscilloscope & High-Throughput Engine
        ===================================================================== -->
   <section id="benchmark" class="benchmark-section">
     <div class="section-inner benchmark-inner">
@@ -376,19 +419,19 @@
         <h2 class="section-heading">5.000 Belege<br>pro Sekunde.</h2>
         <p class="section-sub">
           Halten Sie den Auslöser gedrückt. Der Browser-interne Worker verarbeitet
-          synthetische Rechnungsdaten ohne Server oder Cloud.
+          synthetische Rechnungsdaten direkt im Client ohne Server oder Cloud.
         </p>
         <div class="bench-metrics mono">
           <div class="bench-metric">
-            <div class="bm-val" id="bm-count">0</div>
+            <div class="bm-val num-tabular" id="bm-count">0</div>
             <div class="bm-key">Geprüfte Belege</div>
           </div>
           <div class="bench-metric">
-            <div class="bm-val" id="bm-latency">—</div>
+            <div class="bm-val num-tabular" id="bm-latency">—</div>
             <div class="bm-key">Latenz (ms)</div>
           </div>
           <div class="bench-metric">
-            <div class="bm-val text-emerald">0,00 €</div>
+            <div class="bm-val num-tabular text-emerald">0,00 €</div>
             <div class="bm-key">Rundungsdrift</div>
           </div>
         </div>
@@ -402,18 +445,25 @@
           <span class="bench-label">HALTEN</span>
           <span class="bench-sub mono">5.000 TPS</span>
         </button>
-        <canvas id="bench-canvas" aria-label="Durchsatz-Wellenform" width="400" height="60"></canvas>
+        <div class="bench-canvas-card">
+          <div class="canvas-header mono">
+            <span>OSZILLOSKOP // DURCHSATZ</span>
+            <span class="active-badge" id="bench-active-tag">IDLE</span>
+          </div>
+          <canvas id="bench-canvas" aria-label="Durchsatz-Wellenform" width="400" height="90"></canvas>
+        </div>
       </div>
 
     </div>
   </section>
 
   <!-- =====================================================================
-       COLOPHON: High-fashion architect presentation
+       COLOPHON: Executive System Architect Presentation
        ===================================================================== -->
   <section id="colophon" class="colophon-section">
     <div class="section-inner colophon-inner">
 
+      <!-- Left Column: Portrait & Verification Badges -->
       <div class="colophon-left">
         <div class="portrait-frame">
           <img src="assets/allen_fletcher.jpg"
@@ -422,8 +472,26 @@
                width="160" height="160">
           <div class="portrait-ring" aria-hidden="true"></div>
         </div>
+
+        <div class="portrait-capsules mono">
+          <div class="portrait-pill availability-pill">
+            <span class="live-beacon"></span>
+            <span>Sofort einsatzbereit</span>
+          </div>
+          <div class="portrait-pill ci-pill">
+            <i class="fa-solid fa-circle-check text-emerald" aria-hidden="true"></i>
+            <span>30/30 Tests verifiziert</span>
+          </div>
+          <div class="portrait-stack-tags">
+            <span class="stack-tag">SAP S/4HANA</span>
+            <span class="stack-tag">C# .NET 8</span>
+            <span class="stack-tag">T-SQL</span>
+            <span class="stack-tag">Node.js</span>
+          </div>
+        </div>
       </div>
 
+      <!-- Right Column: Specs & Direct Actions -->
       <div class="colophon-right">
         <div class="section-label mono">
           <span class="label-dot label-dot-emerald"></span>
@@ -440,19 +508,19 @@
 
         <div class="colophon-specs mono">
           <div class="spec-row">
-            <span class="spec-key">Standort</span>
-            <span class="spec-val">Deutschland · Sofort verfügbar</span>
+            <span class="spec-key">STANDORT</span>
+            <span class="spec-val">Deutschland · Reise- &amp; umzugsbereit</span>
           </div>
           <div class="spec-row">
-            <span class="spec-key">Arbeitserlaubnis</span>
-            <span class="spec-val text-emerald">EU Blue Card · § 18g AufenthG</span>
+            <span class="spec-key">ARBEITSERLAUBNIS</span>
+            <span class="spec-val text-emerald">EU Blue Card (§ 18g AufenthG) · Sofort verfügbar</span>
           </div>
           <div class="spec-row">
-            <span class="spec-key">Sprachen</span>
+            <span class="spec-key">SPRACHEN</span>
             <span class="spec-val">Deutsch B2/C1 · Englisch C2</span>
           </div>
           <div class="spec-row">
-            <span class="spec-key">Abschluss</span>
+            <span class="spec-key">ABSCHLUSS</span>
             <span class="spec-val">M.Sc. Artificial Intelligence · Anabin H+</span>
           </div>
         </div>
@@ -467,9 +535,9 @@
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>
             <span>E-Mail kopieren</span>
           </button>
-          <a href="https://github.com/AllenFletcherAI/Haulitz"
+          <a href="https://github.com/AllenFletcherAI"
              target="_blank" rel="noopener noreferrer"
-             class="btn-icon" title="GitHub Repository" aria-label="GitHub">
+             class="btn-icon" title="GitHub Profil — Allen Simeon Fletcher" aria-label="GitHub">
             <i class="fa-brands fa-github" aria-hidden="true"></i>
           </a>
           <a href="https://www.linkedin.com/in/allen-fletcher/"
@@ -495,7 +563,7 @@
         <a href="datenschutz.html" class="f-link">Datenschutz</a>
         <span aria-hidden="true">·</span>
         <a href="https://github.com/AllenFletcherAI/Haulitz"
-           target="_blank" rel="noopener noreferrer" class="f-link">GitHub</a>
+           target="_blank" rel="noopener noreferrer" class="f-link">GitHub Repository</a>
       </div>
     </div>
   </footer>

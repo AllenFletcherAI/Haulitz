@@ -1,6 +1,6 @@
-// js/app.js — HAULITZ Engine v6.0
-// Clean, modular, zero-bloat interactive engine.
-// Everything here is wired to real DOM nodes in index.html.
+// js/app.js — HAULITZ Engine v6.1
+// Architectural Editorial Verification Engine
+// Zero-Bloat · Procedural Audio · Native Canvas Oscilloscope · Strict Determinism
 
 (function () {
   'use strict';
@@ -73,17 +73,17 @@
       } catch (_) {}
     }
 
-    click()   { this._play(380, 'triangle', 0.04, 0.08); }
-    alert()   { this._playRamp(200, 100, 'sawtooth', 0.2, 0.14); }
-    chime()   { this._playRamp(587, 880, 'sine', 0.28, 0.12); }
-    pulse()   { this._playRamp(130, 55, 'sine', 0.14, 0.15); }
-    seal()    { this._playRamp(523, 1047, 'sine', 0.3, 0.13); }
+    click() { this._play(380, 'triangle', 0.04, 0.08); }
+    alert() { this._playRamp(200, 100, 'sawtooth', 0.2, 0.14); }
+    chime() { this._playRamp(587, 880, 'sine', 0.28, 0.12); }
+    pulse() { this._playRamp(130, 55, 'sine', 0.14, 0.15); }
+    seal()  { this._playRamp(523, 1047, 'sine', 0.3, 0.13); }
   }
 
   const audio = new Audio();
 
   // =========================================================================
-  // 2. TOAST
+  // 2. TOAST COMPONENT
   // =========================================================================
   function showToast(msg, iconClass = 'fa-solid fa-check text-emerald') {
     const t  = document.getElementById('toast');
@@ -98,7 +98,7 @@
   }
 
   // =========================================================================
-  // 3. AMBIENT CANVAS (particle network)
+  // 3. AMBIENT CANVAS (Calibrated Particle Network)
   // =========================================================================
   function initAmbientCanvas() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -114,13 +114,13 @@
       H = canvas.height = window.innerHeight;
     });
 
-    const N = Math.min(40, Math.floor(W * H / 28000));
+    const N = Math.min(36, Math.floor(W * H / 32000));
     const pts = Array.from({ length: N }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      r: Math.random() * 1.4 + 0.7
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: (Math.random() - 0.5) * 0.28,
+      r: Math.random() * 1.3 + 0.6
     }));
 
     function tick() {
@@ -130,9 +130,9 @@
           const dx = pts[i].x - pts[j].x;
           const dy = pts[i].y - pts[j].y;
           const d  = Math.sqrt(dx * dx + dy * dy);
-          if (d < 110) {
-            ctx.strokeStyle = `rgba(16,185,129,${0.1 * (1 - d / 110)})`;
-            ctx.lineWidth   = 0.7;
+          if (d < 120) {
+            ctx.strokeStyle = `rgba(16,185,129,${0.08 * (1 - d / 120)})`;
+            ctx.lineWidth   = 0.6;
             ctx.beginPath();
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
@@ -144,7 +144,7 @@
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
         if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-        ctx.fillStyle = 'rgba(16,185,129,0.35)';
+        ctx.fillStyle = 'rgba(16,185,129,0.3)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -155,7 +155,7 @@
   }
 
   // =========================================================================
-  // 4. KINETIC CURSOR
+  // 4. KINETIC RETICLE CURSOR
   // =========================================================================
   function initCursor() {
     if (window.matchMedia('(hover: none)').matches) return;
@@ -165,29 +165,38 @@
     const ring = document.getElementById('cursor-ring');
     if (!dot || !ring) return;
 
+    let hasMoved = false;
     let mx = innerWidth / 2, my = innerHeight / 2;
     let rx = mx, ry = my;
 
     window.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
+      if (!hasMoved) {
+        hasMoved = true;
+        rx = mx; ry = my;
+        dot.classList.add('ready');
+        ring.classList.add('ready');
+      }
       dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
     });
 
     (function lerp() {
-      rx += (mx - rx) * 0.16;
-      ry += (my - ry) * 0.16;
-      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      if (hasMoved) {
+        rx += (mx - rx) * 0.16;
+        ry += (my - ry) * 0.16;
+        ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      }
       requestAnimationFrame(lerp);
     })();
 
-    document.querySelectorAll('a,button,input,[role="option"]').forEach(el => {
+    document.querySelectorAll('a, button, input, .chaos-pill, .invoice-card, .instrument-card').forEach(el => {
       el.addEventListener('mouseenter', () => ring.classList.add('hover'));
       el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
     });
   }
 
   // =========================================================================
-  // 5. INVOICE CHAOS ENGINE
+  // 5. INVOICE CHAOS ENGINE (Strict State Hygiene)
   // =========================================================================
   const PRESETS = {
     clean: {
@@ -200,6 +209,7 @@
       totalVat: '760,00 €',
       totalGross: '4.760,00 €',
       showError: false,
+      errorClass: '',
       errorLabel: '',
       footerTargetText: 'SAP S/4HANA · BAPI_INCOMINGINVOICE_CREATE',
       footerTargetClass: '',
@@ -216,6 +226,7 @@
       totalVat: '640,00 €',
       totalGross: '4.640,00 €',
       showError: true,
+      errorClass: '',
       errorLabel: 'Abweichung: Berechnet 760,00 € — Deklariert 640,00 €',
       footerTargetText: 'Quarantäne · HGB § 377 Rügeobliegenheit',
       footerTargetClass: 'flawed',
@@ -227,12 +238,13 @@
       verdictBadgeClass: 'amber',
       verdictBadgeText: 'SEPA-CHECKSUMME UNGÜLTIG',
       cardClass: 'state-iban',
-      ibanText: 'DE89 3704 0044 0532 0130 99 — MOD-97 fehlgeschlagen',
+      ibanText: 'DE89 3704 0044 0532 0130 99 (MOD-97 ungültig)',
       ibanClass: 'iban-bad',
       totalVat: '760,00 €',
       totalGross: '4.760,00 €',
       showError: true,
-      errorLabel: 'SEPA-Prüfziffer 99 ist ungültig (ISO 7064 MOD-97 Rest ≠ 1)',
+      errorClass: 'amber',
+      errorLabel: 'SEPA-Prüfziffer 99 ist ungültig (ISO 7064 MOD-97 Rest ≠ 1 · Rückläuferrisiko)',
       footerTargetText: 'Zahlungssperre · SEPA Kreditor-Stammdatenprüfung',
       footerTargetClass: 'amber',
       footerStatusText: 'IBAN-BRUCH',
@@ -248,6 +260,7 @@
       totalVat: '760,00 €',
       totalGross: '4.760,00 €',
       showError: true,
+      errorClass: 'purple',
       errorLabel: "Angriffsvektor isoliert: ' OR '1'='1; DROP TABLE STG;-- → Kein Schema mutiert",
       footerTargetText: 'Sicherheitslogbuch · OWASP ASVS Level 3',
       footerTargetClass: 'purple',
@@ -285,20 +298,21 @@
       badge.textContent = p.verdictBadgeText;
     }
 
-    // IBAN field
+    // IBAN field: strictly set text and class
     if (fieldIban) {
       fieldIban.textContent = p.ibanText;
-      fieldIban.className   = `field-val mono${p.ibanClass ? ' ' + p.ibanClass : ''}`;
+      fieldIban.className   = `field-val mono ${p.ibanClass}`;
     }
 
     // Totals
     if (totalVat)   totalVat.textContent   = p.totalVat;
     if (totalGross) totalGross.textContent = p.totalGross;
 
-    // Error row
+    // Error row: strictly format color and text
     if (errorRow) {
       const show = p.showError;
       errorRow.style.display  = show ? 'flex' : 'none';
+      errorRow.className      = `total-row error-row${p.errorClass ? ' ' + p.errorClass : ''}`;
       errorRow.setAttribute('aria-hidden', show ? 'false' : 'true');
     }
     if (errorLabel && p.errorLabel) {
@@ -338,7 +352,7 @@
       }
     }
 
-    // Sound
+    // Sound feedback
     if (key === 'clean') audio.chime();
     else audio.alert();
   }
@@ -380,10 +394,10 @@
   // 6. INSTRUMENT 1 — FLOAT/CENT MATH DIVERGENCE SLIDER
   // =========================================================================
   function initMathSlider() {
-    const slider     = document.getElementById('math-slider');
-    const floatEl    = document.getElementById('float-result');
-    const centEl     = document.getElementById('cent-result');
-    const qtyEl      = document.getElementById('slider-qty');
+    const slider  = document.getElementById('math-slider');
+    const floatEl = document.getElementById('float-result');
+    const centEl  = document.getElementById('cent-result');
+    const qtyEl   = document.getElementById('slider-qty');
     if (!slider) return;
 
     function update() {
@@ -392,16 +406,20 @@
 
       // IEEE-754 float: sum n * (0.1 + 0.2)
       let floatSum = 0;
-      for (let i = 0; i < Math.min(n, 10000); i++) floatSum += 0.1 + 0.2;
-      // Scale if n > 10000 (we can't loop 10M times)
+      const iter = Math.min(n, 10000);
+      for (let i = 0; i < iter; i++) floatSum += 0.1 + 0.2;
       if (n > 10000) floatSum = floatSum * (n / 10000);
 
-      // Exact cent: n * 30 cents, then format as EUR
-      const centSum = n * 30; // 0.10 + 0.20 = 30 cents per iteration
+      // Exact 64-bit cent calculation: n * 30 cents = EUR
+      const centSum = n * 30;
       const centEur = (centSum / 100).toFixed(2);
 
-      if (floatEl) floatEl.textContent = floatSum.toPrecision(17).replace(/\.?0+$/, '') || floatSum.toString();
-      if (centEl)  centEl.textContent  = centEur;
+      if (floatEl) {
+        floatEl.textContent = floatSum.toPrecision(17).replace(/\.?0+$/, '') || floatSum.toString();
+      }
+      if (centEl) {
+        centEl.textContent = centEur;
+      }
     }
 
     slider.addEventListener('input', update);
@@ -429,7 +447,10 @@
     function animatePipeline() {
       btn.disabled = true;
       resetNodes();
-      if (telemetry) { telemetry.textContent = 'Eingang: Rechnung empfangen (0,02 ms)'; telemetry.className = 'pipe-telemetry mono'; }
+      if (telemetry) {
+        telemetry.textContent = 'Eingang: Beleg empfangen (0,02 ms)';
+        telemetry.className = 'pipe-telemetry mono';
+      }
 
       nodeSupplier && nodeSupplier.classList.add('active');
       audio.click();
@@ -457,7 +478,7 @@
         pulse2 && pulse2.classList.remove('running');
         nodeSap && nodeSap.classList.add('active');
         if (telemetry) {
-          telemetry.textContent = 'Freigabe: SAP S/4HANA gebucht (0,38 ms)';
+          telemetry.textContent = 'Freigabe: SAP S/4HANA verbucht (0,38 ms)';
           telemetry.className   = 'pipe-telemetry mono success';
         }
         audio.chime();
@@ -478,13 +499,14 @@
   }
 
   // =========================================================================
-  // 8. BENCHMARK ENGINE — 5,000 TPS hold-to-test
+  // 8. BENCHMARK ENGINE — Phosphor Oscilloscope Waveform
   // =========================================================================
   function initBenchmark() {
-    const btn      = document.getElementById('btn-bench');
-    const countEl  = document.getElementById('bm-count');
-    const latEl    = document.getElementById('bm-latency');
-    const canvas   = document.getElementById('bench-canvas');
+    const btn       = document.getElementById('btn-bench');
+    const countEl   = document.getElementById('bm-count');
+    const latEl     = document.getElementById('bm-latency');
+    const canvas    = document.getElementById('bench-canvas');
+    const activeTag = document.getElementById('bench-active-tag');
     if (!btn || !canvas) return;
 
     const ctx = canvas.getContext('2d');
@@ -497,18 +519,50 @@
       const W = canvas.width;
       const H = canvas.height;
       ctx.clearRect(0, 0, W, H);
-      ctx.lineWidth   = running ? 2 : 1.5;
-      ctx.strokeStyle = running ? '#10b981' : '#1e293b';
+
+      // CRT phosphor grid ticks
+      ctx.strokeStyle = 'rgba(16,185,129,0.08)';
+      ctx.lineWidth   = 1;
       ctx.beginPath();
-      const slices = 50;
+      for (let x = 0; x <= W; x += 40) {
+        ctx.moveTo(x, 0); ctx.lineTo(x, H);
+      }
+      for (let y = 0; y <= H; y += 20) {
+        ctx.moveTo(0, y); ctx.lineTo(W, y);
+      }
+      ctx.stroke();
+
+      // Oscilloscope curve
+      ctx.lineWidth   = running ? 2.5 : 1.5;
+      ctx.strokeStyle = running ? '#10b981' : 'rgba(16,185,129,0.45)';
+      ctx.shadowColor = '#10b981';
+      ctx.shadowBlur  = running ? 12 : 4;
+
+      ctx.beginPath();
+      const slices = 60;
       for (let i = 0; i <= slices; i++) {
-        const amp = running ? 20 : 4;
-        const y   = H / 2 + Math.sin(i * 0.4 + waveOff) * amp * Math.sin(i * 0.1);
+        const amp = running ? 32 : 8;
+        const freq = running ? 0.6 : 0.25;
+        const y   = H / 2 + Math.sin(i * freq + waveOff) * amp * Math.sin(i * 0.12);
         const x   = (i / slices) * W;
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.stroke();
-      waveOff += running ? 0.35 : 0.04;
+      ctx.shadowBlur = 0; // reset
+
+      // Translucent phosphor glow fill beneath curve
+      if (running) {
+        ctx.lineTo(W, H);
+        ctx.lineTo(0, H);
+        ctx.closePath();
+        const grad = ctx.createLinearGradient(0, H / 2, 0, H);
+        grad.addColorStop(0, 'rgba(16,185,129,0.22)');
+        grad.addColorStop(1, 'rgba(16,185,129,0.0)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+
+      waveOff += running ? 0.38 : 0.05;
       requestAnimationFrame(drawWave);
     }
     requestAnimationFrame(drawWave);
@@ -519,6 +573,10 @@
       if (running) return;
       running = true;
       btn.classList.add('running');
+      if (activeTag) {
+        activeTag.textContent = 'RUNNING 5.000 TPS';
+        activeTag.style.color = '#10b981';
+      }
       audio.click();
 
       benchTimer = setInterval(() => {
@@ -533,6 +591,10 @@
       running = false;
       clearInterval(benchTimer);
       btn.classList.remove('running');
+      if (activeTag) {
+        activeTag.textContent = 'IDLE';
+        activeTag.style.color = 'var(--text-sub)';
+      }
       audio.chime();
     }
 
@@ -544,11 +606,11 @@
   }
 
   // =========================================================================
-  // 9. COPY BUTTONS
+  // 9. COPY BUTTONS & CONTACT ACTIONS
   // =========================================================================
   function initCopyButtons() {
-    const audioBtn  = document.getElementById('btn-audio');
-    const emailBtn  = document.getElementById('btn-copy-email');
+    const audioBtn = document.getElementById('btn-audio');
+    const emailBtn = document.getElementById('btn-copy-email');
 
     if (audioBtn) audioBtn.addEventListener('click', () => audio.toggle());
 
@@ -610,7 +672,7 @@
     window.addEventListener('scroll', () => {
       let current = '';
       for (const sec of sections) {
-        if (sec.getBoundingClientRect().top <= 120) current = sec.id;
+        if (sec.getBoundingClientRect().top <= 140) current = sec.id;
       }
       links.forEach(link => {
         const href = link.getAttribute('href');
@@ -624,7 +686,7 @@
   // =========================================================================
   function applyFadeUpClasses() {
     const targets = [
-      '.section-header', '.invoice-stage', '.instrument-card',
+      '.section-header', '.inspection-bay', '.instrument-card',
       '.colophon-inner', '.benchmark-left', '.benchmark-right'
     ];
     targets.forEach(sel => {

