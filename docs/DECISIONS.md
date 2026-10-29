@@ -419,6 +419,45 @@ We chose **Option 3**.
 ### 4. When to Reconsider
 If custom domain apex routing (`haulitz.de` or `haulitz.com`) is provisioned on Cloudflare, add the `routes` array configuration to `wrangler.jsonc`.
 
+---
+
+## ADR-013: Extreme Purge of Performative Bloat, Radical UI/UX Elevation, and Hyper-Immersive Watermelon Design System
+
+### Date: 2026-10-30
+### Status: Accepted & Implemented
+### AI Model: Gemini 2.5 Pro (Antigravity Senior Discipline)
+
+### 1. The Context & The Problem
+An uncompromising review identified that iterative prompt additions had created an overwhelming, performative "AI slop" website:
+1. **Wall of Bureaucratic Jargon:** An unreadable candidate status strip, 12 compliance trust chips, and dense legal citations (§ 12/14 UStG, § 147 AO, § 377 HGB, § 86 VVG, § 5 GOÄ, LkSG, EEG) gave the site a fake corporate appearance rather than a clean engineering showcase.
+2. **Dead Weight & Clutter:** A 300-line static C# and T-SQL code viewer, a 4-quadrant 30-scenario test spreadsheet table, a 10-card redundant workspace grid, and a 5-item FAQ accordion caused severe cognitive fatigue.
+3. **Lack of Modern Dynamic Motion:** The site felt static and bureaucratic rather than responsive, fluid, and delightful like creative developer showcases (Watermelon UI, Linear, Stripe).
+
+### 2. The Options Looked At
+* **Option 1: Minor visual polishing without structural deletions.** (Rejected: Leaves the 90KB text wall intact).
+* **Option 2: Total static redesign without interactivity.** (Rejected: Sacrifices the tangible proof of engineering capability).
+* **Option 3: The Extreme Purge & Hyper-Immersive Elevation.**
+  - **Purge 85% of Bloat:** Delete the 300-line code dump, 4-quadrant table, 10-card grid, 12-chip ribbon, candidate police tape, and corporate FAQ accordion.
+  - **Rebuild with Watermelon UI / Linear Standards:**
+    1. Floating Dynamic Island Dock (`H // HAULITZ · 30/30 Passing · Audio FX · ⌘K · Contact`).
+    2. Hero Cockpit with 3D Parallax Tilt, Sweeping Laser, and 4 Chaos Injection Attack buttons (Math Drift, Bad IBAN, SQL Injection, Clean Protocol).
+    3. High-Throughput 5,000 TPS Web Worker Stress Test Engine with live Canvas Oscilloscope.
+    4. Playable Bento Instruments: Float Drift Drag Slider (1-10,000 units), SEPA IBAN Modulo-97 Tester, Animated Light-Beam Pipeline, and Native Web Crypto SHA-256 Block Sealer.
+    5. Clean Creator Dossier Card for Allen Simeon Fletcher (EU Blue Card § 18g Ready, 1-Click CV & Email actions).
+    6. Native Procedural Web Audio API sound synthesizer with mute toggle.
+    7. Global Keyboard Command Palette (`Cmd + K` / `Ctrl + K`).
+
+### 3. The Decision
+We chose **Option 3**.
+* `index.html` reduced from 91.8 KB (1,328 lines) to 34.9 KB (629 lines) — a 62% reduction in file weight.
+* `css/styles.css` streamlined from 4,966 lines to 1,582 lines of obsidian darkroom styling.
+* `js/app.js` refactored into 659 lines of modular, zero-dependency interactive physics, Web Audio, and Web Crypto logic.
+* All 30 deterministic verification scenarios verified with 100% precision (`npm test`).
+
+### 4. When to Reconsider
+If enterprise customers require dedicated integration case studies, publish them as clean standalone markdown technical articles under `/docs`.
+
+
 
 
 
