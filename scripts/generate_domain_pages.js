@@ -71,9 +71,9 @@ function generateHTML(p) {
 
   <!-- Global Header Bar -->
   <header class="header-bar">
-    <div class="brand-wrapper">
+    <div class="brand-wrapper" style="align-items: center;">
       <a href="index.html" style="text-decoration:none; display:flex; align-items:center;">
-        <div class="brand-badge">HZ</div>
+        <div class="brand-badge" style="margin-top: 0;">HZ</div>
       </a>
       <a href="index.html" class="back-gateway-link" id="back-link">
         <i class="fa-solid fa-arrow-left"></i> Zurück zum Haulitz Gateway

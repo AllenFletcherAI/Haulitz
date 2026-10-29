@@ -54,9 +54,9 @@
 
   <!-- Top Executive Navigation Bar -->
   <header class="header-bar">
-    <a href="index.html" class="brand-wrapper" style="text-decoration:none; color:inherit;">
+    <a href="index.html" class="brand-wrapper">
       <div class="brand-badge">HZ</div>
-      <div>
+      <div class="brand-text-block">
         <span class="brand-name">HAULITZ</span>
         <span class="brand-subtitle">Enterprise Verification Gateway</span>
       </div>
@@ -82,15 +82,14 @@
     </div>
   </header>
 
-
   <!-- Clean Executive Lead (Zero Clutter, Zero Exaggeration) -->
   <section class="executive-hud" style="padding: 2.25rem 1.5rem 1.5rem; text-align: center;">
     <div class="hud-inner" style="max-width: 840px; margin: 0 auto;">
       <h1 class="hud-title" id="hero-heading" style="font-size: 2.1rem; margin-bottom: 0.65rem;">
-        HAULITZ &mdash; <span class="gradient-text">Verifizierungs-Gateway für Geschäftsbelege</span>
+        HAULITZ: <span class="gradient-text">Deterministisches Prüf-Gateway für ERP &amp; Supply Chain</span>
       </h1>
       <p class="hud-subtitle" id="hero-subheading" style="font-size: 1rem; line-height: 1.6; max-width: 720px; margin: 0 auto; color: var(--color-text-muted);">
-        Automatische Cent-Prüfung, Steuerberechnung nach § 14 UStG und HGB § 377 sowie Prüfziffern-Validierung vor dem Eintrag in ERP-Systeme.
+        Stoppt Rechenfehler, falsche Steuersätze nach § 14 UStG und beschädigte Prüfziffern vor der Buchung in SAP S/4HANA.
       </p>
     </div>
   </section>
@@ -109,29 +108,28 @@
           </div>
 
           <p style="font-size: 0.88rem; line-height: 1.6; color: var(--color-text-muted);" id="label-what-is-p1">
-            HAULITZ ist eine automatisierte Prüfschicht für geschäftliche Belege wie Eingangsrechnungen, Frachtbriefe und Lieferscheine.
-            Anstatt Belegdaten ungeprüft in Datenbanken oder ERP-Systeme einzupflegen, führt HAULITZ mathematische Summenprüfungen und Prüfziffern-Algorithmen durch.
+            HAULITZ prüft Rechnungen, Frachtbriefe und Wareneingänge direkt im Code. Das System berechnet Postensummen auf den Cent genau, verifiziert Steuersätze nach § 14 UStG und prüft Prüfziffern nach IBAN Modulo-97, ISO 6346 und GS1 EAN-13.
           </p>
           <p style="font-size: 0.88rem; line-height: 1.6; color: var(--color-text-muted); margin-top:0.5rem;" id="label-what-is-p2">
-            Gültige Belege werden mit einem SHA-256 Prüfsiegel in der PostgreSQL-Audit-Datenbank in Frankfurt (AWS eu-central-1) protokolliert. Rechnerische Differenzen oder falsche Prüfziffern werden gestoppt, bevor Zahlungen ausgelöst werden.
+            Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.
           </p>
 
           <!-- 3 Concrete Capabilities -->
           <div class="pillars-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem;">
             <div class="pillar-item">
               <i class="fa-solid fa-calculator pillar-icon"></i>
-              <div class="pillar-title" id="pillar-1-title">Exakte Arithmetik</div>
-              <div class="pillar-desc" id="pillar-1-desc">Cent-genaue Berechnung von Zwischensummen, Steuersätzen (§ 14 UStG) und Prüfziffern (IBAN Modulo-97, ISO 6346, GS1 EAN-13).</div>
+              <div class="pillar-title" id="pillar-1-title">Deterministische Mathematik</div>
+              <div class="pillar-desc" id="pillar-1-desc">Keine Rundungsfehler. Einzelposten, Rabatte und Umsatzsteuer werden nach § 14 UStG und HGB § 377 auf Cent-Ebene nachgerechnet.</div>
             </div>
             <div class="pillar-item">
               <i class="fa-solid fa-fingerprint pillar-icon"></i>
-              <div class="pillar-title" id="pillar-2-title">Audit-Protokoll</div>
-              <div class="pillar-desc" id="pillar-2-desc">Jeder Prüflauf wird mit einem SHA-256 Hash und Zeitstempel unveränderbar in PostgreSQL dokumentiert.</div>
+              <div class="pillar-title" id="pillar-2-title">Revisionssicheres Ledger</div>
+              <div class="pillar-desc" id="pillar-2-desc">GoBD § 147 AO Konformität. Jeder verifizierte Beleg wird mit Vorgänger-Hash verkettet in PostgreSQL (Frankfurt eu-central-1) protokolliert.</div>
             </div>
             <div class="pillar-item">
               <i class="fa-solid fa-envelope-open-text pillar-icon"></i>
-              <div class="pillar-title" id="pillar-3-title">Strukturierte Mängelrügen</div>
-              <div class="pillar-desc" id="pillar-3-desc">Rechnerische Differenzen und Formfehler erzeugen strukturierte Beanstandungen zur schnellen Klärung mit Lieferanten.</div>
+              <div class="pillar-title" id="pillar-3-title">Automatisierte Mängelrüge</div>
+              <div class="pillar-desc" id="pillar-3-desc">Bei Rechendifferenzen generiert das System eine strukturierte Rüge nach HGB § 377 und versendet diese über die Resend API.</div>
             </div>
           </div>
         </div>
@@ -139,18 +137,18 @@
         <!-- Section 2: Who is Allen Simeon Fletcher? -->
         <div class="founder-card">
           <div class="founder-photo-wrap">
-            <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Founder" class="founder-photo">
+            <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Solutions &amp; Integration Engineer" class="founder-photo">
           </div>
           
           <div class="founder-details">
             <h2 class="founder-name">Allen Simeon Fletcher</h2>
-            <div class="founder-role" id="label-founder-role">Software Developer</div>
+            <div class="founder-role" id="label-founder-role">Solutions &amp; Integration Engineer</div>
             
             <p class="founder-bio" id="label-founder-bio">
-              Allen Simeon Fletcher hat HAULITZ entwickelt, um ein konkretes Problem zu lösen: Geschäftsbelege enthalten häufig Rechenfehler, falsche Steuersätze oder fehlerhafte Prüfziffern, die in nachgelagerten Systemen zu Zahlungsdifferenzen führen.
+              Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.
             </p>
             <p class="founder-bio" id="label-founder-bio2" style="margin-top:-0.25rem;">
-              HAULITZ führt diese Prüfungen automatisiert und nachvollziehbar durch – direkt im Code, bevor Daten in Buchhaltungs- oder ERP-Systeme übernommen werden.
+              Das Projekt belegt seine Kernkompetenz als Solutions &amp; Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD § 147 AO, § 14 UStG, HGB § 377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.
             </p>
 
             <div class="founder-links-row">
