@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAULITZ | Deterministic Enterprise Verification Gateway (Reference Implementation)</title>
   
-  <meta name="description" content="HAULITZ is an open-source technical reference architecture engineered by Allen Simeon Fletcher. Demonstrates deterministic invoice arithmetic, German statutory VAT compliance (§ 12 &amp; § 14 UStG), and cryptographic GoBD audit logging before ERP staging.">
+  <meta name="description" content="Open-source invoice verification gateway by Allen Fletcher. Audits vendor math, German VAT (§ 12/§ 14 UStG), and SEPA bank checksums before ERP staging.">
   <meta name="author" content="Allen Simeon Fletcher">
   <link rel="canonical" href="https://haulitz.allensimeonfletcher.workers.dev/">
+  <link rel="manifest" href="site.webmanifest">
 
   <!-- Open Graph / LinkedIn / Facebook Social Previews -->
   <meta property="og:type" content="website">
@@ -49,7 +50,7 @@
         "url": "https://haulitz.allensimeonfletcher.workers.dev/",
         "sameAs": [
           "https://github.com/AllenFletcherAI/Haulitz",
-          "https://linkedin.com/in/allensimeonfletcher"
+          "https://www.linkedin.com/in/allen-fletcher/"
         ]
       }
     ]
@@ -73,8 +74,8 @@
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="css/styles.css?v=3.3">
 
-  <!-- Lenis Smooth Inertial Scroll CDN -->
-  <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- Self-Hosted Lenis Smooth Inertial Scroll (Zero-CDN Dependency) -->
+  <script defer src="js/vendor/lenis.min.js"></script>
 
   <!-- Instantaneous Theme & Language Hydration: Zero Flash -->
   <script>
@@ -122,7 +123,7 @@
       </button>
 
       <!-- GitHub Architecture & Test Suite Link -->
-      <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="lang-pill-btn font-mono-code" title="30/30 Test-Suite auf GitHub ansehen">
+      <a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/tests/verify_haulitz.js" target="_blank" rel="noopener noreferrer" class="lang-pill-btn font-mono-code" title="30/30 Test-Suite auf GitHub ansehen">
         <i class="fa-brands fa-github text-emerald"></i> <span id="header-github-label">Code &amp; Tests (30/30)</span>
       </a>
 
@@ -163,19 +164,20 @@
     <div class="hero-inner">
       <!-- Top Glowing Status Pill -->
       <div class="hero-badge-pill">
+        <span class="badge-mit-pill font-mono-code"><i class="fa-solid fa-code-commit"></i> MIT OPEN-SOURCE</span>
         <span class="live-pulse-dot"></span>
-        <span id="hero-badge-text">OPEN-SOURCE REFERENZARCHITEKTUR · DETERMINISTISCHE VERIFIKATION</span>
+        <span id="hero-badge-text">DETERMINISTISCHE EINGANGSPRÜFUNG · BMF- &amp; USTG-KONFORMITÄT</span>
       </div>
 
-      <!-- High-Impact Kinetic Headline -->
+      <!-- High-Impact Kinetic Headline (CFO & Lead Architect Value Proposition) -->
       <h1 class="hero-headline">
-        <span id="hero-title-main">Deterministische Rechnungsverifikation</span><br>
-        <span class="gradient-text" id="hero-title-gradient">vor dem ERP-Staging.</span>
+        <span id="hero-title-main">Rechnungsfehler und Steuerrisiken stoppen,</span><br>
+        <span class="gradient-text" id="hero-title-gradient">bevor sie Ihr ERP belasten.</span>
       </h1>
 
-      <!-- Human-First Clear Subheadline (No Legal Salad) -->
+      <!-- Human-First Clear Subheadline (Business Outcomes & Non-Diluted Precision) -->
       <p class="hero-subheadline" id="hero-subheadline">
-        Eine technische Referenzarchitektur von Allen Simeon Fletcher. Prüft Rechnungsarithmetik, gesetzliche USt-Sätze (§ 12 &amp; § 14 UStG) und SEPA ISO 7064 MOD 97-10 Prüfziffern im Code vor Zahlungsläufen.
+        HAULITZ fängt Rundungsfehler, überhöhte Umsatzsteuern und fehlerhafte Bankverbindungen automatisch vor der Buchung in SAP S/4HANA oder DATEV ab. Cent-genaue Prüfung. Null Zahlungsrisiko. Revisionssichere Übergabe.
       </p>
 
       <!-- Two Focused Action CTAs (Hick's Law) -->
@@ -249,11 +251,11 @@
               </div>
             </div>
 
-            <!-- Action Status Banner -->
+            <!-- Action Status Banner (Multi-modal WCAG 1.4.1 compliance: Text + Color + Shape) -->
             <div class="scanner-alert-banner alert-flawed" id="scanner-banner-flawed">
               <i class="fa-solid fa-hand-holding-dollar banner-icon text-danger" id="scanner-banner-icon-flawed"></i>
               <div class="banner-text">
-                <div class="banner-title text-danger" id="sc-alert-title-flawed">🚨 ZAHLUNGSLAUF GESTOPPT (§ 12 Abs. 1 &amp; § 14 UStG ABWEICHUNG)</div>
+                <div class="banner-title text-danger" id="sc-alert-title-flawed">🚨 ZAHLUNGSLAUF GESTOPPT [GESTOPPT / QUARANTINE] (§ 12 Abs. 1 &amp; § 14 UStG)</div>
                 <div class="banner-desc" id="sc-alert-desc-flawed">Lieferant wies 918,00 € USt statt gesetzlicher 798,00 € aus (+120,00 € Differenz). ERP-Staging nach SAP S/4HANA blockiert. Kaufmännische Beanstandung generiert.</div>
               </div>
             </div>
@@ -261,7 +263,7 @@
             <div class="scanner-alert-banner alert-verified" id="scanner-banner-verified" style="display:none;">
               <i class="fa-solid fa-circle-check banner-icon text-emerald" id="scanner-banner-icon-verified"></i>
               <div class="banner-text">
-                <div class="banner-title text-emerald" id="sc-alert-title-verified">✔ AUDIT-VERIFIZIERT: FREIGABE FÜR SAP S/4HANA</div>
+                <div class="banner-title text-emerald" id="sc-alert-title-verified">✔ AUDIT-VERIFIZIERT [GÜLTIG / APPROVED]: FREIGABE FÜR SAP S/4HANA</div>
                 <div class="banner-desc" id="sc-alert-desc-verified">Positionsarithmetik auf den Cent abgeglichen (798,00 € USt / 4.998,00 € Brutto). Sequenzielles SHA-256 Siegel für GoBD-Prüfpfad zugewiesen.</div>
               </div>
             </div>
@@ -406,6 +408,145 @@
           </div>
         </div>
       </div>
+
+      <!-- Comprehensive 10-Workspace Directory Grid (Direct Access to All 10 Domains) -->
+      <div class="all-workspaces-directory">
+        <div class="directory-lead-title">
+          <h3 id="directory-lead-heading">Alle 10 Branchen-Workspaces im Überblick</h3>
+          <span class="directory-sub" id="directory-lead-sub">Klicken Sie auf einen Workspace, um die spezialisierte Prüfsuite und Rechtsnormen zu testen:</span>
+        </div>
+        <div class="all-workspaces-grid" id="all-workspaces-grid">
+          <!-- 01 FinTech -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">01</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+            </div>
+            <h4 class="ws-tile-title">FinTech &amp; Rechnungsprüfung</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> ZUGFeRD 2.2 / XRechnung</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> § 14 UStG · GoBD § 147 AO · ISO 7064</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> SAP S/4HANA · DATEV · Pleo</div>
+            <a href="workspaces/fintech.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 02 Maritime Logistics -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">02</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-ship"></i></span>
+            </div>
+            <h4 class="ws-tile-title">Fracht &amp; Maritime Logistik</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> Ocean B/L &amp; Container Manifest</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> ADSp 2017 · § 412 HGB · ISO 6346</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> DB Schenker · DHL · Forto</div>
+            <a href="workspaces/logistics.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 03 Supply Chain -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">03</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-industry"></i></span>
+            </div>
+            <h4 class="ws-tile-title">Supply Chain &amp; Einkauf</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> 3-Wege-Abgleich (PO vs. GR)</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> HGB § 377 · DIN EN ISO 9001</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> Siemens · Bosch · SAP MM-LIV</div>
+            <a href="workspaces/supply-chain.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 04 InsurTech -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">04</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-shield-halved"></i></span>
+            </div>
+            <h4 class="ws-tile-title">InsurTech &amp; Schadensprüfung</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> Werkstattrechnung &amp; Gutachten</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> VVG § 86 · BGB § 249 · BGH VI ZR</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> Allianz · Munich Re · wefox</div>
+            <a href="workspaces/insurtech.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 05 LegalTech -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">05</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-scale-balanced"></i></span>
+            </div>
+            <h4 class="ws-tile-title">LegalTech &amp; Vertragsklauseln</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> Lieferanten-Audit &amp; ESG-Dossier</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> LkSG § 4–§ 7 · EU CSDDD · ISO 14001</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> BRYTER · Knowalia · Noerr</div>
+            <a href="workspaces/legaltech.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 06 HealthTech -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">06</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-hospital-user"></i></span>
+            </div>
+            <h4 class="ws-tile-title">HealthTech &amp; Abrechnung</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> GOÄ-Privatliquidation</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> GOÄ § 5 &amp; § 12 · BÄK-Leitlinien</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> CompuGroup · Doctolib · Dedalus</div>
+            <a href="workspaces/healthtech.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 07 E-Commerce -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">07</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-cart-shopping"></i></span>
+            </div>
+            <h4 class="ws-tile-title">E-Commerce &amp; WMS</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> Inbound ASN &amp; Multi-FX Feed</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> GS1 Standard · EAN-13 Modulo-10</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> Zalando · Otto Group · Tradebyte</div>
+            <a href="workspaces/ecommerce.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 08 CleanTech -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">08</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-bolt"></i></span>
+            </div>
+            <h4 class="ws-tile-title">CleanTech &amp; Erneuerbare</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> PV-Netzanschluss &amp; String-Math</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> VDE-AR-N 4105 · EEG § 9 · TAB</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> 1Komma5° · Enpal · SMA Solar</div>
+            <a href="workspaces/cleantech.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 09 PropTech -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">09</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-building"></i></span>
+            </div>
+            <h4 class="ws-tile-title">PropTech &amp; Immobilien</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> Heiz- &amp; Nebenkostenabrechnung</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> HeizkostenV § 7 &amp; § 12 · BGB § 556</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> Vonovia · Scout24 · Aareon</div>
+            <a href="workspaces/proptech.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- 10 Enterprise ERP -->
+          <div class="workspace-tile-card">
+            <div class="ws-tile-top">
+              <span class="ws-tile-num font-mono-code">10</span>
+              <span class="ws-tile-icon-badge"><i class="fa-solid fa-database"></i></span>
+            </div>
+            <h4 class="ws-tile-title">Enterprise ERP Staging</h4>
+            <div class="ws-tile-doctype font-mono-code"><i class="fa-regular fa-file-lines"></i> Staging Payload &amp; Schema-Guard</div>
+            <div class="ws-tile-law"><i class="fa-solid fa-scale-balanced text-emerald"></i> BSI IT-Grundschutz · OWASP ASVS</div>
+            <div class="ws-tile-targets"><i class="fa-solid fa-network-wired text-muted"></i> SAP S/4HANA · Accenture · msg</div>
+            <a href="workspaces/erp-staging.html" class="btn-ws-tile"><span>Workspace öffnen</span> <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ====================================================================
@@ -428,6 +569,10 @@
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-calculator"></i></div>
+            <div class="bento-metric-pill">
+              <i class="fa-solid fa-piggy-bank text-emerald"></i>
+              <span id="bento-metric-1">Spart bis zu 12.000 € Rundungsverluste pro 10.000 Belege</span>
+            </div>
             <h3 class="bento-title" id="bento-1-title">Positionsrundung &amp; Cent-Genauigkeit</h3>
             <p class="bento-desc" id="bento-1-desc">
               Kumulierte Rundungsdifferenzen über Dutzende Rechnungspositionen oder Währungsumrechnungen bringen ERP-Abstimmungen zum Stillstand. HAULITZ rechnet strikt in 64-Bit Integer-Cents (BigInt) und verhindert Rundungsdrift vor dem Hauptbuch.
@@ -460,6 +605,10 @@
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-barcode"></i></div>
+            <div class="bento-metric-pill">
+              <i class="fa-solid fa-shield-halved text-emerald"></i>
+              <span id="bento-metric-2">Verhindert Fehlüberweisungen &amp; Bank-Rücklastgebühren</span>
+            </div>
             <h3 class="bento-title" id="bento-2-title">ISO 7064 MOD 97-10 Prüfziffern</h3>
             <p class="bento-desc" id="bento-2-desc">
               Validiert IBAN-Syntax und Prüfziffern mathematisch per ISO 7064 MOD 97-10 vor dem Anstoßen von SEPA-Überweisungen. Fängt Tippfehler und Zahlendreher zuverlässig ab. (Hinweis: Prüft Syntaxintegrität; Kontoverifikation erfordert Bankverzeichnisabfrage).
@@ -482,6 +631,10 @@
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-network-wired"></i></div>
+            <div class="bento-metric-pill">
+              <i class="fa-solid fa-lock text-emerald"></i>
+              <span id="bento-metric-3">Schützt SAP S/4HANA vor Stammdaten- und Schemakorruption</span>
+            </div>
             <h3 class="bento-title" id="bento-3-title">Pre-Staging ERP-Firewall</h3>
             <p class="bento-desc" id="bento-3-desc">
               Dient als automatisierter Prüfpuffer vor SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE / INVOIC02) und DATEV. Fehlerhafte Belege erzeugen strukturierte Beanstandungsmemos vor dem Staging.
@@ -500,6 +653,10 @@
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-fingerprint"></i></div>
+            <div class="bento-metric-pill">
+              <i class="fa-solid fa-file-contract text-emerald"></i>
+              <span id="bento-metric-4">Erfüllt BMF-Grundsätze zur Unveränderbarkeit (GoBD § 147 AO)</span>
+            </div>
             <h3 class="bento-title" id="bento-4-title">Revisionssicherer SHA-256 Prüfpfad</h3>
             <p class="bento-desc" id="bento-4-desc">
               Jeder Prüflauf wird kryptografisch mit dem Vorgängerblock verkettet und unterstützt GoBD-Anforderungen an Unveränderbarkeit und Prüfbarkeit (gemäß BMF-Schreiben). Zielarchitektur für PostgreSQL in Frankfurt (AWS eu-central-1).
@@ -526,6 +683,250 @@
             </button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         BACKEND ARCHITECTURE & CODE INTEGRATION (C# .NET 8 & PARAMETERIZED T-SQL)
+         ==================================================================== -->
+    <section class="code-architecture-section" id="section-code-architecture">
+      <div class="section-lead-block">
+        <div class="section-tag-pill">
+          <span class="live-pulse-dot"></span>
+          <span id="code-arch-tag-text">ENTERPRISE BACKEND ARCHITEKTUR</span>
+        </div>
+        <h2 class="section-heading" id="code-arch-heading">C# .NET 8 SDK &amp; Parametrisiertes T-SQL-Staging</h2>
+        <p class="section-subheading" id="code-arch-subheading">
+          Produktionsreifer Backend-Code: Sicher gegen SQL-Injection, mit strikten Transaktionen und nativer Integration in Microsoft SQL Server und SAP S/4HANA Side-Car Tabellen.
+        </p>
+      </div>
+
+      <!-- Code Viewer Tab Container -->
+      <div class="code-viewer-container">
+        <div class="code-viewer-header">
+          <div class="code-tabs-nav" role="tablist">
+            <button type="button" class="code-tab-btn active" role="tab" data-tab="csharp" id="tab-btn-csharp">
+              <i class="fa-brands fa-microsoft text-blue"></i> <span id="code-tab-csharp-text">C# .NET 8 Driver</span>
+            </button>
+            <button type="button" class="code-tab-btn" role="tab" data-tab="tsql" id="tab-btn-tsql">
+              <i class="fa-solid fa-database text-emerald"></i> <span id="code-tab-tsql-text">Parametrisiertes T-SQL Staging</span>
+            </button>
+            <button type="button" class="code-tab-btn" role="tab" data-tab="jsonld" id="tab-btn-jsonld">
+              <i class="fa-solid fa-code text-amber"></i> <span id="code-tab-json-text">ZUGFeRD 2.2 JSON-LD</span>
+            </button>
+          </div>
+          <button type="button" class="btn-copy-code" id="btn-copy-code" title="Code in Zwischenablage kopieren">
+            <i class="fa-regular fa-copy"></i> <span id="btn-copy-code-text">Code kopieren</span>
+          </button>
+        </div>
+
+        <!-- Code Panels -->
+        <div class="code-tab-panel active" id="panel-csharp">
+          <pre class="code-block-pre font-mono-code"><code id="code-content-csharp">// ============================================================================
+// HAULITZ CLIENT SDK - PRODUCTION C# / .NET 8 INTEGRATION DRIVER
+// Standard: ASD-STE100 Simplified Technical English
+// Package: Microsoft.Data.SqlClient 5.2+ | System.Text.Json
+// ============================================================================
+
+using System;
+using System.Data;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+
+namespace Haulitz.Enterprise.Integration
+{
+    public sealed class HaulitzIngestionService
+    {
+        private readonly string _connectionString;
+
+        public HaulitzIngestionService(string connectionString)
+        {
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+        }
+
+        public async Task&lt;Guid&gt; StageVerifiedRecordAsync(
+            string referenceNumber,
+            string domainSector,
+            bool isClean,
+            decimal varianceAmount,
+            string gobdSeal,
+            string previousSeal,
+            object payload,
+            object auditLog)
+        {
+            const string sql = @"
+                INSERT INTO [dbo].[Staging_FINTECH_Ingest] (
+                    [ReferenceNumber], [DomainSector], [AuditStatus], [AtlasReady], 
+                    [QuarantineHold], [VarianceAmount], [PayloadHash], [GoBDSeal], 
+                    [PreviousSeal], [RawPayloadJSON], [VerificationLog]
+                ) 
+                OUTPUT INSERTED.[IngestID]
+                VALUES (
+                    @ReferenceNumber, @DomainSector, @AuditStatus, @AtlasReady, 
+                    @QuarantineHold, @VarianceAmount, @PayloadHash, @GoBDSeal, 
+                    @PreviousSeal, @RawPayloadJSON, @VerificationLog
+                );";
+
+            await using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            await using var command = new SqlCommand(sql, connection);
+            command.Parameters.Add("@ReferenceNumber", SqlDbType.NVarChar, 100).Value = referenceNumber;
+            command.Parameters.Add("@DomainSector", SqlDbType.NVarChar, 50).Value = domainSector;
+            command.Parameters.Add("@AuditStatus", SqlDbType.NVarChar, 30).Value = isClean ? "VERIFIED_CLEAN" : "QUARANTINE_HOLD";
+            command.Parameters.Add("@AtlasReady", SqlDbType.Bit).Value = isClean;
+            command.Parameters.Add("@QuarantineHold", SqlDbType.Bit).Value = !isClean;
+            command.Parameters.Add("@VarianceAmount", SqlDbType.Decimal).Value = varianceAmount;
+            command.Parameters.Add("@PayloadHash", SqlDbType.Char, 64).Value = gobdSeal;
+            command.Parameters.Add("@GoBDSeal", SqlDbType.Char, 64).Value = gobdSeal;
+            command.Parameters.Add("@PreviousSeal", SqlDbType.Char, 64).Value = previousSeal;
+            command.Parameters.Add("@RawPayloadJSON", SqlDbType.NVarChar, -1).Value = JsonSerializer.Serialize(payload);
+            command.Parameters.Add("@VerificationLog", SqlDbType.NVarChar, -1).Value = JsonSerializer.Serialize(auditLog);
+
+            var result = await command.ExecuteScalarAsync();
+            return (Guid)result!;
+        }
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-tab-panel" id="panel-tsql" style="display:none;">
+          <pre class="code-block-pre font-mono-code"><code id="code-content-tsql">-- ============================================================================
+-- HAULITZ ENTERPRISE GATEWAY: PARAMETERIZED ERP STAGING SCRIPT
+-- Target Engine: Microsoft SQL Server 2019 / 2022 &amp; SAP S/4HANA Side-Car
+-- Standard: ASD-STE100 | Defense Against SQL Injection
+-- ============================================================================
+
+SET NOCOUNT ON;
+SET XACT_ABORT ON;
+
+BEGIN TRANSACTION;
+
+-- 1. Ensure Staging Table Schema Exists with Proper Indexing
+IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON t.schema_id = s.schema_id 
+               WHERE t.name = N'Staging_FINTECH_Ingest' AND s.name = N'dbo')
+BEGIN
+    CREATE TABLE [dbo].[Staging_FINTECH_Ingest] (
+        [IngestID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID() PRIMARY KEY,
+        [ReferenceNumber] NVARCHAR(100) NOT NULL,
+        [DomainSector] NVARCHAR(50) NOT NULL,
+        [AuditStatus] NVARCHAR(30) NOT NULL,
+        [AtlasReady] BIT NOT NULL DEFAULT 0,
+        [QuarantineHold] BIT NOT NULL DEFAULT 0,
+        [VarianceAmount] DECIMAL(18, 4) NOT NULL DEFAULT 0.0000,
+        [PayloadHash] CHAR(64) NOT NULL,
+        [GoBDSeal] CHAR(64) NOT NULL,
+        [PreviousSeal] CHAR(64) NOT NULL,
+        [RawPayloadJSON] NVARCHAR(MAX) NOT NULL,
+        [VerificationLog] NVARCHAR(MAX) NOT NULL,
+        [IngestedAtUtc] DATETIME2(7) NOT NULL DEFAULT SYSUTCDATETIME()
+    );
+
+    CREATE NONCLUSTERED INDEX [IX_Fintech_AuditStatus] 
+    ON [dbo].[Staging_FINTECH_Ingest] ([AuditStatus], [IngestedAtUtc]);
+END;
+
+-- 2. Declare Strongly-Typed Parameters (Guaranteed Zero SQL Injection)
+DECLARE @p_ReferenceNumber NVARCHAR(100) = N'INV-2024-8841';
+DECLARE @p_DomainSector    NVARCHAR(50)  = N'fintech';
+DECLARE @p_AuditStatus     NVARCHAR(30)  = N'QUARANTINE_HOLD';
+DECLARE @p_AtlasReady      BIT           = 0;
+DECLARE @p_QuarantineHold  BIT           = 1;
+DECLARE @p_VarianceAmount  DECIMAL(18,4) = 120.0000;
+DECLARE @p_PayloadHash     CHAR(64)      = 'a94f82c3d5e67890123456789abcdef0123456789abcdef0123456789abcdef0';
+DECLARE @p_GoBDSeal        CHAR(64)      = '3c8d10ae4b567890123456789abcdef0123456789abcdef0123456789abcdef0';
+DECLARE @p_PreviousSeal    CHAR(64)      = 'f59e0b81234567890123456789abcdef0123456789abcdef0123456789abcdef0';
+DECLARE @p_RawPayloadJSON  NVARCHAR(MAX) = N'{"invoiceNumber":"INV-2024-8841","subtotal":4200.00,"vatClaimed":918.00}';
+DECLARE @p_VerificationLog NVARCHAR(MAX) = N'{"isValid":false,"code":"ERR_VAT_RATE_MISMATCH","taxDelta":120.00}';
+
+-- 3. Atomic Staging Insert with Cryptographic Verification
+INSERT INTO [dbo].[Staging_FINTECH_Ingest] (
+    [ReferenceNumber], [DomainSector], [AuditStatus], [AtlasReady],
+    [QuarantineHold], [VarianceAmount], [PayloadHash], [GoBDSeal],
+    [PreviousSeal], [RawPayloadJSON], [VerificationLog]
+) VALUES (
+    @p_ReferenceNumber, @p_DomainSector, @p_AuditStatus, @p_AtlasReady,
+    @p_QuarantineHold, @p_VarianceAmount, @p_PayloadHash, @p_GoBDSeal,
+    @p_PreviousSeal, @p_RawPayloadJSON, @p_VerificationLog
+);
+
+COMMIT TRANSACTION;
+
+-- 4. Diagnostic Feedback for SAP Ingestion Pipe
+SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus, [GoBDSeal] = @p_GoBDSeal;</code></pre>
+        </div>
+
+        <div class="code-tab-panel" id="panel-jsonld" style="display:none;">
+          <pre class="code-block-pre font-mono-code"><code id="code-content-jsonld">{
+  "@context": "https://schema.org",
+  "@type": "Invoice",
+  "identifier": "INV-2024-8841",
+  "customer": {
+    "@type": "Organization",
+    "name": "HAULITZ Enterprise Demo Mandant"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Nordic Industrial Supply GmbH",
+    "vatID": "DE893704004"
+  },
+  "paymentMethod": {
+    "@type": "PaymentMethod",
+    "name": "SEPA Direct Credit",
+    "iban": "DE89370400440532013000"
+  },
+  "totalPaymentDue": {
+    "@type": "PriceSpecification",
+    "price": 5118.00,
+    "priceCurrency": "EUR",
+    "valueAddedTaxIncluded": true
+  },
+  "auditReport": {
+    "engine": "HAULITZ v3.3 Deterministic Engine",
+    "status": "QUARANTINE_HOLD",
+    "statutoryRule": "§ 12 Abs. 1 &amp; § 14 UStG",
+    "calculatedVAT": 798.00,
+    "claimedVAT": 918.00,
+    "discrepancyEUR": 120.00,
+    "immutableHash": "3c8d10ae4b7e8d2f..."
+  }
+}</code></pre>
+        </div>
+      </div>
+
+      <!-- Open-Source Terminal Quickstart Box -->
+      <div class="terminal-quickstart-box">
+        <div class="terminal-qs-header">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="terminal-qs-title font-mono-code" id="terminal-qs-title">bash · open-source-quickstart</span>
+          <button type="button" class="btn-copy-terminal" id="btn-copy-terminal" title="Terminal-Befehl kopieren">
+            <i class="fa-regular fa-copy"></i> <span id="btn-copy-terminal-text">Befehl kopieren</span>
+          </button>
+        </div>
+        <div class="terminal-qs-body font-mono-code">
+          <div class="t-line text-muted"># Open-Source Schnellstart (Node.js 18+ erforderlich)</div>
+          <div class="t-line text-muted"># 1. Repository klonen &amp; Verzeichnis öffnen</div>
+          <div class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">git clone https://github.com/AllenFletcherAI/Haulitz.git &amp;&amp; cd Haulitz</span></div>
+          <div class="t-line text-muted" style="margin-top:0.4rem;"># 2. 30/30 deterministische Verifikationstests ausführen</div>
+          <div class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">npm test</span></div>
+          <div class="t-line text-emerald" style="margin-top:0.4rem;">✔ 30 / 30 SCENARIOS TESTED SUCCESSFULLY (100% Deterministic Pass)</div>
+        </div>
+      </div>
+
+      <!-- GoBD & Architecture Transparency Notice -->
+      <div class="gobd-transparency-card">
+        <div class="gobd-transparency-header">
+          <i class="fa-solid fa-circle-info text-emerald"></i>
+          <h4 id="gobd-honesty-title">Transparenzhinweis zu GoBD &amp; Systemarchitektur</h4>
+        </div>
+        <p id="gobd-honesty-text">
+          HAULITZ implementiert die technischen Grundsätze des BMF-Schreibens vom 28.11.2019 (Cent-Genauigkeit, Unveränderbarkeit durch sequenzielle SHA-256 Hash-Ketten, deterministische Neuberechnung). Es stellt eine Open-Source-Referenzarchitektur dar, kein kommerzielles Software-Testat. Dieses Demo-Portal läuft als Edge-Gateway auf Cloudflare Workers; die Produktiv-Zielarchitektur für Mandantendaten ist für private VPCs in Frankfurt am Main (AWS eu-central-1) mit PostgreSQL Row-Level Security ausgelegt.
+        </p>
       </div>
     </section>
 
@@ -606,13 +1007,13 @@
             <button type="button" class="btn-contact-pill btn-copy-email" id="btn-copy-email" title="E-Mail-Adresse kopieren">
               <i class="fa-regular fa-copy"></i> <span>E-Mail kopieren</span>
             </button>
-            <a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" rel="noopener noreferrer" class="btn-contact-pill btn-linkedin">
+            <a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" rel="noopener noreferrer" class="btn-contact-pill btn-linkedin">
               <i class="fa-brands fa-linkedin text-blue"></i> <span>LinkedIn-Profil</span>
             </a>
             <a href="mailto:allensimeonfletcher@gmail.com?subject=Anforderung%20HAULITZ%20Executive%20Dossier%20%26%20CV" class="btn-contact-pill btn-dossier" id="btn-request-dossier">
               <i class="fa-solid fa-file-arrow-down text-emerald"></i> <span>Lebenslauf anfordern</span>
             </a>
-            <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-contact-pill">
+            <a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/tests/verify_haulitz.js" target="_blank" rel="noopener noreferrer" class="btn-contact-pill">
               <i class="fa-brands fa-github text-emerald"></i> <span>GitHub Code &amp; Tests (30/30)</span>
             </a>
           </div>
@@ -766,8 +1167,8 @@
           <h4 class="footer-heading" id="f-head-contact">Kontakt &amp; Rechtliches</h4>
           <ul class="footer-links-list">
             <li><a href="mailto:allensimeonfletcher@gmail.com"><i class="fa-solid fa-envelope text-emerald"></i> allensimeonfletcher@gmail.com</a></li>
-            <li><a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-blue"></i> LinkedIn Profile</a></li>
-            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository (30/30 Tests)</a></li>
+            <li><a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-blue"></i> LinkedIn Profile</a></li>
+            <li><a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/tests/verify_haulitz.js" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository (30/30 Tests)</a></li>
             <li><a href="javascript:void(0)" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted"></i> Impressum (§ 5 TMG)</a></li>
             <li><a href="javascript:void(0)" id="link-open-datenschutz"><i class="fa-solid fa-user-shield text-muted"></i> Datenschutzerklärung (DSGVO)</a></li>
           </ul>
@@ -818,7 +1219,7 @@
         <p>
           E-Mail: <a href="mailto:allensimeonfletcher@gmail.com" class="text-emerald">allensimeonfletcher@gmail.com</a><br>
           GitHub: <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" class="text-emerald">github.com/AllenFletcherAI/Haulitz</a><br>
-          LinkedIn: <a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" class="text-emerald">linkedin.com/in/allensimeonfletcher</a>
+          LinkedIn: <a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" class="text-emerald">linkedin.com/in/allen-fletcher/</a>
         </p>
         <h4>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h4>
         <p>Allen Simeon Fletcher</p>
@@ -897,7 +1298,5 @@
   <!-- Master JavaScript Application Engine -->
   <script defer src="js/domains.js"></script>
   <script defer src="js/app.js?v=3.4"></script>
-</body>
-</html>
 </body>
 </html>

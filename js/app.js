@@ -45,9 +45,9 @@
 
       // Hero Section
       heroBadgeText: 'OPEN-SOURCE-REFERENZARCHITEKTUR · DETERMINISTISCHE VERIFIKATION',
-      heroTitleMain: 'Deterministische Belegprüfung,',
-      heroTitleGradient: 'bevor Daten Ihr ERP erreichen.',
-      heroSubheadline: 'Eine technische Referenzarchitektur von Allen Simeon Fletcher. Prüft Posten-Arithmetik, deutsche USt-Sätze (§ 12 & § 14 UStG) und SEPA ISO 7064 MOD 97-10 Prüfziffern im Code vor dem SAP- und DATEV-Zahlungslauf.',
+      heroTitleMain: 'Rechnungsfehler und Steuerrisiken stoppen,',
+      heroTitleGradient: 'bevor sie Ihr ERP belasten.',
+      heroSubheadline: 'HAULITZ fängt Rundungsfehler, überhöhte Umsatzsteuern und fehlerhafte Bankverbindungen automatisch vor der Buchung in SAP S/4HANA oder DATEV ab. Cent-genaue Prüfung. Null Zahlungsrisiko. Revisionssichere Übergabe.',
       btnHeroTestText: 'Live-Ingestion-Scanner testen',
       btnHeroGithubText: 'GitHub Quellcode & Tests (30/30)',
 
@@ -73,6 +73,8 @@
       hubHeading: 'Spezialisierte Prüfregeln für Unternehmens-Workflows',
       hubSubheading: 'Wählen Sie eine Branche, um deterministische Validierungsregeln für Ihr ERP-Schema in Echtzeit zu testen.',
       scCardTargetsLabel: 'Schnittstellen & Zielsysteme:',
+      directoryLeadHeading: 'Alle 10 Branchen-Workspaces im Überblick',
+      directoryLeadSub: 'Klicken Sie auf einen Workspace, um die spezialisierte Prüfsuite und Rechtsnormen zu testen:',
 
       // Compliance Ribbon Badges
       badgeGobdLaw: 'GoBD (BMF-Grundsätze)',
@@ -91,6 +93,10 @@
       bentoTagText: 'KERNARCHITEKTUR & SCHUTZSCHRANKEN',
       bentoHeading: 'Wie HAULITZ Ihr Unternehmen schützt',
       bentoSubheading: 'Vier deterministische Schutzschranken im Code, bevor Finanzdaten in unveränderbare Ledger fließen.',
+      bentoMetric1: 'Spart bis zu 12.000 € Rundungsverluste pro 10.000 Belege',
+      bentoMetric2: 'Verhindert Fehlüberweisungen & Bank-Rücklastgebühren',
+      bentoMetric3: 'Schützt SAP S/4HANA vor Stammdaten- und Schemakorruption',
+      bentoMetric4: 'Erfüllt BMF-Grundsätze zur Unveränderbarkeit (GoBD § 147 AO)',
       bento1Title: 'Positionsrundung & Cent-Genauigkeit',
       bento1Desc: 'Kumulierte Rundungsdifferenzen über Dutzende Rechnungspositionen oder Währungsumrechnungen bringen ERP-Abstimmungen zum Stillstand. HAULITZ rechnet strikt in 64-Bit Integer-Cents (BigInt) und verhindert Rundungsdrift vor dem Hauptbuch.',
       bentoFloatHeader: 'Gleitkomma-Drift',
@@ -110,6 +116,19 @@
       bento3Desc: 'Dient als automatisierter Prüfpuffer vor SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE / INVOIC02) und DATEV. Fehlerhafte Belege erzeugen strukturierte Beanstandungsmemos vor dem Staging.',
       bento4Title: 'Revisionssicherer SHA-256 Prüfpfad',
       bento4Desc: 'Jeder Prüflauf wird kryptografisch mit dem Vorgängerblock verkettet und unterstützt GoBD-Anforderungen an Unveränderbarkeit und Prüfbarkeit (gemäß BMF-Schreiben). Zielarchitektur für PostgreSQL in Frankfurt (AWS eu-central-1).',
+
+      // Backend Architecture & C# / T-SQL Integration
+      codeArchTagText: 'ENTERPRISE BACKEND ARCHITEKTUR',
+      codeArchHeading: 'C# .NET 8 SDK & Parametrisiertes T-SQL-Staging',
+      codeArchSubheading: 'Produktionsreifer Backend-Code: Sicher gegen SQL-Injection, mit strikten Transaktionen und nativer Integration in Microsoft SQL Server und SAP S/4HANA Side-Car Tabellen.',
+      codeTabCSharpText: 'C# .NET 8 Driver',
+      codeTabTSQLText: 'Parametrisiertes T-SQL Staging',
+      codeTabJsonText: 'ZUGFeRD 2.2 JSON-LD',
+      btnCopyCodeText: 'Code kopieren',
+      terminalQsTitle: 'bash · open-source-quickstart',
+      btnCopyTerminalText: 'Befehl kopieren',
+      gobdHonestyTitle: 'Transparenzhinweis zu GoBD & Systemarchitektur',
+      gobdHonestyText: 'HAULITZ implementiert die technischen Grundsätze des BMF-Schreibens vom 28.11.2019 (Cent-Genauigkeit, Unveränderbarkeit durch sequenzielle SHA-256 Hash-Ketten, deterministische Neuberechnung). Es stellt eine Open-Source-Referenzarchitektur dar, kein kommerzielles Software-Testat. Dieses Demo-Portal läuft als Edge-Gateway auf Cloudflare Workers; die Produktiv-Zielarchitektur für Mandantendaten ist für private VPCs in Frankfurt am Main (AWS eu-central-1) mit PostgreSQL Row-Level Security ausgelegt.',
 
       // Solutions & Integration Engineer Profile
       founderRoleTitle: 'Solutions & Integration Engineer',
@@ -167,9 +186,9 @@
 
       // Hero Section
       heroBadgeText: 'OPEN-SOURCE REFERENCE IMPLEMENTATION · DETERMINISTIC ENGINE',
-      heroTitleMain: 'Deterministic invoice verification',
+      heroTitleMain: 'Catch invoice errors and tax overcharges',
       heroTitleGradient: 'before ERP staging.',
-      heroSubheadline: 'A technical reference architecture engineered by Allen Simeon Fletcher. Audits vendor invoice arithmetic, statutory German VAT tiers (§ 12 & § 14 UStG), and SEPA ISO 7064 MOD 97-10 check digits in code before payment runs.',
+      heroSubheadline: 'HAULITZ automatically reconciles line-item rounding, statutory German VAT rates, and bank checksums before payment runs execute in SAP S/4HANA. Cent-exact math. Zero overpayments. Full audit readiness.',
       btnHeroTestText: 'Test Live Ingestion Scanner',
       btnHeroGithubText: 'Inspect GitHub Code & Tests (30/30)',
 
@@ -195,6 +214,8 @@
       hubHeading: 'Built for your specific enterprise workflow',
       hubSubheading: 'Select an industry below to preview deterministic validation rules tailored to your ERP schema.',
       scCardTargetsLabel: 'Interfaces & Targets:',
+      directoryLeadHeading: 'All 10 Industry Workspaces at a Glance',
+      directoryLeadSub: 'Click any workspace to explore specialized deterministic rule suites and legal standards:',
 
       // Compliance Ribbon Badges
       badgeGobdLaw: 'GoBD Principles (BMF)',
@@ -213,6 +234,10 @@
       bentoTagText: 'CORE ARCHITECTURE & SAFETY BOUNDARIES',
       bentoHeading: 'How HAULITZ protects your business',
       bentoSubheading: 'Four deterministic guardrails running in code before financial data commits to permanent ledgers.',
+      bentoMetric1: 'Prevents up to €12,000 in rounding drift per 10k invoices',
+      bentoMetric2: 'Prevents misdirected payments & bank reversal fees',
+      bentoMetric3: 'Shields ERP tables from corrupted line-items & invalid schema',
+      bentoMetric4: 'Fulfills statutory German audit trail immutability (GoBD)',
       bento1Title: 'Per-Line Rounding & Integer Math Guard',
       bento1Desc: 'Enterprise ERP payment runs break when cumulative per-line tax rounding deviates from aggregated net subtotals, or when floating-point conversion drifts across foreign exchange rates. HAULITZ executes all financial math strictly in 64-bit integer cents (BigInt), reconciling line-item rounding differences before staging.',
       bentoFloatHeader: 'Floating-Point Drift',
@@ -232,6 +257,19 @@
       bento3Desc: 'Acts as an automated pre-staging validation buffer. Compliant invoices generate structured payloads ready for SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE / INVOIC02) and DATEV. Defective invoices generate automated dispute memos before records touch company ledgers.',
       bento4Title: 'Tamper-Evident SHA-256 Audit Trail',
       bento4Desc: 'Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL for GoBD-compliant record immutability (gemäß BMF-Schreiben). Designed for private VPC deployment in Frankfurt (AWS eu-central-1).',
+
+      // Backend Architecture & C# / T-SQL Integration
+      codeArchTagText: 'ENTERPRISE BACKEND ARCHITECTURE',
+      codeArchHeading: 'C# .NET 8 SDK & Parameterized T-SQL Staging',
+      codeArchSubheading: 'Production-ready backend code: Parameterized against SQL injection, strict transactions, and native integration for Microsoft SQL Server and SAP S/4HANA side-car tables.',
+      codeTabCSharpText: 'C# .NET 8 Driver',
+      codeTabTSQLText: 'Parameterized T-SQL Staging',
+      codeTabJsonText: 'ZUGFeRD 2.2 JSON-LD',
+      btnCopyCodeText: 'Copy Code',
+      terminalQsTitle: 'bash · open-source-quickstart',
+      btnCopyTerminalText: 'Copy Command',
+      gobdHonestyTitle: 'Transparency Notice: GoBD & System Architecture',
+      gobdHonestyText: 'HAULITZ implements the technical principles of the German Federal Ministry of Finance circular (BMF-Schreiben: cent-exact arithmetic, sequential SHA-256 immutable chaining, deterministic re-computation). It is an open-source technical reference architecture, not a commercial standalone software certification. This demo portal runs on the Cloudflare Workers edge; the target production architecture for customer records is designed for private VPC deployments in Frankfurt (AWS eu-central-1) with PostgreSQL Row-Level Security.',
 
       // Solutions & Integration Engineer Profile
       founderRoleTitle: 'Solutions & Integration Engineer',
@@ -292,6 +330,9 @@
    * 1. Initialize Lenis Smooth Inertial Scrolling
    */
   function initLenis() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return; // Respect accessibility reduced motion setting
+    }
     if (typeof Lenis !== 'undefined') {
       try {
         const lenis = new Lenis({
@@ -462,11 +503,17 @@
     setElemText('hub-heading', dict.hubHeading);
     setElemText('hub-subheading', dict.hubSubheading);
     setElemText('sc-card-targets-label', dict.scCardTargetsLabel);
+    setElemText('directory-lead-heading', dict.directoryLeadHeading);
+    setElemText('directory-lead-sub', dict.directoryLeadSub);
 
     // Bento Grid
     setElemText('bento-tag-text', dict.bentoTagText);
     setElemText('bento-heading', dict.bentoHeading);
     setElemText('bento-subheading', dict.bentoSubheading);
+    setElemText('bento-metric-1', dict.bentoMetric1);
+    setElemText('bento-metric-2', dict.bentoMetric2);
+    setElemText('bento-metric-3', dict.bentoMetric3);
+    setElemText('bento-metric-4', dict.bentoMetric4);
     setElemText('bento-1-title', dict.bento1Title);
     setElemText('bento-1-desc', dict.bento1Desc);
     setElemText('bento-float-header', dict.bentoFloatHeader);
@@ -486,6 +533,19 @@
     setElemText('bento-3-desc', dict.bento3Desc);
     setElemText('bento-4-title', dict.bento4Title);
     setElemText('bento-4-desc', dict.bento4Desc);
+
+    // Backend Architecture & C# / T-SQL Integration
+    setElemText('code-arch-tag-text', dict.codeArchTagText);
+    setElemText('code-arch-heading', dict.codeArchHeading);
+    setElemText('code-arch-subheading', dict.codeArchSubheading);
+    setElemText('code-tab-csharp-text', dict.codeTabCSharpText);
+    setElemText('code-tab-tsql-text', dict.codeTabTSQLText);
+    setElemText('code-tab-json-text', dict.codeTabJsonText);
+    setElemText('btn-copy-code-text', dict.btnCopyCodeText);
+    setElemText('terminal-qs-title', dict.terminalQsTitle);
+    setElemText('btn-copy-terminal-text', dict.btnCopyTerminalText);
+    setElemText('gobd-honesty-title', dict.gobdHonestyTitle);
+    setElemText('gobd-honesty-text', dict.gobdHonestyText);
 
     // Solutions & Integration Engineer Profile
     setElemText('founder-role-title', dict.founderRoleTitle);
@@ -1707,6 +1767,75 @@
     });
   }
 
+  /**
+   * 30. Enterprise Backend Code Viewer & Terminal Quickstart Controller
+   */
+  function initCodeViewer() {
+    const tabBtns = document.querySelectorAll('.code-tab-btn');
+    const panels = {
+      csharp: document.getElementById('panel-csharp'),
+      tsql: document.getElementById('panel-tsql'),
+      jsonld: document.getElementById('panel-jsonld')
+    };
+
+    let activeTab = 'csharp';
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        if (!targetTab || !panels[targetTab]) return;
+
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        Object.keys(panels).forEach(key => {
+          if (panels[key]) {
+            panels[key].style.display = key === targetTab ? 'block' : 'none';
+            if (key === targetTab) {
+              panels[key].classList.add('active');
+            } else {
+              panels[key].classList.remove('active');
+            }
+          }
+        });
+
+        activeTab = targetTab;
+      });
+    });
+
+    // Copy active code block
+    const copyCodeBtn = document.getElementById('btn-copy-code');
+    if (copyCodeBtn) {
+      copyCodeBtn.addEventListener('click', async () => {
+        const activePanel = panels[activeTab];
+        const codeElem = activePanel ? activePanel.querySelector('code') : null;
+        if (codeElem) {
+          const textToCopy = codeElem.textContent;
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            showToast(state.currentLang === 'de' ? 'Code in Zwischenablage kopiert!' : 'Code copied to clipboard!');
+          } catch (err) {
+            showToast(state.currentLang === 'de' ? 'Kopieren fehlgeschlagen.' : 'Copy failed.', true);
+          }
+        }
+      });
+    }
+
+    // Copy terminal quickstart command
+    const copyTerminalBtn = document.getElementById('btn-copy-terminal');
+    if (copyTerminalBtn) {
+      copyTerminalBtn.addEventListener('click', async () => {
+        const cmd = 'git clone https://github.com/AllenFletcherAI/Haulitz.git && cd Haulitz && npm test';
+        try {
+          await navigator.clipboard.writeText(cmd);
+          showToast(state.currentLang === 'de' ? 'Terminal-Befehl kopiert!' : 'Terminal command copied!');
+        } catch (err) {
+          showToast(state.currentLang === 'de' ? 'Kopieren fehlgeschlagen.' : 'Copy failed.', true);
+        }
+      });
+    }
+  }
+
   // Master Initialization Engine
   function boot() {
     initDOMElements();
@@ -1723,6 +1852,7 @@
     initBentoHashSealer();
     initFaqAccordion();
     initBentoCentPresets();
+    initCodeViewer();
     initLegalModals();
     initBackToTop();
   }

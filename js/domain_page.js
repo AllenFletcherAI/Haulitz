@@ -187,6 +187,9 @@
   }
 
   function initLenis() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return; // Respect accessibility reduced motion setting
+    }
     if (typeof Lenis !== 'undefined') {
       try {
         const lenis = new Lenis({

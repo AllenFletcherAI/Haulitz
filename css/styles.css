@@ -5044,5 +5044,454 @@ p, .hero-subheadline, .section-subheading, .bento-desc, .showcase-description, .
   margin-bottom: 0.85rem;
 }
 
+/* ====================================================================
+   31. MIT LICENSE PILL & BENTO OUTCOME METRICS
+   ==================================================================== */
+.badge-mit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-right: 0.45rem;
+}
+
+[data-theme="light"] .badge-mit-pill {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+.bento-metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  color: var(--color-emerald);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-top: 0.65rem;
+  margin-bottom: 0.5rem;
+  width: fit-content;
+}
+
+[data-theme="light"] .bento-metric-pill {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+/* ====================================================================
+   32. COMPREHENSIVE 10-WORKSPACE DIRECTORY GRID
+   ==================================================================== */
+.all-workspaces-directory {
+  max-width: 1100px;
+  margin: 3.5rem auto 1rem;
+  padding: 0 1rem;
+}
+
+.directory-lead-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.directory-lead-title h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.35rem;
+}
+
+.directory-sub {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.all-workspaces-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+}
+
+.workspace-tile-card {
+  background: rgba(14, 20, 32, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .workspace-tile-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.workspace-tile-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme="light"] .workspace-tile-card:hover {
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.09);
+}
+
+.ws-tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ws-tile-num {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-emerald);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.ws-tile-icon-badge {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-emerald);
+}
+
+[data-theme="light"] .ws-tile-icon-badge {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.ws-tile-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  line-height: 1.3;
+}
+
+.ws-tile-doctype {
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ws-tile-law {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.ws-tile-targets {
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.btn-ws-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.95rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--color-text-main);
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-top: 0.35rem;
+}
+
+[data-theme="light"] .btn-ws-tile {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.btn-ws-tile:hover {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: var(--color-emerald);
+}
+
+/* ====================================================================
+   33. ENTERPRISE BACKEND ARCHITECTURE & CODE VIEWER
+   ==================================================================== */
+.code-architecture-section {
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.code-viewer-container {
+  max-width: 960px;
+  margin: 0 auto 2rem;
+  background: #090d14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .code-viewer-container {
+  background: #0f172a;
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.code-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d121c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+[data-theme="light"] .code-viewer-header {
+  background: #1e293b;
+  border-bottom-color: #334155;
+}
+
+.code-tabs-nav {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.code-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.code-tab-btn:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.code-tab-btn.active {
+  color: #ffffff;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.btn-copy-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-copy-code:hover {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #ffffff;
+}
+
+.code-tab-panel {
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+}
+
+.code-block-pre {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #e2e8f0;
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  white-space: pre;
+}
+
+/* ====================================================================
+   34. TERMINAL QUICKSTART BOX
+   ==================================================================== */
+.terminal-quickstart-box {
+  max-width: 960px;
+  margin: 0 auto 2rem;
+  background: #05080f;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .terminal-quickstart-box {
+  background: #0f172a;
+  border-color: #cbd5e1;
+}
+
+.terminal-qs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #090e18;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.5rem 1rem;
+}
+
+[data-theme="light"] .terminal-qs-header {
+  background: #1e293b;
+  border-bottom-color: #334155;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green { background: #10b981; }
+
+.terminal-qs-title {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.btn-copy-terminal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-copy-terminal:hover {
+  background: rgba(16, 185, 129, 0.2);
+  color: #ffffff;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.terminal-qs-body {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.t-line {
+  color: #e2e8f0;
+}
+
+.t-prompt {
+  color: #10b981;
+  font-weight: 700;
+  margin-right: 0.4rem;
+}
+
+.t-cmd {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+/* ====================================================================
+   35. GOBD & ARCHITECTURE TRANSPARENCY ADVISORY
+   ==================================================================== */
+.gobd-transparency-card {
+  max-width: 960px;
+  margin: 0 auto;
+  background: rgba(16, 185, 129, 0.04);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  border-radius: var(--radius-md);
+  padding: 1.35rem 1.75rem;
+}
+
+[data-theme="light"] .gobd-transparency-card {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.gobd-transparency-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.gobd-transparency-header h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-emerald);
+  margin: 0;
+}
+
+[data-theme="light"] .gobd-transparency-header h4 {
+  color: #047857;
+}
+
+.gobd-transparency-card p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+[data-theme="light"] .gobd-transparency-card p {
+  color: #334155;
+}
+
 
 

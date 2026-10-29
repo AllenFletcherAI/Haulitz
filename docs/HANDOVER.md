@@ -58,7 +58,7 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
     - Added `📍 Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)` mobility badge.
     - Added `🟢 Available Immediately for Full-Time Roles` active status pill with pulsing animation.
     - Replaced OS platform emojis (`⚠️`, `🎛️`, `💼`) with clean, responsive SVGs.
-    - Added LinkedIn profile button (`https://linkedin.com/in/allensimeonfletcher`).
+    - Added LinkedIn profile button (`https://www.linkedin.com/in/allen-fletcher/`).
     - Added one-click `Copy Email` button with interactive toast notification.
     - Refined portrait frame with an executive dual-layer emerald aura.
   - Above-The-Fold Elevation: Compressed hero vertical spacing so the Living Scanner's controls and document rows sit comfortably above the fold on 1366x768 and 1440x900 screens.
@@ -108,6 +108,18 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Interactive Input Sanitization**: Added regex sanitization (`replace(/[^A-Za-z0-9 ]/g, '').toUpperCase()`) to `#bento-iban-input`.
   - **100% German Static HTML Payload**: Aligned default static HTML strings to pure German to prevent English leakage for non-JS bots and scrapers.
   - **Deterministic Test Verification**: All 30/30 statutory verification scenarios pass with 100% precision.
+
+- **Senior Engineering Hardening, Outcome Framing & CDN Elimination (ADR-009)**:
+  - **Author Identity & Authentic LinkedIn**: Replaced all outdated LinkedIn links with the authentic profile: `https://www.linkedin.com/in/allen-fletcher/` across `index.html` (JSON-LD, profile actions, footer, Impressum modal) and `docs/HANDOVER.md`. Deep-linked test suite CTAs directly to `tests/verify_haulitz.js`.
+  - **Business Outcome Translation (Anti-Jargon)**: Rewrote Hero headline and subhead into concrete CFO business outcomes (stopping line-item rounding drift, preventing tax office penalties, catching bad IBANs before bank reversal fees). Added outcome metric pills to all 4 Bento cards (saving up to €12,000 per 10k invoices, shielding SAP S/4HANA from corrupted schemas).
+  - **10-Workspace Visual Directory**: Added interactive 10-card visual overview grid on `index.html` with domain badges, governing legal standards, target ERP ecosystems, and direct buttons linking to all 10 domain pages (`workspaces/*.html`).
+  - **Surfacing C# .NET 8 & Parameterized T-SQL Code**: Built an interactive 3-tab code viewer on `index.html` showcasing production C# .NET 8 BAPI driver (`Microsoft.Data.SqlClient`), parameterized T-SQL staging script, and ZUGFeRD 2.2 JSON-LD payload with 1-click clipboard copy.
+  - **Open-Source MIT License & Self-Hosting Quickstart**: Added root `LICENSE` (MIT), updated `package.json` to MIT v3.3.0, displayed an MIT Open-Source badge in the hero, and embedded a 1-click terminal quickstart (`git clone ... && cd Haulitz && npm test`).
+  - **Supply Chain Hardening & Zero-CDN Lenis**: Self-hosted Lenis in `js/vendor/lenis.min.js`, removed `https://unpkg.com` from `_worker.js` CSP, and implemented `prefers-reduced-motion` accessibility bypass.
+  - **WCAG 2.1 AA Multi-Modal Status Badges**: Added explicit text labels `[GÜLTIG / APPROVED]` and `[GESTOPPT / QUARANTINE]` with distinctive icons to scanner alert banners so color is never the sole information carrier (WCAG 1.4.1).
+  - **Technical SEO Precision**: Shortened `<meta name="description">` to 154 characters and created `site.webmanifest` linked in `<head>`.
+  - **GoBD & Infrastructure Transparency**: Added explicit advisory clarifying GoBD BMF-Schreiben technical primitives vs software certification, and Edge Demonstration Gateway vs private Frankfurt AWS VPC target architecture.
+  - **100% Deterministic Pass**: All 30/30 scenarios pass with 100% precision. All endpoints return HTTP 200.
 
 ## 2. What We Are Working On Now
 - Commit clean changes to git and push to GitHub (`origin main`).

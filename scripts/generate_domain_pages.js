@@ -39,8 +39,8 @@ function generateHTML(p) {
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css?v=3.3">
 
-  <!-- Lenis Smooth Inertial Scroll CDN -->
-  <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- Lenis Smooth Inertial Scroll (Self-Hosted) -->
+  <script defer src="../js/vendor/lenis.min.js"></script>
 
   <!-- Instantaneous Theme & Language Hydration: Zero Flash -->
   <script>

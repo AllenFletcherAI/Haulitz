@@ -1,7 +1,7 @@
 {
   "name": "haulitz",
-  "version": "3.2.0",
-  "description": "Universal Deterministic Verification Gateway for Enterprise ERP & Supply Chain",
+  "version": "3.3.0",
+  "description": "Deterministic Document Verification Gateway Reference Architecture for Enterprise ERP",
   "private": true,
   "scripts": {
     "test": "node tests/verify_haulitz.js",
@@ -19,5 +19,5 @@
     "ustg"
   ],
   "author": "Allen Simeon Fletcher",
-  "license": "UNLICENSED"
+  "license": "MIT"
 }
