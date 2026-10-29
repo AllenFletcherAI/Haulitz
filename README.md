@@ -2,10 +2,11 @@
 ### The Universal Data Verification Gateway for Enterprise ERP
 **Eliminating AI Hallucinations, Accounting Errors, and Compliance Liability with Deterministic Mathematical Guardrails & GoBD § 147 AO Cryptographic Audit Chains**
 
-[![Edge Deployment](https://img.shields.io/badge/Deployment-Cloudflare%20Workers%20Edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://haulitz.allensimeonfletcher.workers.dev/)
-[![Status](https://img.shields.io/badge/System-100%25%20Active-059669?style=flat-square)](https://haulitz.allensimeonfletcher.workers.dev/)
+[![Statutory Verification CI](https://github.com/AllenFletcherAI/Haulitz/actions/workflows/verify.yml/badge.svg)](https://github.com/AllenFletcherAI/Haulitz/actions)
 [![Deterministic Tests](https://img.shields.io/badge/Tests-30%2F30%20Passing%20(100%25)-10b981?style=flat-square&logo=github)](tests/verify_haulitz.js)
+[![Run in StackBlitz](https://img.shields.io/badge/StackBlitz-Run%20in%20Browser-blue?style=flat-square&logo=stackblitz)](https://stackblitz.com/github/AllenFletcherAI/Haulitz?startScript=test)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Edge Deployment](https://img.shields.io/badge/Deployment-Cloudflare%20Workers%20Edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://haulitz.allensimeonfletcher.workers.dev/)
 [![Standard](https://img.shields.io/badge/Compliance-GoBD%20%C2%A7%20147%20AO%20%7C%20HGB%20%7C%20UStG-DC2626?style=flat-square)](https://haulitz.allensimeonfletcher.workers.dev/)
 
 ---
@@ -13,6 +14,7 @@
 > **Live Production Gateway:** [https://haulitz.allensimeonfletcher.workers.dev/](https://haulitz.allensimeonfletcher.workers.dev/)  
 > **Source Repository:** [https://github.com/AllenFletcherAI/Haulitz](https://github.com/AllenFletcherAI/Haulitz)  
 > **Automated Test Runner:** [`tests/verify_haulitz.js`](tests/verify_haulitz.js) (30/30 deterministic scenarios)  
+> **Architecture Note:** The deterministic verifier engine and statutory rules are implemented in Node.js (`tests/verify_haulitz.js`). The enterprise database driver is provided in C# .NET 8 (`Microsoft.Data.SqlClient`) for SAP S/4HANA side-car staging.  
 > **Primary Technology Stack:** Pure ES6 JavaScript, Web Crypto API (`crypto.subtle`), Cloudflare Workers Edge CDN, Parameterized Transact-SQL (T-SQL), C# .NET 8 SDK (`Microsoft.Data.SqlClient`).
 
 ---
@@ -21,7 +23,10 @@
 
 Every single mathematical calculation, statutory German tax formula, and check digit algorithm is covered by automated unit and integration tests located in [`tests/verify_haulitz.js`](tests/verify_haulitz.js).
 
-### Run Tests Locally in 3 Seconds:
+### Option A: Run in Browser (Zero Installation)
+Click **[▶ Run in StackBlitz](https://stackblitz.com/github/AllenFletcherAI/Haulitz?startScript=test)** to execute the entire 30-scenario test suite in your browser WebContainer in ~3 seconds.
+
+### Option B: Run Locally in Terminal:
 ```bash
 # 1. Clone the repository
 git clone https://github.com/AllenFletcherAI/Haulitz.git

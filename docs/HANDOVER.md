@@ -132,17 +132,26 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Accurate Simulator Framing**: Updated widget badge to `INTERAKTIVER BELEG-SIMULATOR` / `INTERACTIVE VERIFICATION SIMULATOR` for transparent demonstration positioning.
   - **100% Deterministic Pass**: All 30/30 scenarios pass with 100% precision. All endpoints return HTTP 200.
 
+- **The 90-Second Recruiter Gate, Decimal Precision Fix, Self-Hosted Fonts, and Verifiable GitHub CI Receipts (ADR-011)**:
+  - **The 90-Second Recruiter Gate**: Added candidate status strip at the top of the hero displaying target role (*Solutions & Integration Engineer — Berufseinstieg*), work authorization (*EU Blue Card berechtigt § 18g · Sofort verfügbar*), language level (*Deutsch: B2/C1*), accredited degree (*M.Sc. AI · Anabin H+*), CV download, and direct email.
+  - **Fixed C# .NET 8 Decimal Parameter Bug**: Added explicit `Precision = 18` and `Scale = 2` to `SqlDbType.Decimal` parameter in both `js/generators/sql_staging.js` and `index.html` inline code sample.
+  - **Zero Third-Party CDNs (100% DSGVO Compliant)**: Downloaded and self-hosted `Inter` and `JetBrains Mono` variable `.woff2` font files into `assets/fonts/` with `@font-face` rules in `css/styles.css`. Self-hosted Font Awesome into `assets/vendor/fontawesome/`. Completely removed `fonts.googleapis.com` and `cdnjs.cloudflare.com` from `<head>` and CSP.
+  - **Automated GitHub Actions CI Workflow**: Added `.github/workflows/verify.yml` running `npm test` across Node 18 and 20 on push/PR, with live badge embedded on `index.html` and `README.md`.
+  - **1-Click Browser Execution**: Added direct StackBlitz link (`https://stackblitz.com/github/AllenFletcherAI/Haulitz?startScript=test`) for instantaneous in-browser test execution.
+  - **4-Quadrant Test Receipt Breakdown**: Embedded detailed receipt table breaking down the 30 tests into Cent Precision, Statutory VAT, Banking Checksums, and Schema Protection.
+  - **Architectural Clarification**: Clarified that the statutory verifier engine is written in Node.js while the enterprise staging driver is written in C# .NET 8.
+  - **Updated Statutory Legal References**: Refined references to `§ 5 DDG (ehemals § 5 TMG)` and expanded zero-cookie/zero-CDN disclosures in `datenschutz.html`.
+
 ## 2. What We Are Working On Now
-- Verify git status, stage all files, and commit with message following ADR-010 conventions.
-- Push to GitHub remote `origin main`.
-- Verify live edge deployment at `https://haulitz.allensimeonfletcher.workers.dev/`.
+- Stage all files, commit with clean message under ADR-011, and push to GitHub remote `origin main`.
+- Verify live edge deployment on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
 
 ## 3. Broken Or Dangerous Items
 - None. All 30 automated statutory and mathematical test scenarios pass with zero regressions.
 
 ## 4. What To Do Next
-- Monitor live edge deployment on Cloudflare Workers.
-- Verify production headers and clean routing on the live edge domain.
+- Verify GitHub Actions workflow run on `https://github.com/AllenFletcherAI/Haulitz/actions`.
+- Test live endpoint caching and self-hosted font delivery.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main`.

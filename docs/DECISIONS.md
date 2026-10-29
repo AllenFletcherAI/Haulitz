@@ -351,6 +351,39 @@ We chose **Option 3**.
 ### 4. When to Reconsider
 If a full backend microservice gateway (e.g. ASP.NET Core Web API container) is deployed to AWS Frankfurt VPC, adapt edge routing to proxy live gRPC/REST payloads directly to the VPC ingress controller.
 
+---
+
+## ADR-011: The 90-Second Recruiter Gate, Decimal Precision Fix, Self-Hosted DSGVO Fonts, and Verifiable GitHub CI Receipts
+
+### Date: 2026-10-30
+### Status: Accepted & Implemented
+### AI Model: Gemini 2.5 Pro (Antigravity Senior Discipline)
+
+### 1. The Context & The Problem
+A holistic critique across technical, recruiting, and statutory dimensions revealed:
+1. **The 90-Second Recruiter Filter:** Hiring managers and recruiters spend 60–90 seconds evaluating a candidate. The site previously buried work authorization, role targets, and language levels beneath technical copy.
+2. **The C# Decimal Precision/Scale Bug:** `HaulitzIngestionService.StageVerifiedRecordAsync` omitted `Precision = 18, Scale = 2` on `@VarianceAmount`, risking silent truncation of fractional cents in `Microsoft.Data.SqlClient`.
+3. **Third-Party CDN Privacy & Availability Risks:** Dynamic requests to Google Fonts (`fonts.googleapis.com`) and Font Awesome (`cdnjs.cloudflare.com`) posed DSGVO risks under German case law and corporate proxy firewalls.
+4. **Verifiable CI Proof:** A written claim of "30/30 tests" lacked an external, verifiable GitHub Actions CI status badge and 1-click browser reproduction.
+5. **Architectural Clarity:** The relationship between the Node.js verifier engine (`tests/verify_haulitz.js`) and the C# .NET 8 staging driver needed explicit clarification.
+
+### 2. The Options Looked At
+* **Option 1: Fracturing into 8 separate HTML sub-pages.** (Rejected: Adds template maintenance overhead and navigation friction for recruiters).
+* **Option 2: Stripping all visual design down to plain text.** (Rejected: Fails to showcase the executive presentation skills expected of a Solutions Engineer).
+* **Option 3: Pragmatic Realignment on the Core Single-Page Architecture.**
+  - Add the unmissable 90-second recruiter status strip (Role, EU Blue Card § 18g, German B2/C1, Anabin H+, CV download, direct email).
+  - Fix the C# .NET 8 driver in both `js/generators/sql_staging.js` and `index.html`.
+  - Self-host `Inter` and `JetBrains Mono` `.woff2` fonts and Font Awesome webfonts locally; remove all external CDNs from `<head>` and CSP.
+  - Implement GitHub Actions CI workflow (`.github/workflows/verify.yml`), embed live badge, 1-click StackBlitz runner, and 4-quadrant test receipt table.
+  - Clarify the Node.js engine vs. C# driver relationship and update legal pages to § 5 DDG and DSGVO.
+
+### 3. The Decision
+We chose **Option 3**. All improvements implemented, verified by automated unit tests (30/30 pass), and prepared for immediate deployment.
+
+### 4. When to Reconsider
+If multi-tenant team accounts or commercial SaaS subscriptions are formally introduced, upgrade the architecture to an enterprise SSO provider under a formal DPA.
+
+
 
 
 

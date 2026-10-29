@@ -15,8 +15,8 @@
   <link rel="alternate" hreflang="en" href="https://haulitz.allensimeonfletcher.workers.dev/?lang=en">
   <link rel="alternate" hreflang="x-default" href="https://haulitz.allensimeonfletcher.workers.dev/">
 
-  <!-- Content Security Policy (Static Meta-Tag Alignment) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self' https://ep-dry-hill-b9dgvhqy-pooler.c-7.eu-central-1.aws.neon.tech https://api.resend.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';">
+  <!-- Content Security Policy (Static Meta-Tag Alignment: Zero External CDNs) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://ep-dry-hill-b9dgvhqy-pooler.c-7.eu-central-1.aws.neon.tech https://api.resend.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';">
 
   <!-- Open Graph / LinkedIn / Facebook Social Previews -->
   <meta property="og:type" content="website">
@@ -61,6 +61,35 @@
           "https://github.com/AllenFletcherAI/Haulitz",
           "https://www.linkedin.com/in/allen-fletcher/"
         ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Wie integriert HAULITZ mit bestehenden SAP S/4HANA- oder ERP-Systemen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "HAULITZ fungiert als deterministischer Vor-Staging-Puffer. Eingehende Rechnungen werden vor dem Schreiben in Produktivtabellen im Speicher validiert. Konforme Belege werden als strukturierte Parameter-Objekte für SAP BAPIs (BAPI_INCOMINGINVOICE_CREATE), IDocs (INVOIC02) oder DATEV-Staging-Tabellen aufbereitet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Werden vertrauliche Belegdaten dauerhaft gespeichert oder offengelegt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nein. In dieser Referenzarchitektur erfolgt die mathematische Validierung flüchtig im Speicher. Für eine GoBD-konforme Prüfpfaddokumentation werden lediglich kryptografische SHA-256 Hashes und Metadaten festgeschrieben."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie werden deutsche Umsatzsteuersätze und Posten-Arithmetik geprüft?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "HAULITZ berechnet alle Posten und USt-Stufen (§ 12 Abs. 1 für 19%, § 12 Abs. 2 für 7% gem. UStG) strikt centgenau über 64-Bit Integer-Arithmetik (BigInt). Kumulierte Rundungsfehler zwischen Zeilenrundung und Summenrundung werden vor der Verbuchung abgeglichen."
+            }
+          }
+        ]
       }
     ]
   }
@@ -74,14 +103,11 @@
   <link rel="shortcut icon" href="assets/favicon.ico">
   <meta name="theme-color" content="#07080a">
 
-  <!-- Typography & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Typography & Icons: 100% Self-Hosted (Zero External CDNs / DSGVO-Konform) -->
+  <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
   
   <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=3.4">
+  <link rel="stylesheet" href="css/styles.css?v=3.5">
 
   <!-- Client Application Modules (Loaded in <head> with defer for immediate inspection & performance) -->
   <script defer src="js/vendor/lenis.min.js"></script>
@@ -173,36 +199,73 @@
        ==================================================================== -->
   <section class="hero-cinematic" id="section-hero">
     <div class="hero-inner">
+
+      <!-- Candidate Screening & Work-Authorization Status Strip (The 90-Second Recruiter Gate) -->
+      <div class="candidate-status-strip">
+        <div class="status-strip-identity">
+          <span class="candidate-name font-bold">Allen Simeon Fletcher</span>
+          <span class="candidate-role-pill">Solutions &amp; Integration Engineer (Berufseinstieg)</span>
+        </div>
+        <div class="status-strip-badges">
+          <span class="badge-status-item"><i class="fa-solid fa-location-dot text-emerald" aria-hidden="true"></i> Deutschland</span>
+          <span class="badge-status-item"><i class="fa-solid fa-passport text-blue" aria-hidden="true"></i> EU Blue Card berechtigt (§ 18g · Sofort verfügbar)</span>
+          <span class="badge-status-item"><i class="fa-solid fa-language text-amber" aria-hidden="true"></i> Deutsch: B2/C1</span>
+          <span class="badge-status-item"><i class="fa-solid fa-graduation-cap text-emerald" aria-hidden="true"></i> M.Sc. AI (Anabin H+)</span>
+        </div>
+        <div class="status-strip-actions">
+          <a href="mailto:allensimeonfletcher@gmail.com" class="btn-strip-action"><i class="fa-solid fa-envelope" aria-hidden="true"></i> E-Mail</a>
+          <a href="#section-founder" class="btn-strip-action font-mono-code"><i class="fa-solid fa-user-check" aria-hidden="true"></i> Profil &amp; CV</a>
+        </div>
+      </div>
+
       <!-- Top Glowing Status Pill -->
       <div class="hero-badge-pill">
         <a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="badge-mit-pill font-mono-code" title="MIT-Lizenz auf GitHub anzeigen"><i class="fa-solid fa-code-commit" aria-hidden="true"></i> MIT OPEN-SOURCE</a>
         <span class="live-pulse-dot"></span>
-        <span id="hero-badge-text">DETERMINISTISCHE EINGANGSPRÜFUNG · BMF- &amp; USTG-KONFORMITÄT</span>
+        <span id="hero-badge-text">OPEN-SOURCE-REFERENZARCHITEKTUR FÜR DETERMINISTISCHES ERP-STAGING</span>
       </div>
 
-      <!-- High-Impact Kinetic Headline (CFO & Lead Architect Value Proposition) -->
+      <!-- High-Impact Kinetic Headline (Business Problem First) -->
       <h1 class="hero-headline">
-        <span id="hero-title-main">Rechnungsfehler und Steuerrisiken stoppen,</span><br>
-        <span class="gradient-text" id="hero-title-gradient">bevor sie Ihr ERP belasten.</span>
+        <span id="hero-title-main">Rechnungsfehler und Rundungsdrift stoppen,</span><br>
+        <span class="gradient-text" id="hero-title-gradient">bevor Daten Ihr ERP erreichen.</span>
       </h1>
 
-      <!-- Human-First Clear Subheadline (Business Outcomes & Non-Diluted Precision) -->
+      <!-- Human-First Clear Subheadline (Honest Engineering Study) -->
       <p class="hero-subheadline" id="hero-subheadline">
-        HAULITZ fängt Rundungsfehler, überhöhte Umsatzsteuern und fehlerhafte Bankverbindungen automatisch vor der Buchung in SAP S/4HANA oder DATEV ab. Cent-genaue Prüfung. Null Zahlungsrisiko. Revisionssichere Übergabe.
+        Ich habe HAULITZ als deterministisches Referenzgateway entwickelt, um zu verstehen, warum ERP-Zahlungsläufe an fehlerhaften Lieferantendaten scheitern – und wie mathematische 64-Bit-Cent-Präzision Buchungen in SAP S/4HANA oder DATEV revisionssicher schützt.
       </p>
 
-      <!-- Two Focused Action CTAs (Hick's Law) -->
+      <!-- Three Direct Proof Action CTAs + StackBlitz Web Runner -->
       <div class="hero-cta-group">
         <a href="#hero-scanner-wrap" class="btn-primary-hero" id="btn-hero-test">
-          <i class="fa-solid fa-play"></i> <span id="btn-hero-test-text">Live-Prüfung testen</span>
+          <i class="fa-solid fa-play" aria-hidden="true"></i> <span id="btn-hero-test-text">▶ Live-Simulator testen</span>
         </a>
-        <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-secondary-hero">
-          <i class="fa-brands fa-github"></i> <span id="btn-hero-github-text">GitHub-Code &amp; Tests prüfen (30/30)</span>
+        <a href="https://github.com/AllenFletcherAI/Haulitz/actions" target="_blank" rel="noopener noreferrer" class="btn-secondary-hero">
+          <img src="https://github.com/AllenFletcherAI/Haulitz/actions/workflows/verify.yml/badge.svg" alt="CI Status" style="vertical-align: middle; height: 18px;">
+          <span id="btn-hero-github-text">30/30 Testszenarien</span>
+        </a>
+        <a href="#section-code-architecture" class="btn-secondary-hero">
+          <i class="fa-solid fa-code" aria-hidden="true"></i> <span>C# &amp; T-SQL Treiber</span>
+        </a>
+        <a href="https://stackblitz.com/github/AllenFletcherAI/Haulitz?startScript=test" target="_blank" rel="noopener noreferrer" class="btn-secondary-hero font-mono-code" title="Tests im Browser via StackBlitz ausführen">
+          <i class="fa-solid fa-bolt text-amber" aria-hidden="true"></i> <span>In-Browser ausführen</span>
         </a>
       </div>
 
-      <!-- The Living "Document Scanner" Interactive Card (The Instagram Effect) -->
+      <div class="hero-scope-note">
+        <span>Open-Source-Portfolio- und Studienprojekt von Allen Simeon Fletcher &middot; Keine kommerzielle Software</span>
+      </div>
+
+      <!-- The Living "Document Scanner" Interactive Card -->
       <div class="hero-scanner-perspective" id="hero-scanner-wrap">
+        <noscript>
+          <div style="padding: 1.5rem; background: #11141a; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 1.5rem; color: #f0f3f8;">
+            <h3 style="color: #10b981; margin-bottom: 0.5rem;"><i class="fa-solid fa-terminal" aria-hidden="true"></i> Deterministischer Beleg-Verifizierer (Offline-Terminal)</h3>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.75rem;">JavaScript ist deaktiviert. Führen Sie alle 30 gesetzlichen Prüfszenarien im Terminal aus:</p>
+            <pre style="background: #07080a; padding: 0.75rem; border-radius: 4px; font-family: monospace; color: #10b981;">git clone https://github.com/AllenFletcherAI/Haulitz.git &amp;&amp; cd Haulitz &amp;&amp; npm test</pre>
+          </div>
+        </noscript>
         <div class="hero-scanner-card" id="hero-scanner-card">
           <!-- Ambient Scanner Laser Beam (Moving Vertical Sweep) -->
           <div class="scanner-laser-beam" id="scanner-laser-beam"></div>
@@ -788,7 +851,10 @@ namespace Haulitz.Enterprise.Integration
             command.Parameters.Add("@AuditStatus", SqlDbType.NVarChar, 30).Value = isClean ? "VERIFIED_CLEAN" : "QUARANTINE_HOLD";
             command.Parameters.Add("@AtlasReady", SqlDbType.Bit).Value = isClean;
             command.Parameters.Add("@QuarantineHold", SqlDbType.Bit).Value = !isClean;
-            command.Parameters.Add("@VarianceAmount", SqlDbType.Decimal).Value = varianceAmount;
+            var paramVariance = command.Parameters.Add("@VarianceAmount", SqlDbType.Decimal);
+            paramVariance.Precision = 18;
+            paramVariance.Scale = 2;
+            paramVariance.Value = varianceAmount;
             command.Parameters.Add("@PayloadHash", SqlDbType.Char, 64).Value = gobdSeal;
             command.Parameters.Add("@GoBDSeal", SqlDbType.Char, 64).Value = gobdSeal;
             command.Parameters.Add("@PreviousSeal", SqlDbType.Char, 64).Value = previousSeal;
@@ -903,6 +969,61 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
     "immutableHash": "3c8d10ae4b7e8d2f..."
   }
 }</code></pre>
+        </div>
+      </div>
+
+      <!-- Architectural Relationship & Integration Note -->
+      <div class="code-note-box" style="margin-top: 1.25rem; margin-bottom: 1.5rem; padding: 1rem 1.25rem; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.22); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.6;">
+        <strong class="text-emerald" style="display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.35rem; font-size: 0.95rem;">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i> Architektur-Klarstellung (Node.js Engine vs. C# .NET 8 Treiber)
+        </strong>
+        Die deterministische Verifikations-Engine und alle 30 gesetzlichen Prüfszenarien sind in Node.js (<a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/tests/verify_haulitz.js" target="_blank" rel="noopener noreferrer" class="text-emerald font-bold"><code>tests/verify_haulitz.js</code></a>) implementiert. Der hier gezeigte C# .NET 8 Treiber (`Microsoft.Data.SqlClient`) demonstriert den produktionsreifen Referenztreiber für die transaktionale, SQL-Injection-sichere Übergabe verifizierter Belege an relationale Staging-Tabellen vor SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE) und DATEV.
+      </div>
+
+      <!-- Verifiable Test Receipts & 4-Quadrant Coverage Table -->
+      <div class="receipts-coverage-container" id="receipts-coverage" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.1rem; color: var(--color-text-main); margin: 0; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-clipboard-check text-emerald" aria-hidden="true"></i> 30/30 Gesetzliche Testszenarien im Detail
+          </h3>
+          <a href="https://github.com/AllenFletcherAI/Haulitz/actions" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+            <img src="https://github.com/AllenFletcherAI/Haulitz/actions/workflows/verify.yml/badge.svg" alt="CI Build Status" style="height: 20px;">
+          </a>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+          <div style="background: rgba(17, 20, 26, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 1.15rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-emerald); text-transform: uppercase; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-calculator" aria-hidden="true"></i> 1. Cent-Arithmetik &amp; Float-Drift
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-text-muted); margin: 0; line-height: 1.5;">
+              6 Szenarien: Zeilen- vs. Summenrundungsdifferenzen, 64-Bit Integer Cents (BigInt), EZB-Währungsumrechnung.
+            </p>
+          </div>
+          <div style="background: rgba(17, 20, 26, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 1.15rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-emerald); text-transform: uppercase; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-file-invoice" aria-hidden="true"></i> 2. Deutsches Steuerrecht (§ 12/§ 14 UStG)
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-text-muted); margin: 0; line-height: 1.5;">
+              8 Szenarien: 19% / 7% USt-Splits, Pflichtangaben, kaufmännische Rügeobliegenheit (HGB § 377).
+            </p>
+          </div>
+          <div style="background: rgba(17, 20, 26, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 1.15rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-emerald); text-transform: uppercase; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> 3. Bank- &amp; Kennziffer-Prüfsummen
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-text-muted); margin: 0; line-height: 1.5;">
+              8 Szenarien: SEPA IBAN (ISO 7064 MOD 97-10), ISO 6346 Container, GS1 EAN-13 Modulo-10.
+            </p>
+          </div>
+          <div style="background: rgba(17, 20, 26, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 1.15rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-emerald); text-transform: uppercase; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i> 4. Schemaschutz &amp; SQL-Injection
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-text-muted); margin: 0; line-height: 1.5;">
+              8 Szenarien: Typisierte Parameter (inkl. Decimal Precision &amp; Scale), Überlaufschutz, Fremdschlüssel- und Staging-Validierung.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -1130,15 +1251,15 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
             <span class="footer-brand-title">HAULITZ</span>
           </div>
           <p class="footer-mission" id="footer-mission-text">
-            Deterministic enterprise verification gateway &amp; open-source reference implementation engineered by Allen Simeon Fletcher. Demonstrates cent-exact math, German statutory VAT tiers (§ 12 &amp; § 14 UStG), and GoBD-aligned cryptographic audit trails before ERP staging.
+            HAULITZ ist eine Open-Source-Referenzarchitektur von Allen Simeon Fletcher. Durchsetzung cent-genauer Mathematik, gesetzlicher USt (§ 12 &amp; § 14 UStG) und GoBD-konformer Prüfpfade vor dem ERP-Zahlungslauf in SAP S/4HANA oder DATEV.
           </p>
           <div class="footer-hosting-badge">
             <i class="fa-solid fa-server text-emerald"></i>
-            <span id="footer-host-text">Edge Ingestion Gateway · Target VPC Architecture Frankfurt (AWS eu-central-1)</span>
+            <span id="footer-host-text">Edge-Ingestion-Gateway · Ziel-VPC-Architektur Frankfurt am Main (AWS eu-central-1)</span>
           </div>
           <div class="footer-status-indicator">
             <span class="status-dot-pulse"></span>
-            <span id="footer-status-text">All 10 Workspaces Operational · 100% Deterministic SLA</span>
+            <span id="footer-status-text">Alle 10 Workspaces betriebsbereit · 100% deterministische SLA</span>
           </div>
         </div>
 
@@ -1180,7 +1301,7 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
             <li><a href="mailto:allensimeonfletcher@gmail.com"><i class="fa-solid fa-envelope text-emerald"></i> allensimeonfletcher@gmail.com</a></li>
             <li><a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-blue"></i> LinkedIn Profile</a></li>
             <li><a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/tests/verify_haulitz.js" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository (30/30 Tests)</a></li>
-            <li><a href="impressum.html" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted" aria-hidden="true"></i> Impressum (§ 5 TMG)</a></li>
+            <li><a href="impressum.html" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted" aria-hidden="true"></i> Impressum (§ 5 DDG)</a></li>
             <li><a href="datenschutz.html" id="link-open-datenschutz"><i class="fa-solid fa-user-shield text-muted" aria-hidden="true"></i> Datenschutzerklärung (DSGVO)</a></li>
           </ul>
         </div>
@@ -1194,7 +1315,7 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
           </div>
         </div>
         <div class="footer-legal-links">
-          <a href="impressum.html" class="btn-text-legal" id="btn-impressum-legal">Impressum (§ 5 TMG)</a>
+          <a href="impressum.html" class="btn-text-legal" id="btn-impressum-legal">Impressum (§ 5 DDG)</a>
           <span>&middot;</span>
           <a href="datenschutz.html" class="btn-text-legal" id="btn-datenschutz-legal">Datenschutz (DSGVO)</a>
         </div>

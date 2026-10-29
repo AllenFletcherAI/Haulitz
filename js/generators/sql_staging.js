@@ -188,7 +188,10 @@ namespace Haulitz.Enterprise.Integration
             command.Parameters.Add("@AuditStatus", SqlDbType.NVarChar, 30).Value = isClean ? "VERIFIED_CLEAN" : "QUARANTINE_HOLD";
             command.Parameters.Add("@AtlasReady", SqlDbType.Bit).Value = isClean;
             command.Parameters.Add("@QuarantineHold", SqlDbType.Bit).Value = !isClean;
-            command.Parameters.Add("@VarianceAmount", SqlDbType.Decimal).Value = varianceAmount;
+            var paramVariance = command.Parameters.Add("@VarianceAmount", SqlDbType.Decimal);
+            paramVariance.Precision = 18;
+            paramVariance.Scale = 2;
+            paramVariance.Value = varianceAmount;
             command.Parameters.Add("@PayloadHash", SqlDbType.Char, 64).Value = gobdSeal;
             command.Parameters.Add("@GoBDSeal", SqlDbType.Char, 64).Value = gobdSeal;
             command.Parameters.Add("@PreviousSeal", SqlDbType.Char, 64).Value = previousSeal;
