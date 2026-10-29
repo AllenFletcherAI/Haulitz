@@ -34,16 +34,13 @@ function generateHTML(p) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   
   <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="../css/styles.css?v=3.2">
+  <link rel="stylesheet" href="../css/styles.css?v=3.3">
 
   <!-- Lenis Smooth Inertial Scroll CDN -->
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-
-  <!-- Clerk Authentication Web SDK -->
-  <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_YXB0LWxlb3BhcmQtMTc0Ny5jbGVyay5hY2NvdW50cy5kZXYk" src="https://apt-leopard-1747.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"></script>
+  <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
   <!-- Instantaneous Theme & Language Hydration: Zero Flash -->
   <script>
@@ -69,6 +66,9 @@ function generateHTML(p) {
 </head>
 <body data-domain="${p.domain}">
 
+  <!-- Accessibility Skip-to-Content Link -->
+  <a href="#main-content" class="skip-to-content-link">Direkt zum Inhalt springen / Skip to content</a>
+
   <!-- Global Header Bar -->
   <header class="header-bar">
     <div class="brand-wrapper" style="align-items: center;">
@@ -81,12 +81,10 @@ function generateHTML(p) {
     </div>
 
     <div class="header-controls">
-      <!-- Clerk Enterprise Authentication Container -->
-      <div class="clerk-auth-container" id="clerk-auth-container">
-        <button id="clerk-sign-in-btn" class="clerk-btn" aria-label="Enterprise Sign In">
-          <i class="fa-solid fa-building-shield"></i> <span>Enterprise Sign-In</span>
-        </button>
-      </div>
+      <!-- GitHub Architecture & Test Suite Link -->
+      <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="lang-pill-btn font-mono-code" title="View 30/30 Test Suite on GitHub">
+        <i class="fa-brands fa-github text-emerald"></i> <span>Code &amp; Tests (30/30)</span>
+      </a>
 
       <!-- Theme Switcher -->
       <button id="theme-toggle-btn" class="lang-pill-btn" aria-label="Toggle dark/light theme">
@@ -101,7 +99,7 @@ function generateHTML(p) {
   </header>
 
   <!-- Dedicated Domain Workspace Page -->
-  <main class="domain-page-container">
+  <main class="domain-page-container" id="main-content" role="main">
     
     <!-- Top Domain Meta Header -->
     <section class="domain-page-header">
@@ -228,15 +226,15 @@ function generateHTML(p) {
   </div>
 
   <!-- Master JavaScript Application Engine -->
-  <script src="../js/verifier/arithmetic.js"></script>
-  <script src="../js/verifier/checksums.js"></script>
-  <script src="../js/verifier/gobd_hasher.js"></script>
-  <script src="../js/verifier/reconciler.js"></script>
-  <script src="../js/generators/legal_memos.js"></script>
-  <script src="../js/generators/sql_staging.js"></script>
-  <script src="../${p.fixture}"></script>
-  <script src="../js/domains.js"></script>
-  <script src="../js/domain_page.js?v=3.2"></script>
+  <script defer src="../js/verifier/arithmetic.js"></script>
+  <script defer src="../js/verifier/checksums.js"></script>
+  <script defer src="../js/verifier/gobd_hasher.js"></script>
+  <script defer src="../js/verifier/reconciler.js"></script>
+  <script defer src="../js/generators/legal_memos.js"></script>
+  <script defer src="../js/generators/sql_staging.js"></script>
+  <script defer src="../${p.fixture}"></script>
+  <script defer src="../js/domains.js"></script>
+  <script defer src="../js/domain_page.js?v=3.3"></script>
 </body>
 </html>
 `;

@@ -2,7 +2,7 @@
  * HAULITZ ENTERPRISE GATEWAY - MASTER CONTROLLER & APPLICATION ENGINE (v3.3)
  * Standard: ASD-STE100 Simplified Technical English
  * Default Settings: German Language (de), Obsidian Dark Mode (dark)
- * Integrations: AWS Frankfurt Neon PostgreSQL, Clerk Authentication, Resend Transactional Alerting
+ * Integrations: AWS Frankfurt Neon PostgreSQL, Resend Transactional Alerting
  */
 
 (function() {
@@ -31,16 +31,17 @@
       cmdKText: 'Suchen...',
       cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...',
 
-      // Header Brand
+      // Header Brand & Navigation
       headerBrandSubtitle: 'Referenzarchitektur',
-
-      // Auth Gate Modal
-      authTitle: 'HAULITZ Gateway Sign-In',
-      authSub: 'Authentifizieren Sie sich für den Zugriff auf die 10 Industrie-Workspaces',
-      authGoogle: 'Mit Google anmelden (Gmail)',
-      authClerk: 'Mit geschäftlicher E-Mail / SSO anmelden',
-      authRemember: 'Auf diesem Gerät angemeldet bleiben',
-      authDivider: 'ODER',
+      headerGithubLabel: 'Code & Tests (30/30)',
+      btnSealBlock: 'Block versiegeln',
+      scActiveTagPrefix: 'Aktiver Workspace:',
+      heroScannerLaunchBtn: 'Branchen-Workspace öffnen',
+      fHeadWorkspaces: '10 Branchen-Workspaces',
+      fHeadArch: 'Architektur & Nachweise',
+      fHeadContact: 'Kontakt & Rechtliches',
+      btnCopyEmail: 'E-Mail kopieren',
+      btnRequestDossier: 'Lebenslauf anfordern',
 
       // Hero Section
       heroBadgeText: 'OPEN-SOURCE-REFERENZARCHITEKTUR · DETERMINISTISCHE VERIFIKATION',
@@ -152,16 +153,17 @@
       cmdKText: 'Search...',
       cmdSearchPlaceholder: 'Search workspaces (e.g. FinTech, Maritime, Supply Chain, Solar)...',
 
-      // Header Brand
+      // Header Brand & Navigation
       headerBrandSubtitle: 'Reference Implementation',
-
-      // Auth Gate Modal
-      authTitle: 'HAULITZ Gateway Sign-In',
-      authSub: 'Authenticate to access all 10 institutional industry workspaces',
-      authGoogle: 'Sign in with Google (Gmail)',
-      authClerk: 'Sign in with Work Email / SSO',
-      authRemember: 'Keep me signed in on this device',
-      authDivider: 'OR',
+      headerGithubLabel: 'Code & Tests (30/30)',
+      btnSealBlock: 'Seal Next Block',
+      scActiveTagPrefix: 'Active Workspace:',
+      heroScannerLaunchBtn: 'Launch Dedicated Workspace',
+      fHeadWorkspaces: '10 Industry Workspaces',
+      fHeadArch: 'Architecture & Proof',
+      fHeadContact: 'Contact & Legal',
+      btnCopyEmail: 'Copy Email',
+      btnRequestDossier: 'Request CV Dossier',
 
       // Hero Section
       heroBadgeText: 'OPEN-SOURCE REFERENCE IMPLEMENTATION · DETERMINISTIC ENGINE',
@@ -279,7 +281,6 @@
       themeText: document.getElementById('theme-text'),
       langToggleBtn: document.getElementById('lang-toggle-btn'),
       langBtnText: document.getElementById('lang-btn-text'),
-      clerkAuthContainer: document.getElementById('clerk-auth-container'),
       
       toast: document.getElementById('toast-notification'),
       toastMessage: document.getElementById('toast-message'),
@@ -311,92 +312,7 @@
   }
 
   /**
-   * 2. Initialize Clerk Authentication
-   */
-  async function initClerk() {
-    const handleAuthChange = () => {
-      updateClerkUI();
-      if (window.Clerk?.user) {
-        try {
-          const rememberMe = localStorage.getItem('haulitz_remember_me') === 'true';
-          if (rememberMe) {
-            localStorage.setItem('haulitz_auth', 'true');
-          } else {
-            sessionStorage.setItem('haulitz_auth', 'true');
-          }
-        } catch (e) {}
-        document.getElementById('auth-gate-modal')?.classList.remove('active');
-      }
-    };
-
-    if (!window.Clerk) {
-      window.addEventListener('load', async () => {
-        if (window.Clerk) {
-          try {
-            await window.Clerk.load();
-            handleAuthChange();
-            window.Clerk.addListener(handleAuthChange);
-          } catch (err) {}
-        }
-      });
-      return;
-    }
-
-    try {
-      await window.Clerk.load();
-      handleAuthChange();
-      window.Clerk.addListener(handleAuthChange);
-    } catch (e) {
-      console.warn('Clerk load bypassed:', e);
-    }
-  }
-
-  function updateClerkUI() {
-    if (!DOM.clerkAuthContainer || !window.Clerk) return;
-
-    if (window.Clerk.user) {
-      const user = window.Clerk.user;
-      const displayName = user.firstName || user.username || user.primaryEmailAddress?.emailAddress?.split('@')[0] || 'User';
-
-      DOM.clerkAuthContainer.innerHTML = `
-        <div style="display:flex; align-items:center; gap:0.5rem; background:var(--color-surface); border:1px solid var(--color-border); padding:0.25rem 0.6rem; border-radius:var(--radius-md);">
-          <img src="${user.imageUrl}" style="width:20px; height:20px; border-radius:50%;" alt="User avatar"/>
-          <span style="font-size:0.75rem; font-weight:600; color:var(--color-text-main);">${displayName}</span>
-          <button id="clerk-sign-out-btn" style="color:var(--color-text-muted); font-size:0.75rem; padding:0 0.2rem; background:none; border:none; cursor:pointer;" title="Sign out">
-            <i class="fa-solid fa-right-from-bracket"></i>
-          </button>
-        </div>
-      `;
-
-      document.getElementById('clerk-sign-out-btn')?.addEventListener('click', async () => {
-        await window.Clerk.signOut();
-        try {
-          localStorage.removeItem('haulitz_auth');
-          localStorage.removeItem('haulitz_remember_me');
-          sessionStorage.removeItem('haulitz_auth');
-        } catch (e) {}
-        updateClerkUI();
-        showToast(state.currentLang === 'de' ? 'Erfolgreich abgemeldet' : 'Successfully signed out');
-      });
-    } else {
-      DOM.clerkAuthContainer.innerHTML = `
-        <button id="clerk-sign-in-btn" class="clerk-btn" aria-label="Enterprise Sign In">
-          <i class="fa-solid fa-building-shield"></i> <span id="clerk-btn-text">Enterprise Sign-In</span>
-        </button>
-      `;
-
-      document.getElementById('clerk-sign-in-btn')?.addEventListener('click', () => {
-        if (window.Clerk.openSignIn) {
-          window.Clerk.openSignIn();
-        } else {
-          document.getElementById('auth-gate-modal')?.classList.add('active');
-        }
-      });
-    }
-  }
-
-  /**
-   * 3. Domain Workspace Mapping & Deep Link Handling
+   * 2. Domain Workspace Mapping & Deep Link Handling
    */
   const domainPages = {
     fintech: 'workspaces/fintech.html',
@@ -464,75 +380,6 @@
       } catch (e) {}
       applyLanguageUI();
     });
-
-    // Auth Gate Actions with Remember Me (Official Google & Clerk SSO)
-    const authModal = document.getElementById('auth-gate-modal');
-    const handleAuthLogin = async (provider) => {
-      const rememberCheckbox = document.getElementById('auth-remember-checkbox');
-      const isRemembered = rememberCheckbox ? rememberCheckbox.checked : false;
-
-      try {
-        if (isRemembered) {
-          localStorage.setItem('haulitz_remember_me', 'true');
-          localStorage.setItem('haulitz_auth', 'true');
-        } else {
-          localStorage.removeItem('haulitz_remember_me');
-          sessionStorage.setItem('haulitz_auth', 'true');
-        }
-      } catch (err) {}
-
-      if (authModal) {
-        authModal.classList.remove('active');
-      }
-
-      if (provider === 'google') {
-        if (window.Clerk && window.Clerk.client && window.Clerk.client.signIn) {
-          try {
-            await window.Clerk.client.signIn.authenticateWithRedirect({
-              strategy: 'oauth_google',
-              redirectUrl: window.location.href,
-              redirectUrlComplete: window.location.href
-            });
-            return;
-          } catch (e) {
-            console.warn('Direct Google OAuth redirect error:', e);
-          }
-        }
-
-        if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
-          try {
-            window.Clerk.openSignIn();
-            return;
-          } catch (e) {
-            console.warn('Clerk openSignIn error:', e);
-          }
-        }
-
-        showToast(state.currentLang === 'de' ? 'Erfolgreich autorisiert.' : 'Successfully authorized.');
-      } else {
-        if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
-          try {
-            window.Clerk.openSignIn();
-            return;
-          } catch (e) {
-            console.warn('Clerk openSignIn error:', e);
-          }
-        }
-        showToast(state.currentLang === 'de' ? 'Erfolgreich autorisiert.' : 'Successfully authorized.');
-      }
-    };
-
-    document.getElementById('btn-auth-google')?.addEventListener('click', () => handleAuthLogin('google'));
-    document.getElementById('btn-auth-clerk')?.addEventListener('click', () => handleAuthLogin('clerk'));
-
-    // Modal background click dismiss
-    if (authModal) {
-      authModal.addEventListener('click', (e) => {
-        if (e.target === authModal) {
-          authModal.classList.remove('active');
-        }
-      });
-    }
   }
 
   function updateThemeUI() {
@@ -567,17 +414,10 @@
 
     // Header Brand & Search Bar
     setElemText('header-brand-subtitle', dict.headerBrandSubtitle);
+    setElemText('header-github-label', dict.headerGithubLabel);
     setElemText('cmd-k-text', dict.cmdKText);
     const cmdInput = document.getElementById('command-search-input');
     if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
-
-    // Auth Gate Modal
-    setElemText('auth-modal-title', dict.authTitle);
-    setElemText('auth-modal-subtitle', dict.authSub);
-    setElemText('btn-google-text', dict.authGoogle);
-    setElemText('btn-clerk-text', dict.authClerk);
-    setElemText('auth-remember-label', dict.authRemember);
-    setElemText('auth-divider-text', dict.authDivider);
 
     // Hero Section
     setElemText('hero-badge-text', dict.heroBadgeText);
@@ -678,10 +518,18 @@
     setElemText('faq-q-5', dict.faqQ5);
     setElemText('faq-a-5', dict.faqA5);
 
-    // Footer
+    // Footer & Interactive Actions
     setElemText('footer-mission-text', dict.footerMissionText);
     setElemText('footer-host-text', dict.footerHostText);
     setElemText('footer-status-text', dict.footerStatusText);
+    setElemText('f-head-workspaces', dict.fHeadWorkspaces);
+    setElemText('f-head-arch', dict.fHeadArch);
+    setElemText('f-head-contact', dict.fHeadContact);
+    setElemText('sc-active-tag-prefix', dict.scActiveTagPrefix);
+    setElemHTML('hero-scanner-launch-btn', `<span>${dict.heroScannerLaunchBtn}</span> <i class="fa-solid fa-arrow-right"></i>`);
+    setElemHTML('btn-seal-block', `<i class="fa-solid fa-plus-circle text-emerald"></i> <span>${dict.btnSealBlock}</span>`);
+    setElemHTML('btn-copy-email', `<i class="fa-regular fa-copy"></i> <span>${dict.btnCopyEmail}</span>`);
+    setElemHTML('btn-request-dossier', `<i class="fa-solid fa-file-arrow-down text-emerald"></i> <span>${dict.btnRequestDossier}</span>`);
 
     updateThemeUI();
 
@@ -694,34 +542,7 @@
   }
 
   /**
-   * 7. Authentication State Gate (Non-Blocking Landing Page)
-   */
-  function checkAuthAndIndustryGate() {
-    let rememberMe = false;
-    let hasLocalAuth = false;
-    let hasSessionAuth = false;
-
-    try {
-      rememberMe = localStorage.getItem('haulitz_remember_me') === 'true';
-      hasLocalAuth = localStorage.getItem('haulitz_auth') === 'true';
-      hasSessionAuth = sessionStorage.getItem('haulitz_auth') === 'true';
-    } catch (e) {}
-
-    const isAuthenticated = (rememberMe && hasLocalAuth) || hasSessionAuth || !!window.Clerk?.user;
-    const authModal = document.getElementById('auth-gate-modal');
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const forceShowLogin = urlParams.get('login') === 'true';
-
-    if (forceShowLogin && !isAuthenticated && authModal) {
-      authModal.classList.add('active');
-    } else if (authModal) {
-      authModal.classList.remove('active');
-    }
-  }
-
-  /**
-   * 8. Cursor Spotlight Tracking on Interactive Cards
+   * 7. Cursor Spotlight Tracking on Interactive Cards
    */
   function initSpotlightTracking() {
     document.querySelectorAll('.bento-card, .founder-impact-item, .hub-display-card').forEach(card => {
@@ -1658,6 +1479,7 @@
     }
 
     input.addEventListener('input', () => {
+      input.value = input.value.replace(/[^A-Za-z0-9 ]/g, '').toUpperCase();
       const res = validateIban(input.value);
       if (res.valid) {
         msg.className = 'text-emerald font-bold font-mono-code';
@@ -1889,11 +1711,9 @@
   function boot() {
     initDOMElements();
     initLenis();
-    initClerk();
     applyLanguageUI();
     setupEventListeners();
     handleHashNavigation();
-    checkAuthAndIndustryGate();
     initSpotlightTracking();
     initCommandPalette();
     initHeroScanner();

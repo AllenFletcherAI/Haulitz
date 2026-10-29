@@ -22,7 +22,7 @@
   --color-border-light: rgba(255, 255, 255, 0.16);
   
   --color-text-main: #f0f3f8;
-  --color-text-muted: #8b95a5;
+  --color-text-muted: #94a3b8;
   --color-text-light: #525a68;
   
   /* Surgical Accents */
@@ -124,6 +124,33 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-stopped {
   overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility: Skip-to-Content Link
+   -------------------------------------------------------------------------- */
+.skip-to-content-link {
+  position: absolute;
+  top: -120px;
+  left: 1rem;
+  background: var(--color-emerald);
+  color: #07080a !important;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+  z-index: 100000;
+  text-decoration: none;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-to-content-link:focus,
+.skip-to-content-link:focus-visible {
+  top: 1rem;
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
 }
 
 body {

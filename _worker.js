@@ -329,6 +329,8 @@ export default {
       newHeaders.set('X-Frame-Options', 'SAMEORIGIN');
       newHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
       newHeaders.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+      newHeaders.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+      newHeaders.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self' https://ep-dry-hill-b9dgvhqy-pooler.c-7.eu-central-1.aws.neon.tech https://api.resend.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';");
       return new Response(resp.body, {
         status: resp.status,
         statusText: resp.statusText,

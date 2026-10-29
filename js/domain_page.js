@@ -136,7 +136,6 @@
       themeText: document.getElementById('theme-text'),
       langToggleBtn: document.getElementById('lang-toggle-btn'),
       langBtnText: document.getElementById('lang-btn-text'),
-      clerkAuthContainer: document.getElementById('clerk-auth-container'),
 
       activeDomainBadge: document.getElementById('active-domain-badge'),
       activeDomainTitle: document.getElementById('active-domain-title'),
@@ -201,54 +200,6 @@
         }
         requestAnimationFrame(raf);
       } catch (e) {}
-    }
-  }
-
-  async function initClerk() {
-    if (!window.Clerk) {
-      window.addEventListener('load', async () => {
-        if (window.Clerk) {
-          await window.Clerk.load();
-          updateClerkUI();
-        }
-      });
-      return;
-    }
-    try {
-      await window.Clerk.load();
-      updateClerkUI();
-    } catch (e) {}
-  }
-
-  function updateClerkUI() {
-    if (!DOM.clerkAuthContainer || !window.Clerk) return;
-    if (window.Clerk.user) {
-      const user = window.Clerk.user;
-      const orgName = window.Clerk.organization?.name || 'Haulitz B2B';
-      const displayName = user.firstName || user.username || 'User';
-      DOM.clerkAuthContainer.innerHTML = `
-        <div style="display:flex; align-items:center; gap:0.5rem; background:var(--color-surface); border:1px solid var(--color-border); padding:0.25rem 0.6rem; border-radius:var(--radius-md);">
-          <img src="${user.imageUrl}" style="width:20px; height:20px; border-radius:50%;" alt="User avatar"/>
-          <span style="font-size:0.75rem; font-weight:600; color:var(--color-text-main);">${displayName}</span>
-          <button id="clerk-sign-out-btn" style="color:var(--color-text-muted); font-size:0.75rem; padding:0 0.2rem;" title="Sign out">
-            <i class="fa-solid fa-right-from-bracket"></i>
-          </button>
-        </div>
-      `;
-      document.getElementById('clerk-sign-out-btn')?.addEventListener('click', async () => {
-        await window.Clerk.signOut();
-        updateClerkUI();
-        showToast('Signed out');
-      });
-    } else {
-      DOM.clerkAuthContainer.innerHTML = `
-        <button id="clerk-sign-in-btn" class="clerk-btn" aria-label="Enterprise Sign In">
-          <i class="fa-solid fa-building-shield"></i> <span>Enterprise Sign-In</span>
-        </button>
-      `;
-      document.getElementById('clerk-sign-in-btn')?.addEventListener('click', () => {
-        if (window.Clerk.openSignIn) window.Clerk.openSignIn();
-      });
     }
   }
 
@@ -1011,7 +962,6 @@
   function boot() {
     initDOMElements();
     initLenis();
-    initClerk();
     applyLanguageUI();
     setupEventListeners();
     runVerification();

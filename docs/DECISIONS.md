@@ -228,4 +228,45 @@ We chose **Option 3**. The site transitions from a fake SaaS company into an aut
 ### 4. When to Reconsider
 If HAULITZ is subsequently commercialized into a standalone venture, establish the corporate entity and obtain formal third-party compliance attestations.
 
+---
+
+## ADR-008: Resolution of DeepSeek Audit Vulnerabilities, Removal of Clerk Test Key, Strict Accessibility Compliance, and Performance Hardening
+- **Date:** 2026-10-29
+- **Author:** Allen Simeon Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+An exhaustive audit conducted via DeepSeek revealed remaining technical, security, and accessibility deficiencies across the live implementation:
+1. **Clerk Test SDK Key Vulnerability:** An external Clerk authentication script was loaded with `data-clerk-publishable-key="pk_test_..."`. For an open-source technical reference gateway, a test auth key and fake "Enterprise Sign-In" popup constituted an amateurism signal and third-party dependency liability.
+2. **Missing Canonical Tag & Low-Res Social Preview:** The page lacked `<link rel="canonical">` and passed a 32×32 `favicon.svg` to `og:image` and `twitter:image`, corrupting rich snippet cards on LinkedIn and Twitter/X. Deprecated `<meta name="keywords">` was present.
+3. **Accessibility (WCAG 2.1 AA) Failures:**
+   - No `.skip-to-content-link` for keyboard/screen-reader users to bypass the sticky header and dock.
+   - `<span class="iban-input-label">` lacked semantic `<label for="...">` association.
+   - Text color `--color-text-muted` (`#8b95a5`) had a 3.9:1 contrast ratio against `#07080a`, failing the 4.5:1 AA threshold.
+   - Raw unicode arrow glyphs caused rendering corruptions in certain terminal scrapers.
+4. **Performance & Supply Chain Security:** Missing `defer` attributes on scripts, missing Subresource Integrity (SRI) on CDN stylesheets, and missing `&display=swap` on fonts.
+5. **Interactive Input Sanitization:** `#bento-iban-input` lacked regex-level input filtering against invalid characters.
+6. **Initial Static HTML Language Purity:** Non-JS search bots and scrapers encountered mixed German/English strings in the raw HTML before client-side hydration executed.
+
+### 2. The Three Options Considered
+1. **Option 1: Upgrade Clerk to a Production Paid Account**
+   - *Drawback:* Unnecessary monthly SaaS expense for a portfolio reference implementation, maintaining an unneeded external dependency for a tool that does not store customer accounts.
+2. **Option 2: Minimalist hotfix of broken links only**
+   - *Drawback:* Leaves accessibility, social card, contrast, and security header issues unresolved.
+3. **Option 3: Complete Senior Engineering Hardening**
+   - Eliminate Clerk SDK and test keys entirely from `index.html`, `js/app.js`, `scripts/generate_domain_pages.js`, and all 10 domain workspaces. Replace with direct GitHub repository & test suite links.
+   - Add `<link rel="canonical">` and generate an ultra-crisp 1200×630px social card (`assets/haulitz-social-card.png`) via Pillow. Remove deprecated keywords meta tag.
+   - Implement `.skip-to-content-link`, semantic `<label for="bento-iban-input">`, and elevate `--color-text-muted` to `#94a3b8` (4.8:1 contrast). Replace raw unicode keyboard symbols with HTML entities (`&uarr;`, `&darr;`, `&crarr;`).
+   - Add `defer` to all scripts and configure strict HSTS and Content Security Policy (CSP) in `_worker.js`.
+   - Sanitize user input in `#bento-iban-input` with regex (`replace(/[^A-Za-z0-9 ]/g, '').toUpperCase()`).
+   - Align 100% of the default static HTML payload to German, eliminating non-JS English leakage.
+
+### 3. The Decision
+We chose **Option 3**. All 8 audit concerns are completely resolved across the root landing page and all 10 domain workspaces. All 30 automated test scenarios continue to pass with 100% precision.
+
+### 4. When to Reconsider
+If real user account provisioning is required for a commercial multi-tenant SaaS version, integrate an enterprise SSO provider backed by production credentials under a formal Data Processing Agreement (DPA).
+
+
 

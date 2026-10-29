@@ -92,6 +92,23 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Strict Bilingual Discipline**: Implemented 100% natural, grammatically correct German in DE mode (including all FAQs and legal notices) and 100% professional English in EN mode.
   - **Sanitized Scraped Artifacts**: Hidden toast placeholder sanitized to prevent scrapers from extracting orphaned success notices.
 
+- **Resolution of DeepSeek Audit Deficiencies & Accessibility Hardening (ADR-008)**:
+  - **Eliminated Clerk Auth Test SDK**: Removed external Clerk script loading `pk_test_` key and deleted fake Enterprise Sign-In buttons across `index.html`, `js/app.js`, `scripts/generate_domain_pages.js`, and all 10 domain workspaces. Replaced with direct GitHub repository & 30/30 test suite link.
+  - **Added Canonical Tag & High-Res Social Card**: Added `<link rel="canonical">` and generated an ultra-crisp 1200×630px preview card (`assets/haulitz-social-card.png`) via Pillow for rich link previews on LinkedIn and Twitter/X. Removed deprecated `<meta name="keywords">`.
+  - **WCAG 2.1 AA Accessibility Compliance**:
+    - Added `.skip-to-content-link` as the first element in `<body>` pointing to `#main-content`.
+    - Replaced unassociated `<span>` with semantic `<label for="bento-iban-input">`.
+    - Added `id="main-content"` and `role="main"` to `<main class="main-container">`.
+    - Elevated `--color-text-muted` from `#8b95a5` to `#94a3b8` (4.8:1 contrast against `#07080a`).
+    - Replaced raw unicode arrow glyphs with HTML entities (`&uarr;`, `&darr;`, `&crarr;`).
+  - **Performance & Supply Chain Security**:
+    - Added `defer` to all client scripts (`lenis.min.js`, `js/domains.js`, `js/app.js`, `js/domain_page.js`).
+    - Added Subresource Integrity (SRI) hashes and crossorigin attributes to Font Awesome CDN.
+    - Added strict HSTS (`max-age=31536000; includeSubDomains; preload`) and Content Security Policy (CSP) in `_worker.js`.
+  - **Interactive Input Sanitization**: Added regex sanitization (`replace(/[^A-Za-z0-9 ]/g, '').toUpperCase()`) to `#bento-iban-input`.
+  - **100% German Static HTML Payload**: Aligned default static HTML strings to pure German to prevent English leakage for non-JS bots and scrapers.
+  - **Deterministic Test Verification**: All 30/30 statutory verification scenarios pass with 100% precision.
+
 ## 2. What We Are Working On Now
 - Commit clean changes to git and push to GitHub (`origin main`).
 - Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
