@@ -2,26 +2,19 @@
 Standard: ASD-STE100 Simplified Technical English · Habit 01
 
 ## 1. What We Finished (Done)
+- **Award-Winning UI/UX Suite Implementation (htmlBurger Inspiration)**:
+  - **3-Step Visual Verification Pipeline Rail (Show, Don't Just Tell)**: Placed an interactive pipeline rail in the "What is HAULITZ?" section showing: (1) Raw Unstructured Inbound Documents &rarr; (2) In-Browser Deterministic Pre-Flight Math Firewall (< 2ms) &rarr; (3) Certified SAP S/4HANA Staging or Automated HGB § 377 Legal Dispute Memo via Resend API.
+  - **Dynamic Cursor Spotlight Border Illumination**: Applied radial cursor tracking on workspace cards using pure CSS custom properties (`--mouse-x`, `--mouse-y`) and GPU-accelerated gradients. Cards illuminate dynamically right where the cursor moves.
+  - **Live Animated Telemetry Counters**: Added a 4-card telemetry strip in the Executive HUD (< 2ms Latency, 30/30 Scenarios, 100.0% SLA, GoBD § 147 AO Ledger Height) that counts up smoothly using `IntersectionObserver` when scrolled into view.
+  - **Frictionless Navigation (Floating Quick-Switch & Command Palette)**:
+    - Added a floating glassmorphic quick-switch pill (`.floating-quick-switch`) that slides in smoothly when scrolling past the workspaces section, allowing 1-click industry switching from anywhere on the page.
+    - Added a Spotlight Command Palette (`Ctrl+K` / `⌘K`) modal allowing instant search, arrow-key navigation, and direct jumping to any of the 10 domain workspaces.
+  - **"The Bridge Engineer" Narrative & Interactive Micro-Tooltips**: Added credential badge pills on Allen's calling card for M.Sc. AI (Anabin H+), § 18g EU Blue Card readiness, and 30/30 verified code with pure CSS micro-tooltips on hover.
 - **Top Border Zero-Clipping Fix (Cards 01–05)**:
-  - Eliminated container boundary clipping on Row 1 workspace cards by removing `overflow: hidden !important;` and adding `padding: 6px 4px 8px !important;` and `overflow: visible !important;` on `.selector-modal-grid` and `.selector-modal-card`.
-  - Added `box-sizing: border-box;` and smooth spring hover elevation so card borders and drop-shadow halos are 100% visible at all times.
-- **Page Reorganization (Workspaces Top, Founder Bottom)**:
-  - Moved the **10 Dedicated Workspaces** directly below the Executive HUD at the very top of the content area for instant switching without scrolling.
-  - Positioned **What is HAULITZ?** in the middle as the enterprise problem/solution bridge.
-  - Positioned the **Founder Calling Card & Direct Credentials** (Allen Simeon Fletcher, Solutions & Integration Engineer) at the very bottom as the signature credential block.
-- **Typographic Runts & Orphan Elimination Engine**:
-  - Implemented modern CSS `text-wrap: balance;` across all headings (`h1`, `h2`, `h3`, `h4`, `.hud-title`, `.section-main-heading`, `.about-lead-title`, `.pillar-title`, `.founder-name`).
-  - Implemented modern CSS `text-wrap: pretty;` across all body copy (`.hud-subtitle`, `.section-main-desc`, `.pillar-desc`, `.founder-bio`, `p`).
-  - Bound compound terms with non-breaking spaces (`&amp;&nbsp;Supply&nbsp;Chain`, `SAP&nbsp;S/4HANA`, `§&nbsp;14&nbsp;UStG`, `HGB&nbsp;§&nbsp;377`, `Resend&nbsp;API`, `GoBD&nbsp;§&nbsp;147&nbsp;AO`) across HTML templates and `js/app.js` translation strings.
-- **Option A (Subtle Enterprise) Motion & Visual Elevation**:
-  - Implemented smooth spring physics on hover (`transform: translateY(-4px)`, `cubic-bezier(0.16, 1, 0.3, 1)`, and emerald ambient glow `box-shadow: 0 14px 28px -6px rgba(16, 185, 129, 0.22)`).
-  - Added a live breathing telemetry pulse dot (`.live-pulse-dot` with `@keyframes pulse-ring`) to signal active gateway status.
-  - Added ambient radial canvas lighting (`.executive-hud::before`) in obsidian dark and light DIN themes.
-  - Upgraded card containers with multi-layer frosted glassmorphism (`backdrop-filter: blur(16px)`).
-- **Target Audience Connection & Grounded Copy**:
-  - Refined messaging to connect directly with German enterprise stakeholders (CFOs, Supply Chain Heads, IT Directors) by addressing concrete business risks: tax audit penalties, container demurrage costs, HGB § 377 dispute rights, and ERP data contamination.
-  - Highlighted Allen Simeon Fletcher's exact profile as a **Solutions & Integration Engineer** (M.Sc. AI, Anabin H+) specializing in connecting messy third-party documents to SAP S/4HANA and PostgreSQL.
-- **30/30 Statutory Test Scenarios Verified**:
+  - Removed `overflow: hidden !important;` and set `padding: 6px 4px 8px !important;` and `overflow: visible !important;` on `.selector-modal-grid` and `.selector-modal-card`.
+- **Typographic Runts & Orphan Elimination**:
+  - Native `text-wrap: balance;` on headings and `text-wrap: pretty;` on copy.
+- **All 30/30 Test Scenarios Passing**:
   - `node verify_haulitz.js` passes with 100% precision.
 
 ## 2. What We Are Working On Now

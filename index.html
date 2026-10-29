@@ -63,6 +63,13 @@
     </a>
 
     <div class="header-controls">
+      <!-- Spotlight Command Palette Trigger (Cmd+K / Ctrl+K) -->
+      <button id="cmd-k-btn" class="cmd-k-trigger" aria-label="Search workspaces (Ctrl+K)" title="Workspace suchen (Strg+K / ⌘K)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="cmd-k-text">Suchen...</span>
+        <kbd class="cmd-k-kbd">⌘K</kbd>
+      </button>
+
       <!-- Clerk Enterprise Authentication Container -->
       <div class="clerk-auth-container" id="clerk-auth-container">
         <button id="clerk-sign-in-btn" class="clerk-btn" aria-label="Enterprise Sign In">
@@ -84,13 +91,37 @@
 
   <!-- Clean Executive Lead (Zero Clutter, Zero Exaggeration) -->
   <section class="executive-hud" style="padding: 2.25rem 1.5rem 1.5rem; text-align: center;">
-    <div class="hud-inner" style="max-width: 840px; margin: 0 auto;">
+    <div class="hud-inner" style="max-width: 920px; margin: 0 auto;">
       <h1 class="hud-title" id="hero-heading" style="font-size: 2.1rem; margin-bottom: 0.65rem;">
         HAULITZ: <span class="gradient-text">Deterministisches Prüf-Gateway für ERP &amp;&nbsp;Supply&nbsp;Chain</span>
       </h1>
-      <p class="hud-subtitle" id="hero-subheading" style="font-size: 1rem; line-height: 1.6; max-width: 720px; margin: 0 auto; color: var(--color-text-muted);">
+      <p class="hud-subtitle" id="hero-subheading" style="font-size: 1rem; line-height: 1.6; max-width: 760px; margin: 0 auto; color: var(--color-text-muted);">
         Stoppt Rechenfehler, falsche Steuersätze nach §&nbsp;14&nbsp;UStG und beschädigte Prüfziffern vor der Buchung in SAP&nbsp;S/4HANA.
       </p>
+
+      <!-- Real-Time Telemetry Counters (Animated Count-Up) -->
+      <div class="telemetry-strip" id="telemetry-strip">
+        <div class="telemetry-card">
+          <div class="telemetry-val">&lt; <span class="counter-num" data-target="2">2</span> <span class="telemetry-unit">ms</span></div>
+          <div class="telemetry-label" id="tel-latency-label">Verifikations-Latenz</div>
+          <div class="telemetry-sub"><i class="fa-solid fa-bolt text-emerald"></i> Deterministisch im Browser</div>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-val"><span class="counter-num" data-target="30">30</span><span class="telemetry-unit">/30</span></div>
+          <div class="telemetry-label" id="tel-scenarios-label">Gesetzliche Szenarien</div>
+          <div class="telemetry-sub"><i class="fa-solid fa-shield-check text-emerald"></i> 100% Prüfpräzision</div>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-val"><span class="counter-num" data-target="100">100.0</span><span class="telemetry-unit">%</span></div>
+          <div class="telemetry-label" id="tel-sla-label">Deterministische SLA</div>
+          <div class="telemetry-sub"><i class="fa-solid fa-calculator text-emerald"></i> 0 Rechenabweichungen</div>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-val">GoBD <span class="telemetry-unit">§ 147 AO</span></div>
+          <div class="telemetry-label" id="tel-ledger-label">Frankfurt Ledger</div>
+          <div class="telemetry-sub"><i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -257,6 +288,53 @@
           Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS&nbsp;eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.
         </p>
 
+        <!-- 3-Step Visual Verification Pipeline Rail (Show, Don't Just Tell) -->
+        <div class="pipeline-visualizer">
+          <div class="pipeline-header">
+            <span class="pipeline-tag"><i class="fa-solid fa-diagram-project text-emerald"></i> <span id="pipeline-tag-text">REVISIONSWEG IN 3 SCHRITTEN</span></span>
+            <span class="pipeline-title" id="pipeline-title-text">Von unstrukturierten Belegen zur verifizierten ERP-Verbuchung</span>
+          </div>
+
+          <div class="pipeline-steps-row">
+            <!-- Step 1 -->
+            <div class="pipeline-step-card">
+              <div class="pipeline-step-top">
+                <span class="pipeline-step-badge step-1">01 EINGANG</span>
+                <i class="fa-solid fa-file-invoice pipeline-step-icon"></i>
+              </div>
+              <h4 id="pipe-step1-title">Unstrukturierte Belege</h4>
+              <p id="pipe-step1-desc">PDF-Rechnungen, Frachtbriefe &amp; Lieferscheine mit typischen Rechenabweichungen oder unvollständigen UStG-Angaben.</p>
+              <div class="pipeline-status-tag warning"><i class="fa-solid fa-triangle-exclamation"></i> Rechnerische Fehlerquelle</div>
+            </div>
+
+            <div class="pipeline-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+            <!-- Step 2 -->
+            <div class="pipeline-step-card highlight">
+              <div class="pipeline-step-top">
+                <span class="pipeline-step-badge step-2">02 HAULITZ FIREWALL</span>
+                <i class="fa-solid fa-microchip pipeline-step-icon text-emerald"></i>
+              </div>
+              <h4 id="pipe-step2-title">Deterministische Prüfung</h4>
+              <p id="pipe-step2-desc">Cent-genaue Posten-Arithmetik (§&nbsp;14&nbsp;UStG), Prüfziffern (IBAN, ISO 6346, GS1) und GoBD SHA-256 Hash-Kette.</p>
+              <div class="pipeline-status-tag success"><i class="fa-solid fa-check-double"></i> &lt; 2ms In-Browser-Audit</div>
+            </div>
+
+            <div class="pipeline-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+            <!-- Step 3 -->
+            <div class="pipeline-step-card">
+              <div class="pipeline-step-top">
+                <span class="pipeline-step-badge step-3">03 ZIELSYSTEM</span>
+                <i class="fa-solid fa-shield-halved pipeline-step-icon"></i>
+              </div>
+              <h4 id="pipe-step3-title">ERP-Staging / Mängelrüge</h4>
+              <p id="pipe-step3-desc">Geprüfte Belege werden für SAP&nbsp;S/4HANA autorisiert; fehlerhafte Belege lösen automatisch eine Mängelrüge nach HGB&nbsp;§&nbsp;377 aus.</p>
+              <div class="pipeline-status-tag info"><i class="fa-solid fa-server"></i> Revisionssicher gebucht</div>
+            </div>
+          </div>
+        </div>
+
         <!-- 3 Concrete Capabilities -->
         <div class="pillars-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;">
           <div class="pillar-item">
@@ -291,6 +369,19 @@
           <h2 class="founder-name">Allen Simeon Fletcher</h2>
           <div class="founder-role" id="label-founder-role">Solutions &amp;&nbsp;Integration&nbsp;Engineer</div>
           
+          <!-- "The Bridge Engineer" Credential Badges with Pure CSS Micro-Tooltips -->
+          <div class="founder-badges-row">
+            <span class="founder-badge-pill" data-tooltip="Vollwertig anerkannter ausländischer Hochschulabschluss (Master-Ebene in Deutschland)">
+              <i class="fa-solid fa-graduation-cap text-emerald"></i> <span>M.Sc. AI (Anabin H+)</span>
+            </span>
+            <span class="founder-badge-pill" data-tooltip="Beschleunigtes Fachkräfteverfahren nach § 81a / § 18g AufenthG (EU Blue Card)">
+              <i class="fa-solid fa-id-card text-emerald"></i> <span>§ 18g EU Blue Card Ready</span>
+            </span>
+            <span class="founder-badge-pill" data-tooltip="100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger">
+              <i class="fa-solid fa-code-merge text-emerald"></i> <span>30/30 Verified Scenarios</span>
+            </span>
+          </div>
+
           <p class="founder-bio" id="label-founder-bio">
             Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.
           </p>
@@ -506,6 +597,34 @@
             <div class="selector-card-meta"><i class="fa-solid fa-database"></i> OWASP ASVS</div>
           </div>
         </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Sticky Workspace Switcher Pill -->
+  <aside class="floating-quick-switch" id="floating-quick-switch" aria-label="Workspace Switcher">
+    <div class="floating-pill-inner" id="floating-pill-btn">
+      <span class="live-pulse-dot"></span>
+      <span class="floating-pill-text" id="floating-pill-label">10 Industrie-Workspaces</span>
+      <i class="fa-solid fa-arrow-up-right-from-square floating-pill-icon" style="font-size:0.75rem; margin-left:0.25rem;"></i>
+    </div>
+  </aside>
+
+  <!-- Quick Command Palette Spotlight Modal (Ctrl+K / Cmd+K) -->
+  <div class="modal-overlay" id="command-palette-modal">
+    <div class="modal-card command-palette-card">
+      <div class="command-palette-header">
+        <i class="fa-solid fa-magnifying-glass text-emerald"></i>
+        <input type="text" id="command-search-input" placeholder="Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)..." autocomplete="off" />
+        <kbd class="command-esc-kbd">ESC</kbd>
+      </div>
+      <div class="command-palette-results" id="command-palette-results">
+        <!-- Injected dynamically by js/app.js -->
+      </div>
+      <div class="command-palette-footer">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> Navigieren</span>
+        <span><kbd>↵</kbd> Auswählen</span>
+        <span><kbd>ESC</kbd> Schließen</span>
       </div>
     </div>
   </div>

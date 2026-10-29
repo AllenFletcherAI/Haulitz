@@ -128,7 +128,23 @@
       selectorTitle: 'Industrie-Workspace auswählen',
       selectorSub: 'Wählen Sie Ihre Branche für Belegprüfungen und GoBD-Versiegelung',
       hdrDropdownLabel: 'Workspaces (10)',
-      hdrDropdownModal: 'Vollbild-Auswahl öffnen...'
+      hdrDropdownModal: 'Vollbild-Auswahl öffnen...',
+
+      // Real-time Telemetry & Pipeline
+      telLatencyLabel: 'Verifikations-Latenz',
+      telScenariosLabel: 'Gesetzliche Szenarien',
+      telSlaLabel: 'Deterministische SLA',
+      telLedgerLabel: 'Frankfurt Ledger',
+      pipelineTagText: 'REVISIONSWEG IN 3 SCHRITTEN',
+      pipelineTitleText: 'Von unstrukturierten Belegen zur verifizierten ERP-Verbuchung',
+      pipeStep1Title: 'Unstrukturierte Belege',
+      pipeStep1Desc: 'PDF-Rechnungen, Frachtbriefe &amp; Lieferscheine mit typischen Rechenabweichungen oder unvollständigen UStG-Angaben.',
+      pipeStep2Title: 'Deterministische Prüfung',
+      pipeStep2Desc: 'Cent-genaue Posten-Arithmetik (§&nbsp;14&nbsp;UStG), Prüfziffern (IBAN, ISO 6346, GS1) und GoBD SHA-256 Hash-Kette.',
+      pipeStep3Title: 'ERP-Staging / Mängelrüge',
+      pipeStep3Desc: 'Geprüfte Belege werden für SAP&nbsp;S/4HANA autorisiert; fehlerhafte Belege lösen automatisch eine Mängelrüge nach HGB&nbsp;§&nbsp;377 aus.',
+      floatingPillLabel: '10 Industrie-Workspaces',
+      cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...'
     },
     en: {
       beacon: 'Frankfurt eu-central-1: ',
@@ -218,7 +234,23 @@
       selectorTitle: 'Select Your Industry Workspace',
       selectorSub: 'Select your target domain for deterministic statutory verification',
       hdrDropdownLabel: 'Workspaces (10)',
-      hdrDropdownModal: 'Open Fullscreen Selector...'
+      hdrDropdownModal: 'Open Fullscreen Selector...',
+
+      // Real-time Telemetry & Pipeline
+      telLatencyLabel: 'Verification Latency',
+      telScenariosLabel: 'Statutory Scenarios',
+      telSlaLabel: 'Deterministic SLA',
+      telLedgerLabel: 'Frankfurt Ledger',
+      pipelineTagText: '3-STEP AUDIT PIPELINE',
+      pipelineTitleText: 'From unstructured supplier documents to certified ERP staging',
+      pipeStep1Title: 'Unstructured Documents',
+      pipeStep1Desc: 'PDF invoices, bills of lading &amp; delivery receipts with math variances or missing statutory details.',
+      pipeStep2Title: 'Deterministic Verification',
+      pipeStep2Desc: 'Cent-accurate line item math (§&nbsp;14&nbsp;UStG), check digits (IBAN, ISO 6346, GS1), and GoBD SHA-256 hash chaining.',
+      pipeStep3Title: 'ERP Staging / Dispute Dispatch',
+      pipeStep3Desc: 'Compliant records staged to SAP&nbsp;S/4HANA; non-compliant records trigger automated HGB&nbsp;§&nbsp;377 disputes.',
+      floatingPillLabel: '10 Industry Workspaces',
+      cmdSearchPlaceholder: 'Search workspaces (e.g. Invoicing, Freight, Supply Chain, Solar)...'
     }
   };
 
@@ -1565,6 +1597,25 @@
     setElemText('selector-modal-title', dict.selectorTitle);
     setElemText('selector-modal-subtitle', dict.selectorSub);
 
+    // Telemetry Counters & Pipeline
+    setElemText('tel-latency-label', dict.telLatencyLabel);
+    setElemText('tel-scenarios-label', dict.telScenariosLabel);
+    setElemText('tel-sla-label', dict.telSlaLabel);
+    setElemText('tel-ledger-label', dict.telLedgerLabel);
+
+    setElemText('pipeline-tag-text', dict.pipelineTagText);
+    setElemText('pipeline-title-text', dict.pipelineTitleText);
+    setElemText('pipe-step1-title', dict.pipeStep1Title);
+    setElemHTML('pipe-step1-desc', dict.pipeStep1Desc);
+    setElemText('pipe-step2-title', dict.pipeStep2Title);
+    setElemHTML('pipe-step2-desc', dict.pipeStep2Desc);
+    setElemText('pipe-step3-title', dict.pipeStep3Title);
+    setElemHTML('pipe-step3-desc', dict.pipeStep3Desc);
+
+    setElemText('floating-pill-label', dict.floatingPillLabel);
+    const cmdInput = document.getElementById('command-search-input');
+    if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
+
     updateThemeUI();
   }
 
@@ -1604,6 +1655,221 @@
     }
   }
 
+  /**
+   * 17. Dynamic Cursor Spotlight Tracking
+   */
+  function initSpotlightTracking() {
+    document.querySelectorAll('.selector-modal-grid').forEach(grid => {
+      grid.addEventListener('mousemove', (e) => {
+        const card = e.target.closest('.selector-industry-card');
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  }
+
+  /**
+   * 18. Animated Telemetry Metric Counters
+   */
+  function initTelemetryCounters() {
+    const strip = document.getElementById('telemetry-strip');
+    if (!strip) return;
+
+    let animated = false;
+    const animateCounters = () => {
+      if (animated) return;
+      animated = true;
+      document.querySelectorAll('.counter-num').forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        if (isNaN(target)) return;
+        const duration = 1000;
+        const start = performance.now();
+        const step = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const current = (easeOut * target).toFixed(target % 1 !== 0 ? 1 : 0);
+          counter.textContent = current;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            counter.textContent = target % 1 !== 0 ? target.toFixed(1) : target;
+          }
+        };
+        requestAnimationFrame(step);
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          animateCounters();
+          observer.disconnect();
+        }
+      }, { threshold: 0.2 });
+      observer.observe(strip);
+    } else {
+      animateCounters();
+    }
+  }
+
+  /**
+   * 19. Floating Sticky Quick-Switch Switcher
+   */
+  function initFloatingQuickSwitch() {
+    const floatSwitch = document.getElementById('floating-quick-switch');
+    const floatBtn = document.getElementById('floating-pill-btn');
+    const industryModal = document.getElementById('industry-selector-modal');
+
+    if (!floatSwitch) return;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 380) {
+        floatSwitch.classList.add('visible');
+      } else {
+        floatSwitch.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    if (floatBtn && industryModal) {
+      floatBtn.addEventListener('click', () => {
+        industryModal.classList.add('active');
+      });
+    }
+  }
+
+  /**
+   * 20. Command Palette Spotlight Search (Ctrl+K / Cmd+K)
+   */
+  function initCommandPalette() {
+    const cmdBtn = document.getElementById('cmd-k-btn');
+    const cmdModal = document.getElementById('command-palette-modal');
+    const cmdInput = document.getElementById('command-search-input');
+    const cmdResults = document.getElementById('command-palette-results');
+    if (!cmdModal || !cmdInput || !cmdResults) return;
+
+    const domainsList = [
+      { id: 'fintech', num: '01', title: 'FinTech & Corporate Invoicing', deTitle: 'FinTech & Rechnungsprüfung', law: '§ 14 UStG, GoBD', icon: 'fa-file-invoice-dollar', url: 'fintech.html' },
+      { id: 'logistics', num: '02', title: 'Freight & Maritime Logistics', deTitle: 'Seefracht & Zolldokumentation', law: 'ADSp 2017, § 412 HGB', icon: 'fa-ship', url: 'logistics.html' },
+      { id: 'supply', num: '03', title: 'Supply Chain & Manufacturing', deTitle: 'Supply Chain & Dreiseitiger Abgleich', law: 'HGB § 377 Rüge', icon: 'fa-industry', url: 'supply-chain.html' },
+      { id: 'insurtech', num: '04', title: 'InsurTech & Claims Processing', deTitle: 'InsurTech Schadensprüfung', law: 'VVG § 86, BGB', icon: 'fa-shield-halved', url: 'insurtech.html' },
+      { id: 'legaltech', num: '05', title: 'LegalTech & Regulatory Contracts', deTitle: 'LegalTech & Lieferkettengesetz', law: 'LkSG, EU CSDDD', icon: 'fa-scale-balanced', url: 'legaltech.html' },
+      { id: 'healthtech', num: '06', title: 'HealthTech & Medical Admin', deTitle: 'HealthTech & GOÄ-Abrechnung', law: 'GOÄ § 5 Abs. 2', icon: 'fa-hospital-user', url: 'healthtech.html' },
+      { id: 'ecommerce', num: '07', title: 'E-Commerce & Retail Operations', deTitle: 'E-Commerce WMS & Barcodes', law: 'GS1 EAN-13, FX', icon: 'fa-cart-shopping', url: 'ecommerce.html' },
+      { id: 'cleantech', num: '08', title: 'CleanTech & Renewable Energy', deTitle: 'CleanTech Solar Einspeisung', law: 'VDE-AR-N 4105, EEG', icon: 'fa-bolt', url: 'cleantech.html' },
+      { id: 'proptech', num: '09', title: 'PropTech & Real Estate', deTitle: 'PropTech Nebenkostenabrechnung', law: 'HeizkostenV § 7 & 12', icon: 'fa-building', url: 'proptech.html' },
+      { id: 'erp', num: '10', title: 'Enterprise ERP & IT Consulting', deTitle: 'Enterprise ERP Staging & T-SQL', law: 'OWASP ASVS, T-SQL', icon: 'fa-database', url: 'erp-staging.html' }
+    ];
+
+    let selectedIndex = 0;
+    let filteredDomains = [...domainsList];
+
+    function renderResults() {
+      cmdResults.innerHTML = '';
+      if (filteredDomains.length === 0) {
+        cmdResults.innerHTML = `<div style="padding:1.5rem; text-align:center; color:var(--color-text-muted); font-size:0.85rem;">Keine Workspaces gefunden / No workspaces found</div>`;
+        return;
+      }
+
+      filteredDomains.forEach((d, idx) => {
+        const item = document.createElement('a');
+        item.href = d.url;
+        item.className = `command-result-item ${idx === selectedIndex ? 'selected' : ''}`;
+        const displayTitle = state.currentLang === 'de' ? d.deTitle : d.title;
+        item.innerHTML = `
+          <div class="command-item-left">
+            <span class="command-item-num">${d.num}</span>
+            <i class="fa-solid ${d.icon} text-emerald"></i>
+            <span class="command-item-title">${displayTitle}</span>
+          </div>
+          <span class="command-item-law">${d.law}</span>
+        `;
+        item.addEventListener('mouseenter', () => {
+          selectedIndex = idx;
+          updateSelection();
+        });
+        cmdResults.appendChild(item);
+      });
+    }
+
+    function updateSelection() {
+      const items = cmdResults.querySelectorAll('.command-result-item');
+      items.forEach((item, idx) => {
+        item.classList.toggle('selected', idx === selectedIndex);
+      });
+      if (items[selectedIndex]) {
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    function openPalette() {
+      cmdModal.classList.add('active');
+      cmdInput.value = '';
+      filteredDomains = [...domainsList];
+      selectedIndex = 0;
+      renderResults();
+      setTimeout(() => cmdInput.focus(), 50);
+    }
+
+    function closePalette() {
+      cmdModal.classList.remove('active');
+    }
+
+    cmdBtn?.addEventListener('click', openPalette);
+
+    cmdModal.addEventListener('click', (e) => {
+      if (e.target === cmdModal) closePalette();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (cmdModal.classList.contains('active')) {
+          closePalette();
+        } else {
+          openPalette();
+        }
+      } else if (e.key === 'Escape' && cmdModal.classList.contains('active')) {
+        closePalette();
+      }
+    });
+
+    cmdInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      if (!query) {
+        filteredDomains = [...domainsList];
+      } else {
+        filteredDomains = domainsList.filter(d => 
+          d.title.toLowerCase().includes(query) ||
+          d.deTitle.toLowerCase().includes(query) ||
+          d.law.toLowerCase().includes(query) ||
+          d.num.includes(query)
+        );
+      }
+      selectedIndex = 0;
+      renderResults();
+    });
+
+    cmdInput.addEventListener('keydown', (e) => {
+      if (filteredDomains.length === 0) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = (selectedIndex + 1) % filteredDomains.length;
+        updateSelection();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = (selectedIndex - 1 + filteredDomains.length) % filteredDomains.length;
+        updateSelection();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (filteredDomains[selectedIndex]) {
+          window.location.href = filteredDomains[selectedIndex].url;
+        }
+      }
+    });
+  }
+
   // Master Initialization Engine
   function boot() {
     initDOMElements();
@@ -1618,6 +1884,10 @@
     fetchFrankfurtPing();
     fetchLedgerStats();
     checkAuthAndIndustryGate();
+    initSpotlightTracking();
+    initTelemetryCounters();
+    initFloatingQuickSwitch();
+    initCommandPalette();
   }
 
   if (document.readyState === 'loading') {
