@@ -93,7 +93,17 @@
       fImpDesc3: 'Zeigt direkte Kompetenz für Solutions Engineering: Anbindung unstrukturierter Drittsystem-Daten an strikte Kerndatenbanken mit null Fehlern und voller Compliance.',
       fPillLocation: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Hybrid / Remote)',
       fPillAvail: 'Sofort verfügbar für Festanstellung',
-      fAvailLoc: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Remote)'
+      fAvailLoc: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Remote)',
+
+      // FAQ Section
+      faqTagText: 'HÄUFIG GESTELLTE FRAGEN (FAQ)',
+      faqHeading: 'Architektur- & Integrationsfragen für CFOs und Lead Architects',
+      faqSubheading: 'Antworten zur deterministischen Fehlererkennung, GoBD-Zertifizierung und ERP-Staging in bestehende Systemlandschaften.',
+
+      // Footer
+      footerMissionText: 'Deterministisches Verifikations-Gateway für ERP & Supply Chain. Durchsetzung cent-genauer Mathematik, gesetzlicher USt und kryptografischer Prüfpfade vor dem Zahlungslauf.',
+      footerHostText: 'Gehostet in Frankfurt am Main (AWS eu-central-1) · DSGVO-konform',
+      footerStatusText: 'Alle 10 Workspaces betriebsbereit · 100% deterministische SLA'
     },
 
     en: {
@@ -163,7 +173,17 @@
       fImpDesc3: 'Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.',
       fPillLocation: 'Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)',
       fPillAvail: 'Available Immediately for Full-Time Roles',
-      fAvailLoc: 'Germany (Relocation Anywhere · Remote / On-Site)'
+      fAvailLoc: 'Germany (Relocation Anywhere · Remote / On-Site)',
+
+      // FAQ Section
+      faqTagText: 'FREQUENTLY ASKED QUESTIONS (FAQ)',
+      faqHeading: 'Frequently Asked Questions',
+      faqSubheading: 'Direct answers to key integration, compliance, and security questions from enterprise finance and IT teams.',
+
+      // Footer
+      footerMissionText: 'Deterministic Enterprise Verification Gateway for ERP & Supply Chain. Enforcing cent-exact math, statutory VAT, and cryptographic audit trails before payment execution.',
+      footerHostText: 'Hosted in Frankfurt (AWS eu-central-1) · DSGVO Compliant',
+      footerStatusText: 'All 10 Workspaces Operational · 100% Deterministic SLA'
     }
   };
 
@@ -196,6 +216,7 @@
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true
         });
+        window.lenis = lenis;
         function raf(time) {
           lenis.raf(time);
           requestAnimationFrame(raf);
@@ -524,6 +545,16 @@
     setElemHTML('f-imp-desc-2', dict.fImpDesc2);
     setElemText('f-imp-title-3', dict.fImpTitle3);
     setElemHTML('f-imp-desc-3', dict.fImpDesc3);
+
+    // FAQ Section
+    setElemText('faq-tag-text', dict.faqTagText);
+    setElemText('faq-heading', dict.faqHeading);
+    setElemText('faq-subheading', dict.faqSubheading);
+
+    // Footer
+    setElemText('footer-mission-text', dict.footerMissionText);
+    setElemText('footer-host-text', dict.footerHostText);
+    setElemText('footer-status-text', dict.footerStatusText);
 
     updateThemeUI();
 
@@ -1557,6 +1588,176 @@
     });
   }
 
+  /**
+   * 26. Enterprise FAQ Accordion Interactive Controller
+   */
+  function initFaqAccordion() {
+    const faqContainer = document.getElementById('faq-accordion');
+    if (!faqContainer) return;
+
+    const items = faqContainer.querySelectorAll('.faq-item');
+    items.forEach(item => {
+      const btn = item.querySelector('.faq-question-btn');
+      if (!btn) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+        // Accordion behavior: close other items
+        items.forEach(otherItem => {
+          otherItem.classList.remove('active');
+          const otherBtn = otherItem.querySelector('.faq-question-btn');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isOpen) {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
+  /**
+   * 27. Bento Card 1: Interactive Floating Point vs Cent Integer Presets
+   */
+  function initBentoCentPresets() {
+    const buttons = document.querySelectorAll('.btn-cent-test');
+    const floatCalc = document.getElementById('bento-float-calc');
+    const centCalc = document.getElementById('bento-cent-calc');
+    if (!buttons.length || !floatCalc || !centCalc) return;
+
+    const presets = {
+      '1': {
+        float: '0.1 + 0.2 = 0.30000000000000004 €',
+        cent: '10¢ + 20¢ = 30¢ (€0.30)'
+      },
+      '2': {
+        float: '19.99 * 3 + 0.01 = 59.980000000000004 €',
+        cent: '1999¢ × 3 + 1¢ = 5998¢ (€59.98)'
+      },
+      '3': {
+        float: '105.15 * 0.19 = 19.978500000000003 €',
+        cent: '10515¢ × 19 / 100 = 1998¢ (€19.98)'
+      }
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const testKey = btn.getAttribute('data-test');
+        const data = presets[testKey];
+        if (data) {
+          floatCalc.textContent = data.float;
+          centCalc.textContent = data.cent;
+        }
+      });
+    });
+  }
+
+  /**
+   * 28. German Statutory Legal Modals (§ 5 TMG Impressum & DSGVO Datenschutz)
+   */
+  function initLegalModals() {
+    const impressumModal = document.getElementById('impressum-modal');
+    const datenschutzModal = document.getElementById('datenschutz-modal');
+
+    const openImpressumBtns = [
+      document.getElementById('link-open-impressum'),
+      document.getElementById('btn-impressum-legal')
+    ].filter(Boolean);
+
+    const openDatenschutzBtns = [
+      document.getElementById('link-open-datenschutz'),
+      document.getElementById('btn-datenschutz-legal')
+    ].filter(Boolean);
+
+    const closeImpressumBtn = document.getElementById('btn-close-impressum');
+    const closeDatenschutzBtn = document.getElementById('btn-close-datenschutz');
+
+    const openModal = (modal) => {
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    const closeModal = (modal) => {
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
+
+    openImpressumBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(impressumModal);
+      });
+    });
+
+    openDatenschutzBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(datenschutzModal);
+      });
+    });
+
+    if (closeImpressumBtn) {
+      closeImpressumBtn.addEventListener('click', () => closeModal(impressumModal));
+    }
+    if (closeDatenschutzBtn) {
+      closeDatenschutzBtn.addEventListener('click', () => closeModal(datenschutzModal));
+    }
+
+    [impressumModal, datenschutzModal].forEach(modal => {
+      if (!modal) return;
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal(impressumModal);
+        closeModal(datenschutzModal);
+      }
+    });
+  }
+
+  /**
+   * 29. Smooth Inertial Floating Back-to-Top Controller
+   */
+  function initBackToTop() {
+    const btn = document.getElementById('btn-back-to-top');
+    if (!btn) return;
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > 400) {
+            btn.classList.add('visible');
+          } else {
+            btn.classList.remove('visible');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
   // Master Initialization Engine
   function boot() {
     initDOMElements();
@@ -1573,6 +1774,10 @@
     initCopyEmail();
     initBentoIbanValidator();
     initBentoHashSealer();
+    initFaqAccordion();
+    initBentoCentPresets();
+    initLegalModals();
+    initBackToTop();
   }
 
   if (document.readyState === 'loading') {

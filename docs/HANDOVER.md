@@ -67,6 +67,17 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
     - Card 4: Embedded live Web Crypto SHA-256 block sealer with incremental block chaining and visual green flash.
   - Typography & Theme Polish: Globalized `.gradient-text` with cross-browser transparent fill and balanced anti-runt line wrapping.
 
+- **Institutional Enterprise Elevation & German Statutory Compliance (ADR-006)**:
+  - **German Compliance & Trust Ribbon**: Embedded prominent statutory badges (GoBD § 147 AO, § 14 UStG, HGB § 377, SEPA ISO 7064, DSGVO / GDPR) and ERP ecosystem integration chips (SAP S/4HANA, DATEV, Microsoft Dynamics, Pleo, Personio, PostgreSQL).
+  - **Bento Card 1 Mathematical Proof Presets**: Added tactile one-click presets demonstrating IEEE-754 floating point drift (`0.1 + 0.2 = 0.30000000000000004 €`) vs HAULITZ 64-bit integer cent math (`10¢ + 20¢ = 30¢ (€0.30)`).
+  - **Founder Recruiter Action Expansion**: Added direct `Request CV Dossier` CTA button in Allen's executive profile actions.
+  - **Enterprise FAQ Accordion**: Built accessible 5-item accordion answering CFO and lead architect questions regarding SAP S/4HANA staging, privacy/DSGVO, cent-exact math, electronic invoice standards (ZUGFeRD 2.2 / XRechnung), and Frankfurt hosting.
+  - **Institutional 4-Column Footer**: Added comprehensive footer with brand mission, all 10 domain direct links, architecture proof references, contact links, real-time SLA status indicator, and German statutory notices.
+  - **German Legal Framework (§ 5 TMG / DSGVO)**: Implemented accessible Impressum modal dialog and Datenschutzerklärung modal dialog with overlay click and Escape key dismissal.
+  - **Ergonomic Back-to-Top Controller**: Added smooth floating back-to-top button connected to Lenis inertial scroll.
+  - **Rich Metadata & SEO Schema**: Added OpenGraph preview tags, Twitter cards, and Schema.org JSON-LD structured data for `SoftwareApplication` and `Person`.
+  - **Full Test Suite & Verification**: Passed 30/30 deterministic tests and 19/19 DOM/JS feature integrity checks with zero regressions.
+
 ## 2. What We Are Working On Now
 - Commit clean changes to git and push to GitHub (`origin main`).
 - Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).

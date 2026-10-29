@@ -5,6 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAULITZ | Deterministic Enterprise Verification Gateway</title>
   
+  <meta name="description" content="HAULITZ audits vendor invoice math, German statutory VAT (19%/7%), and SEPA IBAN checksums before ERP staging. GoBD § 147 AO compliant cryptographic audit trail.">
+  <meta name="keywords" content="invoice verification, GoBD, § 14 UStG, SAP S4HANA staging, SEPA IBAN check, deterministic audit, German enterprise ERP">
+  <meta name="author" content="Allen Simeon Fletcher">
+
+  <!-- Open Graph / LinkedIn / Facebook Social Previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://haulitz.allensimeonfletcher.workers.dev/">
+  <meta property="og:title" content="HAULITZ | Deterministic Enterprise Verification Gateway">
+  <meta property="og:description" content="Catch invoice errors before they hit your books. Audits calculations, VAT rates, and IBANs before ERP payment runs.">
+  <meta property="og:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/favicon.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HAULITZ | Deterministic Enterprise Verification Gateway">
+  <meta name="twitter:description" content="Automated invoice math and tax rate verification before SAP S/4HANA payment runs.">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "HAULITZ",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "description": "Deterministic enterprise document verification gateway enforcing GoBD § 147 AO, § 14 UStG, and SEPA ISO 7064 compliance prior to ERP staging.",
+        "author": {
+          "@type": "Person",
+          "name": "Allen Simeon Fletcher"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Allen Simeon Fletcher",
+        "jobTitle": "Solutions & Integration Engineer",
+        "alumniOf": "M.Sc. Artificial Intelligence",
+        "url": "https://haulitz.allensimeonfletcher.workers.dev/",
+        "sameAs": [
+          "https://github.com/AllenFletcherAI/Haulitz",
+          "https://linkedin.com/in/allensimeonfletcher"
+        ]
+      }
+    ]
+  }
+  </script>
+  
   <!-- Favicon Suite -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
@@ -236,6 +283,63 @@
   <main class="main-container">
 
     <!-- ====================================================================
+         STATUTORY COMPLIANCE & ERP ECOSYSTEM TRUST RIBBON (THE 5-SECOND TRUST PROOF)
+         ==================================================================== -->
+    <section class="trust-compliance-section" id="section-compliance">
+      <div class="trust-compliance-inner">
+        <div class="compliance-badges-grid">
+          <div class="comp-badge-item">
+            <i class="fa-solid fa-file-shield text-emerald"></i>
+            <div>
+              <span class="comp-law font-mono-code">GoBD § 147 AO</span>
+              <span class="comp-desc">Immutable Hash Chaining</span>
+            </div>
+          </div>
+          <div class="comp-badge-item">
+            <i class="fa-solid fa-calculator text-emerald"></i>
+            <div>
+              <span class="comp-law font-mono-code">§ 14 UStG</span>
+              <span class="comp-desc">19% / 7% Statutory VAT</span>
+            </div>
+          </div>
+          <div class="comp-badge-item">
+            <i class="fa-solid fa-gavel text-amber"></i>
+            <div>
+              <span class="comp-law font-mono-code">HGB § 377</span>
+              <span class="comp-desc">Commercial Defect Notices</span>
+            </div>
+          </div>
+          <div class="comp-badge-item">
+            <i class="fa-solid fa-building-columns text-emerald"></i>
+            <div>
+              <span class="comp-law font-mono-code">SEPA ISO 7064</span>
+              <span class="comp-desc">Modulo-97 Checksums</span>
+            </div>
+          </div>
+          <div class="comp-badge-item">
+            <i class="fa-solid fa-server text-blue"></i>
+            <div>
+              <span class="comp-law font-mono-code">DSGVO / GDPR</span>
+              <span class="comp-desc">Frankfurt (AWS eu-central-1)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="erp-ecosystem-strip">
+          <span class="erp-strip-label" id="erp-ecosystem-label">STAGING TARGETS:</span>
+          <div class="erp-logos-row">
+            <span class="erp-logo-chip"><i class="fa-solid fa-database text-emerald"></i> SAP S/4HANA</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-file-invoice text-blue"></i> DATEV</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-network-wired text-cyan"></i> Microsoft Dynamics</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-credit-card text-amber"></i> Pleo &amp; Moss</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-users-gear text-purple"></i> Personio</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-server text-emerald"></i> PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
          2. INTERACTIVE 10-INDUSTRY WORKSPACE HUB (HICK'S LAW: EXPLORE ON DEMAND)
          ==================================================================== -->
     <section class="workspace-hub-section" id="section-workspaces">
@@ -331,14 +435,22 @@
           <div class="bento-comparison-widget">
             <div class="comp-col comp-fail">
               <div class="comp-header"><i class="fa-solid fa-triangle-exclamation text-danger"></i> <span>IEEE-754 Float Math</span></div>
-              <div class="comp-code font-mono-code">0.1 + 0.2 = 0.30000000000000004</div>
-              <div class="comp-sub text-danger">❌ Compounding Variance Trap</div>
+              <div class="comp-code font-mono-code" id="bento-float-calc">0.1 + 0.2 = 0.30000000000000004 €</div>
+              <div class="comp-sub text-danger" id="bento-float-sub">❌ Compounding Variance Trap</div>
             </div>
             <div class="comp-divider">vs</div>
             <div class="comp-col comp-pass">
               <div class="comp-header"><i class="fa-solid fa-circle-check text-emerald"></i> <span>HAULITZ 64-bit Cent Math</span></div>
-              <div class="comp-code font-mono-code font-bold">10¢ + 20¢ = 30¢</div>
-              <div class="comp-sub text-emerald">✔ Exact Cent Deterministic</div>
+              <div class="comp-code font-mono-code font-bold" id="bento-cent-calc">10¢ + 20¢ = 30¢ (€0.30)</div>
+              <div class="comp-sub text-emerald" id="bento-cent-sub">✔ Exact Cent Deterministic</div>
+            </div>
+          </div>
+          <div class="bento-cent-interactive-row">
+            <span class="cent-interactive-label font-mono-code">TEST VALUE PRESETS:</span>
+            <div class="cent-btn-group">
+              <button type="button" class="btn-cent-test active" data-test="1">0.10€ + 0.20€</button>
+              <button type="button" class="btn-cent-test" data-test="2">19.99€ × 3 + 0.01€</button>
+              <button type="button" class="btn-cent-test" data-test="3">105.15€ @ 19% VAT</button>
             </div>
           </div>
         </div>
@@ -496,6 +608,9 @@
             <a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" rel="noopener noreferrer" class="btn-contact-pill btn-linkedin">
               <i class="fa-brands fa-linkedin text-blue"></i> <span>LinkedIn Profile</span>
             </a>
+            <a href="mailto:allensimeonfletcher@gmail.com?subject=Request%20HAULITZ%20Executive%20Dossier%20%26%20CV" class="btn-contact-pill btn-dossier" id="btn-request-dossier">
+              <i class="fa-solid fa-file-arrow-down text-emerald"></i> <span>Request CV Dossier</span>
+            </a>
             <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-contact-pill">
               <i class="fa-brands fa-github text-emerald"></i> <span>GitHub Codebase</span>
             </a>
@@ -504,7 +619,243 @@
       </div>
     </section>
 
+    <!-- ====================================================================
+         5. INTERACTIVE ENTERPRISE FAQ ACCORDION (ANSWERING CFO & ARCHITECT QUESTIONS)
+         ==================================================================== -->
+    <section class="enterprise-faq-section" id="section-faq">
+      <div class="section-lead-block">
+        <div class="section-tag-pill">
+          <span class="live-pulse-dot"></span>
+          <span id="faq-tag-text">FREQUENTLY ASKED QUESTIONS</span>
+        </div>
+        <h2 class="section-heading" id="faq-heading">Frequently Asked Questions</h2>
+        <p class="section-subheading" id="faq-subheading">
+          Direct answers to key integration, compliance, and security questions from enterprise finance and IT teams.
+        </p>
+      </div>
+
+      <div class="faq-accordion" id="faq-accordion">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item" data-faq="1">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span class="faq-q-text" id="faq-q-1">How does HAULITZ integrate with our existing SAP S/4HANA or ERP system?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-a-text" id="faq-a-1">
+              HAULITZ acts as a deterministic verification gatekeeper. Validated invoices and documents stream directly into SAP S/4HANA staging tables via parameterized REST/EDI connectors with zero schema mutation. Defective documents trigger automated dispute memos before staging.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item" data-faq="2">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span class="faq-q-text" id="faq-q-2">Does HAULITZ store or expose our confidential supplier invoices?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-a-text" id="faq-a-2">
+              No. Verification calculations execute locally in code within your secure runtime. For GoBD compliance, only cryptographic SHA-256 seal hashes and validation metadata are committed to the Frankfurt ledger (AWS eu-central-1). Raw confidential PDF files remain inside your corporate storage.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item" data-faq="3">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span class="faq-q-text" id="faq-q-3">How are German statutory VAT rates and line-item math audited?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-a-text" id="faq-a-3">
+              HAULITZ calculates all subtotals, multipliers, and VAT tiers (19% standard, 7% reduced under § 14 UStG) strictly to the exact cent using 64-bit integer arithmetic. This eliminates floating-point rounding variance traps before entries reach your ledger.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item" data-faq="4">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span class="faq-q-text" id="faq-q-4">Which electronic invoice standards are supported?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-a-text" id="faq-a-4">
+              HAULITZ handles standard German and European electronic formats, including ZUGFeRD 2.2, Factur-X, XRechnung, EDIFACT, and unstructured scanned PDFs parsed through OCR ingestion gateways.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item" data-faq="5">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span class="faq-q-text" id="faq-q-5">Where is the audit infrastructure hosted and is it GDPR-compliant?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-a-text" id="faq-a-5">
+              All infrastructure is hosted in Frankfurt am Main, Germany (AWS eu-central-1) under strict DSGVO / GDPR data residency mandates. Audit logs comply with German GoBD § 147 AO tamper-evident storage rules.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- ====================================================================
+       INSTITUTIONAL 4-COLUMN FOOTER (TRUST, LEGAL & NAVIGATION)
+       ==================================================================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Mission -->
+        <div class="footer-col col-brand">
+          <div class="footer-brand-wrap">
+            <div class="brand-badge">HZ</div>
+            <span class="footer-brand-title">HAULITZ</span>
+          </div>
+          <p class="footer-mission" id="footer-mission-text">
+            Deterministic Enterprise Verification Gateway for ERP &amp; Supply Chain. Enforcing cent-exact math, statutory VAT, and cryptographic audit trails before payment execution.
+          </p>
+          <div class="footer-hosting-badge">
+            <i class="fa-solid fa-server text-emerald"></i>
+            <span id="footer-host-text">Hosted in Frankfurt (AWS eu-central-1) · DSGVO Compliant</span>
+          </div>
+          <div class="footer-status-indicator">
+            <span class="status-dot-pulse"></span>
+            <span id="footer-status-text">All 10 Workspaces Operational · 100% Deterministic SLA</span>
+          </div>
+        </div>
+
+        <!-- Col 2: 10 Industry Workspaces -->
+        <div class="footer-col">
+          <h4 class="footer-heading" id="f-head-workspaces">10 Industry Workspaces</h4>
+          <ul class="footer-links-list">
+            <li><a href="workspaces/fintech.html">01 FinTech &amp; Invoicing</a></li>
+            <li><a href="workspaces/logistics.html">02 Freight &amp; Maritime</a></li>
+            <li><a href="workspaces/supply-chain.html">03 Supply Chain Triad</a></li>
+            <li><a href="workspaces/insurtech.html">04 InsurTech &amp; Claims</a></li>
+            <li><a href="workspaces/legaltech.html">05 LegalTech Contracts</a></li>
+            <li><a href="workspaces/healthtech.html">06 HealthTech &amp; GOÄ</a></li>
+            <li><a href="workspaces/ecommerce.html">07 E-Commerce WMS</a></li>
+            <li><a href="workspaces/cleantech.html">08 CleanTech Solar</a></li>
+            <li><a href="workspaces/proptech.html">09 PropTech Real Estate</a></li>
+            <li><a href="workspaces/erp-staging.html">10 Enterprise ERP Staging</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Architecture & Proof -->
+        <div class="footer-col">
+          <h4 class="footer-heading" id="f-head-arch">Architecture &amp; Proof</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero-scanner-wrap">Live Document Scanner</a></li>
+            <li><a href="#section-workspaces">Deterministic Rules Hub</a></li>
+            <li><a href="#section-bento">Safe Cent Integer Math</a></li>
+            <li><a href="#section-bento">SEPA Modulo-97 Validator</a></li>
+            <li><a href="#section-bento">GoBD Frankfurt Ledger</a></li>
+            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer">Inspect GitHub Source</a></li>
+            <li><a href="#section-founder">Solutions Engineer Profile</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Legal -->
+        <div class="footer-col">
+          <h4 class="footer-heading" id="f-head-contact">Contact &amp; Legal</h4>
+          <ul class="footer-links-list">
+            <li><a href="mailto:allensimeonfletcher@gmail.com"><i class="fa-solid fa-envelope text-emerald"></i> allensimeonfletcher@gmail.com</a></li>
+            <li><a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-blue"></i> LinkedIn Profile</a></li>
+            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository</a></li>
+            <li><a href="javascript:void(0)" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted"></i> Impressum (§ 5 TMG)</a></li>
+            <li><a href="javascript:void(0)" id="link-open-datenschutz"><i class="fa-solid fa-user-shield text-muted"></i> Datenschutzerklärung (DSGVO)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="footer-copyright">
+          &copy; 2026 HAULITZ &middot; Engineered by <a href="#section-founder" class="text-emerald font-bold">Allen Simeon Fletcher</a>. Built with deterministic engineering discipline.
+        </div>
+        <div class="footer-legal-links">
+          <button type="button" class="btn-text-legal" id="btn-impressum-legal">Impressum</button>
+          <span>&middot;</span>
+          <button type="button" class="btn-text-legal" id="btn-datenschutz-legal">Datenschutz</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Back-to-Top Button -->
+  <button type="button" class="btn-back-to-top" id="btn-back-to-top" aria-label="Back to top" title="Zurück nach oben">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Impressum Modal (§ 5 TMG) -->
+  <div class="modal-overlay" id="impressum-modal">
+    <div class="modal-card legal-modal-card">
+      <div class="legal-modal-header">
+        <div class="legal-header-title">
+          <i class="fa-solid fa-scale-balanced text-emerald"></i>
+          <span>Impressum (§ 5 TMG / § 18 MStV)</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-impressum">&times;</button>
+      </div>
+      <div class="legal-modal-body">
+        <h4>Angaben gemäß § 5 TMG</h4>
+        <p>
+          <strong>HAULITZ Enterprise Verification Gateway</strong><br>
+          Entwickelt und betrieben von:<br>
+          <strong>Allen Simeon Fletcher</strong><br>
+          M.Sc. Artificial Intelligence &middot; Solutions &amp; Integration Engineer<br>
+          Standort: Deutschland (Bundesweit verfügbar · Remote / Vor Ort)
+        </p>
+        <h4>Kontakt</h4>
+        <p>
+          E-Mail: <a href="mailto:allensimeonfletcher@gmail.com" class="text-emerald">allensimeonfletcher@gmail.com</a><br>
+          GitHub: <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" class="text-emerald">github.com/AllenFletcherAI/Haulitz</a><br>
+          LinkedIn: <a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" class="text-emerald">linkedin.com/in/allensimeonfletcher</a>
+        </p>
+        <h4>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h4>
+        <p>Allen Simeon Fletcher</p>
+        <h4>Haftungsausschluss</h4>
+        <p>
+          Die Inhalte dieses Software-Portals wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datenschutz Modal (DSGVO) -->
+  <div class="modal-overlay" id="datenschutz-modal">
+    <div class="modal-card legal-modal-card">
+      <div class="legal-modal-header">
+        <div class="legal-header-title">
+          <i class="fa-solid fa-user-shield text-emerald"></i>
+          <span>Datenschutzerklärung (DSGVO)</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-datenschutz">&times;</button>
+      </div>
+      <div class="legal-modal-body">
+        <h4>1. Datenschutz auf einen Blick</h4>
+        <p>
+          Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. HAULITZ verarbeitet Belegdaten deterministisch im Browser. Keine vertraulichen Rohdokumente oder Bankkontoinhalte werden dauerhaft auf externen Servern gespeichert.
+        </p>
+        <h4>2. Hosting &amp; Serverstandort</h4>
+        <p>
+          Das Hosting dieser Anwendung erfolgt über Cloudflare Edge und PostgreSQL-Instanzen in Frankfurt am Main, Deutschland (AWS eu-central-1), unter strikter Einhaltung der europäischen Datenschutz-Grundverordnung (DSGVO).
+        </p>
+        <h4>3. Kryptografische Hashes &amp; GoBD</h4>
+        <p>
+          Im Rahmen der GoBD-Prüfpfadführung werden ausschließlich mathematische Prüfsummen (SHA-256 Hashes) und Prüfprotokoll-Zeitstempel festgeschrieben. Ein Rückschluss auf Betriebs- oder Geschäftsgeheimnisse Dritter ist aus diesen Hashes nicht möglich.
+        </p>
+        <h4>4. Ihre Rechte</h4>
+        <p>
+          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- Interactive Toast Notification -->
   <div class="toast-notification" id="toast-notification">

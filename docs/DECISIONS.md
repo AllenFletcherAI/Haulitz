@@ -155,3 +155,40 @@ We chose **Option 3**. The landing page achieves instant zero-scroll accessibili
 
 ### 4. When to Reconsider
 If new industry workspaces are added beyond the current 10, group them into categorized mega-docks or tab carousels.
+
+---
+
+## ADR-006: Institutional Enterprise Elevation — Compliance Ribbon, ERP Integration Grid, FAQ Accordion, and Statutory German Legal Framework
+- **Date:** 2026-10-29
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+While HAULITZ possesses a 100% verified deterministic engine across 30 German enterprise scenarios, its public presentation needed institutional trust signals aligned with international and German web standards (Donald Miller Grunt Test, 60/30/10 color theory, and German statutory transparency laws § 5 TMG / DSGVO):
+1. **Lack of Institutional German Trust Signals:** No prominent badges for GoBD § 147 AO, § 14 UStG, HGB § 377, SEPA ISO 7064, or DSGVO before the fold.
+2. **ERP Compatibility Obscurity:** Enterprise buyers and recruiters did not see instant visual proof of SAP S/4HANA, DATEV, Microsoft Dynamics, Pleo, and Personio compatibility.
+3. **Missing Buyer Objection Handling:** CFOs and Lead Architects had no immediate FAQ section addressing data privacy, document storage, VAT math, and e-invoicing standards (ZUGFeRD 2.2 / XRechnung).
+4. **Recruiter Action Gap:** Allen's profile needed a direct "Request CV Dossier" CTA to complement email and LinkedIn.
+5. **German Statutory Legal Mandate (§ 5 TMG / DSGVO):** A commercial web gateway targeting German enterprise customers requires accessible Impressum and Datenschutzerklärung legal modals.
+
+### 2. The Three Options Considered
+1. **Option 1: Add simple text disclaimers in the footer**
+   - *Drawback:* Text disclaimers fail the 5-second Grunt Test and look like an afterthought.
+2. **Option 2: Create external standalone legal pages**
+   - *Drawback:* Breaks single-page user flow and increases navigation friction.
+3. **Option 3: Comprehensive Institutional Architecture Elevation**
+   - Add a high-visibility German Statutory & Compliance Trust ribbon with ERP ecosystem chips (SAP, DATEV, Dynamics, Pleo, Personio, PostgreSQL).
+   - Add interactive Bento Card 1 presets proving IEEE-754 floating point drift vs. 64-bit cent integer math.
+   - Add an accessible 5-item interactive FAQ accordion addressing enterprise security, hosting, tax, and integration.
+   - Add an institutional 4-column footer featuring brand mission, all 10 domain links, architecture proof points, and real-time operational status.
+   - Add accessible Impressum (§ 5 TMG) and Datenschutzerklärung (DSGVO) modal dialogs.
+   - Add a smooth-scrolling floating Back-to-Top button.
+   - Add OpenGraph, Twitter Cards, and Schema.org JSON-LD structured data for `SoftwareApplication` and `Person`.
+
+### 3. The Decision
+We chose **Option 3**. The landing page achieves institutional Awwwards/Linear-grade polish, satisfies German statutory standards (§ 5 TMG / DSGVO), and provides seamless verification proof for CFOs, CTOs, and enterprise recruiters.
+
+### 4. When to Reconsider
+If multi-tenant organization self-signup or billing portals are introduced, expand the FAQ and legal disclosures accordingly.
+
