@@ -297,7 +297,37 @@ export default {
     }
 
     // 7. Workspace clean routing & legacy backward compatibility aliases
-    const workspaceAliases = {
+    const routeAliases = {
+      // Legal routes
+      '/impressum': '/impressum.html',
+      '/impressum.html': '/impressum.html',
+      '/datenschutz': '/datenschutz.html',
+      '/datenschutz.html': '/datenschutz.html',
+
+      // Direct workspace clean paths & HTML extensions
+      '/workspaces/fintech': '/workspaces/fintech.html',
+      '/workspaces/fintech.html': '/workspaces/fintech.html',
+      '/workspaces/logistics': '/workspaces/logistics.html',
+      '/workspaces/logistics.html': '/workspaces/logistics.html',
+      '/workspaces/supply-chain': '/workspaces/supply-chain.html',
+      '/workspaces/supply-chain.html': '/workspaces/supply-chain.html',
+      '/workspaces/insurtech': '/workspaces/insurtech.html',
+      '/workspaces/insurtech.html': '/workspaces/insurtech.html',
+      '/workspaces/legaltech': '/workspaces/legaltech.html',
+      '/workspaces/legaltech.html': '/workspaces/legaltech.html',
+      '/workspaces/healthtech': '/workspaces/healthtech.html',
+      '/workspaces/healthtech.html': '/workspaces/healthtech.html',
+      '/workspaces/ecommerce': '/workspaces/ecommerce.html',
+      '/workspaces/ecommerce.html': '/workspaces/ecommerce.html',
+      '/workspaces/cleantech': '/workspaces/cleantech.html',
+      '/workspaces/cleantech.html': '/workspaces/cleantech.html',
+      '/workspaces/proptech': '/workspaces/proptech.html',
+      '/workspaces/proptech.html': '/workspaces/proptech.html',
+      '/workspaces/erp': '/workspaces/erp-staging.html',
+      '/workspaces/erp-staging': '/workspaces/erp-staging.html',
+      '/workspaces/erp-staging.html': '/workspaces/erp-staging.html',
+
+      // Root shortcuts
       '/fintech': '/workspaces/fintech.html',
       '/fintech.html': '/workspaces/fintech.html',
       '/logistics': '/workspaces/logistics.html',
@@ -338,9 +368,9 @@ export default {
       });
     }
 
-    if (workspaceAliases[url.pathname] && env && env.ASSETS && typeof env.ASSETS.fetch === 'function') {
+    if (routeAliases[url.pathname] && env && env.ASSETS && typeof env.ASSETS.fetch === 'function') {
       const rewritten = new URL(request.url);
-      rewritten.pathname = workspaceAliases[url.pathname];
+      rewritten.pathname = routeAliases[url.pathname];
       const resp = await env.ASSETS.fetch(new Request(rewritten, request));
       return withSecurityHeaders(resp);
     }

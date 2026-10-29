@@ -5493,5 +5493,40 @@ p, .hero-subheadline, .section-subheading, .bento-desc, .showcase-description, .
   color: #334155;
 }
 
+/* ====================================================================
+   36. ACCESSIBILITY & PREFERS-REDUCED-MOTION OVERRIDES (WCAG 2.2 AA)
+   ==================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scanner-laser-beam {
+    display: none !important;
+    animation: none !important;
+  }
+
+  .beacon-pulse,
+  .pulse-ring,
+  .status-indicator,
+  .pulseDiscrepancy {
+    animation: none !important;
+  }
+
+  .hero-scanner-card,
+  .bento-card,
+  .showcase-card,
+  .hub-display-card {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+
 
 

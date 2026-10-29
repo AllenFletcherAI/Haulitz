@@ -2,22 +2,102 @@
 ### The Universal Data Verification Gateway for Enterprise ERP
 **Eliminating AI Hallucinations, Accounting Errors, and Compliance Liability with Deterministic Mathematical Guardrails & GoBD § 147 AO Cryptographic Audit Chains**
 
-[![Edge Deployment](https://img.shields.io/badge/Deployment-Cloudflare%20Pages%20Edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://haulitz.pages.dev)
-[![Status](https://img.shields.io/badge/System-100%25%20Active-059669?style=flat-square)](https://haulitz.pages.dev)
-[![Latency](https://img.shields.io/badge/Latency-%3C30ms%20Frankfurt%2FMunich-0284C7?style=flat-square)](https://haulitz.pages.dev)
-[![Cost](https://img.shields.io/badge/Cost-%240%2Fmonth%20Permanent-10B981?style=flat-square)](https://haulitz.pages.dev)
-[![Cold Starts](https://img.shields.io/badge/Cold%20Starts-Zero%20(Pure%20Edge%20SPA)-8B5CF6?style=flat-square)](https://haulitz.pages.dev)
-[![Standard](https://img.shields.io/badge/Compliance-GoBD%20%C2%A7%20147%20AO%20%7C%20HGB%20%7C%20UStG-DC2626?style=flat-square)](https://haulitz.pages.dev)
+[![Edge Deployment](https://img.shields.io/badge/Deployment-Cloudflare%20Workers%20Edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://haulitz.allensimeonfletcher.workers.dev/)
+[![Status](https://img.shields.io/badge/System-100%25%20Active-059669?style=flat-square)](https://haulitz.allensimeonfletcher.workers.dev/)
+[![Deterministic Tests](https://img.shields.io/badge/Tests-30%2F30%20Passing%20(100%25)-10b981?style=flat-square&logo=github)](tests/verify_haulitz.js)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Standard](https://img.shields.io/badge/Compliance-GoBD%20%C2%A7%20147%20AO%20%7C%20HGB%20%7C%20UStG-DC2626?style=flat-square)](https://haulitz.allensimeonfletcher.workers.dev/)
 
 ---
 
-> **Live Production Gateway:** [https://haulitz.pages.dev](https://haulitz.pages.dev)  
+> **Live Production Gateway:** [https://haulitz.allensimeonfletcher.workers.dev/](https://haulitz.allensimeonfletcher.workers.dev/)  
 > **Source Repository:** [https://github.com/AllenFletcherAI/Haulitz](https://github.com/AllenFletcherAI/Haulitz)  
-> **Primary Technology Stack:** Pure ES6 JavaScript, Web Crypto API (`crypto.subtle`), Cloudflare Pages Edge CDN, Parameterized Transact-SQL (T-SQL), C# .NET 8 SDK.
+> **Automated Test Runner:** [`tests/verify_haulitz.js`](tests/verify_haulitz.js) (30/30 deterministic scenarios)  
+> **Primary Technology Stack:** Pure ES6 JavaScript, Web Crypto API (`crypto.subtle`), Cloudflare Workers Edge CDN, Parameterized Transact-SQL (T-SQL), C# .NET 8 SDK (`Microsoft.Data.SqlClient`).
 
 ---
 
-## 1. EXECUTIVE SUMMARY & STRATEGIC CONTEXT
+## 1. DETERMINISTIC TEST SUITE (30/30 PASSING)
+
+Every single mathematical calculation, statutory German tax formula, and check digit algorithm is covered by automated unit and integration tests located in [`tests/verify_haulitz.js`](tests/verify_haulitz.js).
+
+### Run Tests Locally in 3 Seconds:
+```bash
+# 1. Clone the repository
+git clone https://github.com/AllenFletcherAI/Haulitz.git
+cd Haulitz
+
+# 2. Execute the deterministic test suite
+npm test
+```
+
+### Verified Test Receipt (100% Deterministic Pass):
+```
+================================================================
+HAULITZ DETERMINISTIC VERIFICATION ENGINE: 30-SCENARIO TEST SUITE
+================================================================
+
+[DOMAIN 01] FinTech & Corporate Invoicing (UStG § 14, GoBD § 147 AO, SEPA ISO 7064)
+  ✅ PASS [scenario_a] Clean Vendor Invoice (Compliant)
+  ✅ PASS [scenario_b] Arithmetic Trap (€120.00 VAT Variance)
+  ✅ PASS [scenario_c] Corrupted SEPA IBAN (Modulo-97 Breach)
+
+[DOMAIN 02] Freight & Maritime Logistics (ADSp 2017, § 412 HGB, ISO 6346, SOLAS VGM)
+  ✅ PASS [scenario_a] Clean Ocean B/L & Packing List
+  ✅ PASS [scenario_b] Mass Law Deficit Trap (§ 412 HGB)
+  ✅ PASS [scenario_c] Invalid ISO 6346 Container Checksum
+
+[DOMAIN 03] Supply Chain & Manufacturing (HGB § 377 Rügeobliegenheit, DIN EN ISO 9001)
+  ✅ PASS [scenario_a] Clean 3-Way Triad Reconciliation
+  ✅ PASS [scenario_b] Short Shipment Overbilling (20 Units Deficit)
+  ✅ PASS [scenario_c] Unauthorized Price Hike (+€15.00/unit)
+
+[DOMAIN 04] InsurTech & Claims Processing (VVG § 86, BGB § 249, BGH VI ZR 53/09)
+  ✅ PASS [scenario_a] Clean Workshop Claim & Deductible
+  ✅ PASS [scenario_b] Deductible Omission Trap (€500 Variance)
+  ✅ PASS [scenario_c] Excessive Hourly Labor Rate (€190/hr vs €140)
+
+[DOMAIN 05] LegalTech & Regulatory Contracts (LkSG § 4–§ 7, EU CSDDD, ISO 14001)
+  ✅ PASS [scenario_a] Clean Supplier ESG Audit Dossier
+  ✅ PASS [scenario_b] Expired Environmental Certificate (45 Days)
+  ✅ PASS [scenario_c] Missing Mandatory LkSG Remediation Clause
+
+[DOMAIN 06] HealthTech & Medical Admin (GOÄ § 5 Abs. 2, § 12 Abs. 3, BÄK)
+  ✅ PASS [scenario_a] Clean GOÄ Liquidation (Standard Multipliers)
+  ✅ PASS [scenario_b] Arithmetic Calculation Trap in Line Math
+  ✅ PASS [scenario_c] Unjustified 3.5x Multiplier Ceiling Breach
+
+[DOMAIN 07] E-Commerce & Retail Operations (GS1 General Specs, EAN-13 Modulo-10)
+  ✅ PASS [scenario_a] Clean Marketplace Inbound ASN Feed
+  ✅ PASS [scenario_b] Multi-Currency FX Arithmetic Trap
+  ✅ PASS [scenario_c] Corrupted EAN-13 Check Digit (Barcode Breach)
+
+[DOMAIN 08] CleanTech & Renewable Energy (VDE-AR-N 4105, EEG § 9, TAB)
+  ✅ PASS [scenario_a] Clean PV Grid Connection Application
+  ✅ PASS [scenario_b] DC String Wattage Math Discrepancy Trap
+  ✅ PASS [scenario_c] Inverter Peak Grid Capacity Overage (VDE Breach)
+
+[DOMAIN 09] PropTech & Real Estate (HeizkostenV § 7 & § 12, BGB § 556, BetrKV)
+  ✅ PASS [scenario_a] Clean Utility Statement (70/30 Statutory)
+  ✅ PASS [scenario_b] Square-Meter Apportionment Math Trap
+  ✅ PASS [scenario_c] Illegal 50/50 Allocation Split (HeizkostenV Breach)
+
+[DOMAIN 10] Enterprise ERP & IT Consulting (BSI IT-Grundschutz, OWASP ASVS)
+  ✅ PASS [scenario_a] Clean Parameterized Ingestion Payload
+  ✅ PASS [scenario_b] Schema Decimal Overflow Trap
+  ✅ PASS [scenario_c] SQL Injection Attack in Vendor Reference
+
+================================================================
+VERIFICATION SUMMARY: 30 / 30 SCENARIOS TESTED SUCCESSFULLY (100%)
+GoBD SHA-256 Seal Chain: Verified 30 sequential cryptographic blocks.
+================================================================
+✅ Enterprise T-SQL and C# Integration Generators Verified.
+✅ German Commercial Legal Notices Verified.
+```
+
+---
+
+## 2. EXECUTIVE SUMMARY & STRATEGIC CONTEXT
 
 German enterprises hesitate to deploy Generative AI in back-office operations because of **hallucinations and unverified inferences**. In German commercial and tax audits (**GoBD § 147 AO**, **§ 14 UStG**, and **§ 412 HGB**), a single calculation error, omitted deductible, or misclassified container number creates immediate financial liability, tax penalties, and port demurrage charges (€150–€350/day).
 
@@ -27,7 +107,7 @@ Every extracted record must pass **100% deterministic mathematical, regulatory, 
 
 ---
 
-## 2. THE AIRBAG ARCHITECTURE & ENTERPRISE WORKSPACE
+## 3. THE AIRBAG ARCHITECTURE & ENTERPRISE WORKSPACE
 
 Haulitz is organized into three primary operational tiers:
 1. **Verification Cockpit:** The 10-domain deterministic Airbag engine featuring an **Authentic German Document Canvas** (DIN 5008 letterheads, Ocean Bills of Lading, fold marks, barcode scan lines, and visual red variance highlighters).
@@ -65,7 +145,7 @@ flowchart TD
 
 ---
 
-## 3. THE 10 TARGET INDUSTRY DOMAINS
+## 4. THE 10 TARGET INDUSTRY DOMAINS
 
 Haulitz provides dedicated, production-ready rulebooks across Germany's top corporate sectors:
 
@@ -84,7 +164,7 @@ Haulitz provides dedicated, production-ready rulebooks across Germany's top corp
 
 ---
 
-## 4. DETERMINISTIC ALGORITHMS & CRYPTOGRAPHIC SEALS
+## 5. DETERMINISTIC ALGORITHMS & CRYPTOGRAPHIC SEALS
 
 ### 1. ISO 6346 Modulo-11 Container Checksum
 Used in Maritime & Freight Logistics (Domain 02).
@@ -105,7 +185,7 @@ Guarantees tamper-evident audit logs exportable directly to DATEV/SAP-compliant 
 
 ---
 
-## 5. ENTERPRISE INTEGRATION OUTPUTS
+## 6. ENTERPRISE INTEGRATION OUTPUTS
 
 ### Parameterized Transact-SQL (T-SQL) for SAP & Microsoft SQL Server
 ```sql
@@ -126,21 +206,22 @@ COMMIT TRANSACTION;
 
 ---
 
-## 6. THE CANDIDATE & RELOCATION PROFILE
+## 7. THE CANDIDATE & RELOCATION PROFILE
 
-* **Candidate:** Allen Fletcher (23 years old).
+* **Candidate:** Allen Fletcher.
 * **Education:** Accredited 5-year Integrated Master of Technology (M.Tech) in Artificial Intelligence from Vellore Institute of Technology (VIT Bhopal).
 * **German Academic Parity:** Evaluated by the Central Office for Foreign Education (*ZAB*) with an **Anabin H+** institution rating as a **Consecutive Master / *Entspricht Magister***.
 * **Target Visa:** German EU Blue Card (**§ 18g AufenthG STEM / New Entrant**) via the **Accelerated Fast-Track (§ 81a AufenthG)**.
 * **Target Roles:** Solutions Engineer, AI Integration Engineer, Technical Implementation Specialist, Founder’s Associate (Technical Operations).
-* **Timeline:** Relocation to Germany by Q1 2027.
+* **Availability:** Available immediately for full-time employment anywhere in Germany (On-Site, Hybrid, or Remote).
+* **Direct Contact:** [allensimeonfletcher@gmail.com](mailto:allensimeonfletcher@gmail.com) &middot; [LinkedIn Profile](https://www.linkedin.com/in/allen-fletcher/)
 
 ---
 
-## 7. THE 4 WHITEBOARD DEFENSE QUESTIONS
+## 8. THE 4 WHITEBOARD DEFENSE QUESTIONS
 
 1. **"Why did you build it as a client-side edge gateway instead of a traditional backend?"**
-   * *Answer:* Speed, reliability, and $0 maintenance. A portfolio hosted on free-tier backend containers goes to sleep and takes 60 seconds to cold-start. By packaging the deterministic verification engine in modular JavaScript on Cloudflare Pages, recruiters get instant <30 ms response times anywhere in Europe with 100% uptime and zero server maintenance.
+   * *Answer:* Speed, reliability, and $0 maintenance. A portfolio hosted on free-tier backend containers goes to sleep and takes 60 seconds to cold-start. By packaging the deterministic verification engine in modular JavaScript on Cloudflare Workers, recruiters get instant <30 ms response times anywhere in Europe with 100% uptime and zero server maintenance.
 2. **"What happens if an LLM hallucination slips into the extracted data?"**
    * *Answer:* The LLM never writes directly to operational ERP tables. The deterministic verification gate sits between the extraction layer and the database like an airbag. If the model hallucinates a single cent of VAT, a mistyped container number, or an inflated unit price, the mathematical checks fail instantly, routing the record to quarantine.
 3. **"How does this comply with German tax and commercial law?"**

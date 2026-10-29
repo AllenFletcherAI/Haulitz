@@ -52,7 +52,7 @@
       btnHeroGithubText: 'GitHub Quellcode & Tests (30/30)',
 
       // Living Document Scanner Card
-      scannerFeedLabel: 'ECHTZEIT-BELEGEINGANG',
+      scannerFeedLabel: 'INTERAKTIVER BELEG-SIMULATOR',
       scannerBtnFlawedText: 'Fehlerhafter Beleg',
       scannerBtnVerifiedText: 'HAULITZ Verifiziert',
       scMetaSubVendor: 'Lieferant / Partner:',
@@ -193,7 +193,7 @@
       btnHeroGithubText: 'Inspect GitHub Code & Tests (30/30)',
 
       // Living Document Scanner Card
-      scannerFeedLabel: 'LIVE INGESTION FEED',
+      scannerFeedLabel: 'INTERACTIVE VERIFICATION SIMULATOR',
       scannerBtnFlawedText: 'Flawed Invoice',
       scannerBtnVerifiedText: 'HAULITZ Verified',
       scMetaSubVendor: 'Vendor / Partner:',
@@ -1306,8 +1306,16 @@
     if (launchBtnLabel) launchBtnLabel.textContent = lang === 'de' ? `${data.activeName} öffnen` : `Launch ${data.activeName} Workspace`;
 
     if (state.currentScannerMode === 'flawed') {
-      if (btnFlawed) btnFlawed.classList.add('active');
-      if (btnVerified) btnVerified.classList.remove('active');
+      if (btnFlawed) {
+        btnFlawed.classList.add('active');
+        btnFlawed.setAttribute('aria-selected', 'true');
+        btnFlawed.setAttribute('aria-pressed', 'true');
+      }
+      if (btnVerified) {
+        btnVerified.classList.remove('active');
+        btnVerified.setAttribute('aria-selected', 'false');
+        btnVerified.setAttribute('aria-pressed', 'false');
+      }
       if (vatRow) vatRow.classList.remove('verified');
       if (vatTag) {
         vatTag.className = 'badge-scanner-discrepancy';
@@ -1326,8 +1334,16 @@
       if (bannerFlawed) bannerFlawed.style.display = 'flex';
       if (bannerVerified) bannerVerified.style.display = 'none';
     } else {
-      if (btnVerified) btnVerified.classList.add('active');
-      if (btnFlawed) btnFlawed.classList.remove('active');
+      if (btnVerified) {
+        btnVerified.classList.add('active');
+        btnVerified.setAttribute('aria-selected', 'true');
+        btnVerified.setAttribute('aria-pressed', 'true');
+      }
+      if (btnFlawed) {
+        btnFlawed.classList.remove('active');
+        btnFlawed.setAttribute('aria-selected', 'false');
+        btnFlawed.setAttribute('aria-pressed', 'false');
+      }
       if (vatRow) vatRow.classList.add('verified');
       if (vatTag) {
         vatTag.className = 'badge-scanner-clean';
@@ -1426,15 +1442,16 @@
 
       if (scNum) scNum.textContent = d.number;
       if (scTitle) scTitle.textContent = state.currentLang === 'de' ? (d.germanTitle || d.title) : d.title;
-      if (scDocType) scDocType.textContent = d.documentType;
+      if (scDocType) scDocType.textContent = state.currentLang === 'de' ? (d.germanDocumentType || d.documentType) : d.documentType;
       if (scBadgeText) scBadgeText.textContent = d.law;
-      if (scDesc) scDesc.textContent = d.description;
+      if (scDesc) scDesc.textContent = state.currentLang === 'de' ? (d.germanDescription || d.description) : d.description;
       if (scTargets) scTargets.textContent = `${d.targetEmployers} • SAP S/4HANA`;
 
-      if (scRules && Array.isArray(d.rules)) {
-        scRules.innerHTML = d.rules.map(r => `
+      const rulesToRender = (state.currentLang === 'de' && Array.isArray(d.germanRules)) ? d.germanRules : d.rules;
+      if (scRules && Array.isArray(rulesToRender)) {
+        scRules.innerHTML = rulesToRender.map(r => `
           <div class="showcase-rule-item">
-            <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
             <span>${r}</span>
           </div>
         `).join('');
@@ -1447,9 +1464,17 @@
         scBtnLaunchText.textContent = state.currentLang === 'de' ? `${titleName} öffnen` : `Launch ${d.title} Workspace`;
       }
 
-      // Sync active state in both pill docks
-      dockPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-domain') === domainKey));
-      topDockPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-domain') === domainKey));
+      // Sync active state and ARIA selection in both pill docks
+      dockPills.forEach(p => {
+        const isActive = p.getAttribute('data-domain') === domainKey;
+        p.classList.toggle('active', isActive);
+        p.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      topDockPills.forEach(p => {
+        const isActive = p.getAttribute('data-domain') === domainKey;
+        p.classList.toggle('active', isActive);
+        p.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
     };
 
     dockPills.forEach(pill => {

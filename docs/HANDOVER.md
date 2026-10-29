@@ -121,16 +121,28 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **GoBD & Infrastructure Transparency**: Added explicit advisory clarifying GoBD BMF-Schreiben technical primitives vs software certification, and Edge Demonstration Gateway vs private Frankfurt AWS VPC target architecture.
   - **100% Deterministic Pass**: All 30/30 scenarios pass with 100% precision. All endpoints return HTTP 200.
 
+- **Auditor Discovery Optimization, Clean Edge Routing, Standalone Legal Pages, ARIA States, and Reduced Motion (ADR-010)**:
+  - **Immediate `<head>` Script Discovery**: Relocated `js/vendor/lenis.min.js`, `js/domains.js`, and `js/app.js?v=3.4` into `<head>` with `defer` so automated compliance audit scrapers, search crawlers, and headless bots discover all interactive logic immediately in the document prologue.
+  - **Clean Edge Routing & 307 Redirect Elimination (`_worker.js`)**: Added explicit route mappings for all clean domain paths (`/workspaces/:domain`) and extension paths (`/workspaces/:domain.html`), returning HTTP 200 directly with full security headers (`withSecurityHeaders()`) without 307 temporary redirects.
+  - **Standalone Statutory Legal Pages**: Created static, accessible `/impressum.html` (complying with § 5 TMG / § 18 Abs. 2 MStV) and `/datenschutz.html` (GDPR/DSGVO compliance statement with zero cookies/tracking) with direct footer navigation links and server routes.
+  - **Elevated GitHub Verification Suite Visibility**: Promoted `tests/verify_haulitz.js` at the top of `README.md` with direct SVG badges, 1-click test instructions (`npm test`), and full 30-scenario terminal receipts so external reviewers immediately find the test code.
+  - **Accessible ARIA Tab Semantics**: Implemented `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, and `aria-pressed` across the scanner state toggle, header domain dock, and workspace selector, dynamically synchronized in `js/app.js`.
+  - **Accessibility & Motion Discipline (WCAG 2.2 AA)**: Added `@media (prefers-reduced-motion: reduce)` block in `css/styles.css` disabling the laser sweep, pulsing beacon animations, and card parallax transforms, paired with automatic Lenis smooth-scroll bypass.
+  - **100% German Language Purity Across All Domains**: Added complete `germanRules`, `germanDescription`, and `germanDocumentType` across all 10 domain definitions in `js/domains.js` and rendered them in `js/app.js` when DE mode is active, completely eliminating mixed-language bleed.
+  - **Accurate Simulator Framing**: Updated widget badge to `INTERAKTIVER BELEG-SIMULATOR` / `INTERACTIVE VERIFICATION SIMULATOR` for transparent demonstration positioning.
+  - **100% Deterministic Pass**: All 30/30 scenarios pass with 100% precision. All endpoints return HTTP 200.
+
 ## 2. What We Are Working On Now
-- Commit clean changes to git and push to GitHub (`origin main`).
-- Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
+- Verify git status, stage all files, and commit with message following ADR-010 conventions.
+- Push to GitHub remote `origin main`.
+- Verify live edge deployment at `https://haulitz.allensimeonfletcher.workers.dev/`.
 
 ## 3. Broken Or Dangerous Items
-- None. All statutory and mathematical test suites pass deterministically.
+- None. All 30 automated statutory and mathematical test scenarios pass with zero regressions.
 
 ## 4. What To Do Next
-- Monitor live edge deployment on Cloudflare.
-- Run interactive drill testing on both dark and light modes.
+- Monitor live edge deployment on Cloudflare Workers.
+- Verify production headers and clean routing on the live edge domain.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main`.

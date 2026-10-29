@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAULITZ | Deterministic Enterprise Verification Gateway (Reference Implementation)</title>
+  <title>HAULITZ | Deterministic ERP Verification Gateway</title>
   
   <meta name="description" content="Open-source invoice verification gateway by Allen Fletcher. Audits vendor math, German VAT (§ 12/§ 14 UStG), and SEPA bank checksums before ERP staging.">
   <meta name="author" content="Allen Simeon Fletcher">
   <link rel="canonical" href="https://haulitz.allensimeonfletcher.workers.dev/">
   <link rel="manifest" href="site.webmanifest">
+
+  <!-- Internationalization & hreflang annotations -->
+  <link rel="alternate" hreflang="de" href="https://haulitz.allensimeonfletcher.workers.dev/">
+  <link rel="alternate" hreflang="en" href="https://haulitz.allensimeonfletcher.workers.dev/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://haulitz.allensimeonfletcher.workers.dev/">
+
+  <!-- Content Security Policy (Static Meta-Tag Alignment) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self' https://ep-dry-hill-b9dgvhqy-pooler.c-7.eu-central-1.aws.neon.tech https://api.resend.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';">
 
   <!-- Open Graph / LinkedIn / Facebook Social Previews -->
   <meta property="og:type" content="website">
@@ -32,10 +40,12 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "SoftwareApplication",
+        "@type": "SoftwareSourceCode",
         "name": "HAULITZ",
+        "programmingLanguage": "JavaScript",
+        "codeRepository": "https://github.com/AllenFletcherAI/Haulitz",
+        "license": "https://opensource.org/licenses/MIT",
         "applicationCategory": "BusinessApplication",
-        "operatingSystem": "All",
         "description": "Deterministic enterprise document verification gateway reference architecture enforcing § 12 & § 14 UStG, GoBD audit trail principles, and SEPA ISO 7064 MOD 97-10 compliance prior to ERP staging.",
         "author": {
           "@type": "Person",
@@ -46,7 +56,6 @@
         "@type": "Person",
         "name": "Allen Simeon Fletcher",
         "jobTitle": "Solutions & Integration Engineer",
-        "alumniOf": "M.Sc. Artificial Intelligence",
         "url": "https://haulitz.allensimeonfletcher.workers.dev/",
         "sameAs": [
           "https://github.com/AllenFletcherAI/Haulitz",
@@ -72,10 +81,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   
   <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=3.3">
+  <link rel="stylesheet" href="css/styles.css?v=3.4">
 
-  <!-- Self-Hosted Lenis Smooth Inertial Scroll (Zero-CDN Dependency) -->
+  <!-- Client Application Modules (Loaded in <head> with defer for immediate inspection & performance) -->
   <script defer src="js/vendor/lenis.min.js"></script>
+  <script defer src="js/domains.js"></script>
+  <script defer src="js/app.js?v=3.4"></script>
 
   <!-- Instantaneous Theme & Language Hydration: Zero Flash -->
   <script>
@@ -142,17 +153,17 @@
   <!-- Persistent Top Workspace Quick Switcher (Strict Zero-Clip, Instant 1-Click Access) -->
   <nav class="top-workspace-dock" id="top-workspace-dock" aria-label="10 Industry Workspaces">
     <div class="top-workspace-dock-inner">
-      <div class="dock-pills-scroll" id="top-dock-pills">
-        <a href="workspaces/fintech.html" class="dock-pill active" data-domain="fintech"><span class="dock-pill-num">01</span><i class="fa-solid fa-file-invoice-dollar"></i><span>FinTech</span></a>
-        <a href="workspaces/logistics.html" class="dock-pill" data-domain="logistics"><span class="dock-pill-num">02</span><i class="fa-solid fa-ship"></i><span>Maritime</span></a>
-        <a href="workspaces/supply-chain.html" class="dock-pill" data-domain="supply"><span class="dock-pill-num">03</span><i class="fa-solid fa-industry"></i><span>Supply Chain</span></a>
-        <a href="workspaces/insurtech.html" class="dock-pill" data-domain="insurtech"><span class="dock-pill-num">04</span><i class="fa-solid fa-shield-halved"></i><span>InsurTech</span></a>
-        <a href="workspaces/legaltech.html" class="dock-pill" data-domain="legaltech"><span class="dock-pill-num">05</span><i class="fa-solid fa-scale-balanced"></i><span>LegalTech</span></a>
-        <a href="workspaces/healthtech.html" class="dock-pill" data-domain="healthtech"><span class="dock-pill-num">06</span><i class="fa-solid fa-hospital-user"></i><span>HealthTech</span></a>
-        <a href="workspaces/ecommerce.html" class="dock-pill" data-domain="ecommerce"><span class="dock-pill-num">07</span><i class="fa-solid fa-cart-shopping"></i><span>E-Commerce</span></a>
-        <a href="workspaces/cleantech.html" class="dock-pill" data-domain="cleantech"><span class="dock-pill-num">08</span><i class="fa-solid fa-bolt"></i><span>CleanTech</span></a>
-        <a href="workspaces/proptech.html" class="dock-pill" data-domain="proptech"><span class="dock-pill-num">09</span><i class="fa-solid fa-building"></i><span>PropTech</span></a>
-        <a href="workspaces/erp-staging.html" class="dock-pill" data-domain="erp"><span class="dock-pill-num">10</span><i class="fa-solid fa-database"></i><span>Enterprise ERP</span></a>
+      <div class="dock-pills-scroll" id="top-dock-pills" role="tablist" aria-label="10 Branchen-Workspaces">
+        <a href="workspaces/fintech.html" class="dock-pill active" data-domain="fintech" role="tab" aria-selected="true"><span class="dock-pill-num">01</span><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i><span>FinTech</span></a>
+        <a href="workspaces/logistics.html" class="dock-pill" data-domain="logistics" role="tab" aria-selected="false"><span class="dock-pill-num">02</span><i class="fa-solid fa-ship" aria-hidden="true"></i><span>Maritime</span></a>
+        <a href="workspaces/supply-chain.html" class="dock-pill" data-domain="supply" role="tab" aria-selected="false"><span class="dock-pill-num">03</span><i class="fa-solid fa-industry" aria-hidden="true"></i><span>Supply Chain</span></a>
+        <a href="workspaces/insurtech.html" class="dock-pill" data-domain="insurtech" role="tab" aria-selected="false"><span class="dock-pill-num">04</span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>InsurTech</span></a>
+        <a href="workspaces/legaltech.html" class="dock-pill" data-domain="legaltech" role="tab" aria-selected="false"><span class="dock-pill-num">05</span><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><span>LegalTech</span></a>
+        <a href="workspaces/healthtech.html" class="dock-pill" data-domain="healthtech" role="tab" aria-selected="false"><span class="dock-pill-num">06</span><i class="fa-solid fa-hospital-user" aria-hidden="true"></i><span>HealthTech</span></a>
+        <a href="workspaces/ecommerce.html" class="dock-pill" data-domain="ecommerce" role="tab" aria-selected="false"><span class="dock-pill-num">07</span><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i><span>E-Commerce</span></a>
+        <a href="workspaces/cleantech.html" class="dock-pill" data-domain="cleantech" role="tab" aria-selected="false"><span class="dock-pill-num">08</span><i class="fa-solid fa-bolt" aria-hidden="true"></i><span>CleanTech</span></a>
+        <a href="workspaces/proptech.html" class="dock-pill" data-domain="proptech" role="tab" aria-selected="false"><span class="dock-pill-num">09</span><i class="fa-solid fa-building" aria-hidden="true"></i><span>PropTech</span></a>
+        <a href="workspaces/erp-staging.html" class="dock-pill" data-domain="erp" role="tab" aria-selected="false"><span class="dock-pill-num">10</span><i class="fa-solid fa-database" aria-hidden="true"></i><span>Enterprise ERP</span></a>
       </div>
     </div>
   </nav>
@@ -164,7 +175,7 @@
     <div class="hero-inner">
       <!-- Top Glowing Status Pill -->
       <div class="hero-badge-pill">
-        <span class="badge-mit-pill font-mono-code"><i class="fa-solid fa-code-commit"></i> MIT OPEN-SOURCE</span>
+        <a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="badge-mit-pill font-mono-code" title="MIT-Lizenz auf GitHub anzeigen"><i class="fa-solid fa-code-commit" aria-hidden="true"></i> MIT OPEN-SOURCE</a>
         <span class="live-pulse-dot"></span>
         <span id="hero-badge-text">DETERMINISTISCHE EINGANGSPRÜFUNG · BMF- &amp; USTG-KONFORMITÄT</span>
       </div>
@@ -199,22 +210,22 @@
           <!-- Scanner Card Top Bar -->
           <div class="scanner-card-header">
             <div class="scanner-card-title-group">
-              <span class="scanner-live-pill"><span class="scanner-dot"></span> <span id="scanner-feed-label">LIVE-EINGANGSFEED</span></span>
+              <span class="scanner-live-pill"><span class="scanner-dot"></span> <span id="scanner-feed-label">INTERAKTIVER BELEG-SIMULATOR</span></span>
               <span class="scanner-doc-badge font-mono-code" id="scanner-doc-badge">INV-2024-8841</span>
             </div>
             <!-- Interactive State Switcher -->
-            <div class="scanner-mode-switch">
-              <button type="button" class="scanner-mode-btn active" id="btn-scanner-flawed">
-                <i class="fa-solid fa-triangle-exclamation text-amber"></i> <span id="scanner-btn-flawed-text">Fehlerhafter Beleg</span>
+            <div class="scanner-mode-switch" role="tablist" aria-label="Belegzustand">
+              <button type="button" class="scanner-mode-btn active" id="btn-scanner-flawed" role="tab" aria-selected="true" aria-pressed="true">
+                <i class="fa-solid fa-triangle-exclamation text-amber" aria-hidden="true"></i> <span id="scanner-btn-flawed-text">Fehlerhafter Beleg</span>
               </button>
-              <button type="button" class="scanner-mode-btn" id="btn-scanner-verified">
-                <i class="fa-solid fa-circle-check text-emerald"></i> <span id="scanner-btn-verified-text">HAULITZ Verifiziert</span>
+              <button type="button" class="scanner-mode-btn" id="btn-scanner-verified" role="tab" aria-selected="false" aria-pressed="false">
+                <i class="fa-solid fa-circle-check text-emerald" aria-hidden="true"></i> <span id="scanner-btn-verified-text">HAULITZ Verifiziert</span>
               </button>
             </div>
           </div>
 
           <!-- Document Canvas Body -->
-          <div class="scanner-doc-body">
+          <div class="scanner-doc-body" id="scanner-doc-body" role="tabpanel" aria-label="Beleginhalt und Prüfergebnisse">
             <!-- Document Meta Bar -->
             <div class="scanner-meta-row" id="scanner-meta-row">
               <div><span class="meta-sub" id="sc-meta-sub-vendor">Lieferant:</span> <strong id="sc-meta-val-vendor">Nordic Industrial Supply GmbH</strong></div>
@@ -359,23 +370,23 @@
 
       <!-- Horizontal Sliding Pill Dock -->
       <div class="workspace-dock-container">
-        <div class="workspace-pill-dock" id="workspace-pill-dock">
-          <button type="button" class="ws-pill active" data-domain="fintech"><i class="fa-solid fa-file-invoice-dollar"></i> <span>FinTech</span></button>
-          <button type="button" class="ws-pill" data-domain="logistics"><i class="fa-solid fa-ship"></i> <span>Maritime</span></button>
-          <button type="button" class="ws-pill" data-domain="supply"><i class="fa-solid fa-industry"></i> <span>Supply Chain</span></button>
-          <button type="button" class="ws-pill" data-domain="insurtech"><i class="fa-solid fa-shield-halved"></i> <span>InsurTech</span></button>
-          <button type="button" class="ws-pill" data-domain="legaltech"><i class="fa-solid fa-scale-balanced"></i> <span>LegalTech</span></button>
-          <button type="button" class="ws-pill" data-domain="healthtech"><i class="fa-solid fa-hospital-user"></i> <span>HealthTech</span></button>
-          <button type="button" class="ws-pill" data-domain="ecommerce"><i class="fa-solid fa-cart-shopping"></i> <span>E-Commerce</span></button>
-          <button type="button" class="ws-pill" data-domain="cleantech"><i class="fa-solid fa-bolt"></i> <span>CleanTech</span></button>
-          <button type="button" class="ws-pill" data-domain="proptech"><i class="fa-solid fa-building"></i> <span>PropTech</span></button>
-          <button type="button" class="ws-pill" data-domain="erp"><i class="fa-solid fa-database"></i> <span>Enterprise ERP</span></button>
+        <div class="workspace-pill-dock" id="workspace-pill-dock" role="tablist" aria-label="Branchenauswahl">
+          <button type="button" class="ws-pill active" data-domain="fintech" role="tab" aria-selected="true"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i> <span>FinTech</span></button>
+          <button type="button" class="ws-pill" data-domain="logistics" role="tab" aria-selected="false"><i class="fa-solid fa-ship" aria-hidden="true"></i> <span>Maritime</span></button>
+          <button type="button" class="ws-pill" data-domain="supply" role="tab" aria-selected="false"><i class="fa-solid fa-industry" aria-hidden="true"></i> <span>Supply Chain</span></button>
+          <button type="button" class="ws-pill" data-domain="insurtech" role="tab" aria-selected="false"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> <span>InsurTech</span></button>
+          <button type="button" class="ws-pill" data-domain="legaltech" role="tab" aria-selected="false"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> <span>LegalTech</span></button>
+          <button type="button" class="ws-pill" data-domain="healthtech" role="tab" aria-selected="false"><i class="fa-solid fa-hospital-user" aria-hidden="true"></i> <span>HealthTech</span></button>
+          <button type="button" class="ws-pill" data-domain="ecommerce" role="tab" aria-selected="false"><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> <span>E-Commerce</span></button>
+          <button type="button" class="ws-pill" data-domain="cleantech" role="tab" aria-selected="false"><i class="fa-solid fa-bolt" aria-hidden="true"></i> <span>CleanTech</span></button>
+          <button type="button" class="ws-pill" data-domain="proptech" role="tab" aria-selected="false"><i class="fa-solid fa-building" aria-hidden="true"></i> <span>PropTech</span></button>
+          <button type="button" class="ws-pill" data-domain="erp" role="tab" aria-selected="false"><i class="fa-solid fa-database" aria-hidden="true"></i> <span>Enterprise ERP</span></button>
         </div>
       </div>
 
       <!-- Single Interactive Showcase Card (Smooth Cross-fade on Pill Click) -->
       <div class="workspace-showcase-wrap">
-        <div class="workspace-showcase-card" id="workspace-showcase-card">
+        <div class="workspace-showcase-card" id="workspace-showcase-card" role="tabpanel" aria-label="Branchenspezifische Prüfregeln">
           <div class="showcase-card-header">
             <div class="showcase-header-left">
               <span class="showcase-num font-mono-code" id="sc-card-num">01</span>
@@ -1169,8 +1180,8 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
             <li><a href="mailto:allensimeonfletcher@gmail.com"><i class="fa-solid fa-envelope text-emerald"></i> allensimeonfletcher@gmail.com</a></li>
             <li><a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-blue"></i> LinkedIn Profile</a></li>
             <li><a href="https://github.com/AllenFletcherAI/Haulitz/blob/main/tests/verify_haulitz.js" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository (30/30 Tests)</a></li>
-            <li><a href="javascript:void(0)" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted"></i> Impressum (§ 5 TMG)</a></li>
-            <li><a href="javascript:void(0)" id="link-open-datenschutz"><i class="fa-solid fa-user-shield text-muted"></i> Datenschutzerklärung (DSGVO)</a></li>
+            <li><a href="impressum.html" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted" aria-hidden="true"></i> Impressum (§ 5 TMG)</a></li>
+            <li><a href="datenschutz.html" id="link-open-datenschutz"><i class="fa-solid fa-user-shield text-muted" aria-hidden="true"></i> Datenschutzerklärung (DSGVO)</a></li>
           </ul>
         </div>
       </div>
@@ -1179,13 +1190,13 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
         <div class="footer-copyright">
           &copy; 2026 HAULITZ &middot; Referenzimplementierung von <a href="#section-founder" class="text-emerald font-bold">Allen Simeon Fletcher</a>. Entwickelt mit deterministischer Ingenieursdisziplin.
           <div class="footer-cookie-notice font-mono-code" style="font-size:0.75rem; color:var(--color-text-muted); margin-top:0.35rem;">
-            <i class="fa-solid fa-cookie-bite text-emerald"></i> 100% Tracking- und Cookie-frei · Keine Werbe- oder Analyse-Cookies.
+            <i class="fa-solid fa-cookie-bite text-emerald" aria-hidden="true"></i> 100% Tracking- und Cookie-frei · Keine Werbe- oder Analyse-Cookies.
           </div>
         </div>
         <div class="footer-legal-links">
-          <button type="button" class="btn-text-legal" id="btn-impressum-legal">Impressum (§ 5 TMG)</button>
+          <a href="impressum.html" class="btn-text-legal" id="btn-impressum-legal">Impressum (§ 5 TMG)</a>
           <span>&middot;</span>
-          <button type="button" class="btn-text-legal" id="btn-datenschutz-legal">Datenschutz (DSGVO)</button>
+          <a href="datenschutz.html" class="btn-text-legal" id="btn-datenschutz-legal">Datenschutz (DSGVO)</a>
         </div>
       </div>
     </div>
@@ -1295,8 +1306,5 @@ SELECT [ReferenceNumber] = @p_ReferenceNumber, [StagingStatus] = @p_AuditStatus,
     </div>
   </div>
 
-  <!-- Master JavaScript Application Engine -->
-  <script defer src="js/domains.js"></script>
-  <script defer src="js/app.js?v=3.4"></script>
 </body>
 </html>
