@@ -609,3 +609,39 @@ Visual audit of v6.0 on real displays revealed 6 glaring defects:
 
 ### 3. The Decision
 We chose **Option 3**. All 30 automated statutory test scenarios remain 100% green. Zero regressions.
+
+
+---
+
+## ADR-018: v7.0 Apple-Style Marketing Restraint & Anti-Slop System Overhaul
+- **Date:** 2026-10-30
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer (Gemini 3.8 Flash)
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+Analysis of the site against the core principles of AI Action Letter #81 revealed that previous iterations had fallen directly into the "vibe-coded AI slop" pattern:
+1. Purple/black and pitch-black cyber theme with neon glows.
+2. Kinetic cursor tracking, ambient particle network, and noise grids filling screen space without purpose.
+3. Bento grid boxes with equal loudness and artificial decoration outrunning the product.
+4. Procedural audio bleeps and fake CRT oscilloscope scanline gimmicks.
+5. Abstract slogans ("Rechnungsfehler stoppen.") instead of task-specific clarity.
+
+### 2. The Three Options Considered
+1. **Option 1: Tone down neon colors while keeping the dark bento framework.**
+   - *Drawback:* Preserves the generic AI-slop archetype and cluttered card patterns.
+2. **Option 2: Copy an external Webflow template.**
+   - *Drawback:* Inherits bloated dependencies and generic visual choices.
+3. **Option 3: Complete Restrained Apple-Style Rebuild (v7.0).**
+   - Warm neutral background (`#f5f5f7`), pure white cards (`#ffffff`), deep charcoal typography (`#1d1d1f`), and a single restrained precision blue accent (`#0071e3`).
+   - Apple system typography stack (`-apple-system, BlinkMacSystemFont, "SF Pro Display", ...`).
+   - Task-oriented headline: "Rechnungen vor der Buchung im ERP deterministisch prüfen."
+   - Product-first verification window with authentic Apple segmented control.
+   - Clean, side-by-side mathematical evidence card comparing IEEE-754 binary float drift against HAULITZ 64-bit integer cent math with clean transaction slider.
+   - 3-station staging pipeline schematic (Lieferant -> HAULITZ Gateway -> SAP S/4HANA BAPI).
+   - Verifiable client throughput statistics (5.000 Belege/s, 0,38 ms Latenz).
+   - Minimal, quiet footer with direct statutory links.
+   - Zero external CDNs, zero audio synthesizers, zero cursor reticles, zero particle dust.
+
+### 3. The Decision
+We chose **Option 3**. The resulting interface delivers calm, confident, product-focused clarity that matches top-tier enterprise marketing benchmarks. All 30 deterministic verification scenarios in `tests/verify_haulitz.js` remain 100% green.

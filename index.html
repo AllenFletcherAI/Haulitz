@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAULITZ | Deterministic ERP Verification Gateway</title>
+  <title>HAULITZ · Deterministisches ERP-Verifikations-Gateway</title>
 
-  <meta name="description" content="Deterministic document verification gateway by Allen Simeon Fletcher. Eliminates rounding drift, statutory tax errors, and corrupted bank checksums before ERP staging.">
+  <meta name="description" content="Deterministisches Verifikations-Gateway von Allen Simeon Fletcher. Beseitigt Cent-Rundungsfehler, fehlerhafte Steueransätze und ungültige SEPA-Prüfziffern vor dem ERP-Staging.">
   <meta name="author" content="Allen Simeon Fletcher">
   <link rel="canonical" href="https://haulitz.allensimeonfletcher.workers.dev/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="HAULITZ | Deterministic ERP Verification Gateway">
-  <meta property="og:description" content="Stops invoice drift, math errors, and corrupted bank checksums before ERP staging.">
+  <meta property="og:title" content="HAULITZ · Deterministisches ERP-Verifikations-Gateway">
+  <meta property="og:description" content="Stoppt Rundungsdrift, fehlerhafte Steueransätze und fehlerhafte IBANs vor der Verbuchung in SAP S/4HANA.">
   <meta property="og:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/haulitz-social-card.png">
   <meta property="og:url" content="https://haulitz.allensimeonfletcher.workers.dev/">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HAULITZ | Deterministic ERP Verification Gateway">
-  <meta name="twitter:description" content="Catches rounding drift, statutory tax errors, and corrupted bank checksums in 0.4ms.">
+  <meta name="twitter:title" content="HAULITZ · Deterministisches ERP-Verifikations-Gateway">
+  <meta name="twitter:description" content="Prüft Rechnungsarithmetik, Umsatzsteuer und Bankprüfziffern in 0,4 ms.">
   <meta name="twitter:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/haulitz-social-card.png">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#070a13">
+  <meta name="theme-color" content="#f5f5f7">
 
-  <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css?v=6.1">
+  <link rel="stylesheet" href="css/styles.css?v=7.0">
 
   <script defer src="js/vendor/lenis.min.js"></script>
-  <script defer src="js/app.js?v=6.1"></script>
+  <script defer src="js/app.js?v=7.0"></script>
 
   <script type="application/ld+json">
   {
@@ -39,7 +38,7 @@
         "name": "HAULITZ Verification Gateway",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Cross-platform",
-        "description": "Deterministic document verification engine that audits invoice arithmetic, VAT tiers, and bank checksums before ERP staging.",
+        "description": "Deterministisches Dokumentenprüf-Gateway für gesetzliche Umsatzsteuer, Cent-Arithmetik und SEPA-Checksummen vor dem ERP-Staging.",
         "author": { "@type": "Person", "name": "Allen Simeon Fletcher" }
       },
       {
@@ -55,523 +54,511 @@
 </head>
 <body>
 
-  <!-- Kinetic Reticle Cursor -->
-  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-  <!-- Ambient Background Canvas & Grid Guides -->
-  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
-  <div class="grid-guides" aria-hidden="true">
-    <div class="grid-line"></div>
-    <div class="grid-line"></div>
-    <div class="grid-line"></div>
-    <div class="grid-line"></div>
-  </div>
-
-  <!-- Noise Overlay for Materiality -->
-  <div class="noise-overlay" aria-hidden="true"></div>
-
-  <!-- Skip link -->
-  <a href="#hero" class="skip-link">Direkt zum Inhalt springen</a>
+  <!-- Skip link for keyboard accessibility -->
+  <a href="#main-content" class="skip-link">Direkt zum Hauptinhalt springen</a>
 
   <!-- =====================================================================
-       NAV: Frosted capsule dock with top blur shield
+       NAVIGATION: Restrained Frosted Top Bar
        ===================================================================== -->
-  <header class="nav-shell" role="banner">
-    <div class="nav-blur-shield" aria-hidden="true"></div>
-    <nav class="nav-dock" aria-label="Hauptnavigation">
-
-      <div class="nav-left">
-        <a href="#hero" class="nav-brand" aria-label="HAULITZ — zur Startseite">
-          <span class="brand-dot"></span>
-          <span>HAULITZ</span>
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="header-brand-group">
+        <a href="#hero" class="brand-link" aria-label="HAULITZ Startseite">
+          <span class="brand-name">HAULITZ</span>
         </a>
-        <a href="https://github.com/AllenFletcherAI/Haulitz/actions"
-           target="_blank" rel="noopener noreferrer"
-           class="nav-ci-pill" title="GitHub Actions: 30/30 Tests grün">
-          <span class="ci-pulse"></span>
-          <span class="mono">30/30</span>
-        </a>
+        <span class="brand-sub mono">Referenzarchitektur</span>
       </div>
 
-      <div class="nav-links mono">
-        <a href="#document" class="nav-link">Verifikation</a>
-        <a href="#instruments" class="nav-link">Instrumente</a>
-        <a href="#colophon" class="nav-link">Architekt</a>
-      </div>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="#document" class="nav-link">Prüfpfad</a>
+        <a href="#arithmetic" class="nav-link">Cent-Arithmetik</a>
+        <a href="#pipeline" class="nav-link">ERP-Pipeline</a>
+        <a href="#benchmark" class="nav-link">Leistung</a>
+        <a href="#architect" class="nav-link">Architekt</a>
+      </nav>
 
-      <div class="nav-right">
-        <button id="btn-audio" class="nav-icon-btn" aria-label="Sound umschalten" title="Sound ein/aus">
-          <span class="eq-wrap" aria-hidden="true">
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-          </span>
-        </button>
-        <a href="mailto:allensimeonfletcher@gmail.com" class="nav-cta">Kontakt</a>
-      </div>
-
-    </nav>
-  </header>
-
-  <!-- =====================================================================
-       HERO: Architectural display typography (unbroken word-wrap)
-       ===================================================================== -->
-  <section id="hero" class="hero-section">
-    <div class="hero-inner">
-
-      <div class="hero-label mono">
-        <span class="label-dot"></span>
-        <span>Deterministic Verification Gateway · v3.3.0</span>
-      </div>
-
-      <h1 class="hero-headline">
-        <span class="hero-line" id="hero-line-1">Rechnungsfehler</span>
-        <span class="hero-line hero-line-accent" id="hero-line-2">stoppen.</span>
-      </h1>
-
-      <p class="hero-sub">
-        Cent-genaue Arithmetik, gesetzliche Steuerprüfung und SEPA-Checksummen
-        werden in <strong>0,4 ms</strong> geprüft — bevor ein einziger Datensatz
-        Ihr ERP erreicht.
-      </p>
-
-      <div class="hero-actions">
-        <button class="btn-primary" id="btn-toggle-state">
-          <span class="btn-dot btn-dot-clean"></span>
-          <span id="btn-state-label">Fehler einschleusen</span>
-        </button>
+      <div class="header-actions">
         <a href="https://github.com/AllenFletcherAI/Haulitz"
            target="_blank" rel="noopener noreferrer"
-           class="btn-ghost mono">
-          <i class="fa-brands fa-github" aria-hidden="true"></i>
-          <span>Repository</span>
+           class="nav-action-link mono" title="Quellcode auf GitHub ansehen">
+          GitHub
+        </a>
+        <a href="mailto:allensimeonfletcher@gmail.com" class="btn-header-cta">
+          Kontakt
         </a>
       </div>
-
-      <a href="#document" class="hero-scroll-cue mono" aria-label="Zur Live-Verifikation scrollen">
-        <span>Inspektion starten</span>
-        <span class="cue-arrow" aria-hidden="true">↓</span>
-      </a>
-
     </div>
-  </section>
+  </header>
 
-  <!-- =====================================================================
-       DOCUMENT: Architectural Inspection Bay with Integrated Chaos Deck
-       ===================================================================== -->
-  <section id="document" class="document-section">
-    <div class="section-inner">
+  <main id="main-content">
 
-      <div class="inspection-bay" id="inspection-bay">
-        <div class="bay-corner corner-tl">+</div>
-        <div class="bay-corner corner-tr">+</div>
-        <div class="bay-corner corner-bl">+</div>
-        <div class="bay-corner corner-br">+</div>
+    <!-- =====================================================================
+         HERO SECTION: Task-Oriented Headline, Product-First Focus
+         ===================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="section-container hero-container">
 
-        <!-- Bay Header Bar -->
-        <div class="bay-header">
-          <div class="bay-label mono">
-            <span class="label-dot label-dot-blue"></span>
-            <span>VERIFICATION GATEWAY // AUDIT STAGE</span>
-          </div>
-          <div class="bay-telemetry mono">
-            <span class="telemetry-dot"></span>
-            <span>LATENZ: 0,38 ms · GoBD-KONFORM</span>
-          </div>
+        <div class="category-tag mono">
+          <span>SAP S/4HANA &amp; GoBD-Konformität · v3.3.0</span>
         </div>
 
-        <!-- THE GLASS INVOICE CARD -->
-        <div class="invoice-card" id="invoice-card">
+        <h1 class="hero-headline">
+          Rechnungen vor der Buchung im ERP deterministisch prüfen.
+        </h1>
 
-          <!-- Specular mouse sheen -->
-          <div class="invoice-sheen" id="invoice-sheen" aria-hidden="true"></div>
+        <p class="hero-body">
+          HAULITZ verhindert Rundungsdrift, fehlerhafte Steueransätze und ungültige SEPA-Prüfziffern
+          in 0,4 Millisekunden. Alle mathematischen und gesetzlichen Regeln greifen vor der Übergabe an das Hauptbuch.
+        </p>
 
-          <!-- Verdict bar -->
-          <div class="invoice-verdict-bar" id="invoice-verdict-bar">
-            <div class="verdict-indicator">
-              <span class="verdict-pulse" id="verdict-pulse"></span>
-              <span class="verdict-id mono" id="verdict-id">PAYLOAD // DE-2026-X89</span>
+        <div class="hero-cta-group">
+          <a href="#document" class="btn-primary">
+            Live-Prüfung testen
+          </a>
+          <a href="https://github.com/AllenFletcherAI/Haulitz"
+             target="_blank" rel="noopener noreferrer"
+             class="btn-secondary mono">
+            Code auf GitHub
+          </a>
+        </div>
+
+        <div class="ci-status-strip mono">
+          <span class="ci-status-dot" aria-hidden="true"></span>
+          <span>30 von 30 gesetzlichen Prüfszenarien im CI-Test bestanden</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         PRODUCT DEMO SECTION: Pristine Software Window Interface
+         ===================================================================== -->
+    <section id="document" class="section document-section">
+      <div class="section-container">
+
+        <div class="section-header-block">
+          <span class="section-kicker mono">01 / Prüfpfad</span>
+          <h2 class="section-title">Dokumentenprüfung im laufenden Betrieb.</h2>
+          <p class="section-description">
+            Wählen Sie ein Szenario. HAULITZ prüft Steuerbeträge nach § 14 UStG, Bankverbindungen nach ISO 7064
+            und schützt die Staging-Tabelle vor Schemamutationen.
+          </p>
+        </div>
+
+        <!-- The Clean Product Frame -->
+        <div class="product-window" id="product-window">
+
+          <!-- Window Bar -->
+          <div class="window-bar">
+            <div class="window-meta">
+              <span class="doc-id mono" id="doc-id">DE-2026-X89</span>
+              <span class="doc-badge mono">Simulierter Beleg (ZUGFeRD 2.2 / XRechnung)</span>
             </div>
-            <div class="verdict-badge mono" id="verdict-badge">VERIFIED CLEAN</div>
+            <div class="window-status mono" id="window-status">
+              <span class="status-indicator-dot" id="status-indicator-dot"></span>
+              <span id="window-status-text">Freigabe erteilt (0,38 ms)</span>
+            </div>
           </div>
 
-          <!-- Invoice body -->
-          <div class="invoice-body">
+          <!-- Invoice Content Body -->
+          <div class="document-body">
 
-            <div class="invoice-meta-row">
-              <div class="invoice-field">
-                <span class="field-label">Kreditor</span>
-                <span class="field-val">Apex Cloud Infrastructure GmbH</span>
+            <div class="invoice-party-grid">
+              <div class="party-col">
+                <span class="party-label mono">Kreditor</span>
+                <span class="party-name">Apex Cloud Infrastructure GmbH</span>
               </div>
-              <div class="invoice-field">
-                <span class="field-label">SEPA IBAN</span>
-                <span class="field-val mono" id="field-iban">DE89 3704 0044 0532 0130 00</span>
+              <div class="party-col">
+                <span class="party-label mono">SEPA Bankverbindung</span>
+                <span class="party-iban mono" id="party-iban">DE89 3704 0044 0532 0130 00</span>
               </div>
             </div>
 
-            <table class="invoice-table">
+            <!-- Position Table -->
+            <table class="line-items-table">
               <thead>
                 <tr>
-                  <th>Position</th>
-                  <th class="num">Netto</th>
-                  <th class="num">USt.</th>
+                  <th scope="col">Position</th>
+                  <th scope="col" class="cell-num">Menge</th>
+                  <th scope="col" class="cell-num">Netto</th>
+                  <th scope="col" class="cell-num">USt.</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Cloud Staging Node Cluster</td>
-                  <td class="num">1.000,00 €</td>
-                  <td class="num">19 %</td>
+                  <td class="cell-num mono">10 Std.</td>
+                  <td class="cell-num mono">1.000,00 €</td>
+                  <td class="cell-num mono">19 %</td>
                 </tr>
                 <tr>
                   <td>Deterministic Ingestion Engine</td>
-                  <td class="num">2.000,00 €</td>
-                  <td class="num">19 %</td>
+                  <td class="cell-num mono">5 Liz.</td>
+                  <td class="cell-num mono">2.000,00 €</td>
+                  <td class="cell-num mono">19 %</td>
                 </tr>
                 <tr>
                   <td>Cryptographic Block Sealer</td>
-                  <td class="num">1.000,00 €</td>
-                  <td class="num">19 %</td>
+                  <td class="cell-num mono">20 Knoten</td>
+                  <td class="cell-num mono">1.000,00 €</td>
+                  <td class="cell-num mono">19 %</td>
                 </tr>
               </tbody>
             </table>
 
-            <div class="invoice-totals">
-              <div class="total-row">
-                <span>Nettosumme</span>
-                <span class="mono">4.000,00 €</span>
+            <!-- Totals & Statutory Verification -->
+            <div class="invoice-totals-box">
+              <div class="totals-line">
+                <span class="totals-label">Nettobetrag</span>
+                <span class="totals-val mono">4.000,00 €</span>
               </div>
-              <div class="total-row">
-                <span>USt. 19 % <span class="field-label">(§ 14 UStG gesetzlich)</span></span>
-                <span class="mono" id="total-vat">760,00 €</span>
+              <div class="totals-line">
+                <span class="totals-label">Umsatzsteuer (19 % gesetzlich nach § 14 UStG)</span>
+                <span class="totals-val mono" id="totals-vat">760,00 €</span>
               </div>
-              <!-- Error highlight row — hidden when clean -->
-              <div class="total-row error-row" id="error-row" aria-hidden="true">
-                <span class="error-label" id="error-label">
-                  <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                  Abweichung: Berechnet 760,00 € — Deklariert 640,00 €
-                </span>
+
+              <!-- Statutory Error Banner (Hidden when clean) -->
+              <div class="statutory-alert-box" id="statutory-alert-box" aria-hidden="true">
+                <div class="alert-icon mono">!</div>
+                <div class="alert-content">
+                  <span class="alert-heading mono" id="alert-heading">Gesetzliche Abweichung erkannt</span>
+                  <span class="alert-detail" id="alert-detail">Abweichung: Berechnet 760,00 € | Deklariert 640,00 €. Differenz: 120,00 €.</span>
+                </div>
               </div>
-              <div class="total-row total-final">
-                <span>Rechnungs-Endbetrag</span>
-                <span class="mono total-amount" id="total-gross">4.760,00 €</span>
+
+              <div class="totals-line totals-line-grand">
+                <span class="totals-label-grand">Rechnungs-Endbetrag</span>
+                <span class="totals-val-grand mono" id="totals-gross">4.760,00 €</span>
+              </div>
+            </div>
+
+            <!-- ERP Target Route Footer -->
+            <div class="document-routing-footer mono">
+              <div class="target-system" id="target-system">
+                Zielsystem: SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE)
+              </div>
+              <div class="target-delta" id="target-delta">
+                Rundungsdifferenz: 0,00 €
               </div>
             </div>
 
           </div>
 
-          <!-- Invoice footer status -->
-          <div class="invoice-footer mono">
-            <div class="footer-target" id="footer-target">
-              <i class="fa-solid fa-server" aria-hidden="true"></i>
-              <span>SAP S/4HANA · BAPI_INCOMINGINVOICE_CREATE</span>
+          <!-- Scenario Segmented Control -->
+          <div class="scenario-selector-deck">
+            <span class="selector-caption mono">Szenario auswählen:</span>
+            <div class="segmented-control" role="group" aria-label="Szenario auswählen">
+              <button class="segment-btn active" id="btn-seg-clean" data-scenario="clean">
+                01 Normaler Beleg
+              </button>
+              <button class="segment-btn" id="btn-seg-math" data-scenario="math">
+                02 Steuer-Abweichung
+              </button>
+              <button class="segment-btn" id="btn-seg-iban" data-scenario="iban">
+                03 Ungültige IBAN
+              </button>
+              <button class="segment-btn" id="btn-seg-sql" data-scenario="sql">
+                04 SQL-Angriff
+              </button>
             </div>
-            <div class="footer-status" id="footer-status">0,00 € Abweichung</div>
           </div>
 
         </div>
 
-        <!-- Integrated Chaos Deck -->
-        <div class="chaos-deck">
-          <div class="chaos-deck-label mono">
-            <i class="fa-solid fa-sliders" aria-hidden="true"></i>
-            <span>Fehlerszenario testen:</span>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION: Mathematical Proof (IEEE 754 Float vs 64-Bit Cent)
+         ===================================================================== -->
+    <section id="arithmetic" class="section arithmetic-section">
+      <div class="section-container">
+
+        <div class="section-header-block">
+          <span class="section-kicker mono">02 / Arithmetik</span>
+          <h2 class="section-title">Warum Standard-Gleitkommazahlen in Finanzdaten scheitern.</h2>
+          <p class="section-description">
+            Standard-Computerarithmetik nach IEEE 754 rundet Dezimalbrüche binär ab.
+            Bei 0,10 € + 0,20 € entsteht im Arbeitsspeicher der Wert 0,30000000000000004 €.
+            Über Tausende Buchungen kumulieren sich Rundungsdifferenzen zu steuerlichen Abweichungen.
+            HAULITZ rechnet ausschließlich in 64-Bit-Ganzzahl-Cents ohne Rundungsverlust.
+          </p>
+        </div>
+
+        <div class="math-comparison-deck">
+          <div class="math-card math-card-flawed">
+            <div class="math-card-header mono">
+              <span>Standard-Gleitkomma (IEEE 754)</span>
+              <span class="math-status-tag tag-flawed">Rundungsdrift</span>
+            </div>
+            <div class="math-card-body">
+              <div class="math-output-number mono num-tabular text-flawed" id="float-display">
+                0.30000000000000004 €
+              </div>
+              <p class="math-card-explanation">
+                Binäre Approximationsdifferenz im Arbeitsspeicher. Führt bei Massenrechnungen zu fehlerhaften Umsatzsteueransätzen.
+              </p>
+            </div>
           </div>
-          <div class="chaos-strip" role="group" aria-label="Fehlertyp auswählen">
-            <button class="chaos-pill active" id="chaos-clean" data-chaos="clean">
-              <span class="chaos-dot chaos-dot-green"></span> 01 Sauber
-            </button>
-            <button class="chaos-pill" id="chaos-math" data-chaos="math">
-              <span class="chaos-dot chaos-dot-red"></span> 02 Steuer-Drift
-            </button>
-            <button class="chaos-pill" id="chaos-iban" data-chaos="iban">
-              <span class="chaos-dot chaos-dot-amber"></span> 03 IBAN-Bruch
-            </button>
-            <button class="chaos-pill" id="chaos-sql" data-chaos="sql">
-              <span class="chaos-dot chaos-dot-purple"></span> 04 SQL-Angriff
+
+          <div class="math-card math-card-clean">
+            <div class="math-card-header mono">
+              <span>HAULITZ Cent-Arithmetik</span>
+              <span class="math-status-tag tag-clean">0,00 € Toleranz</span>
+            </div>
+            <div class="math-card-body">
+              <div class="math-output-number mono num-tabular text-clean" id="cent-display">
+                0.30 €
+              </div>
+              <p class="math-card-explanation">
+                Exakte 64-Bit-Ganzzahl-Operationen. Jeder Betrag wird ganzzahlig in Cents arretiert und erst bei der Anzeige formatiert.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transaction Multiplier Slider -->
+        <div class="math-slider-panel">
+          <div class="slider-meta-row">
+            <label for="math-slider" class="slider-label mono">
+              Simulierte Rechnungen kumulieren:
+            </label>
+            <span class="slider-value-pill mono" id="slider-counter">100</span>
+          </div>
+          <input type="range" id="math-slider" min="1" max="10000" value="100" class="apple-slider">
+          <div class="slider-scale-labels mono" aria-hidden="true">
+            <span>1 Beleg</span>
+            <span>1.000 Belege</span>
+            <span>5.000 Belege</span>
+            <span>10.000 Belege</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION: Routing Pipeline Schematic
+         ===================================================================== -->
+    <section id="pipeline" class="section pipeline-section">
+      <div class="section-container">
+
+        <div class="section-header-block">
+          <span class="section-kicker mono">03 / Pipeline</span>
+          <h2 class="section-title">Deterministische Freigabe vor dem ERP-Staging.</h2>
+          <p class="section-description">
+            Jeder Beleg durchläuft drei Prüfstationen. Fehlerhafte Datensätze werden isoliert,
+            bevor ein Datensatz in SAP S/4HANA oder eine relationale Staging-Tabelle geschrieben wird.
+          </p>
+        </div>
+
+        <div class="pipeline-schematic-board">
+          <div class="pipeline-track">
+
+            <div class="pipe-station" id="station-supplier">
+              <span class="station-step mono">Schritt 01</span>
+              <h3 class="station-title">Lieferant</h3>
+              <p class="station-detail">Eingang via ZUGFeRD 2.2 / XRechnung XML</p>
+              <span class="station-status mono" id="status-supplier">Bereit</span>
+            </div>
+
+            <div class="pipe-connector" aria-hidden="true">
+              <div class="connector-line"></div>
+            </div>
+
+            <div class="pipe-station" id="station-gateway">
+              <span class="station-step mono">Schritt 02</span>
+              <h3 class="station-title">HAULITZ Gateway</h3>
+              <p class="station-detail">Syntaktische Validierung &amp; Cent-Arithmetik</p>
+              <span class="station-status mono" id="status-gateway">0,18 ms</span>
+            </div>
+
+            <div class="pipe-connector" aria-hidden="true">
+              <div class="connector-line"></div>
+            </div>
+
+            <div class="pipe-station" id="station-sap">
+              <span class="station-step mono">Schritt 03</span>
+              <h3 class="station-title">SAP S/4HANA</h3>
+              <p class="station-detail">Atomare Freigabe via BAPI_INCOMINGINVOICE_CREATE</p>
+              <span class="station-status mono" id="status-sap">Verbucht</span>
+            </div>
+
+          </div>
+
+          <div class="pipeline-control-bar">
+            <div class="pipeline-telemetry mono" id="pipeline-telemetry">
+              System bereit: Gesamtlatenz 0,38 ms | Keine Schemamutationen
+            </div>
+            <button class="btn-primary" id="btn-run-pipeline">
+              Pipeline-Durchlauf starten
             </button>
           </div>
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- =====================================================================
+         SECTION: Benchmark Performance Facts
+         ===================================================================== -->
+    <section id="benchmark" class="section benchmark-section">
+      <div class="section-container">
 
-  <!-- =====================================================================
-       INSTRUMENTS: 2 Precision Laboratory Instruments
-       ===================================================================== -->
-  <section id="instruments" class="instruments-section">
-    <div class="section-inner">
-
-      <div class="section-header">
-        <div class="section-label mono">
-          <span class="label-dot label-dot-emerald"></span>
-          <span>Prüfinstrumente</span>
+        <div class="section-header-block">
+          <span class="section-kicker mono">04 / Durchsatz</span>
+          <h2 class="section-title">Leistung ohne Cloud-Latenz.</h2>
+          <p class="section-description">
+            Die Verifikationsregeln laufen vollständig im Browser-Client oder Edge-Worker ab.
+            Halten Sie die Taste gedrückt, um die Verarbeitungsgeschwindigkeit direkt im Browser zu testen.
+          </p>
         </div>
-        <h2 class="section-heading">Prüf&shy;mechanismen live testen.</h2>
-        <p class="section-sub">Testen Sie direkt im Browser — 100% deterministisch, ohne Server oder Login.</p>
-      </div>
 
-      <div class="instruments-grid">
-
-        <!-- Instrument 1: Math divergence -->
-        <div class="instrument-card" id="card-math">
-          <div class="instrument-header">
-            <span class="instrument-tag mono">01 · CENT-ARITHMETIK</span>
-            <h3 class="instrument-title">Float-Drift vs. exakte Cent-Math</h3>
-            <p class="instrument-desc">
-              Standard-Computer-Arithmetik: 0,10&nbsp;€ + 0,20&nbsp;€ ergibt im Speicher 0,30000000000000004&nbsp;€.
-              HAULITZ arretiert 64-Bit-Ganzzahl-Cents dauerhaft auf 0,00&nbsp;€ Toleranz.
-            </p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value mono num-tabular" id="bench-stat-count">0</div>
+            <div class="stat-label">Geprüfte Belege</div>
+            <div class="stat-sub mono">Verarbeitet im Client-Worker</div>
           </div>
 
-          <div class="math-display">
-            <div class="math-column flawed">
-              <div class="math-label mono">IEEE-754 Float</div>
-              <div class="math-value mono num-tabular" id="float-result">0.30000000000000004</div>
-              <div class="math-unit">€ (Drift)</div>
-            </div>
-            <div class="math-divider" aria-hidden="true">≠</div>
-            <div class="math-column clean">
-              <div class="math-label mono">HAULITZ Cent-Math</div>
-              <div class="math-value mono num-tabular" id="cent-result">0.30</div>
-              <div class="math-unit">€ (Exakt)</div>
-            </div>
+          <div class="stat-card">
+            <div class="stat-value mono num-tabular" id="bench-stat-latency">0,38 ms</div>
+            <div class="stat-label">Prüflatenz</div>
+            <div class="stat-sub mono">Durchschnitt pro Beleg</div>
           </div>
 
-          <div class="slider-block">
-            <div class="slider-top-row mono">
-              <span class="slider-title">Transaktionen:</span>
-              <span class="slider-badge" id="slider-qty">100</span>
-            </div>
-            <div class="slider-track-wrap">
-              <input type="range" id="math-slider" min="1" max="10000" value="100"
-                     class="clean-slider" aria-label="Anzahl der Transaktionen für Drift-Berechnung">
-              <div class="slider-ticks mono" aria-hidden="true">
-                <span>1</span>
-                <span>1k</span>
-                <span>5k</span>
-                <span>10k</span>
-              </div>
-            </div>
+          <div class="stat-card">
+            <div class="stat-value mono num-tabular">0,00 €</div>
+            <div class="stat-label">Rundungsdrift</div>
+            <div class="stat-sub mono">Bei 100.000 Belegen</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-value mono num-tabular">30 / 30</div>
+            <div class="stat-label">Gesetzliche Tests</div>
+            <div class="stat-sub mono">Automatisierte CI grün</div>
           </div>
         </div>
 
-        <!-- Instrument 2: Pipeline -->
-        <div class="instrument-card" id="card-pipeline">
-          <div class="instrument-header">
-            <span class="instrument-tag mono">02 · ROUTING-PIPELINE</span>
-            <h3 class="instrument-title">Deterministische Staging-Pipeline</h3>
-            <p class="instrument-desc">
-              Jede Rechnung durchläuft Eingang, Prüfung und Freigabe sequenziell.
-              Fehlerhafte Belege werden isoliert — kein Datenbankdatensatz wird mutiert.
-            </p>
-          </div>
-
-          <div class="pipeline-stage">
-            <div class="pipe-node" id="pipe-supplier">
-              <div class="pipe-icon"><i class="fa-solid fa-file-invoice" aria-hidden="true"></i></div>
-              <span class="pipe-label mono">Lieferant</span>
-            </div>
-            <div class="pipe-connector" id="pipe-c1" aria-hidden="true">
-              <div class="pipe-pulse" id="pulse-1"></div>
-            </div>
-            <div class="pipe-node" id="pipe-gateway">
-              <div class="pipe-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
-              <span class="pipe-label mono">HAULITZ</span>
-            </div>
-            <div class="pipe-connector" id="pipe-c2" aria-hidden="true">
-              <div class="pipe-pulse" id="pulse-2"></div>
-            </div>
-            <div class="pipe-node pipe-node-dest" id="pipe-sap">
-              <div class="pipe-icon"><i class="fa-solid fa-database" aria-hidden="true"></i></div>
-              <span class="pipe-label mono">SAP ERP</span>
-            </div>
-          </div>
-
-          <div class="pipe-telemetry mono" id="pipe-telemetry" aria-live="polite">
-            Bereit · 0,4 ms Gesamtlatenz
-          </div>
-
-          <button class="btn-pipeline" id="btn-pipeline">
-            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
-            <span>Pipeline abfeuern</span>
+        <div class="benchmark-action-panel">
+          <button class="btn-benchmark-hold" id="btn-benchmark-hold"
+                  aria-label="Gedrückt halten für Stresstest mit 5.000 Belegen pro Sekunde">
+            <span class="hold-title mono">STRESSTEST HALTEN</span>
+            <span class="hold-subtitle mono">5.000 Belege / Sekunde</span>
           </button>
+          <div class="benchmark-note mono" id="bench-note">
+            Status: Idle (Taste gedrückt halten zur kontinuierlichen Verifikation)
+          </div>
         </div>
 
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- =====================================================================
+         SECTION: Architect Dossier (Allen Simeon Fletcher)
+         ===================================================================== -->
+    <section id="architect" class="section architect-section">
+      <div class="section-container architect-container">
+
+        <div class="architect-portrait-col">
+          <div class="portrait-wrapper">
+            <img src="assets/allen_fletcher.jpg"
+                 alt="Allen Simeon Fletcher"
+                 class="architect-img"
+                 width="200" height="200">
+          </div>
+          <div class="architect-status-card mono">
+            <div class="status-row">
+              <span class="status-bullet"></span>
+              <span class="status-txt">Sofort einsatzbereit</span>
+            </div>
+            <div class="status-row-detail">
+              EU Blue Card (§ 18g AufenthG)
+            </div>
+          </div>
+        </div>
+
+        <div class="architect-info-col">
+          <span class="section-kicker mono">05 / Systemarchitekt</span>
+          <h2 class="architect-name">Allen Simeon Fletcher</h2>
+          <p class="architect-title mono">Solutions &amp; Integration Engineer</p>
+
+          <p class="architect-bio">
+            HAULITZ wurde als referenzielle Ingenieursarchitektur entwickelt, um aufzuzeigen, wie
+            deterministische Cent-Arithmetik, gesetzliche Steuerprüfungen und bankkonforme Prüfziffern
+            vor dem ERP-Staging greifen müssen.
+          </p>
+
+          <div class="specs-table-block">
+            <div class="spec-entry">
+              <span class="spec-title mono">STANDORT</span>
+              <span class="spec-data">Deutschland (Reise- und umzugsbereit)</span>
+            </div>
+            <div class="spec-entry">
+              <span class="spec-title mono">ARBEITSERLAUBNIS</span>
+              <span class="spec-data">EU Blue Card (§ 18g AufenthG) · Sofort verfügbar</span>
+            </div>
+            <div class="spec-entry">
+              <span class="spec-title mono">SPRACHEN</span>
+              <span class="spec-data">Deutsch B2/C1 · Englisch C2</span>
+            </div>
+            <div class="spec-entry">
+              <span class="spec-title mono">ABSCHLUSS</span>
+              <span class="spec-data">M.Sc. Artificial Intelligence (Anabin H+)</span>
+            </div>
+            <div class="spec-entry">
+              <span class="spec-title mono">KERNKOMPETENZEN</span>
+              <span class="spec-data">SAP S/4HANA BAPIs · C# .NET 8 · T-SQL · Node.js · REST/EDI Gateways</span>
+            </div>
+          </div>
+
+          <div class="architect-actions">
+            <a href="mailto:allensimeonfletcher@gmail.com?subject=HAULITZ%20Dossier%20%26%20CV"
+               class="btn-primary">
+              Lebenslauf anfordern
+            </a>
+            <button class="btn-secondary mono" id="btn-copy-email">
+              E-Mail kopieren
+            </button>
+            <a href="https://github.com/AllenFletcherAI"
+               target="_blank" rel="noopener noreferrer"
+               class="btn-secondary mono" title="GitHub Profil von Allen Simeon Fletcher">
+              GitHub Profil
+            </a>
+            <a href="https://www.linkedin.com/in/allen-fletcher/"
+               target="_blank" rel="noopener noreferrer"
+               class="btn-secondary mono" title="LinkedIn Profil von Allen Simeon Fletcher">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
 
   <!-- =====================================================================
-       BENCHMARK: 5,000 TPS Phosphor Oscilloscope & High-Throughput Engine
-       ===================================================================== -->
-  <section id="benchmark" class="benchmark-section">
-    <div class="section-inner benchmark-inner">
-
-      <div class="benchmark-left">
-        <div class="section-label mono">
-          <span class="label-dot label-dot-amber"></span>
-          <span>Benchmark</span>
-        </div>
-        <h2 class="section-heading">5.000 Belege<br>pro Sekunde.</h2>
-        <p class="section-sub">
-          Halten Sie den Auslöser gedrückt. Der Browser-interne Worker verarbeitet
-          synthetische Rechnungsdaten direkt im Client ohne Server oder Cloud.
-        </p>
-        <div class="bench-metrics mono">
-          <div class="bench-metric">
-            <div class="bm-val num-tabular" id="bm-count">0</div>
-            <div class="bm-key">Geprüfte Belege</div>
-          </div>
-          <div class="bench-metric">
-            <div class="bm-val num-tabular" id="bm-latency">—</div>
-            <div class="bm-key">Latenz (ms)</div>
-          </div>
-          <div class="bench-metric">
-            <div class="bm-val num-tabular text-emerald">0,00 €</div>
-            <div class="bm-key">Rundungsdrift</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="benchmark-right">
-        <button class="bench-trigger" id="btn-bench"
-                aria-label="Gedrückt halten für Stresstest">
-          <div class="bench-ring" aria-hidden="true"></div>
-          <i class="fa-solid fa-bolt bench-bolt" aria-hidden="true"></i>
-          <span class="bench-label">HALTEN</span>
-          <span class="bench-sub mono">5.000 TPS</span>
-        </button>
-        <div class="bench-canvas-card">
-          <div class="canvas-header mono">
-            <span>OSZILLOSKOP // DURCHSATZ</span>
-            <span class="active-badge" id="bench-active-tag">IDLE</span>
-          </div>
-          <canvas id="bench-canvas" aria-label="Durchsatz-Wellenform" width="400" height="90"></canvas>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       COLOPHON: Executive System Architect Presentation
-       ===================================================================== -->
-  <section id="colophon" class="colophon-section">
-    <div class="section-inner colophon-inner">
-
-      <!-- Left Column: Portrait & Verification Badges -->
-      <div class="colophon-left">
-        <div class="portrait-frame">
-          <img src="assets/allen_fletcher.jpg"
-               alt="Allen Simeon Fletcher"
-               class="portrait-img"
-               width="160" height="160">
-          <div class="portrait-ring" aria-hidden="true"></div>
-        </div>
-
-        <div class="portrait-capsules mono">
-          <div class="portrait-pill availability-pill">
-            <span class="live-beacon"></span>
-            <span>Sofort einsatzbereit</span>
-          </div>
-          <div class="portrait-pill ci-pill">
-            <i class="fa-solid fa-circle-check text-emerald" aria-hidden="true"></i>
-            <span>30/30 Tests verifiziert</span>
-          </div>
-          <div class="portrait-stack-tags">
-            <span class="stack-tag">SAP S/4HANA</span>
-            <span class="stack-tag">C# .NET 8</span>
-            <span class="stack-tag">T-SQL</span>
-            <span class="stack-tag">Node.js</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column: Specs & Direct Actions -->
-      <div class="colophon-right">
-        <div class="section-label mono">
-          <span class="label-dot label-dot-emerald"></span>
-          <span>Systemarchitekt</span>
-        </div>
-        <h2 class="colophon-name">Allen Simeon Fletcher</h2>
-        <p class="colophon-role mono">Solutions &amp; Integration Engineer</p>
-
-        <p class="colophon-statement">
-          Dieses System demonstriert, wie deterministische Cent-Arithmetik, gesetzliche
-          Steuerprüfungen und kryptografische Prüfpfade zusammenwirken, um Fehler
-          <em>vor</em> dem ERP-Staging zu stoppen.
-        </p>
-
-        <div class="colophon-specs mono">
-          <div class="spec-row">
-            <span class="spec-key">STANDORT</span>
-            <span class="spec-val">Deutschland · Reise- &amp; umzugsbereit</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">ARBEITSERLAUBNIS</span>
-            <span class="spec-val text-emerald">EU Blue Card (§ 18g AufenthG) · Sofort verfügbar</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">SPRACHEN</span>
-            <span class="spec-val">Deutsch B2/C1 · Englisch C2</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">ABSCHLUSS</span>
-            <span class="spec-val">M.Sc. Artificial Intelligence · Anabin H+</span>
-          </div>
-        </div>
-
-        <div class="colophon-actions">
-          <a href="mailto:allensimeonfletcher@gmail.com?subject=HAULITZ%20Dossier%20%26%20CV"
-             class="btn-primary">
-            <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
-            <span>Lebenslauf anfordern</span>
-          </a>
-          <button class="btn-ghost mono" id="btn-copy-email">
-            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-            <span>E-Mail kopieren</span>
-          </button>
-          <a href="https://github.com/AllenFletcherAI"
-             target="_blank" rel="noopener noreferrer"
-             class="btn-icon" title="GitHub Profil — Allen Simeon Fletcher" aria-label="GitHub">
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/allen-fletcher/"
-             target="_blank" rel="noopener noreferrer"
-             class="btn-icon" title="LinkedIn" aria-label="LinkedIn">
-            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       FOOTER
+       FOOTER: Clean, Statutory, Minimal
        ===================================================================== -->
   <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner mono">
-      <span>© 2026 HAULITZ · Allen Simeon Fletcher · MIT · Zero Tracking</span>
-      <div class="footer-links">
-        <a href="impressum.html" class="f-link">Impressum</a>
-        <span aria-hidden="true">·</span>
-        <a href="datenschutz.html" class="f-link">Datenschutz</a>
-        <span aria-hidden="true">·</span>
+    <div class="footer-container">
+      <div class="footer-meta mono">
+        <span>© 2026 HAULITZ. Entwickelt von Allen Simeon Fletcher. MIT-Lizenz.</span>
+        <span>100 % DSGVO-konform. Keine Cookies, kein externes Tracking, keine Drittanbieter-CDNs.</span>
+      </div>
+      <div class="footer-nav mono">
+        <a href="impressum.html" class="footer-link">Impressum</a>
+        <a href="datenschutz.html" class="footer-link">Datenschutz</a>
         <a href="https://github.com/AllenFletcherAI/Haulitz"
-           target="_blank" rel="noopener noreferrer" class="f-link">GitHub Repository</a>
+           target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Repository</a>
       </div>
     </div>
   </footer>
 
-  <!-- Toast -->
-  <div id="toast" class="toast mono" role="status" aria-live="polite">
-    <i class="fa-solid fa-check" id="toast-icon" aria-hidden="true"></i>
-    <span id="toast-msg">Kopiert!</span>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-card mono" role="status" aria-live="polite">
+    <span id="toast-text">E-Mail-Adresse kopiert</span>
   </div>
 
 </body>

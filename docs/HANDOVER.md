@@ -186,19 +186,27 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Procedural Audio Synth Engine**: Mechanical clicks, alerts, chimes, and scroll-velocity modulated low drone.
   - **Zero External CDNs / 100% DSGVO Compliant**: Native CSS 3D perspectives, native Canvas, zero bundle bloat.
 
-- **v6.1 Architectural Editorial System & Visual Balance Overhaul (ADR-017)**:
-  - Eliminated word-wrap break in hero: "Rechnungsfehler" now renders as a single unbroken line paired with accent "stoppen.".
-  - Full-width frosted blur shield (`.nav-blur-shield`) behind top capsule dock; `scroll-margin-top: 110px` on all sections to prevent content collisions.
-  - Rich obsidian background (`#070a13`) with 12-column hairline guide lines and tactile film-grain noise.
-  - Architectural Inspection Bay (`.inspection-bay`) with corner crosshairs, header telemetry, and integrated lower chaos deck.
-  - Fixed IBAN and state logic: strictly isolated presets; no cross-state pollution or invalid IBANs colored green.
-  - Non-breaking tabular formatting on float/cent math (`white-space: nowrap`) to eliminate multi-line number wraps.
-  - Luminous phosphor green oscilloscope on benchmark canvas with active pulse and glow.
-  - Architect colophon: fixed personal GitHub profile link to `https://github.com/AllenFletcherAI`; eliminated 300px void under portrait with Executive Status badges (`🟢 Sofort einsatzbereit`, `30/30 CI Passed`, and stack tags).
-  - All 30 deterministic test scenarios pass at 100%.
+- **v7.0 Apple-Style Marketing Restraint & Anti-Slop System Overhaul (ADR-018)**:
+  - Completely purged all "vibe-coded AI slop" defaults per AI Action Letter #81:
+    - Deleted kinetic cursor reticle and lerp tracking scripts.
+    - Deleted ambient canvas particle web, background hairline grid lines, and SVG noise overlays.
+    - Deleted procedural Web Audio synth engine, sound toggles, and equalizer bars.
+    - Deleted fake CRT oscilloscope and scanline canvas.
+    - Deleted bento grid cards, purple/neon glow shadows, and rainbow foil top edges.
+    - Replaced Inter and JetBrains Mono with native Apple system font stack (`-apple-system, "SF Pro Display", ...`) and system monospace.
+    - Eliminated em dashes and slogan formulas in favor of direct, task-oriented German copy.
+  - Built pristine Apple-restrained product interface:
+    - Warm neutral canvas (`#f5f5f7`), pure white document cards (`#ffffff`), deep charcoal text (`#1d1d1f`), and single precision blue accent (`#0071e3`).
+    - Task-based hero: "Rechnungen vor der Buchung im ERP deterministisch prüfen."
+    - Product-first verification window with clear statutory alert box (§ 14 UStG, ISO 7064 MOD-97) and authentic Apple-style segmented control (`[ 01 Normaler Beleg | 02 Steuer-Abweichung | 03 Ungültige IBAN | 04 SQL-Angriff ]`).
+    - Side-by-side mathematical evidence card comparing IEEE-754 binary float drift against HAULITZ 64-bit integer cent math with clean transaction slider.
+    - Step-by-step 3-station staging pipeline schematic (Lieferant -> HAULITZ Gateway -> SAP S/4HANA BAPI).
+    - Client throughput statistics (5.000 Belege/s, 0,38 ms Latenz) with hold-to-test client calculation.
+    - Restrained editorial colophon for Allen Simeon Fletcher with verified personal GitHub profile link (`https://github.com/AllenFletcherAI`).
+  - Passed all 30/30 automated statutory tests with 100% precision.
 
 ## 2. What We Are Working On Now
-- Commit and push v6.1 to GitHub remote `origin main`.
+- Commit and push v7.0 to GitHub remote `origin main`.
 - Verify GitHub Actions CI run.
 - Verify live edge deployment on Cloudflare Workers.
 
@@ -207,7 +215,7 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
 
 ## 4. What To Do Next
 - Verify live edge delivery on `https://haulitz.allensimeonfletcher.workers.dev/`.
-- Review mobile and ultra-wide viewports.
+- Review mobile viewports (375px, 414px) and desktop Safari/Chrome rendering.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main` at commit `a30a6a1`.
