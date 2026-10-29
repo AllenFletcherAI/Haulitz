@@ -136,7 +136,6 @@
       themeText: document.getElementById('theme-text'),
       langToggleBtn: document.getElementById('lang-toggle-btn'),
       langBtnText: document.getElementById('lang-btn-text'),
-      hdrPingMs: document.getElementById('hdr-ping-ms'),
       clerkAuthContainer: document.getElementById('clerk-auth-container'),
 
       activeDomainBadge: document.getElementById('active-domain-badge'),
@@ -156,7 +155,6 @@
       dossierFooterNote: document.getElementById('dossier-footer-note'),
 
       labelCockpitTitle: document.getElementById('label-cockpit-title'),
-      auditLatencyBadge: document.getElementById('audit-latency-badge'),
       auditStatusBanner: document.getElementById('audit-status-banner'),
       statusIcon: document.getElementById('status-icon'),
       statusTextTitle: document.getElementById('status-text-title'),
@@ -174,20 +172,14 @@
 
       cfoRecapBox: document.getElementById('cfo-recap-box'),
       labelCfoRecapTitle: document.getElementById('label-cfo-recap-title'),
-      btnCopyCfoRecap: document.getElementById('btn-copy-cfo-recap'),
-      btnCopyCfoText: document.getElementById('btn-copy-cfo-text'),
       cfoRecapContent: document.getElementById('cfo-recap-content'),
 
       legalMemoBox: document.getElementById('legal-memo-box'),
       labelMemoHeader: document.getElementById('label-memo-header'),
-      btnCopyMemo: document.getElementById('btn-copy-memo'),
-      btnCopyMemoText: document.getElementById('btn-copy-memo-text'),
       legalMemoContent: document.getElementById('legal-memo-content'),
 
       gobdSealLabel: document.getElementById('gobd-seal-label'),
       gobdCurrentHash: document.getElementById('gobd-current-hash'),
-      btnCommitToDb: document.getElementById('btn-commit-to-db'),
-      btnCommitText: document.getElementById('btn-commit-text'),
 
       toast: document.getElementById('toast-notification'),
       toastMessage: document.getElementById('toast-message'),
@@ -238,7 +230,6 @@
         <div style="display:flex; align-items:center; gap:0.5rem; background:var(--color-surface); border:1px solid var(--color-border); padding:0.25rem 0.6rem; border-radius:var(--radius-md);">
           <img src="${user.imageUrl}" style="width:20px; height:20px; border-radius:50%;" alt="User avatar"/>
           <span style="font-size:0.75rem; font-weight:600; color:var(--color-text-main);">${displayName}</span>
-          <span class="rule-badge pass" style="font-size:0.6rem;">${orgName}</span>
           <button id="clerk-sign-out-btn" style="color:var(--color-text-muted); font-size:0.75rem; padding:0 0.2rem;" title="Sign out">
             <i class="fa-solid fa-right-from-bracket"></i>
           </button>
@@ -304,7 +295,7 @@
     // Header info
     if (DOM.activeDomainBadge) DOM.activeDomainBadge.textContent = domain.number;
     if (DOM.activeDomainTitle) DOM.activeDomainTitle.textContent = isDe ? (domain.germanTitle || domain.title) : domain.title;
-    if (DOM.activeDomainTargets) DOM.activeDomainTargets.textContent = `${dict.employers}: ${domain.targetEmployers} | ${dict.law}: ${domain.law}`;
+    if (DOM.activeDomainTargets) DOM.activeDomainTargets.textContent = `${dict.law}: ${domain.law}`;
     if (DOM.dossierDocType) DOM.dossierDocType.textContent = domain.documentType;
 
     let auditResult = { isValid: true, rules: [], discrepancies: [], variance: 0 };
@@ -958,24 +949,7 @@
     DOM.btnScenarioB?.addEventListener('click', () => selectScenario('scenario_b'));
     DOM.btnScenarioC?.addEventListener('click', () => selectScenario('scenario_c'));
 
-    DOM.btnCommitToDb?.addEventListener('click', commitAuditToFrankfurtDB);
     DOM.btnDispatchDispute?.addEventListener('click', dispatchDisputeEmail);
-
-    DOM.btnCopyMemo?.addEventListener('click', () => {
-      if (DOM.legalMemoContent) {
-        navigator.clipboard.writeText(DOM.legalMemoContent.textContent).then(() => {
-          showToast('Copied notice to clipboard!');
-        });
-      }
-    });
-
-    DOM.btnCopyCfoRecap?.addEventListener('click', () => {
-      if (state.lastCfoRecapText) {
-        navigator.clipboard.writeText(state.lastCfoRecapText).then(() => {
-          showToast('Copied CFO recap!');
-        });
-      }
-    });
 
     // Theme Toggle
     DOM.themeToggleBtn?.addEventListener('click', () => {
@@ -997,21 +971,6 @@
       applyLanguageUI();
       runVerification();
     });
-
-    // Header Industry Switcher Dropdown
-    const hdrDropdown = document.getElementById('hdr-industry-dropdown');
-    const hdrDropdownBtn = document.getElementById('hdr-industry-dropdown-btn');
-    if (hdrDropdownBtn && hdrDropdown) {
-      hdrDropdownBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        hdrDropdown.classList.toggle('open');
-      });
-      document.addEventListener('click', (e) => {
-        if (!hdrDropdown.contains(e.target)) {
-          hdrDropdown.classList.remove('open');
-        }
-      });
-    }
   }
 
   function updateThemeUI() {
@@ -1039,20 +998,11 @@
     if (DOM.labelDossierTitle) DOM.labelDossierTitle.textContent = dict.dossierTitle;
     if (DOM.dossierFooterNote) DOM.dossierFooterNote.innerHTML = `<i class="fa-solid fa-shield-halved text-emerald"></i> ${dict.dossierFooter}`;
     if (DOM.labelCockpitTitle) DOM.labelCockpitTitle.textContent = dict.cockpitTitle;
-    if (DOM.auditLatencyBadge) DOM.auditLatencyBadge.textContent = dict.latencyBadge;
     if (DOM.checklistHeadingLabel) DOM.checklistHeadingLabel.textContent = dict.checklistHeading;
     if (DOM.labelCfoRecapTitle) DOM.labelCfoRecapTitle.textContent = dict.cfoRecapTitle;
-    if (DOM.btnCopyCfoText) DOM.btnCopyCfoText.textContent = dict.copyCfo;
     if (DOM.labelMemoHeader) DOM.labelMemoHeader.textContent = dict.legalMemoHeader;
-    if (DOM.btnCopyMemoText) DOM.btnCopyMemoText.textContent = dict.copyMemo;
     if (DOM.gobdSealLabel) DOM.gobdSealLabel.innerHTML = `<i class="fa-solid fa-fingerprint text-emerald"></i> ${dict.gobdTitle}`;
-    if (DOM.btnCommitText) DOM.btnCommitText.textContent = dict.commitBtn;
     if (DOM.btnDispatchDisputeText) DOM.btnDispatchDisputeText.textContent = dict.dispatchBtn;
-
-    const hdrDropdownLabel = document.getElementById('hdr-industry-dropdown-label');
-    if (hdrDropdownLabel) hdrDropdownLabel.textContent = dict.hdrDropdownLabel;
-    const labelModalOpen = document.getElementById('label-dropdown-modal-open');
-    if (labelModalOpen) labelModalOpen.textContent = dict.hdrDropdownModal;
 
     updateThemeUI();
   }
@@ -1065,7 +1015,6 @@
     applyLanguageUI();
     setupEventListeners();
     runVerification();
-    fetchFrankfurtPing();
   }
 
   if (document.readyState === 'loading') {

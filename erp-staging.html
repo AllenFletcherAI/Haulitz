@@ -61,35 +61,6 @@
     </div>
 
     <div class="header-controls">
-      <!-- Optimal Header Industry Switcher Dropdown -->
-      <div class="industry-dropdown-container" id="hdr-industry-dropdown">
-        <button class="industry-dropdown-btn" id="hdr-industry-dropdown-btn" aria-label="Select industry workspace">
-          <i class="fa-solid fa-layer-group text-emerald"></i>
-          <span id="hdr-industry-dropdown-label">Workspaces (10)</span>
-          <i class="fa-solid fa-chevron-down" style="font-size:0.65rem; margin-left:2px;"></i>
-        </button>
-        <div class="industry-dropdown-menu" id="hdr-industry-dropdown-menu">
-          <a href="fintech.html" class="dropdown-item "><span class="dropdown-item-num">01</span> <i class="fa-solid fa-file-invoice-dollar"></i> FinTech &amp; Invoicing</a>
-          <a href="logistics.html" class="dropdown-item "><span class="dropdown-item-num">02</span> <i class="fa-solid fa-ship"></i> Freight &amp; Maritime</a>
-          <a href="supply-chain.html" class="dropdown-item "><span class="dropdown-item-num">03</span> <i class="fa-solid fa-industry"></i> Supply Chain Triad</a>
-          <a href="insurtech.html" class="dropdown-item "><span class="dropdown-item-num">04</span> <i class="fa-solid fa-shield-halved"></i> InsurTech Claims</a>
-          <a href="legaltech.html" class="dropdown-item "><span class="dropdown-item-num">05</span> <i class="fa-solid fa-scale-balanced"></i> LegalTech (LkSG)</a>
-          <a href="healthtech.html" class="dropdown-item "><span class="dropdown-item-num">06</span> <i class="fa-solid fa-hospital-user"></i> HealthTech (GOÄ)</a>
-          <a href="ecommerce.html" class="dropdown-item "><span class="dropdown-item-num">07</span> <i class="fa-solid fa-cart-shopping"></i> E-Commerce WMS</a>
-          <a href="cleantech.html" class="dropdown-item "><span class="dropdown-item-num">08</span> <i class="fa-solid fa-bolt"></i> CleanTech Solar</a>
-          <a href="proptech.html" class="dropdown-item "><span class="dropdown-item-num">09</span> <i class="fa-solid fa-building"></i> PropTech Real Estate</a>
-          <a href="erp-staging.html" class="dropdown-item active"><span class="dropdown-item-num">10</span> <i class="fa-solid fa-database"></i> ERP Staging Armor</a>
-          <div class="dropdown-divider"></div>
-          <a href="index.html?select_industry=true" class="dropdown-item text-emerald"><i class="fa-solid fa-table-cells"></i> <span id="label-dropdown-modal-open">Vollbild-Auswahl öffnen...</span></a>
-        </div>
-      </div>
-
-      <!-- Live Frankfurt Database Latency Beacon -->
-      <div class="live-beacon">
-        <span class="beacon-dot"></span>
-        <span class="font-mono-code">Frankfurt eu-central-1: <strong id="hdr-ping-ms" class="text-emerald">...</strong></span>
-      </div>
-
       <!-- Clerk Enterprise Authentication Container -->
       <div class="clerk-auth-container" id="clerk-auth-container">
         <button id="clerk-sign-in-btn" class="clerk-btn" aria-label="Enterprise Sign In">
@@ -160,7 +131,6 @@
         <div class="right-cockpit-pane">
           <div class="pane-title-bar">
             <span class="pane-title"><i class="fa-solid fa-gauge-high"></i> <span id="label-cockpit-title">Deterministisches Prüf-Cockpit</span></span>
-            <span class="rule-badge pass font-mono-code" id="audit-latency-badge">&lt; 2ms AUSFÜHRUNG</span>
           </div>
 
           <!-- Status Banner -->
@@ -203,9 +173,6 @@
               <span class="cfo-recap-title" id="label-cfo-recap-title">
                 <i class="fa-solid fa-briefcase"></i> CFO-EXEKUTIV-ZUSAMMENFASSUNG
               </span>
-              <button class="btn-copy-action" id="btn-copy-cfo-recap">
-                <i class="fa-regular fa-copy"></i> <span id="btn-copy-cfo-text">Kopieren</span>
-              </button>
             </div>
             <div class="cfo-recap-content" id="cfo-recap-content">
               <!-- Bullets -->
@@ -216,9 +183,6 @@
           <div class="legal-memo-box" id="legal-memo-box" style="display: none;">
             <div class="legal-memo-header">
               <span><i class="fa-solid fa-file-contract"></i> <span id="label-memo-header">AUTOMATISIERTE GESETZLICHE MÄNGELRÜGE</span></span>
-              <button class="btn-copy-action" id="btn-copy-memo">
-                <i class="fa-regular fa-copy"></i> <span id="btn-copy-memo-text">Mahnung kopieren</span>
-              </button>
             </div>
             <div class="legal-memo-content" id="legal-memo-content">
               <!-- Legal notice text -->
@@ -229,15 +193,9 @@
 
       <!-- GoBD SHA-256 Cryptographic Seal Strip -->
       <div class="gobd-seal-strip">
-        <div class="gobd-info">
+        <div class="gobd-info" style="width: 100%;">
           <span class="gobd-seal-label" id="gobd-seal-label"><i class="fa-solid fa-fingerprint text-emerald"></i> GoBD § 147 AO Kryptografisches Prüfsiegel:</span>
           <span class="gobd-hash-display font-mono-code" id="gobd-current-hash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
-        </div>
-        <div class="gobd-actions">
-          <button class="btn-commit-audit" id="btn-commit-to-db">
-            <i class="fa-solid fa-database"></i>
-            <span id="btn-commit-text">In Frankfurt Neon DB festschreiben</span>
-          </button>
         </div>
       </div>
     </div>

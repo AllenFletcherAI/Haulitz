@@ -63,35 +63,6 @@
     </a>
 
     <div class="header-controls">
-      <!-- Optimal Header Industry Switcher Dropdown -->
-      <div class="industry-dropdown-container" id="hdr-industry-dropdown">
-        <button class="industry-dropdown-btn" id="hdr-industry-dropdown-btn" aria-label="Select industry workspace">
-          <i class="fa-solid fa-layer-group text-emerald"></i>
-          <span id="hdr-industry-dropdown-label">Workspaces (10)</span>
-          <i class="fa-solid fa-chevron-down" style="font-size:0.65rem; margin-left:2px;"></i>
-        </button>
-        <div class="industry-dropdown-menu" id="hdr-industry-dropdown-menu">
-          <a href="fintech.html" class="dropdown-item"><span class="dropdown-item-num">01</span> <i class="fa-solid fa-file-invoice-dollar"></i> FinTech &amp; Invoicing</a>
-          <a href="logistics.html" class="dropdown-item"><span class="dropdown-item-num">02</span> <i class="fa-solid fa-ship"></i> Freight &amp; Maritime</a>
-          <a href="supply-chain.html" class="dropdown-item"><span class="dropdown-item-num">03</span> <i class="fa-solid fa-industry"></i> Supply Chain Triad</a>
-          <a href="insurtech.html" class="dropdown-item"><span class="dropdown-item-num">04</span> <i class="fa-solid fa-shield-halved"></i> InsurTech Claims</a>
-          <a href="legaltech.html" class="dropdown-item"><span class="dropdown-item-num">05</span> <i class="fa-solid fa-scale-balanced"></i> LegalTech (LkSG)</a>
-          <a href="healthtech.html" class="dropdown-item"><span class="dropdown-item-num">06</span> <i class="fa-solid fa-hospital-user"></i> HealthTech (GOÄ)</a>
-          <a href="ecommerce.html" class="dropdown-item"><span class="dropdown-item-num">07</span> <i class="fa-solid fa-cart-shopping"></i> E-Commerce WMS</a>
-          <a href="cleantech.html" class="dropdown-item"><span class="dropdown-item-num">08</span> <i class="fa-solid fa-bolt"></i> CleanTech Solar</a>
-          <a href="proptech.html" class="dropdown-item"><span class="dropdown-item-num">09</span> <i class="fa-solid fa-building"></i> PropTech Real Estate</a>
-          <a href="erp-staging.html" class="dropdown-item"><span class="dropdown-item-num">10</span> <i class="fa-solid fa-database"></i> ERP Staging Armor</a>
-          <div class="dropdown-divider"></div>
-          <a href="#" id="dropdown-open-modal-trigger" class="dropdown-item text-emerald"><i class="fa-solid fa-table-cells"></i> <span id="label-dropdown-modal-open">Vollbild-Auswahl öffnen...</span></a>
-        </div>
-      </div>
-
-      <!-- Live Frankfurt Database Latency Beacon -->
-      <div class="live-beacon">
-        <span class="beacon-dot"></span>
-        <span id="beacon-text" class="font-mono-code">Frankfurt eu-central-1: <strong id="hdr-ping-ms" class="text-emerald">Pinging...</strong></span>
-      </div>
-
       <!-- Clerk Enterprise Authentication Container -->
       <div class="clerk-auth-container" id="clerk-auth-container">
         <button id="clerk-sign-in-btn" class="clerk-btn" aria-label="Enterprise Sign In">
@@ -111,26 +82,6 @@
     </div>
   </header>
 
-  <!-- Master Top-Level 3-Tab Bar -->
-  <nav class="master-tab-bar" aria-label="Master Navigation">
-    <div class="tab-bar-container">
-      <button class="nav-tab-btn active" id="tab-btn-cockpit" data-tab="cockpit">
-        <i class="fa-solid fa-compass"></i>
-        <span id="tab-text-cockpit">1. Über Haulitz &amp; Gründer</span>
-        <span class="tab-pill-badge" id="tab-pill-cockpit">Architektur</span>
-      </button>
-      <button class="nav-tab-btn" id="tab-btn-portal" data-tab="portal">
-        <i class="fa-solid fa-database"></i>
-        <span id="tab-text-portal">2. Frankfurt GoBD Ledger</span>
-        <span class="tab-pill-badge text-emerald" id="tab-pill-portal">Live DB</span>
-      </button>
-      <button class="nav-tab-btn" id="tab-btn-sops" data-tab="sops">
-        <i class="fa-solid fa-book-bookmark"></i>
-        <span id="tab-text-sops">3. Bereitstellungs-SOPs</span>
-        <span class="tab-pill-badge" id="tab-pill-sops">SAP S/4HANA</span>
-      </button>
-    </div>
-  </nav>
 
   <!-- Clean Executive Lead (Zero Clutter, Zero Exaggeration) -->
   <section class="executive-hud" style="padding: 2.25rem 1.5rem 1.5rem; text-align: center;">
@@ -147,21 +98,13 @@
   <!-- Main Container -->
   <main class="main-container">
     
-    <!-- ====================================================================
-         TAB 1: PRODUCT OVERVIEW, FOUNDER & 10 WORKSPACES
-         ==================================================================== -->
-    <section class="tab-pane active" id="tab-cockpit">
-
-      <div class="founder-overview-section">
+    <div class="founder-overview-section">
         
         <!-- Section 1: What is Haulitz? -->
         <div class="about-haulitz-card">
           <div class="about-header">
             <div>
               <h2 class="about-lead-title" id="label-what-is-title">Was ist HAULITZ?</h2>
-            </div>
-            <div class="rule-badge pass font-mono-code" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
-              <i class="fa-solid fa-code"></i> Code-basierte Validierung
             </div>
           </div>
 
@@ -200,10 +143,6 @@
           </div>
           
           <div class="founder-details">
-            <div class="founder-tag">
-              <i class="fa-solid fa-user-check text-emerald"></i> <span id="label-founder-tag">Gründer &amp; Software-Entwickler</span>
-            </div>
-            
             <h2 class="founder-name">Allen Simeon Fletcher</h2>
             <div class="founder-role" id="label-founder-role">Software Developer</div>
             
@@ -362,208 +301,6 @@
           </a>
         </div>
       </div>
-
-    </section>
-
-    <!-- ====================================================================
-         TAB 2: REAL FRANKFURT GoBD AUDIT LEDGER (Zero Dummy Values)
-         ==================================================================== -->
-    <section class="tab-pane" id="tab-portal" style="display: none;">
-      <div class="portal-container">
-        
-        <!-- Live Ledger Summary Grid -->
-        <div class="portal-top-grid">
-          <!-- Live Frankfurt Status Card -->
-          <div class="health-card">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:0.85rem; font-weight:700; color:var(--color-text-main);">
-                <i class="fa-solid fa-server text-emerald"></i> Frankfurt Live Database Status
-              </span>
-              <span class="rule-badge pass">VERBUNDEN</span>
-            </div>
-            
-            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.78rem;">
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4rem;">
-                <span style="color:var(--color-text-muted);">Region</span>
-                <strong class="font-mono-code text-emerald">AWS Europe (Frankfurt eu-central-1)</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4rem;">
-                <span style="color:var(--color-text-muted);">Datenbank-Engine</span>
-                <strong class="font-mono-code">PostgreSQL 18.6 (Neon Serverless)</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4rem;">
-                <span style="color:var(--color-text-muted);">Revisionskonformität</span>
-                <strong class="font-mono-code text-emerald">GoBD § 147 AO &amp; DSGVO</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4rem;">
-                <span style="color:var(--color-text-muted);">Transaktions-Alerting</span>
-                <strong class="font-mono-code">Resend API Edge</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; padding-top: 0.2rem;">
-                <span style="color:var(--color-text-muted);">Letzter Siegel-Zeitstempel</span>
-                <strong class="font-mono-code" id="portal-last-seal-time">Lade...</strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- Real Audit Telemetry -->
-          <div class="portal-results-card">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <h3 style="font-size:1.05rem; font-weight:800; color:var(--color-text-main);">
-                  <i class="fa-solid fa-chart-line text-emerald"></i> Reale Datenbank-Kennzahlen (Frankfurt)
-                </h3>
-                <p style="font-size:0.75rem; color:var(--color-text-muted);">
-                  Echtzeit-Abfrage direkt aus der PostgreSQL-Tabelle <code>audit_logs</code>
-                </p>
-              </div>
-              <button class="btn-copy-action" id="btn-refresh-ledger">
-                <i class="fa-solid fa-rotate-right"></i> Aktualisieren
-              </button>
-            </div>
-
-            <div class="results-metric-grid">
-              <div class="results-tile">
-                <span class="results-tile-title">Gesamt-Siegel</span>
-                <span class="results-tile-val font-mono-code text-emerald" id="ledger-total-count">1</span>
-                <span class="results-tile-sub">GoBD SHA-256 Blöcke</span>
-              </div>
-              <div class="results-tile">
-                <span class="results-tile-title">Freigegebene Belege</span>
-                <span class="results-tile-val font-mono-code text-emerald" id="ledger-clean-count">1</span>
-                <span class="results-tile-sub">Status: VERIFIED_CLEAN</span>
-              </div>
-              <div class="results-tile">
-                <span class="results-tile-title">In Quarantäne Gestoppt</span>
-                <span class="results-tile-val font-mono-code text-crimson" id="ledger-quarantine-count">0</span>
-                <span class="results-tile-sub">Status: QUARANTINE_HOLD</span>
-              </div>
-              <div class="results-tile">
-                <span class="results-tile-title">Gemeldete Diskrepanzen</span>
-                <span class="results-tile-val font-mono-code text-amber" id="ledger-dispute-count">0</span>
-                <span class="results-tile-sub">Dispute-Tickets protokolliert</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Real Frankfurt Audit Ledger Table -->
-        <div class="ledger-table-container">
-          <div class="ledger-table-header">
-            <div>
-              <span style="font-weight: 800; font-size: 0.95rem; color: var(--color-text-main);">
-                <i class="fa-solid fa-fingerprint text-emerald"></i> Kryptografische GoBD § 147 AO Prüfkette
-              </span>
-              <p style="font-size: 0.72rem; color: var(--color-text-muted); margin-top: 0.15rem;">
-                Unveränderliches Ledger in PostgreSQL Frankfurt mit SHA-256 Blockverkettung
-              </p>
-            </div>
-            <button class="btn-copy-action" id="btn-export-csv-real">
-              <i class="fa-solid fa-file-csv"></i> Ledger exportieren (.CSV)
-            </button>
-          </div>
-
-          <table class="ledger-table">
-            <thead>
-              <tr>
-                <th>Block ID</th>
-                <th>Zeitstempel (UTC)</th>
-                <th>Branche</th>
-                <th>Beleg-Referenz</th>
-                <th>Status</th>
-                <th>Abweichungen</th>
-                <th>GoBD SHA-256 Prüfsiegel</th>
-              </tr>
-            </thead>
-            <tbody id="ledger-table-body">
-              <tr>
-                <td class="font-mono-code">#1</td>
-                <td class="font-mono-code">Genesis Block</td>
-                <td>System</td>
-                <td class="font-mono-code">GENESIS-BLOCK-0000</td>
-                <td><span class="rule-badge pass">VERIFIED_CLEAN</span></td>
-                <td>0</td>
-                <td class="font-mono-code text-emerald" style="font-size:0.68rem;">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         TAB 3: DEPLOYMENT SOPS & SAP S/4HANA STAGING INTEGRATION
-         ==================================================================== -->
-    <section class="tab-pane" id="tab-sops" style="display: none;">
-      <div class="sops-container">
-        <!-- SOP 1: Parameterized SQL Procedure -->
-        <div class="sop-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight: 800; font-size: 0.95rem; color: var(--color-text-main);">
-              <i class="fa-solid fa-database text-blue"></i> 1. SAP S/4HANA Staging Procedure (T-SQL)
-            </span>
-            <button class="btn-copy-action" id="btn-copy-tsql-sop">
-              <i class="fa-regular fa-copy"></i> Kopieren
-            </button>
-          </div>
-          <p style="font-size: 0.74rem; color: var(--color-text-muted);">
-            Revisionssichere gespeicherte Prozedur zur Übergabe verifizierter Belege an das SAP-Zwischenlager.
-          </p>
-          <pre class="sop-code-snippet" id="snippet-tsql">-- Microsoft SQL Server 2022 / SAP Side-Car Staging
-CREATE OR ALTER PROCEDURE sp_Haulitz_StageVerifiedDocument
-    @p_DomainId VARCHAR(50),
-    @p_DocumentRef VARCHAR(100),
-    @p_GrossAmount DECIMAL(18, 4),
-    @p_VatAmount DECIMAL(18, 4),
-    @p_Sha256Seal CHAR(64),
-    @p_PreviousSeal CHAR(64)
-AS
-BEGIN
-    SET NOCOUNT ON;
-    -- GoBD § 147 AO: Verify seal chain integrity before insert
-    INSERT INTO dbo.STAGING_INVOICE_INBOUND (
-        DomainId, DocumentRef, GrossAmount, VatAmount,
-        Sha256Seal, PreviousSeal, Status, StagedAt
-    )
-    VALUES (
-        @p_DomainId, @p_DocumentRef, @p_GrossAmount, @p_VatAmount,
-        @p_Sha256Seal, @p_PreviousSeal, 'AUTHORIZED_FOR_POSTING', SYSUTCDATETIME()
-    );
-END;</pre>
-        </div>
-
-        <!-- SOP 2: C# .NET 8 Integration SDK -->
-        <div class="sop-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight: 800; font-size: 0.95rem; color: var(--color-text-main);">
-              <i class="fa-brands fa-microsoft text-emerald"></i> 2. C# .NET 8 Enterprise Ingestion SDK
-            </span>
-            <button class="btn-copy-action" id="btn-copy-csharp-sop">
-              <i class="fa-regular fa-copy"></i> Kopieren
-            </button>
-          </div>
-          <p style="font-size: 0.74rem; color: var(--color-text-muted);">
-            Hochperformanter Microservice-Client zur deterministischen Vorabprüfung im Backend.
-          </p>
-          <pre class="sop-code-snippet" id="snippet-csharp">// Haulitz Gateway C# .NET 8 Client SDK
-public class HaulitzVerificationGateway
-{
-    private readonly HttpClient _httpClient;
-    private const string FrankfurtGateway = "https://haulitz.allensimeonfletcher.workers.dev/api";
-
-    public HaulitzVerificationGateway(HttpClient httpClient) => _httpClient = httpClient;
-
-    public async Task<VerificationResult> CommitAuditAsync(AuditRecord record)
-    {
-        var response = await _httpClient.PostAsJsonAsync($"{FrankfurtGateway}/audit", record);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<VerificationResult>();
-    }
-}</pre>
-        </div>
-      </div>
-    </section>
 
   </main>
 

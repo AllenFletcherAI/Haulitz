@@ -232,107 +232,13 @@
       themeText: document.getElementById('theme-text'),
       langToggleBtn: document.getElementById('lang-toggle-btn'),
       langBtnText: document.getElementById('lang-btn-text'),
-      beaconText: document.getElementById('beacon-text'),
-      hdrPingMs: document.getElementById('hdr-ping-ms'),
       clerkAuthContainer: document.getElementById('clerk-auth-container'),
-      
-      tabBtnCockpit: document.getElementById('tab-btn-cockpit'),
-      tabBtnPortal: document.getElementById('tab-btn-portal'),
-      tabBtnSops: document.getElementById('tab-btn-sops'),
-      tabPaneCockpit: document.getElementById('tab-cockpit'),
-      tabPanePortal: document.getElementById('tab-portal'),
-      tabPaneSops: document.getElementById('tab-sops'),
-      
-      tabTextCockpit: document.getElementById('tab-text-cockpit'),
-      tabTextPortal: document.getElementById('tab-text-portal'),
-      tabTextSops: document.getElementById('tab-text-sops'),
-      tabPillCockpit: document.getElementById('tab-pill-cockpit'),
-      tabPillPortal: document.getElementById('tab-pill-portal'),
-      tabPillSops: document.getElementById('tab-pill-sops'),
       
       heroHeading: document.getElementById('hero-heading'),
       heroSubheading: document.getElementById('hero-subheading'),
-      kpiLabelCapital: document.getElementById('kpi-label-capital'),
-      kpiValLedger: document.getElementById('kpi-val-ledger'),
-      kpiSubCapital: document.getElementById('kpi-sub-capital'),
-      kpiLabelTx: document.getElementById('kpi-label-tx'),
-      kpiValLatency: document.getElementById('kpi-val-latency'),
-      kpiSubTx: document.getElementById('kpi-sub-tx'),
-      kpiLabelSla: document.getElementById('kpi-label-sla'),
-      kpiValSla: document.getElementById('kpi-val-sla'),
-      kpiSubSla: document.getElementById('kpi-sub-sla'),
-      kpiLabelRelay: document.getElementById('kpi-label-relay'),
-      kpiValRelay: document.getElementById('kpi-val-relay'),
-      kpiSubRelay: document.getElementById('kpi-sub-relay'),
 
       domainSectionTitle: document.getElementById('domain-section-title'),
       domainSectionDesc: document.getElementById('domain-section-desc'),
-      domainGrid: document.getElementById('domain-grid-container'),
-      
-      activeDomainBadge: document.getElementById('active-domain-badge'),
-      activeDomainTitle: document.getElementById('active-domain-title'),
-      activeDomainTargets: document.getElementById('active-domain-targets'),
-      
-      btnOpenStandalone: document.getElementById('btn-open-standalone'),
-      labelOpenStandalone: document.getElementById('label-open-standalone'),
-      btnScenarioA: document.getElementById('btn-scenario-a'),
-      btnScenarioB: document.getElementById('btn-scenario-b'),
-      btnScenarioC: document.getElementById('btn-scenario-c'),
-      labelScenarioA: document.getElementById('label-scenario-a'),
-      labelScenarioB: document.getElementById('label-scenario-b'),
-      labelScenarioC: document.getElementById('label-scenario-c'),
-      
-      labelDossierTitle: document.getElementById('label-dossier-title'),
-      dossierDocType: document.getElementById('dossier-doc-type'),
-      dossierContent: document.getElementById('dossier-card-content'),
-      dossierFooterNote: document.getElementById('dossier-footer-note'),
-      
-      labelCockpitTitle: document.getElementById('label-cockpit-title'),
-      auditLatencyBadge: document.getElementById('audit-latency-badge'),
-      auditStatusBanner: document.getElementById('audit-status-banner'),
-      statusIcon: document.getElementById('status-icon'),
-      statusTextTitle: document.getElementById('status-text-title'),
-      statusTextSubtitle: document.getElementById('status-text-subtitle'),
-      statusPillBadge: document.getElementById('status-pill-badge'),
-      
-      checklistHeadingLabel: document.getElementById('checklist-heading-label'),
-      ruleChecklist: document.getElementById('rule-checklist-container'),
-      
-      varianceCard: document.getElementById('variance-card'),
-      varianceCardTitle: document.getElementById('variance-card-title'),
-      varianceText: document.getElementById('variance-text'),
-      btnDispatchDispute: document.getElementById('btn-dispatch-dispute'),
-      btnDispatchDisputeText: document.getElementById('btn-dispatch-dispute-text'),
-      
-      cfoRecapBox: document.getElementById('cfo-recap-box'),
-      labelCfoRecapTitle: document.getElementById('label-cfo-recap-title'),
-      btnCopyCfoRecap: document.getElementById('btn-copy-cfo-recap'),
-      btnCopyCfoText: document.getElementById('btn-copy-cfo-text'),
-      cfoRecapContent: document.getElementById('cfo-recap-content'),
-      
-      legalMemoBox: document.getElementById('legal-memo-box'),
-      labelMemoHeader: document.getElementById('label-memo-header'),
-      btnCopyMemo: document.getElementById('btn-copy-memo'),
-      btnCopyMemoText: document.getElementById('btn-copy-memo-text'),
-      legalMemoContent: document.getElementById('legal-memo-content'),
-      
-      gobdCurrentHash: document.getElementById('gobd-current-hash'),
-      btnCommitToDb: document.getElementById('btn-commit-to-db'),
-      btnCommitText: document.getElementById('btn-commit-text'),
-      
-      portalLastSealTime: document.getElementById('portal-last-seal-time'),
-      ledgerTotalCount: document.getElementById('ledger-total-count'),
-      ledgerCleanCount: document.getElementById('ledger-clean-count'),
-      ledgerQuarantineCount: document.getElementById('ledger-quarantine-count'),
-      ledgerDisputeCount: document.getElementById('ledger-dispute-count'),
-      ledgerTableBody: document.getElementById('ledger-table-body'),
-      btnRefreshLedger: document.getElementById('btn-refresh-ledger'),
-      btnExportCsvReal: document.getElementById('btn-export-csv-real'),
-      
-      btnCopyTsqlSop: document.getElementById('btn-copy-tsql-sop'),
-      btnCopyCsharpSop: document.getElementById('btn-copy-csharp-sop'),
-      snippetTsql: document.getElementById('snippet-tsql'),
-      snippetCsharp: document.getElementById('snippet-csharp'),
       
       toast: document.getElementById('toast-notification'),
       toastMessage: document.getElementById('toast-message'),
@@ -421,7 +327,6 @@
         <div style="display:flex; align-items:center; gap:0.5rem; background:var(--color-surface); border:1px solid var(--color-border); padding:0.25rem 0.6rem; border-radius:var(--radius-md);">
           <img src="${user.imageUrl}" style="width:20px; height:20px; border-radius:50%;" alt="User avatar"/>
           <span style="font-size:0.75rem; font-weight:600; color:var(--color-text-main);">${displayName}</span>
-          <span class="rule-badge pass" style="font-size:0.6rem;">${orgName}</span>
           <button id="clerk-sign-out-btn" style="color:var(--color-text-muted); font-size:0.75rem; padding:0 0.2rem;" title="Sign out">
             <i class="fa-solid fa-right-from-bracket"></i>
           </button>
@@ -505,27 +410,7 @@
    * 4. Master Tab Switching
    */
   function setupTabs() {
-    const tabs = [
-      { btn: DOM.tabBtnCockpit, pane: DOM.tabPaneCockpit, id: 'cockpit' },
-      { btn: DOM.tabBtnPortal, pane: DOM.tabPanePortal, id: 'portal' },
-      { btn: DOM.tabBtnSops, pane: DOM.tabPaneSops, id: 'sops' }
-    ];
-
-    tabs.forEach(tab => {
-      if (!tab.btn) return;
-      tab.btn.addEventListener('click', () => {
-        tabs.forEach(t => {
-          t.btn.classList.toggle('active', t.id === tab.id);
-          if (t.pane) t.pane.style.display = t.id === tab.id ? 'block' : 'none';
-        });
-        state.currentTab = tab.id;
-
-        if (tab.id === 'portal') {
-          fetchLedgerStats();
-          fetchFrankfurtPing();
-        }
-      });
-    });
+    // Top-level tabs removed in favor of direct unified gateway layout
   }
 
   const domainPages = {
@@ -1632,37 +1517,12 @@
     document.documentElement.lang = state.currentLang;
 
     if (DOM.langBtnText) DOM.langBtnText.textContent = dict.langBtn;
-    if (DOM.tabTextCockpit) DOM.tabTextCockpit.textContent = dict.tabCockpit;
-    if (DOM.tabTextPortal) DOM.tabTextPortal.textContent = dict.tabPortal;
-    if (DOM.tabTextSops) DOM.tabTextSops.textContent = dict.tabSops;
-    if (DOM.tabPillCockpit) DOM.tabPillCockpit.textContent = dict.tabPillCockpit;
-    if (DOM.tabPillPortal) DOM.tabPillPortal.textContent = dict.tabPillPortal;
-    if (DOM.tabPillSops) DOM.tabPillSops.textContent = dict.tabPillSops;
 
     if (DOM.heroHeading) DOM.heroHeading.innerHTML = `HAULITZ &mdash; <span class="gradient-text">${dict.heroHeading.split('—')[1] || dict.heroHeading}</span>`;
     if (DOM.heroSubheading) DOM.heroSubheading.textContent = dict.heroSubheading;
 
-    if (DOM.kpiLabelCapital) DOM.kpiLabelCapital.textContent = dict.kpiLedgerLabel;
-    if (DOM.kpiSubCapital) DOM.kpiSubCapital.innerHTML = dict.kpiLedgerSub;
-    if (DOM.kpiLabelTx) DOM.kpiLabelTx.textContent = dict.kpiLatencyLabel;
-    if (DOM.kpiSubTx) DOM.kpiSubTx.innerHTML = dict.kpiLatencySub;
-    if (DOM.kpiLabelSla) DOM.kpiLabelSla.textContent = dict.kpiSlaLabel;
-    if (DOM.kpiSubSla) DOM.kpiSubSla.innerHTML = dict.kpiSlaSub;
-    if (DOM.kpiLabelRelay) DOM.kpiLabelRelay.textContent = dict.kpiRelayLabel;
-    if (DOM.kpiValRelay) DOM.kpiValRelay.textContent = dict.kpiRelayVal;
-    if (DOM.kpiSubRelay) DOM.kpiSubRelay.innerHTML = dict.kpiRelaySub;
-
     if (DOM.domainSectionTitle) DOM.domainSectionTitle.innerHTML = dict.domainTitle;
     if (DOM.domainSectionDesc) DOM.domainSectionDesc.textContent = dict.domainDesc;
-    if (DOM.labelDossierTitle) DOM.labelDossierTitle.textContent = dict.dossierTitle;
-    if (DOM.labelCockpitTitle) DOM.labelCockpitTitle.textContent = dict.cockpitTitle;
-    if (DOM.auditLatencyBadge) DOM.auditLatencyBadge.textContent = dict.latencyBadge;
-    if (DOM.checklistHeadingLabel) DOM.checklistHeadingLabel.innerHTML = dict.checklistHeading;
-    if (DOM.labelOpenStandalone) {
-      DOM.labelOpenStandalone.textContent = state.currentLang === 'de' ? 'Dedizierte Vollbild-Seite' : 'Dedicated Fullscreen Page';
-    }
-    if (DOM.btnCommitText) DOM.btnCommitText.textContent = dict.commitBtn;
-    if (DOM.btnDispatchDisputeText) DOM.btnDispatchDisputeText.textContent = dict.dispatchBtn;
 
     // Helper functions for updating element contents
     const setElemText = (id, text) => {
@@ -1674,12 +1534,7 @@
       if (el) el.innerHTML = html;
     };
 
-    // Tab 1: Product Showcase & Founder Section
-    setElemText('label-workspaces-banner-tag', dict.workspacesBannerTag);
-    setElemText('label-workspaces-banner-title', dict.workspacesBannerTitle);
-    setElemText('label-workspaces-banner-desc', dict.workspacesBannerDesc);
-    setElemText('btn-launch-workspaces-text', dict.btnLaunchWorkspaces);
-    setElemText('label-what-is-tag', dict.whatIsTag);
+    // Product Showcase & Founder Section
     setElemText('label-what-is-title', dict.whatIsTitle);
     setElemHTML('label-what-is-p1', dict.whatIsP1);
     setElemHTML('label-what-is-p2', dict.whatIsP2);
@@ -1690,7 +1545,6 @@
     setElemText('pillar-3-title', dict.pillar3Title);
     setElemText('pillar-3-desc', dict.pillar3Desc);
 
-    setElemText('label-founder-tag', dict.founderTag);
     setElemText('label-founder-role', dict.founderRole);
     setElemHTML('label-founder-bio', dict.founderBio);
     setElemHTML('label-founder-bio2', dict.founderBio2);
@@ -1706,11 +1560,8 @@
 
     setElemText('selector-modal-title', dict.selectorTitle);
     setElemText('selector-modal-subtitle', dict.selectorSub);
-    setElemText('hdr-industry-dropdown-label', dict.hdrDropdownLabel);
-    setElemText('label-dropdown-modal-open', dict.hdrDropdownModal);
 
     updateThemeUI();
-    updateScenarioButtonLabels();
   }
 
   /**
