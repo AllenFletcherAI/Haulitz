@@ -1776,6 +1776,120 @@ body {
   }
 }
 
+/* ==========================================================================
+   CREATIVE ENGINEERING & AWARD-TIER INTERACTIVE STYLES
+   (Inspired by Casa di Solare, NEXUSMAG, BLNK, TechyScouts, ALIEN Design)
+   ========================================================================== */
+.ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+}
+
+/* Kinetic Magnetic Cursor */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--color-emerald);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px var(--color-emerald);
+  transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.25s var(--ease-spring), height 0.25s var(--ease-spring), border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.cursor-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #030712;
+  display: none;
+}
+
+.custom-cursor-ring.cursor-audit {
+  width: 82px;
+  height: 32px;
+  border-radius: 9999px;
+  background: var(--color-emerald);
+  border-color: transparent;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+}
+.custom-cursor-ring.cursor-audit .cursor-label {
+  display: block;
+}
+
+.custom-cursor-ring.cursor-hover {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(56, 189, 248, 0.6);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+@media (hover: none) or (pointer: coarse) {
+  .custom-cursor-dot, .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* Holographic Specular & Foil (BLNK & Casa di Solare Standard) */
+.glass-specular-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle 350px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.09) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.glass-holo-foil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.8) 25%, rgba(56, 189, 248, 0.8) 50%, rgba(168, 85, 247, 0.8) 75%, transparent 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pipeline-node.node-firing .node-icon {
+  border-color: var(--color-emerald);
+  background: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 25px var(--color-emerald);
+  transform: scale(1.15);
+  transition: all 0.2s var(--ease-spring);
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .laser-beam, .pulse-beam, .brand-pulse {

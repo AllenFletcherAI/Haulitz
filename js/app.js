@@ -717,6 +717,194 @@
   }
 
   // =========================================================================
+  // 10. KINETIC MAGNETIC CURSOR (NEXUSMAG & ALIEN DESIGN STANDARD)
+  // =========================================================================
+  function initKineticCursor() {
+    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    const label = document.getElementById('cursor-label');
+    if (!dot || !ring) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    });
+
+    function lerpCursor() {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(lerpCursor);
+    }
+    requestAnimationFrame(lerpCursor);
+
+    // Interactive element detection
+    document.querySelectorAll('button, a, input, .switch-pill, .btn-chaos').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.classList.remove('cursor-hover');
+      });
+    });
+
+    // Audit target detection (Numbers, IBANs, Hashes, Code)
+    document.querySelectorAll('.font-mono-code, .doc-table td, .seal-hash, .total-amount').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.classList.add('cursor-audit');
+        if (label) label.textContent = '[+] AUDIT';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.classList.remove('cursor-audit');
+      });
+    });
+  }
+
+  // =========================================================================
+  // 11. AMBIENT PARTICLES CANVAS (TECHYSCOUTS & CASA DI SOLARE STANDARD)
+  // =========================================================================
+  function initAmbientParticles() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const canvas = document.getElementById('ambient-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const count = Math.min(45, Math.floor((width * height) / 25000));
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 1.5 + 0.8
+      });
+    }
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw lines between proximate particles
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            ctx.strokeStyle = `rgba(16, 185, 129, ${0.12 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particle dots
+      for (let i = 0; i < count; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.4)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(renderParticles);
+    }
+    requestAnimationFrame(renderParticles);
+  }
+
+  // =========================================================================
+  // 12. SPECULAR LIGHTING & INTERACTIVE PIPELINE
+  // =========================================================================
+  function initSpecularAndPipeline() {
+    const doc = document.getElementById('glass-document');
+    if (doc) {
+      doc.addEventListener('mousemove', (e) => {
+        const rect = doc.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        doc.style.setProperty('--mouse-x', `${x}%`);
+        doc.style.setProperty('--mouse-y', `${y}%`);
+      });
+    }
+
+    const fireBtn = document.getElementById('btn-fire-pipeline');
+    const nodeSup = document.getElementById('node-supplier');
+    const nodeGate = document.getElementById('node-gateway');
+    const nodeSap = document.getElementById('node-sap');
+    const nodeQuar = document.getElementById('node-quarantine');
+    const telemetry = document.getElementById('pipeline-telemetry');
+
+    if (fireBtn) {
+      fireBtn.addEventListener('click', () => {
+        const isClean = document.getElementById('switch-verified')?.classList.contains('active');
+        sound.playClick();
+
+        if (telemetry) telemetry.innerHTML = '<span class="text-blue">INGESTION: PAYLOAD_RECVD (0.02ms)</span>';
+        nodeSup?.classList.add('node-firing');
+
+        setTimeout(() => {
+          nodeSup?.classList.remove('node-firing');
+          nodeGate?.classList.add('node-firing');
+          sound.playClick();
+          if (telemetry) telemetry.innerHTML = '<span class="text-emerald">AST_PARSER: CENT_MATH &amp; MOD-97 (0.06ms)</span>';
+
+          setTimeout(() => {
+            nodeGate?.classList.remove('node-firing');
+            if (isClean) {
+              nodeSap?.classList.add('node-firing');
+              sound.playChime();
+              if (telemetry) telemetry.innerHTML = '<span class="text-emerald">ROUTING: SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE) &middot; FREIGEGEBEN (0.12ms)</span>';
+              showToast('Beleg erfolgreich an SAP S/4HANA übergeben');
+            } else {
+              nodeQuar?.classList.add('node-firing');
+              sound.playAlert();
+              if (telemetry) telemetry.innerHTML = '<span class="text-crimson">ROUTING: QUARANTÄNE (HGB § 377 RÜGEOBLIEGENHEIT) &middot; GESTOPPT (0.12ms)</span>';
+              showToast('Fehlerhafter Beleg in Quarantäne isoliert', 'fa-solid fa-lock text-crimson');
+            }
+
+            setTimeout(() => {
+              nodeSap?.classList.remove('node-firing');
+              nodeQuar?.classList.remove('node-firing');
+            }, 1200);
+
+          }, 450);
+        }, 350);
+      });
+    }
+  }
+
+  // =========================================================================
   // DOM READY BOOTSTRAP
   // =========================================================================
   document.addEventListener('DOMContentLoaded', () => {
@@ -727,6 +915,9 @@
     initCommandPalette();
     initCopyButtons();
     initLenisScroll();
+    initKineticCursor();
+    initAmbientParticles();
+    initSpecularAndPipeline();
   });
 
 })();

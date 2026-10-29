@@ -66,6 +66,15 @@
 </head>
 <body class="bg-obsidian text-main">
 
+  <!-- Ambient Particle Canvas (TechyScouts & Casa di Solare Standard) -->
+  <canvas id="ambient-particles" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Kinetic Magnetic Cursor (NEXUSMAG & ALIEN Design Standard) -->
+  <div class="custom-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="cursor-ring" aria-hidden="true">
+    <span class="cursor-label font-mono-code" id="cursor-label"></span>
+  </div>
+
   <!-- Skip to Content for Accessibility -->
   <a href="#main-content" class="skip-to-content-link">Direkt zum Hauptinhalt springen</a>
 
@@ -223,6 +232,10 @@
         <div class="document-perspective-box" id="perspective-box">
           <div class="glass-document" id="glass-document">
             
+            <!-- Specular Highlight & Holographic Sheen (BLNK & Casa di Solare Standard) -->
+            <div class="glass-specular-highlight" id="glass-specular" aria-hidden="true"></div>
+            <div class="glass-holo-foil" aria-hidden="true"></div>
+
             <!-- Laser Scanner Beam -->
             <div class="laser-beam" id="laser-beam" aria-hidden="true"></div>
 
@@ -523,6 +536,11 @@
           <div class="pipeline-telemetry font-mono-code" id="pipeline-telemetry">
             STATUS: 100% Determinismus &middot; 0 Schemamutationen
           </div>
+
+          <button class="btn-micro" id="btn-fire-pipeline" style="margin-top:0.75rem; width:100%;">
+            <i class="fa-solid fa-play text-emerald"></i>
+            <span>Pipeline-Paket abfeuern (Echtzeit-Durchlauf)</span>
+          </button>
         </div>
 
         <!-- Instrument 4: Native Web Crypto SHA-256 Ledger -->

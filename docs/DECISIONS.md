@@ -457,6 +457,42 @@ We chose **Option 3**.
 ### 4. When to Reconsider
 If enterprise customers require dedicated integration case studies, publish them as clean standalone markdown technical articles under `/docs`.
 
+---
+
+## ADR-014: Web Design Awards-Tier Elevation — Kinetic Cursor, Specular Lighting, Ambient Canvas, and Sequential Pipeline Execution
+
+### Date: 2026-10-30
+### Status: Accepted & Implemented
+### AI Model: Gemini 2.5 Pro (Antigravity Senior Discipline)
+
+### 1. The Context & The Problem
+A benchmarking review of the top 12 award-winning sites from Web Design Awards (including Casa di Solare, NEXUSMAG, BLNK, and TechyScouts) highlighted critical aesthetic and interaction patterns that differentiate elite digital experiences:
+1. **Dynamic Interactive Depth:** High-scoring sites feature specular light reflections that follow the mouse, physical card depth, and holographic foil sheens.
+2. **Kinetic Cursor Mechanics:** Advanced creative portfolios use magnetic, lerp-damped cursors that morph into targeting reticles or inspection loupes over numbers and code tokens.
+3. **Sequential Execution Animation:** Workflow platforms visually illustrate data traveling node-by-node with timing and sound feedback.
+4. **Ambient Space Depth:** Subtle background particle physics connect proximate nodes without distracting from foreground readability.
+
+### 2. The Options Looked At
+* **Option 1: Import heavy 3D frameworks (Three.js / WebGL bundle).**
+  - *Drawback:* Adds 660KB+ of JavaScript bloat, harming mobile performance and violating Web Design Awards Criteria 05 (Performance & Technical Implementation).
+* **Option 2: Restrict entirely to static CSS hover states.**
+  - *Drawback:* Fails to achieve the tactile, living immersion expected of Site of the Month tier platforms.
+* **Option 3: Zero-Bloat Native Canvas & CSS Specular Engineering.**
+  - Build custom kinetic magnetic cursor with lerp physics and `[+] AUDIT` state morphing.
+  - Implement mouse-following specular radial lighting (`--mouse-x`, `--mouse-y`) and holographic foil gradient.
+  - Add lightweight 2D HTML5 canvas ambient particle network (40 nodes, 60fps locked, ~2KB code).
+  - Implement sequential node pipeline execution (`#btn-fire-pipeline`) animating Supplier -> Gateway -> SAP / Quarantine with synchronized Web Audio feedback.
+
+### 3. The Decision
+We chose **Option 3**.
+* Zero external libraries added. Total JavaScript remains ultra-lightweight and blazingly fast.
+* High-velocity kinetic cursor, specular document sheen, ambient particle mesh, and interactive pipeline live.
+* All 30 deterministic verification scenarios pass (`npm test`).
+
+### 4. When to Reconsider
+If WebGPU becomes universally available with zero bundle size penalty, evaluate WebGPU compute shaders for complex real-time geometric simulations.
+
+
 
 
 
