@@ -6,6 +6,8 @@
   "scripts": {
     "test": "node tests/verify_haulitz.js",
     "generate:workspaces": "node scripts/generate_domain_pages.js",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev",
     "start": "python -m http.server 8000"
   },
   "keywords": [

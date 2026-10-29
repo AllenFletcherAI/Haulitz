@@ -383,6 +383,43 @@ We chose **Option 3**. All improvements implemented, verified by automated unit 
 ### 4. When to Reconsider
 If multi-tenant team accounts or commercial SaaS subscriptions are formally introduced, upgrade the architecture to an enterprise SSO provider under a formal DPA.
 
+---
+
+## ADR-012: Cloudflare Workers Assets Configuration, Explicit Worker Entry Point, and Edge Routing Determinism
+
+### Date: 2026-10-30
+### Status: Accepted & Implemented
+### AI Model: Gemini 2.5 Pro (Antigravity Senior Discipline)
+
+### 1. The Context & The Problem
+When deploying the repository to Cloudflare Workers with Static Assets (`workers.dev`), the absence of a root `wrangler.jsonc` file caused build and routing failures:
+1. **Missing Worker Entry Point:** In the absence of explicit configuration, `npx wrangler deploy` in the Cloudflare CI pipeline failed to identify `_worker.js` as the User Worker entry point.
+2. **Asset Routing Hijacking:** By default, Cloudflare Workers Assets evaluates static file paths before invoking the Worker (`run_worker_first: false`). This bypassed the edge security guard, caused `/api/ping` and telemetry routes to return 404, and prevented `withSecurityHeaders()` from attaching HSTS and strict CSP headers to static assets.
+3. **Repository Cleanliness:** Package deployment and local preview scripts (`wrangler deploy`, `wrangler dev`) were not formalized in `package.json`.
+
+### 2. The Options Looked At
+* **Option 1: Rely on Cloudflare Dashboard GUI settings.**
+  - *Drawback:* Violates Infrastructure-as-Code principles. Settings are lost or hidden from reviewers cloning the repository.
+* **Option 2: Revert to legacy Cloudflare Pages `_routes.json`.**
+  - *Drawback:* Cloudflare Pages is transitioning towards unified Workers with Static Assets. Adding deprecated Pages-only manifests creates technical debt.
+* **Option 3: Standardize on Root `wrangler.jsonc` with `run_worker_first: true`.**
+  - Define `wrangler.jsonc` pinning `name: "haulitz"`, `main: "_worker.js"`, `compatibility_date: "2026-10-23"`, `nodejs_compat`, and `assets: { directory: ".", binding: "ASSETS", run_worker_first: true }`.
+  - Add `"deploy": "wrangler deploy"` and `"preview": "wrangler dev"` to `package.json`.
+
+### 3. The Decision
+We chose **Option 3**.
+* Root `wrangler.jsonc` explicitly specifies `main: "_worker.js"`, `assets.directory: "."`, and `assets.run_worker_first: true`.
+* All inbound requests route through `_worker.js` first:
+  1. The security guard terminates requests to `/.git`, `/.env`, and internal files with HTTP 403.
+  2. Edge API routes (`/api/ping`, `/api/stats`, `/api/audit`) execute deterministically.
+  3. Clean workspace routes (`/workspaces/:domain`) resolve seamlessly.
+  4. Static assets are served via `env.ASSETS.fetch()` wrapped with `withSecurityHeaders()` (HSTS, CSP, nosniff, SAMEORIGIN).
+* Verified via `npx wrangler deploy --dry-run` and automated test suite (30/30 scenarios pass).
+
+### 4. When to Reconsider
+If custom domain apex routing (`haulitz.de` or `haulitz.com`) is provisioned on Cloudflare, add the `routes` array configuration to `wrangler.jsonc`.
+
+
 
 
 

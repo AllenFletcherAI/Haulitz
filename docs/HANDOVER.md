@@ -142,16 +142,22 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Architectural Clarification**: Clarified that the statutory verifier engine is written in Node.js while the enterprise staging driver is written in C# .NET 8.
   - **Updated Statutory Legal References**: Refined references to `§ 5 DDG (ehemals § 5 TMG)` and expanded zero-cookie/zero-CDN disclosures in `datenschutz.html`.
 
+- **Cloudflare Workers Assets Configuration & Edge Routing Determinism (ADR-012)**:
+  - **Root `wrangler.jsonc` Manifest**: Created configuration pinning `name: "haulitz"`, `main: "_worker.js"`, `nodejs_compat`, and `assets: { directory: ".", binding: "ASSETS", run_worker_first: true }`.
+  - **Edge Security & Routing Guarantee**: With `run_worker_first: true`, all incoming edge traffic passes through `_worker.js` first, guaranteeing 403 on internal files, deterministic execution of `/api/ping` and telemetry, and uniform application of `withSecurityHeaders()` to all assets.
+  - **NPM Deployment Automation**: Added `"deploy": "wrangler deploy"` and `"preview": "wrangler dev"` to `package.json`.
+  - **Test Suite Pass**: All 30/30 scenarios verified with 100% precision.
+
 ## 2. What We Are Working On Now
-- Stage all files, commit with clean message under ADR-011, and push to GitHub remote `origin main`.
-- Verify live edge deployment on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
+- Commit and push `wrangler.jsonc`, `package.json`, `docs/DECISIONS.md`, and `docs/HANDOVER.md` under ADR-012.
+- Await Cloudflare Workers build deployment triggered by git push to `main`.
 
 ## 3. Broken Or Dangerous Items
 - None. All 30 automated statutory and mathematical test scenarios pass with zero regressions.
 
 ## 4. What To Do Next
-- Verify GitHub Actions workflow run on `https://github.com/AllenFletcherAI/Haulitz/actions`.
-- Test live endpoint caching and self-hosted font delivery.
+- Verify Cloudflare deployment build status on Cloudflare dashboard or live edge.
+- Re-check `https://haulitz.allensimeonfletcher.workers.dev/` once the deployment finishes.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main`.
