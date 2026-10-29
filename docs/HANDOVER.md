@@ -186,18 +186,35 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Procedural Audio Synth Engine**: Mechanical clicks, alerts, chimes, and scroll-velocity modulated low drone.
   - **Zero External CDNs / 100% DSGVO Compliant**: Native CSS 3D perspectives, native Canvas, zero bundle bloat.
 
+- **v6.0 Ruthless Purge — Single Glass Invoice, Editorial Layout, 2 Master Instruments (ADR-016)**:
+  - Deleted the broken v5.0 pinned 380vh scrollytelling stage entirely. It caused all 3 visual layers (glass invoice, AST JSON, hex registers) to overlap on the same screen, dumping raw code everywhere.
+  - Replaced with a single, pristine glass invoice card. Errors show as one plain-language highlighted row — never as JSON, hex, or SHA-256 strings.
+  - 2 master instruments: Float/Cent Math Divergence Slider + Deterministic Pipeline Animation.
+  - 5,000 TPS benchmark hold-to-test with canvas oscilloscope.
+  - Architectural colophon for Allen Simeon Fletcher.
+  - Lenis inertial scroll. IntersectionObserver fade-up on all key blocks.
+  - Zero raw code on screen. Zero external CDNs. 30/30 tests pass.
+  - Commit `a30a6a1`. CI run `40953439153`: completed · success.
+  - Live edge verified: `invoice-card: true`, `v6.0: true`, `chaos-strip: true`, `NO hex: true`.
+
 ## 2. What We Are Working On Now
-- Commit and push ADR-015 to GitHub remote `origin main`.
-- Verify GitHub Actions CI run.
-- Verify live edge deployment on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
+- Nothing. v6.0 is live. All checks pass.
 
 ## 3. Broken Or Dangerous Items
-- None. All 30 automated statutory and mathematical test scenarios pass with zero regressions.
+- None. All 30 automated statutory tests pass. Live edge serves v6.0 cleanly.
 
 ## 4. What To Do Next
-- Verify live edge delivery on `https://haulitz.allensimeonfletcher.workers.dev/`.
-- Test scrollytelling track and loupe interaction on desktop and mobile viewports.
+- Open `http://localhost:8000/` or `https://haulitz.allensimeonfletcher.workers.dev/` and test manually:
+  - Hero headline animates in.
+  - "Fehler einschleusen" button turns red and shows error row on the invoice card.
+  - Chaos pills below the card switch between 4 states — each shows a plain-language sentence, no code.
+  - Math slider shows IEEE-754 vs cent results.
+  - Pipeline button fires the 3-step animation.
+  - Benchmark hold-to-test runs the oscilloscope wave.
+  - Kinetic cursor tracks mouse with lerp.
+  - Ambient particles render on the background canvas.
 
 ## 5. Do Not Touch
-- Git remote `origin`: Synchronized with `main`.
+- Git remote `origin`: Synchronized with `main` at commit `a30a6a1`.
 - `.env`: Kept strictly local and ignored by `.gitignore` and `.assetsignore`.
+- `tests/verify_haulitz.js` and `js/verifier/` and `js/fixtures/`: Do not edit. Test suite must stay at 30/30.

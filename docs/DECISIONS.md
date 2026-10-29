@@ -535,3 +535,41 @@ We chose **Option 3**.
 
 ### 4. When to Reconsider
 If client requests require real-time WebAssembly or WebGPU compute shader simulations, evaluate isolated WASM modules with zero external network downloads.
+
+
+---
+
+## ADR-016: v6.0 Ruthless Purge — Single Glass Invoice, Editorial Layout, Zero Raw Code
+- **Date:** 2026-10-30
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer (Gemini 2.5 Pro)
+- **Status:** APPROVED & ACTIVE — live at commit `a30a6a1`
+
+### 1. The Context & Problem
+The v5.0 scrollytelling stage (ADR-015) broke catastrophically. A pinned 380vh track caused three physical layers (glass invoice, AST JSON tokens, binary hex registers) to overlap on the same screen. Raw JSON, fake memory addresses, and 14-decimal floats were dumped directly into the hero. The site looked broken and fraudulent. The user described it as "crap stapled with more crap."
+
+The root problem: we confused complexity with quality. Award-winning sites (Casa di Solare 9.30, NEXUSMAG 8.50) use generous whitespace and clarity — not more layers of raw data.
+
+### 2. The Three Options Considered
+1. **Option 1: Fix the overlapping scrollytelling layers.**
+   - Drawback: The overlap was structural. Fixing it while keeping 3 layers would produce a bigger, more fragile page with the same confusion risk.
+2. **Option 2: Remove the X-Ray layer, keep pinned scrollytelling.**
+   - Drawback: Pinned scroll traps users. The scrollytelling concept itself was too theatrical for the engineering content.
+3. **Option 3: Full v6.0 rebuild — single glass invoice, editorial layout, 2 master instruments.**
+   - Single pristine glass invoice card. 4 chaos states (clean / math / iban / sql) shown as a highlighted error row in plain German. Zero raw code on screen.
+   - Two master instruments: Float/Cent Math Divergence Slider + Deterministic Pipeline Animation.
+   - Natural Lenis inertial scroll with IntersectionObserver fade-up reveals.
+   - 8rem section padding. Generous whitespace. Editorial typography.
+   - Kinetic cursor, ambient particle canvas, specular sheen — retained because they add real visual depth without cluttering content.
+   - Benchmark hold-to-test and architectural colophon retained.
+
+### 3. The Decision
+We chose **Option 3**.
+- Zero raw code on screen. Every error is one plain-language sentence.
+- Single invoice card is simpler, cleaner, and more credible than 3 overlapping layers.
+- All 30 deterministic tests pass at 100% before commit.
+- GitHub Actions CI: run `40953439153` — completed · success.
+- Live edge: `invoice-card: true`, `v6.0: true`, `chaos-strip: true`, `NO hex: true`.
+
+### 4. When to Reconsider
+If the user decides to add a full storytelling scrollytelling section in the future, build it as a separate section below the hero — never as a pinned overlay that traps the user's scroll.
