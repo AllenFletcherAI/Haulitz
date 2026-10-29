@@ -138,12 +138,20 @@ export default {
           prevSeal = lastData.rows?.[0]?.sha256_seal || '0000000000000000000000000000000000000000000000000000000000000000';
         }
 
+        // Strict input sanitization (OWASP A03 Injection Prevention)
+        const safeDomainId = String(domain_id || '').replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 50);
+        const safeDocRef = String(document_ref || '').replace(/[^a-zA-Z0-9_\-\.\/]/g, '').slice(0, 100);
+        const safeStatus = String(status || '').replace(/[^a-zA-Z0-9_]/g, '').slice(0, 30);
+        const safeSeal = String(sha256_seal || '').replace(/[^a-fA-F0-9]/g, '').slice(0, 64);
+        const safePrevSeal = String(prevSeal || '').replace(/[^a-fA-F0-9]/g, '').slice(0, 64);
+        const safeDiscrepancyCount = parseInt(discrepancy_count, 10) || 0;
         const clientIp = request.headers.get('cf-connecting-ip') || '127.0.0.1';
+        const safeClientIp = String(clientIp).replace(/[^a-fA-F0-9\.:]/g, '').slice(0, 45);
         const detailsJson = JSON.stringify(details || {}).replace(/'/g, "''");
 
         const insertQuery = `
           INSERT INTO audit_logs (domain_id, document_ref, status, discrepancy_count, sha256_seal, previous_seal, details_json, client_ip)
-          VALUES ('${domain_id}', '${document_ref}', '${status}', ${parseInt(discrepancy_count, 10) || 0}, '${sha256_seal}', '${prevSeal}', '${detailsJson}'::jsonb, '${clientIp}')
+          VALUES ('${safeDomainId}', '${safeDocRef}', '${safeStatus}', ${safeDiscrepancyCount}, '${safeSeal}', '${safePrevSeal}', '${detailsJson}'::jsonb, '${safeClientIp}')
           RETURNING id, timestamp, sha256_seal;
         `;
 
@@ -247,14 +255,17 @@ export default {
 
         const emailResult = await emailResp.json();
 
-        // Record in Neon dispute_tickets
-        const reasonEscaped = dispute_reason.replace(/'/g, "''");
-        const lawEscaped = (governing_law || '').replace(/'/g, "''");
-        const resendId = emailResult.id || 'none';
+        // Record in Neon dispute_tickets with strict sanitization
+        const safeDomainId = String(domain_id || '').replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 50);
+        const safeDocRef = String(document_ref || '').replace(/[^a-zA-Z0-9_\-\.\/]/g, '').slice(0, 100);
+        const reasonEscaped = String(dispute_reason || '').replace(/'/g, "''");
+        const lawEscaped = String(governing_law || '').replace(/'/g, "''");
+        const resendId = String(emailResult?.id || 'none').replace(/[^a-zA-Z0-9_\-]/g, '');
+        const safeAlertEmail = String(alertEmail).replace(/'/g, "''");
 
         const insertQuery = `
           INSERT INTO dispute_tickets (domain_id, document_ref, dispute_reason, governing_law, email_sent_to, resend_id)
-          VALUES ('${domain_id}', '${document_ref}', '${reasonEscaped}', '${lawEscaped}', '${alertEmail}', '${resendId}')
+          VALUES ('${safeDomainId}', '${safeDocRef}', '${reasonEscaped}', '${lawEscaped}', '${safeAlertEmail}', '${resendId}')
           RETURNING id;
         `;
 

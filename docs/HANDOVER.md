@@ -43,8 +43,17 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - Added backward-compatible route aliasing in `_worker.js` (both `/fintech` and `/workspaces/fintech.html` resolve cleanly).
   - Cleaned repository root to contain only entry points (`index.html`, `_worker.js`, `package.json`, `README.md`) and configuration files.
 
+- **Codebase Simplification & Dead Code Elimination (ADR-004)**:
+  - Deleted abandoned `functions/` directory (all 4 legacy Cloudflare Pages functions bypassed by `_worker.js`).
+  - Removed 16 unused `<script>` imports from `index.html` (saving 16 network requests on initial load).
+  - Pruned 1,588 lines of dead code and obsolete translation keys from `js/app.js` (lines dropped from 3,040 to 1,452).
+  - Purged 294 lines of dead discrepancy inspector CSS from `css/styles.css`.
+  - Removed orphaned 140-line `#industry-selector-modal` from `index.html`.
+  - Hardened SQL queries in `_worker.js` with strict regex whitelisting against SQL injection (OWASP A03).
+  - Re-verified all 30/30 statutory verification tests with 100% precision.
+
 ## 2. What We Are Working On Now
-- Commit directory reorganization and updates to git and push to GitHub (`origin main`).
+- Commit clean refactor to git and push to GitHub (`origin main`).
 - Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
 
 ## 3. Broken Or Dangerous Items

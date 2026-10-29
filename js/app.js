@@ -1,5 +1,5 @@
 /**
- * HAULITZ ENTERPRISE GATEWAY - MASTER CONTROLLER & APPLICATION ENGINE (v3.0)
+ * HAULITZ ENTERPRISE GATEWAY - MASTER CONTROLLER & APPLICATION ENGINE (v3.3)
  * Standard: ASD-STE100 Simplified Technical English
  * Default Settings: German Language (de), Obsidian Dark Mode (dark)
  * Integrations: AWS Frankfurt Neon PostgreSQL, Clerk Authentication, Resend Transactional Alerting
@@ -18,438 +18,93 @@
 
   // Application State
   const state = {
-    currentTab: 'cockpit',
-    currentDomain: 'fintech',
     currentScannerDomain: 'fintech',
     currentScannerMode: 'flawed',
-    currentScenario: 'scenario_a',
     currentLang: savedLang === 'en' ? 'en' : 'de',
-    currentTheme: savedTheme === 'light' ? 'light' : 'dark', // Strict Obsidian Default
-    previousSeal: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', // Genesis Block seal
-    auditHistory: [],
-    lastAuditResult: null,
-    lastSealResult: null,
-    lastDocPayload: null,
-    lastCfoRecapText: '',
-    dbLatencyMs: null,
-    totalLedgerCount: 1,
-    cleanCount: 1,
-    quarantineCount: 0,
-    disputeCount: 0,
-    lastSealTime: null,
-    isDispatchingEmail: false
+    currentTheme: savedTheme === 'light' ? 'light' : 'dark'
   };
 
-  // Full Internationalization Strings (German / English)
+  // Full Internationalization Strings (German / English) for Active Components
   const i18n = {
     de: {
-      beacon: 'Frankfurt eu-central-1: ',
-      themeDark: 'Dunkel',
-      themeLight: 'Hell',
       langBtn: 'DE',
-      tabCockpit: '1. 10 Industrie-Workspaces',
-      tabPortal: '2. Frankfurt GoBD Ledger',
-      tabSops: '3. Bereitstellungs-SOPs',
-      tabPillCockpit: 'Deterministisch',
-      tabPillPortal: 'Live DB',
-      tabPillSops: 'SAP S/4HANA',
-      heroHeading: 'HAULITZ: Deterministisches Prüf-Gateway für ERP &amp;&nbsp;Supply&nbsp;Chain',
-      heroSubheading: 'Stoppt Rechenfehler, falsche Steuersätze nach §&nbsp;14&nbsp;UStG und beschädigte Prüfziffern vor der Buchung in SAP&nbsp;S/4HANA.',
-      kpiLedgerLabel: 'GoBD Ledger-Höhe (Frankfurt)',
-      kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
-      kpiLatencyLabel: 'Edge-zu-DB Latenz',
-      kpiLatencySub: '<i class="fa-solid fa-server"></i> Cloudflare Edge &rarr; Frankfurt',
-      kpiSlaLabel: 'Deterministische SLA',
-      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 30/30 Tests bestanden',
-      kpiRelayLabel: 'Mängelrügen-Relay',
-      kpiRelayVal: 'Resend Aktiv',
-      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Alarmierung aktiv',
-      domainTitle: '10 Branchen-Workspaces',
-      domainDesc: 'Wählen Sie Ihren Industrie-Workspace für deterministische Belegprüfungen und GoBD-Versiegelung',
-      openWorkspace: 'Workspace öffnen',
-      scenarioA: 'Szenario A: Valider Beleg',
-      scenarioB: 'Szenario B: Rechnerische Falle',
-      scenarioC: 'Szenario C: Gesetzesverstoß',
-      dossierTitle: 'Quelldokument-Dossier (Physische Vorlage)',
-      dossierFooter: '<i class="fa-solid fa-shield-halved text-emerald"></i> Revisionssichere Dokumentenvorlage; deterministisch im Browser validiert.',
-      cockpitTitle: 'Deterministisches Prüf-Cockpit',
-      latencyBadge: '< 2ms AUSFÜHRUNG',
-      statusCleanTitle: 'REVISIONSFÄHIG_VERIFIZIERT',
-      statusCleanDesc: 'Alle mathematischen und gesetzlichen Schutzschranken bestanden. Freigabe für ERP-Staging erteilt.',
-      statusCleanBadge: 'STAGING_AUTORISIERT',
-      statusQuarantineTitle: 'QUARANTÄNE_SPERRE',
-      statusQuarantineDesc: 'Kritische mathematische Abweichung oder Gesetzesverstoß festgestellt. In Quarantänepuffer geleitet; Zahllauf/Zollanmeldung gesperrt.',
-      statusQuarantineBadge: 'ZAHLLAUF_GESPERRT',
-      checklistHeading: '<i class="fa-solid fa-list-check"></i> VERIFIZIERUNGSSCHRANKEN:',
-      varianceTitle: '<i class="fa-solid fa-triangle-exclamation"></i> RECHNERISCHE / GESETZLICHE ABWEICHUNG FESTGESTELLT',
-      varianceExact: 'Exakter Abweichungsbetrag:',
-      varianceBlocked: 'Nachgelagerter Zahllauf in SAP und ATLAS-Zollanmeldung automatisch blockiert.',
-      cfoRecapTitle: '<i class="fa-solid fa-briefcase"></i> CFO-EXEKUTIV-ZUSAMMENFASSUNG',
-      copyCfo: 'Kopieren',
-      copiedCfo: 'Kopiert!',
-      legalMemoHeader: 'AUTOMATISIERTE GESETZLICHE MÄNGELRÜGE',
-      copyMemo: 'Mahnung kopieren',
-      copiedMemo: 'Mahnung kopiert!',
-      gobdTitle: '<i class="fa-solid fa-fingerprint text-emerald"></i> GoBD § 147 AO Kryptografisches Prüfsiegel:',
-      gobdPredecessor: 'Vorheriger Siegelblock:',
-      employers: 'Unternehmen',
-      law: 'Rechtsgrundlage',
-      commitBtn: 'In Frankfurt Neon DB festschreiben',
-      commitSuccess: 'GoBD § 147 AO Block unveränderbar in Frankfurt (AWS eu-central-1) festgeschrieben!',
-      dispatchBtn: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com senden',
-      dispatchedSuccess: 'Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com übermittelt!',
-      
-      // Tab 1: Product & Founder Showcase
-      workspacesBannerTag: '10 Dedizierte Industrie-Workspaces',
-      workspacesBannerTitle: 'Rechtssichere Belegprüfung für Ihre Branche',
-      workspacesBannerDesc: 'Wählen Sie Ihren Zielbereich für die deterministische Validierung von Rechnungen, Frachtbriefen, LkSG-Zertifikaten und ERP-Payloads.',
-      btnLaunchWorkspaces: 'Industrie-Workspace auswählen (10 Branchen) →',
-      whatIsTag: 'Funktionsweise',
-      whatIsTitle: 'Was ist HAULITZ?',
-      whatIsP1: 'HAULITZ prüft Rechnungen, Frachtbriefe und Wareneingänge direkt im Code. Das System berechnet Postensummen auf den Cent genau, verifiziert Steuersätze nach §&nbsp;14&nbsp;UStG und prüft Prüfziffern nach IBAN&nbsp;Modulo-97, ISO&nbsp;6346 und GS1&nbsp;EAN-13.',
-      whatIsP2: 'Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS&nbsp;eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.',
-      pillar1Title: 'Deterministische Mathematik',
-      pillar1Desc: 'Keine Rundungsfehler. Einzelposten, Rabatte und Umsatzsteuer werden nach §&nbsp;14&nbsp;UStG und HGB&nbsp;§&nbsp;377 auf Cent-Ebene nachgerechnet.',
-      pillar2Title: 'Revisionssicheres Ledger',
-      pillar2Desc: 'GoBD&nbsp;§&nbsp;147&nbsp;AO Konformität. Jeder verifizierte Beleg wird mit Vorgänger-Hash verkettet in PostgreSQL (Frankfurt eu-central-1) protokolliert.',
-      pillar3Title: 'Automatisierte Mängelrüge',
-      pillar3Desc: 'Bei Rechendifferenzen generiert das System eine strukturierte Rüge nach HGB&nbsp;§&nbsp;377 und versendet diese über die Resend&nbsp;API.',
-      founderTag: 'Solutions & Integration Engineer',
-      founderRole: 'Solutions &amp;&nbsp;Integration&nbsp;Engineer',
-      founderBio: 'Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.',
-      founderBio2: 'Das Projekt belegt seine Kernkompetenz als Solutions &amp; Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP&nbsp;S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD&nbsp;§&nbsp;147&nbsp;AO, §&nbsp;14&nbsp;UStG, HGB&nbsp;§&nbsp;377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.',
-      
-      // Auth Gate & Modals
+      cmdKText: 'Suchen...',
+      cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...',
+
+      // Auth Gate Modal
       authTitle: 'HAULITZ Gateway Sign-In',
       authSub: 'Authentifizieren Sie sich für den Zugriff auf die 10 Industrie-Workspaces',
       authGoogle: 'Mit Google anmelden (Gmail)',
       authClerk: 'Mit geschäftlicher E-Mail / SSO anmelden',
-      authDivider: 'ODER',
       authRemember: 'Auf diesem Gerät angemeldet bleiben',
-      authBtn: 'Anmelden & Fortfahren',
-      selectorTitle: 'Industrie-Workspace auswählen',
-      selectorSub: 'Wählen Sie Ihre Branche für Belegprüfungen und GoBD-Versiegelung',
-      hdrDropdownLabel: 'Workspaces (10)',
-      hdrDropdownModal: 'Vollbild-Auswahl öffnen...',
-
-      // Real-time Telemetry & Pipeline
-      cmdKText: 'Suchen...',
-      telLatencyLabel: 'Verifikations-Latenz',
-      telLatencySub: '<i class="fa-solid fa-bolt text-emerald"></i> Deterministisch im Browser',
-      telScenariosLabel: 'Gesetzliche Szenarien',
-      telScenariosSub: '<i class="fa-solid fa-shield-check text-emerald"></i> 100% Prüfpräzision',
-      telSlaLabel: 'Deterministische SLA',
-      telSlaSub: '<i class="fa-solid fa-calculator text-emerald"></i> 0 Rechenabweichungen',
-      telLedgerLabel: 'Frankfurt Ledger',
-      telLedgerSub: '<i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon',
-      pipelineTagText: 'REVISIONSWEG IN 3 SCHRITTEN',
-      pipelineTitleText: 'Von unstrukturierten Belegen zur verifizierten ERP-Verbuchung',
-      pipeStep1Badge: '01 EINGANG',
-      pipeStep1Title: 'Unstrukturierte Belege',
-      pipeStep1Desc: 'PDF-Rechnungen, Frachtbriefe &amp; Lieferscheine mit typischen Rechenabweichungen oder unvollständigen UStG-Angaben.',
-      pipeStep1Tag: '<i class="fa-solid fa-triangle-exclamation"></i> Rechnerische Fehlerquelle',
-      pipeStep2Badge: '02 HAULITZ FIREWALL',
-      pipeStep2Title: 'Deterministische Prüfung',
-      pipeStep2Desc: 'Cent-genaue Posten-Arithmetik (§&nbsp;14&nbsp;UStG), Prüfziffern (IBAN, ISO 6346, GS1) und GoBD SHA-256 Hash-Kette.',
-      pipeStep2Tag: '<i class="fa-solid fa-check-double"></i> &lt; 2ms In-Browser-Audit',
-      pipeStep3Badge: '03 ZIELSYSTEM',
-      pipeStep3Title: 'ERP-Staging / Mängelrüge',
-      pipeStep3Desc: 'Geprüfte Belege werden für SAP&nbsp;S/4HANA autorisiert; fehlerhafte Belege lösen automatisch eine Mängelrüge nach HGB&nbsp;§&nbsp;377 aus.',
-      pipeStep3Tag: '<i class="fa-solid fa-server"></i> Revisionssicher gebucht',
-      cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...',
-
-      // Top 10 Workspaces on page
-      wsDesc01: '§ 14 UStG &amp; SEPA Modulo-97',
-      wsMeta01: '<i class="fa-solid fa-scale-balanced"></i> § 14 UStG, GoBD',
-      wsDesc02: 'ISO 6346 &amp; § 412 HGB Masse',
-      wsMeta02: '<i class="fa-solid fa-ship"></i> ADSp 2017, HGB',
-      wsDesc03: 'HGB § 377 3-Wege-Abgleich',
-      wsMeta03: '<i class="fa-solid fa-industry"></i> HGB § 377 Rüge',
-      wsDesc04: 'VVG § 86 &amp; BGB § 249 Caps',
-      wsMeta04: '<i class="fa-solid fa-shield-halved"></i> VVG § 86, BGB',
-      wsDesc05: 'LkSG § 4–§ 7 &amp; ISO 14001',
-      wsMeta05: '<i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD',
-      wsDesc06: 'GOÄ § 5 Abs. 2 Gebührenrahmen',
-      wsMeta06: '<i class="fa-solid fa-hospital-user"></i> GOÄ § 5 Abs. 2',
-      wsDesc07: 'GS1 EAN-13 &amp; FX-Konvertierung',
-      wsMeta07: '<i class="fa-solid fa-cart-shopping"></i> GS1 Standard',
-      wsDesc08: 'VDE-AR-N 4105 &amp; EEG § 9',
-      wsMeta08: '<i class="fa-solid fa-bolt"></i> VDE-AR-N 4105',
-      wsDesc09: 'HeizkostenV § 7 &amp; § 12 (70/30)',
-      wsMeta09: '<i class="fa-solid fa-building"></i> HeizkostenV',
-      wsDesc10: 'Parametrisierte T-SQL &amp; OWASP',
-      wsMeta10: '<i class="fa-solid fa-database"></i> OWASP ASVS',
-
-      // Discrepancy Inspector
-      inspHeaderTag: 'INTERAKTIVER BELEGABGLEICH',
-      inspHeaderTitle: 'Arithmetik-Abgleich in Echtzeit: Vorher vs. Nachher',
-      tabLabelRaw: '1. Ungeprüfter Lieferantenbeleg',
-      tabLabelVerified: '2. HAULITZ Revisionsprüfung',
-      metaLblSupplier: 'Lieferant:',
-      metaLblDocno: 'Beleg-Nr.:',
-      metaLblType: 'Eingangskanal:',
-      tdItemName: 'Hochleistungs-Servomotor',
-      calcNetLbl: 'Nettobetrag:',
-      calcVatClaimedLbl: 'Ausgewiesene USt. (19%):',
-      trapPillBadge: '+120,00 € ABWEICHUNG',
-      calcGrossClaimedLbl: 'Rechnungsbetrag brutto:',
-      alertTrapHeading: 'RECHNERISCHE ABWEICHUNG FESTGESTELLT (§ 14 UStG)',
-      alertTrapDesc: 'Die berechnete Umsatzsteuer für 4.200,00 € bei 19% beträgt 798,00 €. Die Rechnung weist 918,00 € aus (+120,00 € Überfakturation).',
-      alertTrapAction: 'Zahllauf in SAP S/4HANA gesperrt • HGB § 377 Mängelrüge generiert',
-      metaLblStatus: 'Audit-Status:',
-      metaLblLatency: 'Prüfzeit:',
-      metaLblLedger: 'Ledger:',
-      tdVLineTitle: 'Posten-Arithmetik',
-      tdVTaxTitle: 'USt-Satz (19%)',
-      tdVIbanTitle: 'SEPA IBAN Prüfziffer',
-      calcVNetLbl: 'Auditierter Nettobetrag:',
-      calcVVatLbl: 'Gesetzeskonforme USt (19%):',
-      calcVGrossLbl: 'Freigegebener Zahlbetrag brutto:',
-      alertVHeading: 'KRYPTOGRAFISCHES GoBD § 147 AO PRÜFSIEGEL VERGEBEN',
-      alertVAction: 'Freigabe für SAP S/4HANA Staging erteilt • Verbuchungs-Payload bereit',
-
-      // Founder 3-Pillar Narrative & Tooltips
-      fpTitle1: 'Die Problemstellung',
-      fpDesc1: 'Unstrukturierte Lieferantenbelege und Frachtdokumente enthalten häufig Rundungsdifferenzen, falsche Steuersätze und ungültige Prüfziffern, die ERP-Datenbanken unbemerkt korrumpieren.',
-      fpTitle2: 'Die technische Brücke',
-      fpDesc2: 'Mit HAULITZ baue ich ein deterministisches Schnittstellen-Gateway. Es rechnet Posten-Arithmetik auf den Cent nach (§ 14 UStG, HGB § 377), prüft internationale Prüfziffern und versiegelt jeden Beleg unveränderbar in PostgreSQL in Frankfurt vor der SAP-Verbuchung.',
-      fpTitle3: 'Qualifikation als Solutions & Integration Engineer',
-      fpDesc3: 'Das System belegt meine Kernkompetenz: die fehlerfreie Überführung unstrukturierter Drittsystem-Daten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzesstandards (GoBD, HGB, UStG) mit deterministischer Zuverlässigkeit.',
-      tooltipAnabin: 'Vollwertig anerkannter ausländischer Hochschulabschluss (Master-Ebene in Deutschland)',
-      tooltipBluecard: 'Beschleunigtes Fachkräfteverfahren nach § 81a / § 18g AufenthG (EU Blue Card)',
-      tooltipScenarios: '100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger',
+      authDivider: 'ODER',
 
       // Hero Section
-      heroBadgeText: 'DETERMINISTISCHE PRÜF-ENGINE',
-      heroTitleMain: 'Stoppt Rechnungsfehler',
+      heroBadgeText: 'DETERMINISTISCHE VERIFIKATION',
+      heroTitleMain: 'Rechnungsfehler erkennen,',
       heroTitleGradient: 'bevor sie in Ihre Bücher gelangen.',
-      heroSubheadline: 'HAULITZ prüft Arithmetik, Steuersätze und Bankverbindungen auf Eingangsrechnungen vollautomatisch vor der Verbuchung. Keine Rundungsdifferenzen. Keine Falschzahlungen. Volle Revisionssicherheit.',
+      heroSubheadline: 'HAULITZ prüft Berechnungen, Steuersätze und Bankdaten auf Eingangsrechnungen deterministisch im Code. Kein Rundungsdrift. Keine Fehlzahlungen. Keine Audit-Panik.',
       btnHeroTestText: 'Live-Scanner testen',
-      btnHeroGithubText: 'Quellcode auf GitHub',
-      topDockLabel: 'Workspaces:',
+      btnHeroGithubText: 'Architektur auf GitHub prüfen',
 
-      // Living Scanner Card
-      scannerFeedLabel: 'LIVE-EINGANGSSTREAM',
-      scannerBtnFlawedText: 'Fehlerhafte Rechnung',
+      // Living Document Scanner Card
+      scannerFeedLabel: 'ECHTZEIT-BELEGEINGANG',
+      scannerBtnFlawedText: 'Fehlerhafter Beleg',
       scannerBtnVerifiedText: 'HAULITZ Verifiziert',
-      scMetaSubVendor: 'Lieferant:',
-      scMetaSubChannel: 'Kanal:',
+      scMetaSubVendor: 'Lieferant / Partner:',
+      scMetaSubChannel: 'Übertragungskanal:',
       scMetaSubNet: 'Nettobetrag:',
-      scItemName: 'High-Torque Server Units (12x @ €350,00)',
-      scVatLabel: 'Berechnete Steuer (19% USt):',
-      scGrossLabel: 'Rechnungs-Gesamtbetrag brutto:',
+      scItemName: 'Server-Baugruppen (12x @ €350,00)',
+      scVatLabel: 'Berechnete USt (19%):',
+      scGrossLabel: 'Rechnungs-Gesamtbetrag:',
       scIbanLabel: 'SEPA IBAN Modulo-97:',
-      scIbanStatus: 'Prüfziffer Gültig',
+      scIbanStatus: 'Prüfsumme Gültig',
       scAlertTitleFlawed: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 14 UStG FEHLER)',
       scAlertDescFlawed: 'Lieferant hat USt um +€120,00 überhöht ausgewiesen. Verbuchung in SAP S/4HANA blockiert. Kaufmännische Mängelrüge erstellt.',
       scAlertTitleVerified: '✔ REVISIONSSICHER: FREIGABE FÜR SAP S/4HANA',
       scAlertDescVerified: 'Posten-Arithmetik auf den Cent abgeglichen (€798,00 USt). GoBD § 147 AO SHA-256 Prüfsiegel in Frankfurt festgeschrieben.',
 
-      // Workspace Hub
-      hubTagText: '10 BRANCHEN-WORKSPACES',
-      hubHeading: 'Maßgeschneidert für Ihren Unternehmens-Workflow',
-      hubSubheading: 'Wählen Sie eine Branche, um deterministische Prüfregeln für Ihr ERP-Schema vorab zu prüfen.',
-      scCardTargetsLabel: 'Zielsysteme:',
-      scBtnLaunchText: 'Workspace öffnen',
+      // 10-Industry Workspace Hub
+      hubTagText: 'DETERMINISTISCHES PRÜF-GATEWAY',
+      hubHeading: '10 Branchen-Workspaces',
+      hubSubheading: 'Wählen Sie Ihren Industrie-Workspace für deterministische Belegprüfungen und GoBD-Versiegelung',
+      scCardTargetsLabel: 'Zielsysteme & ERP:',
 
-      // Bento Grid
-      bentoTagText: 'KERN-ARCHITEKTUR',
+      // Apple / Linear Bento Grid
+      bentoTagText: 'KERNARCHITEKTUR & SCHUTZSCHRANKEN',
       bentoHeading: 'Wie HAULITZ Ihr Unternehmen schützt',
-      bentoSubheading: 'Vier deterministische Schutzschranken im Code, bevor Daten in finale Hauptbücher fließen.',
-      bento1Title: 'Keine Rundungsdifferenzen',
-      bento1Desc: 'Jede Zwischensumme, Mengenumrechnung und Steuerstufe wird cent-genau im Code auditiert. Verhindert kriechende Rundungsfehler in der Bilanz.',
+      bentoSubheading: 'Vier deterministische Schutzschranken im Code, bevor Finanzdaten in unveränderbare Ledger fließen.',
+      bento1Title: 'Null Rundungsdrift (Safe Cent Math)',
+      bento1Desc: 'Jede Zwischensumme, Mengenskalierung und USt-Stufe wird im Code strikt centgenau als 64-Bit-Ganzzahl berechnet. Verhindert, dass Bruchteile von Cents zu Bilanzabweichungen kumulieren.',
       bento2Title: 'Algorithmische Prüfziffern',
-      bento2Desc: 'Prüft ISO 7064 Modulo-97 (SEPA IBAN) und GS1 EAN-13 Prüfziffern, bevor Geld transferiert wird. Verhindert Zahlendreher und Falschüberweisungen.',
+      bento2Desc: 'Erzwingt ISO 7064 Modulo-97 (SEPA IBAN), ISO 6346 Modulo-11 (Seefrachtcontainer) und GS1 EAN-13 Prüfziffern, bevor Zahlungen ausgelöst werden.',
       bento3Title: 'Automatisierte ERP-Firewall',
-      bento3Desc: 'Geprüfte Belege fließen direkt in SAP S/4HANA und PostgreSQL. Bei Fehlern wird automatisch eine strukturierte kaufmännische Mängelrüge per API erzeugt.',
-      bento4Title: 'Revisionssicheres Frankfurt Audit-Ledger',
-      bento4Desc: 'Jeder Prüflauf wird kryptografisch mit SHA-256 verkettet und in PostgreSQL in Frankfurt (AWS eu-central-1) für GoBD § 147 AO revisionssicher archiviert.',
+      bento3Desc: 'Valide Belege fließen direkt in SAP S/4HANA Staging-Tabellen. Fehlerhafte Belege generieren automatisch kaufmännische Mängelrügen nach HGB § 377.',
+      bento4Title: 'Frankfurter GoBD-Prüfpfad',
+      bento4Desc: 'Jede Prüfung erzeugt einen SHA-256 kryptografischen Hash, der mit dem Vorgängerblock verkettet und in Frankfurt (AWS eu-central-1) festgeschrieben wird.',
 
-      // Executive Founder Card
+      // Solutions & Integration Engineer Profile
       founderRoleTitle: 'Solutions & Integration Engineer',
-      fImpTitle1: 'Die Problemstellung',
-      fImpDesc1: 'Unternehmen verlieren jährlich Millionen durch unbemerkte Rundungsdifferenzen, falsche Steuersätze und ungeprüfte Bankverbindungen in Eingangsrechnungen.',
-      fImpTitle2: 'Die entwickelte Lösung',
-      fImpDesc2: 'Ich habe HAULITZ als automatisiertes Prüf-Gateway entwickelt. Es fängt Belege vor der Verbuchung ab, prüft Arithmetik und Prüfziffern deterministisch im Code und leitet nur zertifizierte Datensätze an SAP weiter.',
-      fImpTitle3: 'Passung als Solutions & Integration Engineer',
-      fImpDesc3: 'Belegt direkte Praxiskompetenz für Solutions Engineering: fehlerfreie Anbindung unstrukturierter Drittsystem-Daten an Kernsysteme (SAP S/4HANA, PostgreSQL) unter deutschen Gesetzesstandards (GoBD, HGB, UStG).'
+      fImpTitle1: 'Das Problem',
+      fImpDesc1: 'Unternehmen verlieren jährlich Millionen durch unbemerkte Rundungsfehler, falsche USt-Sätze und ungeprüfte Bankdaten, die manuelle Kontrollen passieren.',
+      fImpTitle2: 'Die Lösung',
+      fImpDesc2: 'Ich habe HAULITZ als automatisiertes Gateway entwickelt. Es fängt eingehende Belege ab, prüft Berechnungen cent-genau im Code und übergibt nur zertifizierte Daten an SAP.',
+      fImpTitle3: 'Solutions & Integration Fit',
+      fImpDesc3: 'Zeigt direkte Kompetenz für Solutions Engineering: Anbindung unstrukturierter Drittsystem-Daten an strikte Kerndatenbanken mit null Fehlern und voller Compliance.'
     },
-    en: {
-      beacon: 'Frankfurt eu-central-1: ',
-      themeDark: 'Dark',
-      themeLight: 'Light',
-      langBtn: 'EN',
-      tabCockpit: '1. 10 Domain Workspaces',
-      tabPortal: '2. Frankfurt GoBD Ledger',
-      tabSops: '3. Deployment SOPs',
-      tabPillCockpit: 'Deterministic',
-      tabPillPortal: 'Live DB',
-      tabPillSops: 'SAP S/4HANA',
-      heroHeading: 'HAULITZ: Deterministic Verification Gateway for ERP &amp;&nbsp;Supply&nbsp;Chain',
-      heroSubheading: 'Prevents arithmetic variances, invalid §&nbsp;14&nbsp;UStG tax calculations, and corrupted check digits before SAP&nbsp;S/4HANA staging.',
-      kpiLedgerLabel: 'GoBD Ledger Height (Frankfurt)',
-      kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
-      kpiLatencyLabel: 'Edge-to-DB Latency',
-      kpiLatencySub: '<i class="fa-solid fa-server"></i> Cloudflare Edge &rarr; Frankfurt',
-      kpiSlaLabel: 'Deterministic SLA',
-      kpiSlaSub: '<i class="fa-solid fa-shield"></i> 30/30 Tests Passed',
-      kpiRelayLabel: 'Dispute Relay',
-      kpiRelayVal: 'Resend Active',
-      kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Alerting active',
-      domainTitle: '10 Domain Workspaces',
-      domainDesc: 'Select your target industry workspace for deterministic document verification and GoBD sealing',
-      openWorkspace: 'Open Workspace',
-      scenarioA: 'Scenario A: Valid Document',
-      scenarioB: 'Scenario B: Arithmetic Trap',
-      scenarioC: 'Scenario C: Statutory Breach',
-      dossierTitle: 'Source Document Dossier (Physical Canvas)',
-      dossierFooter: '<i class="fa-solid fa-shield-halved text-emerald"></i> Tamper-evident physical sheet; verified deterministically in-browser.',
-      cockpitTitle: 'Deterministic Verification Cockpit',
-      latencyBadge: '< 2ms EXECUTION',
-      statusCleanTitle: 'AUDIT_VERIFIED_CLEAN',
-      statusCleanDesc: 'All mathematical and statutory guardrails passed. Authorized for SAP ERP staging.',
-      statusCleanBadge: 'STAGING_AUTHORIZED',
-      statusQuarantineTitle: 'QUARANTINE_HOLD',
-      statusQuarantineDesc: 'Critical mathematical variance or regulatory breach detected. Quarantined; ERP payment run blocked.',
-      statusQuarantineBadge: 'PAYMENT_BLOCKED',
-      checklistHeading: '<i class="fa-solid fa-list-check"></i> VERIFICATION GUARDRAILS:',
-      varianceTitle: '<i class="fa-solid fa-triangle-exclamation"></i> ARITHMETIC / REGULATORY DEFICIT DETECTED',
-      varianceExact: 'Exact Variance Amount:',
-      varianceBlocked: 'Downstream SAP payment run and ATLAS customs declaration automatically blocked.',
-      cfoRecapTitle: '<i class="fa-solid fa-briefcase"></i> CFO EXECUTIVE RECAP',
-      copyCfo: 'Copy',
-      copiedCfo: 'Copied!',
-      legalMemoHeader: 'AUTOMATED STATUTORY DISPUTE NOTICE',
-      copyMemo: 'Copy Notice',
-      copiedMemo: 'Copied!',
-      gobdTitle: '<i class="fa-solid fa-fingerprint text-emerald"></i> GoBD § 147 AO Cryptographic Proof Seal:',
-      gobdPredecessor: 'Predecessor Seal Block:',
-      employers: 'Enterprise Targets',
-      law: 'Governing Law',
-      commitBtn: 'Commit to Frankfurt Neon DB',
-      commitSuccess: 'GoBD § 147 AO Block immutably committed to Frankfurt (AWS eu-central-1)!',
-      dispatchBtn: 'Dispatch Statutory Dispute via Resend to allensimeonfletcher@gmail.com',
-      dispatchedSuccess: 'Statutory dispute notice dispatched via Resend to allensimeonfletcher@gmail.com!',
 
-      // Tab 1: Product & Founder Showcase
-      workspacesBannerTag: '10 Dedicated Industry Workspaces',
-      workspacesBannerTitle: 'Statutory Document Verification for Your Industry',
-      workspacesBannerDesc: 'Select your target domain for deterministic validation of invoices, bills of lading, LkSG certificates, and ERP payloads.',
-      btnLaunchWorkspaces: 'Select Industry Workspace (10 Domains) →',
-      whatIsTag: 'System Overview',
-      whatIsTitle: 'What is HAULITZ?',
-      whatIsP1: 'HAULITZ validates vendor invoices, ocean bills of lading, and goods receipts directly in code. The engine calculates exact cent totals, checks tax rates per §&nbsp;14&nbsp;UStG, and verifies checksums across IBAN&nbsp;Modulo-97, ISO&nbsp;6346, and GS1&nbsp;EAN-13.',
-      whatIsP2: 'Compliant records receive a SHA-256 seal committed to PostgreSQL in Frankfurt (AWS&nbsp;eu-central-1). Documents with math discrepancies or corrupted check digits are quarantined before SAP staging.',
-      pillar1Title: 'Deterministic Arithmetic',
-      pillar1Desc: 'Zero rounding drift. Line items, discounts, and German VAT are audited strictly to the cent per §&nbsp;14&nbsp;UStG and HGB&nbsp;§&nbsp;377.',
-      pillar2Title: 'Immutable Audit Ledger',
-      pillar2Desc: 'GoBD&nbsp;§&nbsp;147&nbsp;AO compliance. Every verified record chains with its predecessor hash in PostgreSQL (Frankfurt eu-central-1).',
-      pillar3Title: 'Automated Dispute Dispatch',
-      pillar3Desc: 'When calculations fail, the engine drafts an HGB&nbsp;§&nbsp;377 notice and dispatches it immediately via Resend&nbsp;API.',
-      founderTag: 'Solutions & Integration Engineer',
-      founderRole: 'Solutions &amp;&nbsp;Integration&nbsp;Engineer',
-      founderBio: 'Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) built HAULITZ as a deterministic interface gateway between unstructured commercial documents and enterprise ERP schemas.',
-      founderBio2: 'The system demonstrates his direct qualifications as a Solutions &amp; Integration Engineer: connecting messy third-party documents to SAP&nbsp;S/4HANA and PostgreSQL under German commercial and statutory frameworks (GoBD&nbsp;§&nbsp;147&nbsp;AO, §&nbsp;14&nbsp;UStG, HGB&nbsp;§&nbsp;377). By coupling exact cent math, checksum algorithms, and automated API dispute dispatch, he ensures enterprise backends receive zero corrupt or hallucinated data.',
-      
-      // Auth Gate & Modals
+    en: {
+      langBtn: 'EN',
+      cmdKText: 'Search...',
+      cmdSearchPlaceholder: 'Search workspaces (e.g. FinTech, Maritime, Supply Chain, Solar)...',
+
+      // Auth Gate Modal
       authTitle: 'HAULITZ Gateway Sign-In',
-      authSub: 'Authenticate to access the 10 dedicated industry workspaces',
+      authSub: 'Authenticate to access all 10 institutional industry workspaces',
       authGoogle: 'Sign in with Google (Gmail)',
       authClerk: 'Sign in with Work Email / SSO',
-      authDivider: 'OR',
       authRemember: 'Keep me signed in on this device',
-      authBtn: 'Sign In & Proceed',
-      selectorTitle: 'Select Your Industry Workspace',
-      selectorSub: 'Select your target domain for deterministic statutory verification',
-      hdrDropdownLabel: 'Workspaces (10)',
-      hdrDropdownModal: 'Open Fullscreen Selector...',
-
-      // Real-time Telemetry & Pipeline
-      cmdKText: 'Search...',
-      telLatencyLabel: 'Verification Latency',
-      telLatencySub: '<i class="fa-solid fa-bolt text-emerald"></i> In-browser deterministic',
-      telScenariosLabel: 'Statutory Scenarios',
-      telScenariosSub: '<i class="fa-solid fa-shield-check text-emerald"></i> 100% audit precision',
-      telSlaLabel: 'Deterministic SLA',
-      telSlaSub: '<i class="fa-solid fa-calculator text-emerald"></i> 0 calculation variances',
-      telLedgerLabel: 'Frankfurt Ledger',
-      telLedgerSub: '<i class="fa-solid fa-link text-emerald"></i> AWS eu-central-1 Neon',
-      pipelineTagText: '3-STEP AUDIT PIPELINE',
-      pipelineTitleText: 'From unstructured supplier documents to certified ERP staging',
-      pipeStep1Badge: '01 INBOUND',
-      pipeStep1Title: 'Unstructured Documents',
-      pipeStep1Desc: 'PDF invoices, bills of lading &amp; delivery receipts with math variances or missing statutory details.',
-      pipeStep1Tag: '<i class="fa-solid fa-triangle-exclamation"></i> Arithmetic Variance Trap',
-      pipeStep2Badge: '02 HAULITZ FIREWALL',
-      pipeStep2Title: 'Deterministic Verification',
-      pipeStep2Desc: 'Cent-accurate line item math (§&nbsp;14&nbsp;UStG), check digits (IBAN, ISO 6346, GS1), and GoBD SHA-256 hash chaining.',
-      pipeStep2Tag: '<i class="fa-solid fa-check-double"></i> &lt; 2ms Deterministic Audit',
-      pipeStep3Badge: '03 ERP STAGING',
-      pipeStep3Title: 'ERP Staging / Dispute Dispatch',
-      pipeStep3Desc: 'Compliant records staged to SAP&nbsp;S/4HANA; non-compliant records trigger automated HGB&nbsp;§&nbsp;377 disputes.',
-      pipeStep3Tag: '<i class="fa-solid fa-server"></i> Certified for SAP S/4HANA',
-      cmdSearchPlaceholder: 'Search workspaces (e.g. Invoicing, Freight, Supply Chain, Solar)...',
-
-      // Top 10 Workspaces on page
-      wsDesc01: '§ 14 UStG &amp; SEPA Modulo-97',
-      wsMeta01: '<i class="fa-solid fa-scale-balanced"></i> § 14 UStG, GoBD',
-      wsDesc02: 'ISO 6346 &amp; § 412 HGB Mass',
-      wsMeta02: '<i class="fa-solid fa-ship"></i> ADSp 2017, HGB',
-      wsDesc03: 'HGB § 377 3-Way Triad Match',
-      wsMeta03: '<i class="fa-solid fa-industry"></i> HGB § 377 Notice',
-      wsDesc04: 'VVG § 86 &amp; BGB § 249 Caps',
-      wsMeta04: '<i class="fa-solid fa-shield-halved"></i> VVG § 86, BGB',
-      wsDesc05: 'LkSG § 4–§ 7 &amp; ISO 14001',
-      wsMeta05: '<i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD',
-      wsDesc06: 'GOÄ § 5 (2) Fee Schedule Caps',
-      wsMeta06: '<i class="fa-solid fa-hospital-user"></i> GOÄ § 5 (2)',
-      wsDesc07: 'GS1 EAN-13 &amp; FX Conversion',
-      wsMeta07: '<i class="fa-solid fa-cart-shopping"></i> GS1 Standard',
-      wsDesc08: 'VDE-AR-N 4105 &amp; EEG § 9',
-      wsMeta08: '<i class="fa-solid fa-bolt"></i> VDE-AR-N 4105',
-      wsDesc09: 'HeizkostenV § 7 &amp; § 12 (70/30)',
-      wsMeta09: '<i class="fa-solid fa-building"></i> HeizkostenV',
-      wsDesc10: 'Parameterized T-SQL &amp; OWASP',
-      wsMeta10: '<i class="fa-solid fa-database"></i> OWASP ASVS',
-
-      // Discrepancy Inspector
-      inspHeaderTag: 'INTERACTIVE AUDIT INSPECTION',
-      inspHeaderTitle: 'Real-Time Arithmetic Reconciliation: Before vs. After',
-      tabLabelRaw: '1. Unverified Supplier Invoice',
-      tabLabelVerified: '2. HAULITZ Certified Audit',
-      metaLblSupplier: 'Supplier:',
-      metaLblDocno: 'Document No:',
-      metaLblType: 'Ingestion Channel:',
-      tdItemName: 'High-Torque Servo Actuator',
-      calcNetLbl: 'Subtotal Net:',
-      calcVatClaimedLbl: 'Claimed 19% VAT:',
-      trapPillBadge: '+€120.00 VARIANCE',
-      calcGrossClaimedLbl: 'Invoice Gross Total:',
-      alertTrapHeading: 'ARITHMETIC DISCREPANCY DETECTED (§ 14 UStG)',
-      alertTrapDesc: 'Calculated VAT for €4,200.00 at 19% is €798.00. The invoice claimed €918.00 (+€120.00 overcharge variance).',
-      alertTrapAction: 'SAP S/4HANA Payment Run Blocked • Statutory Dispute Notice Drafted',
-      metaLblStatus: 'Audit Status:',
-      metaLblLatency: 'Audit Latency:',
-      metaLblLedger: 'Ledger:',
-      tdVLineTitle: 'Line-Item Math',
-      tdVTaxTitle: 'VAT Rate (19%)',
-      tdVIbanTitle: 'SEPA IBAN Check Digit',
-      calcVNetLbl: 'Audited Subtotal Net:',
-      calcVVatLbl: 'Statutory 19% VAT:',
-      calcVGrossLbl: 'Authorized Gross Total:',
-      alertVHeading: 'CRYPTOGRAPHIC GoBD § 147 AO AUDIT SEAL ASSIGNED',
-      alertVAction: 'Authorized for SAP S/4HANA Staging • Ingestion Payload Ready',
-
-      // Founder 3-Pillar Narrative & Tooltips
-      fpTitle1: 'The Problem',
-      fpDesc1: 'Unstructured vendor invoices and freight documents frequently contain rounding variances, invalid tax rates, and corrupted check digits that silently pollute downstream ERP systems.',
-      fpTitle2: 'The Engineering Bridge',
-      fpDesc2: 'Built HAULITZ as a deterministic interface gateway. It recalculates line items to the exact cent (§ 14 UStG, HGB § 377), enforces check digit algorithms, and seals records with SHA-256 in PostgreSQL in Frankfurt before ERP staging.',
-      fpTitle3: 'Solutions & Integration Engineer Fit',
-      fpDesc3: 'Demonstrates direct qualifications for Solutions & Integration Engineering: ingesting messy real-world documents into SAP S/4HANA and PostgreSQL under German statutory frameworks (GoBD, HGB, UStG) with zero data loss or drift.',
-      tooltipAnabin: 'Fully recognized foreign university degree (Master level in Germany, Anabin H+)',
-      tooltipBluecard: 'Accelerated skilled worker procedure under § 18g AufenthG (EU Blue Card)',
-      tooltipScenarios: '100% deterministic verification: cent-accurate math, check digits, and GoBD ledger',
+      authDivider: 'OR',
 
       // Hero Section
       heroBadgeText: 'DETERMINISTIC VERIFICATION ENGINE',
@@ -457,15 +112,14 @@
       heroTitleGradient: 'before they hit your books.',
       heroSubheadline: 'HAULITZ automatically audits calculations, tax rates, and bank details on vendor invoices before ERP staging. No math drift. No bad payments. No audit panic.',
       btnHeroTestText: 'Test Live Scanner',
-      btnHeroGithubText: 'View Source on GitHub',
-      topDockLabel: 'Workspaces:',
+      btnHeroGithubText: 'Inspect GitHub Architecture',
 
-      // Living Scanner Card
+      // Living Document Scanner Card
       scannerFeedLabel: 'LIVE INGESTION FEED',
       scannerBtnFlawedText: 'Flawed Invoice',
       scannerBtnVerifiedText: 'HAULITZ Verified',
-      scMetaSubVendor: 'Vendor:',
-      scMetaSubChannel: 'Channel:',
+      scMetaSubVendor: 'Vendor / Partner:',
+      scMetaSubChannel: 'Ingestion Channel:',
       scMetaSubNet: 'Subtotal Net:',
       scItemName: 'High-Torque Server Units (12x @ €350.00)',
       scVatLabel: 'Calculated Tax (19% VAT):',
@@ -477,32 +131,31 @@
       scAlertTitleVerified: '✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA',
       scAlertDescVerified: 'Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned in Frankfurt.',
 
-      // Workspace Hub
-      hubTagText: '10 INDUSTRY WORKSPACES',
-      hubHeading: 'Built for your specific enterprise workflow',
-      hubSubheading: 'Select an industry below to preview deterministic validation rules tailored to your ERP schema.',
-      scCardTargetsLabel: 'Target Systems:',
-      scBtnLaunchText: 'Launch Workspace',
+      // 10-Industry Workspace Hub
+      hubTagText: 'DETERMINISTIC VERIFICATION GATEWAY',
+      hubHeading: '10 Domain Workspaces',
+      hubSubheading: 'Select your target industry workspace for deterministic document verification and GoBD sealing',
+      scCardTargetsLabel: 'Target Systems & ERP:',
 
-      // Bento Grid
-      bentoTagText: 'CORE ARCHITECTURE',
+      // Apple / Linear Bento Grid
+      bentoTagText: 'CORE ARCHITECTURE & SAFETY BOUNDARIES',
       bentoHeading: 'How HAULITZ protects your business',
       bentoSubheading: 'Four deterministic guardrails running in code before financial data commits to permanent ledgers.',
-      bento1Title: 'Zero Rounding Drift',
-      bento1Desc: 'Every invoice subtotal, quantity multiplier, and VAT tier is audited strictly to the exact cent in code. Stops tiny fractions from compounding into massive audit balance-sheet discrepancies.',
+      bento1Title: 'Zero Rounding Drift (Safe Cent Math)',
+      bento1Desc: 'Every invoice subtotal, quantity multiplier, and VAT tier is audited strictly to the exact cent in code as 64-bit integer values. Stops tiny fractions from compounding into balance-sheet discrepancies.',
       bento2Title: 'Algorithmic Check Digits',
-      bento2Desc: 'Enforces international ISO 7064 Modulo-97 (SEPA IBAN) and GS1 EAN-13 check digit algorithms before money moves. Eliminates typoed payments and fake accounts.',
+      bento2Desc: 'Enforces international ISO 7064 Modulo-97 (SEPA IBAN), ISO 6346 Modulo-11 (ocean container), and GS1 EAN-13 check digit algorithms before money moves.',
       bento3Title: 'Automated ERP Firewall',
-      bento3Desc: 'Verified documents stream cleanly into SAP S/4HANA and PostgreSQL. Erroneous documents automatically generate a structured commercial dispute memo dispatched via API.',
-      bento4Title: 'Immutable Frankfurt Audit Trail',
-      bento4Desc: 'Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL in Frankfurt (AWS eu-central-1) for permanent GoBD § 147 AO compliance.',
+      bento3Desc: 'Verified documents stream cleanly into SAP S/4HANA staging tables. Erroneous documents automatically generate a commercial defect notice citing HGB § 377.',
+      bento4Title: 'Frankfurt GoBD Audit Trail',
+      bento4Desc: 'Every verification produces a SHA-256 cryptographic hash, cryptographically chained to its predecessor block and committed in Frankfurt (AWS eu-central-1).',
 
-      // Executive Founder Card
+      // Solutions & Integration Engineer Profile
       founderRoleTitle: 'Solutions & Integration Engineer',
       fImpTitle1: 'The Problem',
-      fImpDesc1: 'Companies lose millions every year to tiny invoice rounding errors, incorrect tax rates, and unverified bank details that slip past manual checks.',
+      fImpDesc1: 'Companies lose millions every year to tiny invoice rounding errors, incorrect tax rates, and unverified bank details that silently slip past manual checks.',
       fImpTitle2: 'The Solution Built',
-      fImpDesc2: 'I engineered HAULITZ as an automated verification gateway. It intercepts incoming vendor documents, runs cent-exact mathematical checks in code, and only passes certified records into ERP systems like SAP.',
+      fImpDesc2: 'I engineered HAULITZ as an automated verification gateway. It intercepts incoming vendor documents, runs cent-exact mathematical checks in code, and only passes certified records into SAP.',
       fImpTitle3: 'Solutions & Integration Fit',
       fImpDesc3: 'Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.'
     }
@@ -520,12 +173,6 @@
       langBtnText: document.getElementById('lang-btn-text'),
       clerkAuthContainer: document.getElementById('clerk-auth-container'),
       
-      heroHeading: document.getElementById('hero-heading'),
-      heroSubheading: document.getElementById('hero-subheading'),
-
-      domainSectionTitle: document.getElementById('domain-section-title'),
-      domainSectionDesc: document.getElementById('domain-section-desc'),
-      
       toast: document.getElementById('toast-notification'),
       toastMessage: document.getElementById('toast-message'),
       toastIcon: document.getElementById('toast-icon')
@@ -541,18 +188,15 @@
         const lenis = new Lenis({
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          touchMultiplier: 1.5
+          smoothWheel: true
         });
-
         function raf(time) {
           lenis.raf(time);
           requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
-        window.__haulitz_lenis = lenis;
-      } catch (err) {
-        console.warn('Lenis initialization bypassed:', err);
+      } catch (e) {
+        console.warn('Lenis scroll smooth init bypassed:', e);
       }
     }
   }
@@ -573,9 +217,6 @@
           }
         } catch (e) {}
         document.getElementById('auth-gate-modal')?.classList.remove('active');
-        if (!sessionStorage.getItem('haulitz_industry_selected')) {
-          document.getElementById('industry-selector-modal')?.classList.add('active');
-        }
       }
     };
 
@@ -606,14 +247,13 @@
 
     if (window.Clerk.user) {
       const user = window.Clerk.user;
-      const orgName = window.Clerk.organization?.name || 'Haulitz B2B';
       const displayName = user.firstName || user.username || user.primaryEmailAddress?.emailAddress?.split('@')[0] || 'User';
 
       DOM.clerkAuthContainer.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.5rem; background:var(--color-surface); border:1px solid var(--color-border); padding:0.25rem 0.6rem; border-radius:var(--radius-md);">
           <img src="${user.imageUrl}" style="width:20px; height:20px; border-radius:50%;" alt="User avatar"/>
           <span style="font-size:0.75rem; font-weight:600; color:var(--color-text-main);">${displayName}</span>
-          <button id="clerk-sign-out-btn" style="color:var(--color-text-muted); font-size:0.75rem; padding:0 0.2rem;" title="Sign out">
+          <button id="clerk-sign-out-btn" style="color:var(--color-text-muted); font-size:0.75rem; padding:0 0.2rem; background:none; border:none; cursor:pointer;" title="Sign out">
             <i class="fa-solid fa-right-from-bracket"></i>
           </button>
         </div>
@@ -625,12 +265,9 @@
           localStorage.removeItem('haulitz_auth');
           localStorage.removeItem('haulitz_remember_me');
           sessionStorage.removeItem('haulitz_auth');
-          sessionStorage.removeItem('haulitz_industry_selected');
         } catch (e) {}
         updateClerkUI();
-        document.getElementById('auth-gate-modal')?.classList.add('active');
-        document.getElementById('industry-selector-modal')?.classList.remove('active');
-        showToast(state.currentLang === 'de' ? 'Erfolgreich abgemeldet / Signed out' : 'Successfully signed out');
+        showToast(state.currentLang === 'de' ? 'Erfolgreich abgemeldet' : 'Successfully signed out');
       });
     } else {
       DOM.clerkAuthContainer.innerHTML = `
@@ -642,63 +279,16 @@
       document.getElementById('clerk-sign-in-btn')?.addEventListener('click', () => {
         if (window.Clerk.openSignIn) {
           window.Clerk.openSignIn();
+        } else {
+          document.getElementById('auth-gate-modal')?.classList.add('active');
         }
       });
     }
   }
 
   /**
-   * 3. Live Frankfurt Database Ping & Real-Time Telemetry
+   * 3. Domain Workspace Mapping & Deep Link Handling
    */
-  async function fetchFrankfurtPing() {
-    const start = Date.now();
-    try {
-      const resp = await fetch('/api/ping');
-      const elapsed = Date.now() - start;
-      if (resp.ok) {
-        const data = await resp.json();
-        state.dbLatencyMs = data.latency_ms || elapsed;
-        if (DOM.hdrPingMs) DOM.hdrPingMs.textContent = `${state.dbLatencyMs} ms`;
-        if (DOM.kpiValLatency) DOM.kpiValLatency.textContent = `${state.dbLatencyMs} ms`;
-      } else {
-        if (DOM.hdrPingMs) DOM.hdrPingMs.textContent = `${elapsed} ms`;
-        if (DOM.kpiValLatency) DOM.kpiValLatency.textContent = `${elapsed} ms`;
-      }
-    } catch (e) {
-      const fallbackMs = Math.floor(Math.random() * 8) + 18; // Realistic edge ping
-      if (DOM.hdrPingMs) DOM.hdrPingMs.textContent = `${fallbackMs} ms`;
-      if (DOM.kpiValLatency) DOM.kpiValLatency.textContent = `${fallbackMs} ms`;
-    }
-  }
-
-  async function fetchLedgerStats() {
-    try {
-      const resp = await fetch('/api/stats');
-      if (resp.ok) {
-        const data = await resp.json();
-        state.totalLedgerCount = data.total_audits || 1;
-        state.cleanCount = data.clean_audits || 1;
-        state.quarantineCount = data.quarantine_holds || 0;
-        state.lastSealTime = data.last_seal || new Date().toISOString();
-
-        if (DOM.kpiValLedger) DOM.kpiValLedger.textContent = `#${state.totalLedgerCount} BLÖCKE`;
-        if (DOM.ledgerTotalCount) DOM.ledgerTotalCount.textContent = state.totalLedgerCount;
-        if (DOM.ledgerCleanCount) DOM.ledgerCleanCount.textContent = state.cleanCount;
-        if (DOM.ledgerQuarantineCount) DOM.ledgerQuarantineCount.textContent = state.quarantineCount;
-        if (DOM.portalLastSealTime) DOM.portalLastSealTime.textContent = state.lastSealTime.replace('T', ' ').slice(0, 19) + ' UTC';
-      }
-    } catch (e) {
-      // Local fallback
-    }
-  }
-
-  /**
-   * 4. Master Tab Switching
-   */
-  function setupTabs() {
-    // Top-level tabs removed in favor of direct unified gateway layout
-  }
-
   const domainPages = {
     fintech: 'workspaces/fintech.html',
     logistics: 'workspaces/logistics.html',
@@ -712,58 +302,6 @@
     erp: 'workspaces/erp-staging.html'
   };
 
-  /**
-   * 5. Render Domain Directory with Direct Standalone Page Links
-   */
-  function renderDomainGrid() {
-    if (!DOM.domainGrid) return;
-    DOM.domainGrid.innerHTML = '';
-
-    const dict = i18n[state.currentLang] || i18n.de;
-    const domainKeys = Object.keys(window.Haulitz.Domains);
-    domainKeys.forEach(key => {
-      const domain = window.Haulitz.Domains[key];
-      const pageUrl = domainPages[key] || `${key}.html`;
-      const card = document.createElement('a');
-      card.href = pageUrl;
-      card.className = `domain-card`;
-      card.setAttribute('data-domain', key);
-
-      const displayTitle = state.currentLang === 'de' ? (domain.germanTitle || domain.title) : domain.title;
-
-      card.innerHTML = `
-        <div class="domain-card-header">
-          <span class="domain-num">${domain.number}</span>
-          <i class="fa-solid ${domain.icon} domain-icon"></i>
-        </div>
-        <div class="domain-card-title">${displayTitle}</div>
-        <div class="domain-card-sub">${domain.law.split(',')[0]}</div>
-        <div style="margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--color-emerald); padding-top: 0.5rem; border-top: 1px solid var(--color-border);">
-          <span>${dict.openWorkspace || 'Workspace öffnen'}</span>
-          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.65rem;"></i>
-        </div>
-      `;
-
-      DOM.domainGrid.appendChild(card);
-    });
-  }
-
-  /**
-   * 6. Switch Active Domain via Hash or Click
-   */
-  function selectDomain(domainKey) {
-    if (!window.Haulitz.Domains[domainKey]) return;
-    state.currentDomain = domainKey;
-    state.currentScenario = 'scenario_a';
-
-    document.querySelectorAll('.domain-card').forEach(c => {
-      c.classList.toggle('active', c.getAttribute('data-domain') === domainKey);
-    });
-
-    updateScenarioButtonLabels();
-    runVerification();
-  }
-
   function handleHashNavigation() {
     const hash = window.location.hash.replace('#', '').trim();
     if (hash && domainPages[hash]) {
@@ -774,784 +312,7 @@
   window.addEventListener('hashchange', handleHashNavigation);
 
   /**
-   * 7. Switch Active Scenario
-   */
-  function selectScenario(scenarioKey) {
-    if (state.currentScenario === scenarioKey) return;
-    state.currentScenario = scenarioKey;
-
-    [DOM.btnScenarioA, DOM.btnScenarioB, DOM.btnScenarioC].forEach(btn => {
-      if (btn) btn.classList.toggle('active', btn.getAttribute('data-scenario') === scenarioKey);
-    });
-
-    runVerification();
-  }
-
-  function updateScenarioButtonLabels() {
-    const dict = i18n[state.currentLang] || i18n.de;
-    if (DOM.labelScenarioA) DOM.labelScenarioA.textContent = dict.scenarioA;
-    if (DOM.labelScenarioB) DOM.labelScenarioB.textContent = dict.scenarioB;
-    if (DOM.labelScenarioC) DOM.labelScenarioC.textContent = dict.scenarioC;
-
-    [DOM.btnScenarioA, DOM.btnScenarioB, DOM.btnScenarioC].forEach(btn => {
-      if (btn) btn.classList.toggle('active', btn.getAttribute('data-scenario') === state.currentScenario);
-    });
-  }
-
-  /**
-   * 8. Execute Deterministic Verification Engine
-   */
-  async function runVerification() {
-    if (!DOM.dossierContent && !DOM.auditStatusBanner) return;
-
-    const domain = window.Haulitz.Domains[state.currentDomain];
-    const fixtureObj = window.Haulitz.Fixtures[state.currentDomain];
-    if (!domain || !fixtureObj) return;
-
-    const scenario = fixtureObj.scenarios[state.currentScenario];
-    if (!scenario) return;
-
-    const doc = scenario.document;
-    state.lastDocPayload = doc;
-    const dict = i18n[state.currentLang] || i18n.de;
-
-    // Update Active Domain Header
-    if (DOM.activeDomainBadge) DOM.activeDomainBadge.textContent = domain.number;
-    if (DOM.activeDomainTitle) DOM.activeDomainTitle.textContent = state.currentLang === 'de' ? (domain.germanTitle || domain.title) : domain.title;
-    if (DOM.activeDomainTargets) DOM.activeDomainTargets.textContent = `${dict.employers}: ${domain.targetEmployers} | ${dict.law}: ${domain.law}`;
-    if (DOM.dossierDocType) DOM.dossierDocType.textContent = domain.documentType;
-    if (DOM.btnOpenStandalone) {
-      DOM.btnOpenStandalone.href = domainPages[state.currentDomain] || `${state.currentDomain}.html`;
-    }
-
-    let auditResult = { isValid: true, rules: [], discrepancies: [], variance: 0 };
-    let legalMemoText = '';
-    const Verifier = window.Haulitz;
-
-    const isDe = state.currentLang === 'de';
-
-    switch (state.currentDomain) {
-      case 'fintech': {
-        const lineAudit = Verifier.Arithmetic.verifyLineItems(doc.items);
-        const vatAudit = Verifier.Arithmetic.verifyGermanVAT(doc.subtotalNet, doc.taxAmount, doc.grossTotal, doc.vatRate);
-        const ibanAudit = Verifier.Checksums.calculateIBAN(doc.iban);
-        const isClean = lineAudit.isValid && vatAudit.isValid && ibanAudit.isValid;
-        auditResult = {
-          isValid: isClean,
-          declaredTax: doc.taxAmount,
-          expectedTax: vatAudit.expectedTax,
-          taxDelta: vatAudit.taxDelta,
-          variance: Math.abs(vatAudit.taxDelta) > 0.01 ? Math.abs(vatAudit.taxDelta) : (ibanAudit.isValid ? 0 : 1),
-          rules: [
-            { text: isDe ? 'Rechnerische Richtigkeit der Einzelposten (Menge * Einzelpreis = Gesamt)' : 'Line-Item Arithmetic (Qty * Unit Price = Total)', pass: lineAudit.isValid, note: isDe ? `${lineAudit.totalItems} Posten berechnet` : `${lineAudit.totalItems} line items computed` },
-            { text: isDe ? `Gesetzliche USt. (19% auf €${doc.subtotalNet.toFixed(2)})` : `Statutory German VAT (19% on €${doc.subtotalNet.toFixed(2)})`, pass: vatAudit.isValid, note: isDe ? `Soll: €${vatAudit.expectedTax.toFixed(2)}, Ist: €${doc.taxAmount.toFixed(2)}` : `Expected: €${vatAudit.expectedTax.toFixed(2)}, Declared: €${doc.taxAmount.toFixed(2)}` },
-            { text: isDe ? 'SEPA IBAN Modulo-97 Prüfziffer (ISO 7064)' : 'SEPA IBAN Modulo-97 Checksum (ISO 7064)', pass: ibanAudit.isValid, note: ibanAudit.isValid ? (isDe ? `Gültige ${ibanAudit.countryCode} IBAN` : `Valid ${ibanAudit.countryCode} IBAN`) : (isDe ? 'Prüfziffernfehler' : 'Checksum failure') }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateVATNotice(doc, auditResult);
-        break;
-      }
-
-      case 'logistics': {
-        const containerAudit = Verifier.Checksums.calculateISO6346(doc.containerNumber);
-        const massAudit = Verifier.Arithmetic.verifyMassLaw(doc.grossWeightKg, doc.netWeightKg, doc.tareWeightKg);
-        const isClean = containerAudit.isValid && massAudit.isValid;
-        auditResult = {
-          isValid: isClean,
-          checksumValid: containerAudit.isValid,
-          declaredDigit: containerAudit.declaredDigit,
-          calculatedDigit: containerAudit.calculatedDigit,
-          variance: massAudit.isValid ? (containerAudit.isValid ? 0 : 1) : massAudit.weightDeficit,
-          rules: [
-            { text: isDe ? `ISO 6346 Container-Prüfziffer (${doc.containerNumber})` : `ISO 6346 Container Checksum (${doc.containerNumber})`, pass: containerAudit.isValid, note: isDe ? `Ist: [${containerAudit.declaredDigit}], Soll: [${containerAudit.calculatedDigit}]` : `Declared: [${containerAudit.declaredDigit}], Expected: [${containerAudit.calculatedDigit}]` },
-            { text: isDe ? 'Massen-Plausibilität: Bruttogewicht >= Nettogewicht (§ 412 HGB)' : 'Mass Law: Gross Weight >= Net Weight (§ 412 HGB)', pass: massAudit.isValid, note: isDe ? `Brutto: ${doc.grossWeightKg} kg vs Netto: ${doc.netWeightKg} kg` : `Gross: ${doc.grossWeightKg} kg vs Net: ${doc.netWeightKg} kg` },
-            { text: isDe ? 'SOLAS VGM Gewichtsdeklaration innerhalb 2.5% Toleranz' : 'SOLAS VGM Mass Declaration within 2.5% tolerance', pass: true, note: isDe ? 'Terminal-Tara verifiziert' : 'Terminal tare verified' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateADSpNotice(doc, auditResult);
-        break;
-      }
-
-      case 'supply': {
-        const triadAudit = Verifier.Reconciler.reconcileThreeWay(doc.po, doc.deliveryNote, doc.invoice);
-        auditResult = {
-          isValid: triadAudit.isValid,
-          discrepancies: triadAudit.discrepancies,
-          variance: triadAudit.matrix.reduce((acc, row) => acc + (row.financialDelta || 0), 0),
-          rules: [
-            { text: isDe ? 'Referenzabgleich: Bestellung (PO) zu Rechnung' : 'PO to Invoice Reference Match', pass: triadAudit.discrepancies.every(d => !d.includes('Reference mismatch')), note: doc.po.poNumber },
-            { text: isDe ? 'Mengenabgleich: Lieferschein vs Rechnung (HGB § 377)' : 'Quantity Check: Delivery Note vs Invoice (HGB § 377)', pass: triadAudit.matrix.every(r => r.status !== 'SHORT_SHIPMENT_OVERBILLING'), note: triadAudit.isValid ? (isDe ? 'Mengen vollständig geliefert' : 'Quantities fully acknowledged') : (isDe ? 'Minderlieferung festgestellt' : 'Short shipment detected') },
-            { text: isDe ? 'Preisbindung: Vertraglich vereinbarter Einkaufspreis' : 'Agreed Contract Unit Price Ceiling', pass: triadAudit.matrix.every(r => r.status !== 'PRICE_INFLATION_DETECTED'), note: triadAudit.isValid ? (isDe ? 'Einkaufspreise eingehalten' : 'Price cap respected') : (isDe ? 'Preiserhöhung festgestellt' : 'Price inflation detected') }
-          ]
-        };
-        if (!triadAudit.isValid) legalMemoText = Verifier.LegalMemos.generateSupplyNotice(doc.po, doc.deliveryNote, doc.invoice, triadAudit);
-        break;
-      }
-
-      case 'insurtech': {
-        const laborRateOver = doc.billedHourlyRate > doc.approvedHourlyRate;
-        const laborDelta = laborRateOver ? (doc.billedHourlyRate - doc.approvedHourlyRate) * doc.laborHours : 0;
-        const expectedPayable = Math.round((doc.grossTotal - doc.policyDeductible + Number.EPSILON) * 100) / 100;
-        const deductibleIgnored = Math.abs(doc.netInsurerPayable - expectedPayable) > 0.05;
-        const isClean = !laborRateOver && !deductibleIgnored;
-        const variance = laborDelta + (deductibleIgnored ? doc.policyDeductible : 0);
-        auditResult = {
-          isValid: isClean,
-          variance,
-          rules: [
-            { text: isDe ? `Stundenverrechnungssatz-Obergrenze (€${doc.approvedHourlyRate.toFixed(2)}/h Cap)` : `Hourly Labor Rate Ceiling (€${doc.approvedHourlyRate.toFixed(2)}/h cap)`, pass: !laborRateOver, note: isDe ? `Abgerechnet: €${doc.billedHourlyRate.toFixed(2)}/h` : `Billed: €${doc.billedHourlyRate.toFixed(2)}/h` },
-            { text: isDe ? `Vertraglicher Selbstbeteiligungs-Abzug (€${doc.policyDeductible.toFixed(2)})` : `Contractual Deductible Subtraction (€${doc.policyDeductible.toFixed(2)})`, pass: !deductibleIgnored, note: deductibleIgnored ? (isDe ? 'Selbstbeteiligung nicht abgezogen' : 'Deductible omitted from claim') : (isDe ? 'Ordnungsgemäß abgezogen' : 'Correctly subtracted') },
-            { text: isDe ? 'Ersatzteilpreis-Prüfung (DAT / Audatex Benchmark)' : 'Spare Parts Cross-Check (DAT / Audatex benchmark)', pass: true, note: isDe ? 'Herstellerpreise bestätigt' : 'OEM prices verified' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateInsurtechNotice(doc, auditResult);
-        break;
-      }
-
-      case 'legaltech': {
-        const isCertExpired = doc.daysExpired > 0;
-        const isCodeSigned = Boolean(doc.humanRightsCodeSigned);
-        const isClean = !isCertExpired && isCodeSigned;
-        auditResult = {
-          isValid: isClean,
-          variance: doc.daysExpired,
-          rules: [
-            { text: isDe ? 'ISO 14001 Umweltzertifikat-Gültigkeit' : 'Mandatory ISO 14001 Certificate Validity', pass: !isCertExpired, note: isCertExpired ? (isDe ? `Seit ${doc.daysExpired} Tagen abgelaufen` : `Expired ${doc.daysExpired} days ago`) : (isDe ? `Gültig bis ${doc.iso14001ValidUntil}` : `Valid until ${doc.iso14001ValidUntil}`) },
-            { text: isDe ? 'Unterzeichneter Verhaltenskodex (LkSG § 4–§ 7)' : 'Signed Human Rights Code of Conduct (LkSG § 4–§ 7)', pass: isCodeSigned, note: isCodeSigned ? (isDe ? 'Unterzeichnet und wirksam' : 'Signed & active') : (isDe ? 'Fehlt' : 'Missing signature') },
-            { text: isDe ? 'Beschwerdemechanismus & Hinweisgebersystem' : 'Whistleblower & Grievance Reporting System', pass: doc.whistleblowerChannelActive, note: isDe ? 'Beschwerdekanal aktiv' : 'Reporting channel verified' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateLkSGNotice(doc, auditResult);
-        break;
-      }
-
-      case 'healthtech': {
-        const feesAudit = Verifier.Arithmetic.verifyGOAFees(doc.items);
-        auditResult = {
-          isValid: feesAudit.isValid,
-          variance: Math.abs(feesAudit.totalDeclared - feesAudit.totalApproved),
-          rules: [
-            { text: isDe ? 'GOÄ-Gebührenrahmen-Ceiling (Standard 2.3x, Max 3.5x)' : 'GOÄ Statutory Ceiling Multipliers (Standard 2.3x, Max 3.5x)', pass: doc.items.every(it => (it.multiplier || 1) <= 2.3 || Boolean(it.hasJustification)), note: isDe ? 'GOÄ § 5 Abs. 2 Gebührenrahmen' : 'GOÄ § 5 Sec. 2 fee schedule' },
-            { text: isDe ? 'Punktwert-Multiplikator-Rechenprüfung' : 'Point-Value Multiplier Arithmetic Precision', pass: feesAudit.isValid, note: isDe ? `Erfasst: €${feesAudit.totalDeclared.toFixed(2)}, Genehmigt: €${feesAudit.totalApproved.toFixed(2)}` : `Declared: €${feesAudit.totalDeclared.toFixed(2)}, Approved: €${feesAudit.totalApproved.toFixed(2)}` },
-            { text: isDe ? 'Ausschluss unzulässiger Ziffern-Doppelabrechnung' : 'Duplicate Procedure Code Mutual Exclusion Check', pass: true, note: isDe ? 'Keine Doppelabrechnungen' : 'Zero duplicate billings' }
-          ]
-        };
-        if (!feesAudit.isValid) legalMemoText = Verifier.LegalMemos.generateGOANotice(doc, feesAudit);
-        break;
-      }
-
-      case 'ecommerce': {
-        const eanAudit = Verifier.Checksums.calculateEAN13(doc.barcode);
-        const declaredEur = Math.round((doc.statedUsdTotal * doc.statedFxRate + Number.EPSILON) * 100) / 100;
-        const fxDiscrepancy = Math.abs(doc.statedEurTotal - declaredEur) > 0.05;
-        const isClean = eanAudit.isValid && !fxDiscrepancy;
-        auditResult = {
-          isValid: isClean,
-          variance: fxDiscrepancy ? Math.abs(doc.statedEurTotal - declaredEur) : (eanAudit.isValid ? 0 : 1),
-          rules: [
-            { text: isDe ? `GS1 EAN-13 Modulo-10 Barcode-Prüfziffer (${doc.barcode})` : `GS1 EAN-13 Modulo-10 Barcode Checksum (${doc.barcode})`, pass: eanAudit.isValid, note: isDe ? `Ist [${eanAudit.declaredDigit}], Soll [${eanAudit.calculatedDigit}]` : `Declared [${eanAudit.declaredDigit}], Expected [${eanAudit.calculatedDigit}]` },
-            { text: isDe ? 'EZB-Referenz-Währungsumrechnung (FX-Prüfung)' : 'Cross-Border FX Conversion Cross-Sum Check', pass: !fxDiscrepancy, note: fxDiscrepancy ? (isDe ? `Diskrepanz: €${Math.abs(doc.statedEurTotal - declaredEur).toFixed(2)}` : `Discrepancy: €${Math.abs(doc.statedEurTotal - declaredEur).toFixed(2)}`) : (isDe ? 'Währungsumrechnung exakt' : 'FX conversion exact') },
-            { text: isDe ? 'Zolltarif-Warennummern-Struktur (HS-Code)' : 'Customs Harmonized Tariff System (HTS) Code', pass: true, note: isDe ? 'HS 8471.30 verifiziert' : 'HS 8471.30 verified' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateEcommerceNotice(doc, auditResult);
-        break;
-      }
-
-      case 'cleantech': {
-        const stringTotal = doc.string1Kw + doc.string2Kw;
-        const stringMathMismatch = Math.abs(stringTotal - doc.declaredDcPowerKw) > 0.01;
-        const inverterOverCap = doc.declaredDcPowerKw > doc.inverterKw;
-        const isClean = !stringMathMismatch && !inverterOverCap;
-        auditResult = {
-          isValid: isClean,
-          variance: stringMathMismatch ? Math.abs(stringTotal - doc.declaredDcPowerKw) : (inverterOverCap ? (doc.declaredDcPowerKw - doc.inverterKw) : 0),
-          rules: [
-            { text: isDe ? 'DC-String-Summenprüfung vs Anlagenleistung' : 'DC String Summation vs Declared Array Capacity', pass: !stringMathMismatch, note: isDe ? `Strings: ${stringTotal} kWp vs Erklärt: ${doc.declaredDcPowerKw} kWp` : `Strings: ${stringTotal} kWp vs Declared: ${doc.declaredDcPowerKw} kWp` },
-            { text: isDe ? 'Wechselrichter-Netzanschlussleistung (VDE-AR-N 4105)' : 'Inverter Peak Grid Interconnection Capacity (VDE-AR-N 4105)', pass: !inverterOverCap, note: isDe ? `Wechselrichter: ${doc.inverterKw} kW vs Generator: ${doc.declaredDcPowerKw} kWp` : `Inverter: ${doc.inverterKw} kW vs Generator: ${doc.declaredDcPowerKw} kWp` },
-            { text: isDe ? 'TAB Niederspannung Netzeinspeise-Konformität' : 'TAB Low-Voltage Grid Feed-In Compliance', pass: true, note: isDe ? 'Einspeisegrenzen eingehalten' : 'Feed-in limits compliant' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateCleanTechNotice(doc, auditResult);
-        break;
-      }
-
-      case 'proptech': {
-        const isCleanSplit = doc.splitRatio === '70/30' || doc.splitRatio === '50/50_EXEMPT';
-        const expectedMath = Math.round(((doc.totalHeatingCost * 0.7 * (doc.tenantConsumptionUnits / doc.totalBuildingUnits)) +
-                             (doc.totalHeatingCost * 0.3 * (doc.tenantAreaSqm / doc.totalBuildingAreaSqm)) + Number.EPSILON) * 100) / 100;
-        const mathError = Math.abs(doc.declaredTenantBilled - expectedMath) > 0.05;
-        const isClean = isCleanSplit && !mathError;
-        auditResult = {
-          isValid: isClean,
-          variance: mathError ? Math.abs(doc.declaredTenantBilled - expectedMath) : (isCleanSplit ? 0 : 1),
-          rules: [
-            { text: isDe ? 'HeizkostenV § 7 Gesetzlicher Verteilerschlüssel (70/30)' : 'HeizkostenV § 7 Statutory Cost Allocation Ratio (70/30)', pass: isCleanSplit, note: isDe ? `Schlüssel: ${doc.splitRatio}` : `Ratio: ${doc.splitRatio}` },
-            { text: isDe ? 'Zwei-Faktoren-Umlagerechnung (Verbrauch & Fläche)' : 'Dual-Factor Apportionment Arithmetic (Consumption & Area)', pass: !mathError, note: isDe ? `Soll: €${expectedMath.toFixed(2)}, Ist: €${doc.declaredTenantBilled.toFixed(2)}` : `Expected: €${expectedMath.toFixed(2)}, Declared: €${doc.declaredTenantBilled.toFixed(2)}` },
-            { text: isDe ? 'Heizperioden-Eichung & Zählerprüfung' : 'Heating Period Calibration & Device Verification', pass: true, note: isDe ? 'Messgeräte geeicht' : 'Meters calibrated' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generatePropTechNotice(doc, auditResult);
-        break;
-      }
-
-      case 'erp': {
-        const hasSqlInject = /('|"|--|;|\/\*|\*\/|xp_|UNION|SELECT|DROP|INSERT)/i.test(doc.referenceNumber || '');
-        const hasOverflow = (doc.netAmount.toString().split('.')[1] || '').length > 2;
-        const isClean = !hasSqlInject && !hasOverflow && doc.foreignKeysValid;
-        auditResult = {
-          isValid: isClean,
-          variance: hasSqlInject ? 9999 : (hasOverflow ? 0.0001 : 0),
-          rules: [
-            { text: isDe ? 'Parametrisierte SQL-Säuberung (OWASP ASVS / Schutz vor Injection)' : 'Parameterized SQL Meta-Character Sanitization (OWASP ASVS)', pass: !hasSqlInject, note: hasSqlInject ? (isDe ? 'BÖSARTIGE SQL-INJECTION BLOCKIERT' : 'MALICIOUS SQL INJECTION BLOCKED') : (isDe ? 'Bereinigte String-Parameter' : 'Sanitized string parameters') },
-            { text: isDe ? 'Schema-Typintegrität & Präzisionsgrenzen (DECIMAL(18,2))' : 'Schema Type Integrity & Precision Bounds (DECIMAL(18,2))', pass: !hasOverflow, note: hasOverflow ? (isDe ? 'Präzisionsüberlauf festgestellt' : 'Precision overflow detected') : (isDe ? 'Gültiges Zielschema' : 'Valid target schema') },
-            { text: isDe ? 'Enterprise-Referenzintegrität & Fremdschlüsselprüfung' : 'Enterprise Referential Integrity & Foreign Key Resolution', pass: doc.foreignKeysValid, note: isDe ? 'SAP S/4HANA Staging-Tabelle aufgelöst' : 'SAP S/4HANA staging table resolved' }
-          ]
-        };
-        if (!isClean) legalMemoText = Verifier.LegalMemos.generateERPNotice(doc, auditResult);
-        break;
-      }
-    }
-
-    state.lastAuditResult = auditResult;
-
-    // Generate GoBD Cryptographic Seal Block
-    const auditStatus = auditResult.isValid ? 'VERIFIED_CLEAN' : 'QUARANTINE_HOLD';
-    const refId = doc.invoiceNumber || doc.bolNumber || doc.po?.poNumber || doc.claimNumber || doc.supplierId || doc.liquidationNumber || doc.barcode || doc.applicationNumber || doc.unitNumber || doc.batchId || 'RECORD-001';
-
-    const sealResult = await Verifier.GoBDHasher.generateSealBlock(
-      state.previousSeal,
-      refId,
-      auditStatus,
-      doc
-    );
-
-    state.lastSealResult = sealResult;
-    state.previousSeal = sealResult.seal;
-
-    // Render Components
-    renderRealisticDocument(doc, state.currentDomain, state.currentScenario, auditResult);
-    renderAuditCockpit(auditResult, legalMemoText, sealResult);
-    renderCFOExecutiveRecap(state.currentDomain, state.currentScenario, doc, auditResult);
-  }
-
-  /**
-   * 9. Render Authentic Physical White Paper Document Canvas
-   */
-  function renderRealisticDocument(doc, domainKey, scenarioKey, auditResult) {
-    if (!DOM.dossierContent) return;
-    let html = '';
-
-    const guideMarks = `
-      <div style="position:absolute; left:0; top:0; bottom:0; width:10px; pointer-events:none;">
-        <div style="position:absolute; top:105px; left:0; width:10px; height:1px; background:#cbd5e1;" title="DIN 5008 Faltmarke 1"></div>
-        <div style="position:absolute; top:148px; left:0; width:14px; height:1px; background:#94a3b8;" title="DIN 5008 Lochmarke"></div>
-        <div style="position:absolute; top:210px; left:0; width:10px; height:1px; background:#cbd5e1;" title="DIN 5008 Faltmarke 2"></div>
-      </div>
-    `;
-
-    if (domainKey === 'logistics') {
-      const isWeightError = scenarioKey === 'scenario_b';
-      const isContainerError = scenarioKey === 'scenario_c';
-
-      html = `
-        <div style="position:relative; font-family:var(--font-sans);">
-          ${guideMarks}
-          <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0f172a; padding-bottom:0.75rem; margin-bottom:1rem;">
-            <div>
-              <div style="font-size:1.15rem; font-weight:900; letter-spacing:1px; color:#0f172a;">${doc.carrier || 'MEDITERRANEAN SHIPPING CO.'}</div>
-              <div style="font-size:0.7rem; color:#475569; text-transform:uppercase;">Global Ocean Freight &bull; Combined Transport Bill of Lading</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-family:monospace; font-size:1rem; letter-spacing:2px; font-weight:800;">||| | |||| || | ||||| |||</div>
-              <div style="font-size:0.75rem; font-family:var(--font-mono); font-weight:700;">${doc.bolNumber}</div>
-            </div>
-          </div>
-
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; font-size:0.78rem;">
-            <div style="border:1px solid #e2e8f0; padding:0.6rem; border-radius:4px; background:#f8fafc;">
-              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">SHIPPER / EXPORTER</div>
-              <strong style="color:#0f172a;">Hanseatic Industrial Parts GmbH</strong><br>
-              Am Sandtorkai 48, 20457 Hamburg<br>
-              Tel: +49 40 8820-0 &bull; customs@hanseatic-parts.de
-            </div>
-            <div style="border:1px solid #e2e8f0; padding:0.6rem; border-radius:4px; background:#f8fafc;">
-              <table style="width:100%; border-collapse:collapse;">
-                <tr><td style="color:#64748b;">B/L Number:</td><td style="font-family:var(--font-mono); font-weight:700; text-align:right;">${doc.bolNumber}</td></tr>
-                <tr><td style="color:#64748b;">Booking Ref:</td><td style="font-family:var(--font-mono); text-align:right;">${doc.bookingNumber}</td></tr>
-                <tr><td style="color:#64748b;">Vessel / Voyage:</td><td style="text-align:right;">${doc.vessel}</td></tr>
-                <tr><td style="color:#64748b;">Port of Discharge:</td><td style="text-align:right;">${doc.portOfDischarge}</td></tr>
-              </table>
-            </div>
-          </div>
-
-          <div style="background:#0f172a; color:#ffffff; padding:0.4rem 0.75rem; font-size:0.75rem; font-weight:800; display:flex; justify-content:space-between; border-radius:3px; margin-bottom:1rem;">
-            <span>ORIGINAL OCEAN BILL OF LADING</span>
-            <span style="color:#38bdf8;"><i class="fa-solid fa-stamp"></i> ATLAS ZOLL ERFASST</span>
-          </div>
-
-          <table style="width:100%; border-collapse:collapse; font-size:0.76rem; margin-bottom:1rem;">
-            <thead>
-              <tr style="border-bottom:2px solid #cbd5e1; text-align:left;">
-                <th style="padding:0.4rem 0;">Container No &amp; Seal</th>
-                <th style="padding:0.4rem 0;">Type</th>
-                <th style="padding:0.4rem 0;">Cargo Description</th>
-                <th style="padding:0.4rem 0; text-align:right;">Net Mass</th>
-                <th style="padding:0.4rem 0; text-align:right;">Gross Mass</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid #e2e8f0;">
-                <td style="padding:0.6rem 0; font-family:var(--font-mono); ${isContainerError ? 'color:#dc2626; font-weight:800;' : ''}">
-                  ${doc.containerNumber}<br>
-                  <span style="font-size:0.68rem; color:#64748b;">Seal: ${doc.sealNumber}</span>
-                  ${isContainerError ? `<br><span style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626; padding:1px 4px; border-radius:3px; font-size:0.65rem;">ISO 6346 CHECKSUM FEHLER</span>` : ''}
-                </td>
-                <td style="padding:0.6rem 0;">${doc.isoSize}</td>
-                <td style="padding:0.6rem 0;">${doc.cargoDescription}<br><span style="font-size:0.68rem; color:#64748b;">HS Code: ${doc.hsCode}</span></td>
-                <td style="padding:0.6rem 0; text-align:right; font-family:var(--font-mono);">${doc.netWeightKg.toLocaleString()} kg</td>
-                <td style="padding:0.6rem 0; text-align:right; font-family:var(--font-mono); ${isWeightError ? 'color:#dc2626; font-weight:800;' : ''}">
-                  ${doc.grossWeightKg.toLocaleString()} kg
-                  ${isWeightError ? `<br><span style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626; padding:1px 4px; border-radius:3px; font-size:0.65rem;">§ 412 HGB FEHLER: Brutto &lt; Netto</span>` : ''}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; padding:0.6rem; font-size:0.75rem; margin-top:1rem;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Tare Weight:</span>
-              <span style="font-family:var(--font-mono);">${doc.tareWeightKg.toLocaleString()} kg</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Incoterms 2020:</span>
-              <span style="font-family:var(--font-mono); font-weight:700;">${doc.incoterms}</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; border-top:1px solid #cbd5e1; padding-top:0.35rem; font-weight:800; font-size:0.85rem;">
-              <span>Declared Total Gross:</span>
-              <span style="font-family:var(--font-mono); color:#0f172a;">${doc.grossWeightKg.toLocaleString()} kg</span>
-            </div>
-          </div>
-        </div>
-      `;
-    } else if (domainKey === 'supply') {
-      const po = doc.po;
-      const note = doc.deliveryNote;
-      const inv = doc.invoice;
-
-      html = `
-        <div style="position:relative; font-family:var(--font-sans);">
-          ${guideMarks}
-          <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0f172a; padding-bottom:0.75rem; margin-bottom:1rem;">
-            <div>
-              <div style="font-size:1.15rem; font-weight:900; letter-spacing:1px; color:#0f172a;">SIEMENS AG &bull; WERK REGENSBURG</div>
-              <div style="font-size:0.7rem; color:#475569; text-transform:uppercase;">Beschaffungslogistik &bull; 3-Wege-Revisionsabgleich nach HGB § 377</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-family:monospace; font-size:1rem; letter-spacing:2px; font-weight:800;">|||| || | |||| ||| ||</div>
-              <div style="font-size:0.75rem; font-family:var(--font-mono); font-weight:700;">TRIAD-${po.poNumber}</div>
-            </div>
-          </div>
-
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; font-size:0.78rem;">
-            <div style="border:1px solid #e2e8f0; padding:0.6rem; border-radius:4px; background:#f8fafc;">
-              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">LIEFERANT / VENDOR</div>
-              <strong style="color:#0f172a;">${po.supplier}</strong><br>
-              Industriestraße 12, 93055 Regensburg<br>
-              USt-IdNr: DE 136 652 489
-            </div>
-            <div style="border:1px solid #e2e8f0; padding:0.6rem; border-radius:4px; background:#f8fafc;">
-              <table style="width:100%; border-collapse:collapse;">
-                <tr><td style="color:#64748b;">Bestellung (PO):</td><td style="font-family:var(--font-mono); text-align:right; font-weight:700;">${po.poNumber}</td></tr>
-                <tr><td style="color:#64748b;">Lieferschein (DN):</td><td style="font-family:var(--font-mono); text-align:right;">${note.deliveryNumber}</td></tr>
-                <tr><td style="color:#64748b;">Rechnung (INV):</td><td style="font-family:var(--font-mono); text-align:right;">${inv.invoiceNumber}</td></tr>
-                <tr><td style="color:#64748b;">Wareneingang:</td><td style="font-family:var(--font-mono); text-align:right;">${note.deliveryDate}</td></tr>
-              </table>
-            </div>
-          </div>
-
-          <table style="width:100%; border-collapse:collapse; font-size:0.76rem; margin-bottom:1rem;">
-            <thead>
-              <tr style="border-bottom:2px solid #cbd5e1; text-align:left;">
-                <th style="padding:0.4rem 0;">SKU / Art.-Nr.</th>
-                <th style="padding:0.4rem 0; text-align:right;">PO Qty</th>
-                <th style="padding:0.4rem 0; text-align:right;">DN Qty</th>
-                <th style="padding:0.4rem 0; text-align:right;">Inv Qty</th>
-                <th style="padding:0.4rem 0; text-align:right;">Inv Preis</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${inv.items.map(it => {
-                const poIt = po.items.find(p => p.sku === it.sku);
-                const dnIt = note.items.find(d => d.sku === it.sku);
-                const hasQtyMismatch = it.billedQuantity > (dnIt?.receivedQuantity || 0);
-                const hasPriceMismatch = it.billedUnitPrice > (poIt?.unitPrice || 0);
-                return `
-                  <tr style="border-bottom:1px solid #e2e8f0; ${(hasQtyMismatch || hasPriceMismatch) ? 'background:#fef2f2;' : ''}">
-                    <td style="padding:0.5rem 0; font-family:var(--font-mono);"><strong>${it.sku}</strong></td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono);">${poIt?.quantity || 0}</td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono);">${dnIt?.receivedQuantity || 0}</td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); ${hasQtyMismatch ? 'color:#dc2626; font-weight:800;' : ''}">
-                      ${it.billedQuantity}
-                      ${hasQtyMismatch ? `<br><span style="font-size:0.65rem; color:#dc2626;">+20 ZUVIEL</span>` : ''}
-                    </td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono); ${hasPriceMismatch ? 'color:#dc2626; font-weight:800;' : ''}">
-                      € ${it.billedUnitPrice.toFixed(2)}
-                      ${hasPriceMismatch ? `<br><span style="font-size:0.65rem; color:#dc2626;">+15 € TEURER</span>` : ''}
-                    </td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; padding:0.6rem; font-size:0.75rem;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Nettobetrag:</span>
-              <span style="font-family:var(--font-mono);">€ ${inv.netTotal.toFixed(2)}</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-              <span style="color:#64748b;">USt. (19%):</span>
-              <span style="font-family:var(--font-mono);">€ ${inv.vatAmount.toFixed(2)}</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; border-top:1px solid #cbd5e1; padding-top:0.35rem; font-weight:800; font-size:0.85rem;">
-              <span>Rechnungsbetrag Brutto:</span>
-              <span style="font-family:var(--font-mono); color:#0f172a;">€ ${inv.grossTotal.toFixed(2)}</span>
-            </div>
-          </div>
-        </div>
-      `;
-    } else {
-      // Standard DIN 5008 German Commercial Invoice / Statement
-      const companyTitle = doc.supplierName || doc.carrier || doc.workshopName || doc.doctorName || doc.marketplaceName || doc.installerName || 'HAULITZ INDUSTRIAL SYSTEMS GMBH';
-      const companyAddress = doc.supplierAddress || doc.facilityAddress || 'Leopoldstraße 140, 80804 München';
-      const docRefNumber = doc.invoiceNumber || doc.claimNumber || doc.liquidationNumber || doc.asnNumber || doc.applicationNumber || doc.unitNumber || doc.batchId || 'DOC-2026-001';
-      const isFintechVatError = domainKey === 'fintech' && scenarioKey === 'scenario_b';
-      const isFintechIbanError = domainKey === 'fintech' && scenarioKey === 'scenario_c';
-
-      html = `
-        <div style="position:relative; font-family:var(--font-sans);">
-          ${guideMarks}
-          <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0f172a; padding-bottom:0.75rem; margin-bottom:1rem;">
-            <div>
-              <div style="font-size:1.15rem; font-weight:900; letter-spacing:1px; color:#0f172a;">${companyTitle}</div>
-              <div style="font-size:0.7rem; color:#475569;">${companyAddress}</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-family:monospace; font-size:1rem; letter-spacing:2px; font-weight:800;">||| |||| | ||||| || |</div>
-              <div style="font-size:0.75rem; font-family:var(--font-mono); font-weight:700;">${docRefNumber}</div>
-            </div>
-          </div>
-
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; font-size:0.78rem;">
-            <div style="border:1px solid #e2e8f0; padding:0.6rem; border-radius:4px; background:#f8fafc;">
-              <div style="font-size:0.68rem; font-weight:800; color:#64748b;">EMPFÄNGER / RECIPIENT</div>
-              <strong style="color:#0f172a;">${doc.customerName || doc.claimantName || 'Haulitz Industrial Gateway AG'}</strong><br>
-              ERP Staging Pufferzone 4<br>
-              60329 Frankfurt am Main, Deutschland
-            </div>
-            <div style="border:1px solid #e2e8f0; padding:0.6rem; border-radius:4px; background:#f8fafc;">
-              <table style="width:100%; border-collapse:collapse;">
-                <tr><td style="color:#64748b;">Beleg-Nr.:</td><td style="font-family:var(--font-mono); font-weight:700; text-align:right;">${docRefNumber}</td></tr>
-                <tr><td style="color:#64748b;">Datum:</td><td style="font-family:var(--font-mono); text-align:right;">${doc.issueDate || '2026-10-28'}</td></tr>
-                ${doc.supplierTaxId ? `<tr><td style="color:#64748b;">USt-IdNr.:</td><td style="font-family:var(--font-mono); text-align:right;">${doc.supplierTaxId}</td></tr>` : ''}
-                ${doc.iban ? `
-                  <tr>
-                    <td style="color:#64748b;">SEPA IBAN:</td>
-                    <td style="font-family:var(--font-mono); text-align:right; ${isFintechIbanError ? 'color:#dc2626; font-weight:800;' : ''}">
-                      ${doc.iban}
-                      ${isFintechIbanError ? `<br><span style="font-size:0.65rem; color:#dc2626;">MODULO-97 FEHLER</span>` : ''}
-                    </td>
-                  </tr>
-                ` : ''}
-              </table>
-            </div>
-          </div>
-
-          ${Array.isArray(doc.items) ? `
-            <table style="width:100%; border-collapse:collapse; font-size:0.76rem; margin-bottom:1rem;">
-              <thead>
-                <tr style="border-bottom:2px solid #cbd5e1; text-align:left;">
-                  <th style="padding:0.4rem 0;">Pos.</th>
-                  <th style="padding:0.4rem 0;">Beschreibung</th>
-                  <th style="padding:0.4rem 0; text-align:right;">Menge</th>
-                  <th style="padding:0.4rem 0; text-align:right;">Einzelpreis</th>
-                  <th style="padding:0.4rem 0; text-align:right;">Gesamt</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${doc.items.map((it, idx) => `
-                  <tr style="border-bottom:1px solid #e2e8f0;">
-                    <td style="padding:0.5rem 0; font-family:var(--font-mono);">${(idx + 1).toString().padStart(2, '0')}</td>
-                    <td style="padding:0.5rem 0;">${it.description || 'Enterprise Komponente'}</td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono);">${it.quantity || 1}</td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono);">€ ${(it.unitPrice || 0).toFixed(2)}</td>
-                    <td style="padding:0.5rem 0; text-align:right; font-family:var(--font-mono);">€ ${(it.declaredTotal || 0).toFixed(2)}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          ` : ''}
-
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; padding:0.6rem; font-size:0.75rem; margin-top:1rem;">
-            ${doc.subtotalNet !== undefined ? `
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-                <span style="color:#64748b;">Nettobetrag:</span>
-                <span style="font-family:var(--font-mono);">€ ${doc.subtotalNet.toFixed(2)}</span>
-              </div>
-            ` : ''}
-            ${doc.taxAmount !== undefined ? `
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem; ${isFintechVatError ? 'color:#dc2626; font-weight:800;' : ''}">
-                <span style="color:#64748b;">Mehrwertsteuer (19%):</span>
-                <span style="font-family:var(--font-mono);">
-                  € ${doc.taxAmount.toFixed(2)}
-                  ${isFintechVatError ? `<span style="font-size:0.65rem; color:#dc2626; margin-left:6px;">(-120,00 € UStG-Falle)</span>` : ''}
-                </span>
-              </div>
-            ` : ''}
-            ${doc.grossTotal !== undefined ? `
-              <div style="display:flex; justify-content:space-between; border-top:1px solid #cbd5e1; padding-top:0.35rem; font-weight:800; font-size:0.85rem;">
-                <span>Rechnungsbetrag Brutto:</span>
-                <span style="font-family:var(--font-mono); color:#0f172a;">€ ${doc.grossTotal.toFixed(2)}</span>
-              </div>
-            ` : ''}
-          </div>
-        </div>
-      `;
-    }
-
-    DOM.dossierContent.innerHTML = html;
-  }
-
-  /**
-   * 10. Render Verification Cockpit in Right Pane
-   */
-  function renderAuditCockpit(auditResult, legalMemoText, sealResult) {
-    const isClean = auditResult.isValid;
-    const dict = i18n[state.currentLang] || i18n.de;
-
-    if (DOM.auditStatusBanner) {
-      DOM.auditStatusBanner.className = `audit-status-banner ${isClean ? 'status-clean' : 'status-quarantine'}`;
-    }
-    if (DOM.statusIcon) {
-      DOM.statusIcon.className = `fa-solid ${isClean ? 'fa-circle-check' : 'fa-triangle-exclamation'} status-main-icon`;
-    }
-    if (DOM.statusTextTitle) {
-      DOM.statusTextTitle.textContent = isClean ? dict.statusCleanTitle : dict.statusQuarantineTitle;
-    }
-    if (DOM.statusTextSubtitle) {
-      DOM.statusTextSubtitle.textContent = isClean ? dict.statusCleanDesc : dict.statusQuarantineDesc;
-    }
-    if (DOM.statusPillBadge) {
-      DOM.statusPillBadge.textContent = isClean ? dict.statusCleanBadge : dict.statusQuarantineBadge;
-      DOM.statusPillBadge.className = `rule-badge ${isClean ? 'pass' : 'fail'}`;
-    }
-
-    // Rules
-    if (DOM.ruleChecklist) {
-      DOM.ruleChecklist.innerHTML = auditResult.rules.map(r => `
-        <li>
-          <div class="rule-name">
-            <i class="fa-solid ${r.pass ? 'fa-circle-check text-emerald' : 'fa-circle-xmark text-crimson'}"></i>
-            <span>${r.text}</span>
-          </div>
-          <span class="rule-badge ${r.pass ? 'pass' : 'fail'}">${r.pass ? 'PASS' : 'FAIL'}</span>
-        </li>
-      `).join('');
-    }
-
-    // Variance Card & Dispute Dispatch Button
-    if (DOM.varianceCard) {
-      if (!isClean && auditResult.variance) {
-        DOM.varianceCard.style.display = 'block';
-        if (DOM.varianceText) {
-          const unitWord = state.currentLang === 'de' ? 'Einheiten/EUR Abweichung' : 'units/EUR variance';
-          DOM.varianceText.innerHTML = `
-            <strong>${dict.varianceExact}</strong> € ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} ${unitWord}.<br>
-            ${dict.varianceBlocked}
-          `;
-        }
-        if (DOM.btnDispatchDisputeText) {
-          DOM.btnDispatchDisputeText.textContent = dict.dispatchBtn;
-        }
-      } else {
-        DOM.varianceCard.style.display = 'none';
-      }
-    }
-
-    // Legal Memo
-    if (DOM.legalMemoBox) {
-      if (!isClean && legalMemoText) {
-        DOM.legalMemoBox.style.display = 'block';
-        if (DOM.legalMemoContent) DOM.legalMemoContent.textContent = legalMemoText;
-      } else {
-        DOM.legalMemoBox.style.display = 'none';
-      }
-    }
-
-    // GoBD Hash
-    if (DOM.gobdCurrentHash && sealResult) {
-      DOM.gobdCurrentHash.textContent = sealResult.seal;
-    }
-  }
-
-  /**
-   * 11. Render CFO Executive Summary
-   */
-  function renderCFOExecutiveRecap(domainKey, scenarioKey, doc, auditResult) {
-    if (!DOM.cfoRecapBox) return;
-
-    if (auditResult.isValid) {
-      DOM.cfoRecapBox.style.display = 'none';
-      state.lastCfoRecapText = '';
-      return;
-    }
-
-    DOM.cfoRecapBox.style.display = 'block';
-    const domain = window.Haulitz.Domains[domainKey];
-    const refId = doc.invoiceNumber || doc.bolNumber || doc.po?.poNumber || doc.claimNumber || doc.supplierId || doc.liquidationNumber || doc.barcode || doc.applicationNumber || doc.unitNumber || doc.batchId || 'RECORD-001';
-    const isDe = state.currentLang === 'de';
-
-    let bullet1 = isDe
-      ? `<strong>1. VORFALL / ABWEICHUNG:</strong> Kritische Abweichung im Beleg [${refId}] festgestellt. Rechnerische Diskrepanz von ca. ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} Einheiten/EUR ermittelt.`
-      : `<strong>1. DETECTED VARIANCE:</strong> Critical discrepancy detected in record [${refId}]. Discrepancy of approx. ${typeof auditResult.variance === 'number' ? auditResult.variance.toFixed(2) : auditResult.variance} units/EUR verified.`;
-    let bullet2 = isDe
-      ? `<strong>2. RECHTLICHES RISIKO:</strong> Verstoß gegen ${domain.law}. Unmittelbare Gefahr des Verlusts des Vorsteuerabzugs oder zollrechtlicher Haftung.`
-      : `<strong>2. STATUTORY RISK:</strong> Breach under ${domain.law}. Risk of input VAT deduction loss, customs delay, or fiscal liability.`;
-    let bullet3 = isDe
-      ? `<strong>3. ERGRIFFENE SCHUTZMASSNAHME:</strong> Automatischer Zahllauf in SAP blockiert. Gesetzliche Mängelrüge erstellt. GoBD SHA-256 Ledger versiegelt.`
-      : `<strong>3. MITIGATION ACTION:</strong> Downstream ERP payment run blocked. Statutory dispute notice drafted. GoBD SHA-256 seal anchored.`;
-
-    if (DOM.cfoRecapContent) {
-      DOM.cfoRecapContent.innerHTML = `
-        <div style="margin-bottom:0.35rem;">${bullet1}</div>
-        <div style="margin-bottom:0.35rem;">${bullet2}</div>
-        <div>${bullet3}</div>
-      `;
-    }
-
-    state.lastCfoRecapText = `HAULITZ CFO EXECUTIVE RECAP\nDocument: ${refId} | Domain: ${domain.title}\nStatus: QUARANTINE_HOLD\n1. Discrepancy detected.\n2. Risk under ${domain.law}.\n3. ERP payment blocked; GoBD seal chained.`;
-  }
-
-  /**
-   * 12. Commit Deterministic Audit to Frankfurt Neon DB (/api/audit)
-   */
-  async function commitAuditToFrankfurtDB() {
-    if (!state.lastSealResult || !state.lastDocPayload) return;
-
-    const btn = DOM.btnCommitToDb;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Schreibe in Frankfurt DB...`;
-    btn.disabled = true;
-
-    const doc = state.lastDocPayload;
-    const refId = doc.invoiceNumber || doc.bolNumber || doc.po?.poNumber || doc.claimNumber || doc.supplierId || doc.liquidationNumber || doc.barcode || doc.applicationNumber || doc.unitNumber || doc.batchId || 'RECORD-001';
-
-    try {
-      const resp = await fetch('/api/audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          domain_id: state.currentDomain,
-          document_ref: refId,
-          status: state.lastAuditResult?.isValid ? 'VERIFIED_CLEAN' : 'QUARANTINE_HOLD',
-          discrepancy_count: state.lastAuditResult?.isValid ? 0 : 1,
-          sha256_seal: state.lastSealResult.seal,
-          previous_seal: state.lastSealResult.previousSeal,
-          details: {
-            scenario: state.currentScenario,
-            domain: state.currentDomain,
-            variance: state.lastAuditResult?.variance || 0,
-            timestamp: new Date().toISOString()
-          }
-        })
-      });
-
-      if (resp.ok) {
-        const data = await resp.json();
-        const recordId = data.record?.id || Math.floor(Math.random() * 50) + 2;
-        showToast(`GoBD Block #${recordId} unveränderbar in Frankfurt (AWS eu-central-1) festgeschrieben!`);
-        appendLedgerRow(recordId, state.currentDomain, refId, state.lastAuditResult?.isValid ? 'VERIFIED_CLEAN' : 'QUARANTINE_HOLD', state.lastSealResult.seal);
-        fetchLedgerStats();
-      } else {
-        showToast('GoBD Siegel lokal im Ledger verankert.');
-      }
-    } catch (e) {
-      showToast('GoBD Siegel lokal im Ledger verankert.');
-    } finally {
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-    }
-  }
-
-  function appendLedgerRow(id, domain, ref, status, hash) {
-    if (!DOM.ledgerTableBody) return;
-    const isClean = status === 'VERIFIED_CLEAN';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="font-mono-code">#${id}</td>
-      <td class="font-mono-code">${new Date().toISOString().slice(11, 19)} UTC</td>
-      <td>${domain.toUpperCase()}</td>
-      <td class="font-mono-code">${ref}</td>
-      <td><span class="rule-badge ${isClean ? 'pass' : 'fail'}">${status}</span></td>
-      <td>${isClean ? 0 : 1}</td>
-      <td class="font-mono-code ${isClean ? 'text-emerald' : 'text-crimson'}" style="font-size:0.68rem;">${hash.slice(0, 32)}...</td>
-    `;
-    DOM.ledgerTableBody.prepend(tr);
-  }
-
-  /**
-   * 13. Dispatch Statutory Dispute Notice via Resend (/api/dispute)
-   */
-  async function dispatchDisputeEmail() {
-    if (state.isDispatchingEmail || !state.lastDocPayload) return;
-    state.isDispatchingEmail = true;
-
-    const btn = DOM.btnDispatchDispute;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Versende über Resend API an allensimeonfletcher@gmail.com...`;
-    btn.disabled = true;
-
-    const doc = state.lastDocPayload;
-    const refId = doc.invoiceNumber || doc.bolNumber || doc.po?.poNumber || doc.claimNumber || doc.supplierId || doc.liquidationNumber || doc.barcode || doc.applicationNumber || doc.unitNumber || doc.batchId || 'RECORD-001';
-    const domain = window.Haulitz.Domains[state.currentDomain];
-
-    try {
-      const resp = await fetch('/api/dispute', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          domain_id: state.currentDomain,
-          document_ref: refId,
-          dispute_reason: `Statutory variance of ${state.lastAuditResult?.variance} units/EUR detected. Downstream SAP ERP payment blocked.`,
-          governing_law: domain?.law || 'German Commercial Code'
-        })
-      });
-
-      if (resp.ok) {
-        const data = await resp.json();
-        btn.innerHTML = `<i class="fa-solid fa-check"></i> Rechtssichere Mängelrüge versandt!`;
-        showToast(`Rechtssichere Mängelrüge per Resend an allensimeonfletcher@gmail.com übermittelt!`);
-        state.disputeCount += 1;
-        if (DOM.ledgerDisputeCount) DOM.ledgerDisputeCount.textContent = state.disputeCount;
-      } else {
-        btn.innerHTML = `<i class="fa-solid fa-check"></i> Mängelrüge protokolliert!`;
-        showToast('Mängelrüge in Frankfurt Neon DB protokolliert.');
-      }
-    } catch (e) {
-      btn.innerHTML = `<i class="fa-solid fa-check"></i> Mängelrüge protokolliert!`;
-      showToast('Mängelrüge in Frankfurt Neon DB protokolliert.');
-    } finally {
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        state.isDispatchingEmail = false;
-      }, 4000);
-    }
-  }
-
-  /**
-   * 14. Toast Notification
+   * 4. Toast Notification
    */
   function showToast(message, isError = false) {
     if (!DOM.toast || !DOM.toastMessage) return;
@@ -1566,67 +327,9 @@
   }
 
   /**
-   * 15. Setup Event Listeners & Buttons
+   * 5. Setup Global Event Listeners & Controls
    */
   function setupEventListeners() {
-    DOM.btnScenarioA?.addEventListener('click', () => selectScenario('scenario_a'));
-    DOM.btnScenarioB?.addEventListener('click', () => selectScenario('scenario_b'));
-    DOM.btnScenarioC?.addEventListener('click', () => selectScenario('scenario_c'));
-
-    DOM.btnCommitToDb?.addEventListener('click', commitAuditToFrankfurtDB);
-    DOM.btnDispatchDispute?.addEventListener('click', dispatchDisputeEmail);
-
-    DOM.btnRefreshLedger?.addEventListener('click', () => {
-      fetchLedgerStats();
-      fetchFrankfurtPing();
-      showToast('Frankfurt Neon DB Kennzahlen aktualisiert.');
-    });
-
-    DOM.btnExportCsvReal?.addEventListener('click', () => {
-      const csv = window.Haulitz.GoBDHasher.exportToCSV(state.auditHistory);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.setAttribute('href', url);
-      link.setAttribute('download', `haulitz_gobd_ledger_frankfurt_${new Date().toISOString().slice(0, 10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast('GoBD Ledger CSV erfolgreich heruntergeladen.');
-    });
-
-    DOM.btnCopyMemo?.addEventListener('click', () => {
-      if (DOM.legalMemoContent) {
-        navigator.clipboard.writeText(DOM.legalMemoContent.textContent).then(() => {
-          showToast('Gesetzliche Mängelrüge in Zwischenablage kopiert!');
-        });
-      }
-    });
-
-    DOM.btnCopyCfoRecap?.addEventListener('click', () => {
-      if (state.lastCfoRecapText) {
-        navigator.clipboard.writeText(state.lastCfoRecapText).then(() => {
-          showToast('CFO-Zusammenfassung kopiert!');
-        });
-      }
-    });
-
-    DOM.btnCopyTsqlSop?.addEventListener('click', () => {
-      if (DOM.snippetTsql) {
-        navigator.clipboard.writeText(DOM.snippetTsql.textContent).then(() => {
-          showToast('SAP T-SQL Prozedur kopiert!');
-        });
-      }
-    });
-
-    DOM.btnCopyCsharpSop?.addEventListener('click', () => {
-      if (DOM.snippetCsharp) {
-        navigator.clipboard.writeText(DOM.snippetCsharp.textContent).then(() => {
-          showToast('C# .NET 8 SDK Snippet kopiert!');
-        });
-      }
-    });
-
     // Theme Toggle
     DOM.themeToggleBtn?.addEventListener('click', () => {
       const nextTheme = state.currentTheme === 'dark' ? 'light' : 'dark';
@@ -1645,67 +348,6 @@
         localStorage.setItem('haulitz_lang', state.currentLang);
       } catch (e) {}
       applyLanguageUI();
-      renderDomainGrid();
-      runVerification();
-    });
-
-    // Header Industry Switcher Dropdown
-    const hdrDropdown = document.getElementById('hdr-industry-dropdown');
-    const hdrDropdownBtn = document.getElementById('hdr-industry-dropdown-btn');
-    if (hdrDropdownBtn && hdrDropdown) {
-      hdrDropdownBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        hdrDropdown.classList.toggle('open');
-      });
-      document.addEventListener('click', (e) => {
-        if (!hdrDropdown.contains(e.target)) {
-          hdrDropdown.classList.remove('open');
-        }
-      });
-    }
-
-    // Fullscreen 10-Industry Selector Modal Controls
-    const industryModal = document.getElementById('industry-selector-modal');
-    const btnOpenIndustryModal = document.getElementById('btn-open-industry-modal');
-    const dropdownOpenModalTrigger = document.getElementById('dropdown-open-modal-trigger');
-    const btnCloseSelectorModal = document.getElementById('btn-close-selector-modal');
-
-    if (btnOpenIndustryModal && industryModal) {
-      btnOpenIndustryModal.addEventListener('click', () => {
-        industryModal.classList.add('active');
-      });
-    }
-
-    if (dropdownOpenModalTrigger && industryModal) {
-      dropdownOpenModalTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        hdrDropdown?.classList.remove('open');
-        industryModal.classList.add('active');
-      });
-    }
-
-    if (btnCloseSelectorModal && industryModal) {
-      btnCloseSelectorModal.addEventListener('click', () => {
-        industryModal.classList.remove('active');
-      });
-    }
-
-    // Close modal when clicking on the blurred backdrop outside the dialog
-    if (industryModal) {
-      industryModal.addEventListener('click', (e) => {
-        if (e.target === industryModal) {
-          industryModal.classList.remove('active');
-        }
-      });
-    }
-
-    // Persist industry selection when navigating from modal or cards
-    document.querySelectorAll('.selector-industry-card, .domain-card-link').forEach(card => {
-      card.addEventListener('click', () => {
-        try {
-          sessionStorage.setItem('haulitz_industry_selected', 'true');
-        } catch (e) {}
-      });
     });
 
     // Auth Gate Actions with Remember Me (Official Google & Clerk SSO)
@@ -1724,14 +366,11 @@
         }
       } catch (err) {}
 
-      // CRITICAL FIX: Hide our custom auth modal IMMEDIATELY to prevent double-modal collision
-      // and ensure no invisible background inputs trigger browser constraint validation popups.
       if (authModal) {
         authModal.classList.remove('active');
       }
 
       if (provider === 'google') {
-        // Direct official Google OAuth flow via Clerk
         if (window.Clerk && window.Clerk.client && window.Clerk.client.signIn) {
           try {
             await window.Clerk.client.signIn.authenticateWithRedirect({
@@ -1745,7 +384,6 @@
           }
         }
 
-        // If direct redirect is unsupported, open Clerk's official modal cleanly
         if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
           try {
             window.Clerk.openSignIn();
@@ -1755,14 +393,8 @@
           }
         }
 
-        // Graceful offline/adblock fallback: proceed to industry selector
-        if (industryModal) industryModal.classList.add('active');
-        showToast(state.currentLang === 'de' 
-          ? 'Angemeldet via Google. Bitte wählen Sie Ihren Industrie-Workspace.' 
-          : 'Signed in with Google. Please select your industry workspace.'
-        );
+        showToast(state.currentLang === 'de' ? 'Erfolgreich autorisiert.' : 'Successfully authorized.');
       } else {
-        // Official Work Email / SSO flow
         if (window.Clerk && typeof window.Clerk.openSignIn === 'function') {
           try {
             window.Clerk.openSignIn();
@@ -1771,199 +403,67 @@
             console.warn('Clerk openSignIn error:', e);
           }
         }
-
-        // Fallback
-        if (industryModal) industryModal.classList.add('active');
-        showToast(state.currentLang === 'de' 
-          ? 'Angemeldet. Bitte wählen Sie Ihren Industrie-Workspace.' 
-          : 'Signed in. Please select your industry workspace.'
-        );
+        showToast(state.currentLang === 'de' ? 'Erfolgreich autorisiert.' : 'Successfully authorized.');
       }
     };
 
     document.getElementById('btn-auth-google')?.addEventListener('click', () => handleAuthLogin('google'));
     document.getElementById('btn-auth-clerk')?.addEventListener('click', () => handleAuthLogin('clerk'));
+
+    // Modal background click dismiss
+    if (authModal) {
+      authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) {
+          authModal.classList.remove('active');
+        }
+      });
+    }
   }
 
   function updateThemeUI() {
     const isDark = state.currentTheme === 'dark';
-    const dict = i18n[state.currentLang] || i18n.de;
-    if (DOM.themeIcon) DOM.themeIcon.className = isDark ? 'fa-solid fa-moon text-emerald' : 'fa-solid fa-sun text-emerald';
-    if (DOM.themeText) DOM.themeText.textContent = isDark ? dict.themeDark : dict.themeLight;
-    if (DOM.themeToggleBtn) {
-      DOM.themeToggleBtn.setAttribute('title', isDark 
-        ? (state.currentLang === 'de' ? 'Zu hellem Modus wechseln' : 'Switch to light mode')
-        : (state.currentLang === 'de' ? 'Zu dunklem Modus wechseln' : 'Switch to dark mode')
-      );
+    if (DOM.themeIcon) {
+      DOM.themeIcon.className = `fa-solid ${isDark ? 'fa-moon' : 'fa-sun'}`;
+    }
+    if (DOM.themeText) {
+      DOM.themeText.textContent = state.currentLang === 'de' 
+        ? (isDark ? 'Dunkel' : 'Hell') 
+        : (isDark ? 'Dark' : 'Light');
     }
   }
 
+  /**
+   * 6. High-Performance Language Hydration (Active Elements Only)
+   */
   function applyLanguageUI() {
     const dict = i18n[state.currentLang] || i18n.de;
     document.documentElement.lang = state.currentLang;
 
     if (DOM.langBtnText) DOM.langBtnText.textContent = dict.langBtn;
 
-    if (DOM.heroHeading) {
-      const parts = dict.heroHeading.split(':');
-      const subtitlePart = parts.length > 1 ? parts[1].trim() : dict.heroHeading;
-      DOM.heroHeading.innerHTML = `HAULITZ: <span class="gradient-text">${subtitlePart}</span>`;
-    }
-    if (DOM.heroSubheading) DOM.heroSubheading.innerHTML = dict.heroSubheading;
-
-    if (DOM.domainSectionTitle) DOM.domainSectionTitle.innerHTML = dict.domainTitle;
-    if (DOM.domainSectionDesc) DOM.domainSectionDesc.textContent = dict.domainDesc;
-
-    // Helper functions for updating element contents
     const setElemText = (id, text) => {
       const el = document.getElementById(id);
-      if (el) el.textContent = text;
+      if (el && text) el.textContent = text;
     };
     const setElemHTML = (id, html) => {
       const el = document.getElementById(id);
-      if (el) el.innerHTML = html;
-    };
-    const setElemAttr = (id, attr, val) => {
-      const el = document.getElementById(id);
-      if (el) el.setAttribute(attr, val);
+      if (el && html) el.innerHTML = html;
     };
 
     // Header Search Bar
-    setElemText('cmd-k-text', dict.cmdKText || (state.currentLang === 'de' ? 'Suchen...' : 'Search...'));
+    setElemText('cmd-k-text', dict.cmdKText);
+    const cmdInput = document.getElementById('command-search-input');
+    if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
 
-    // Product Showcase & Founder Section
-    setElemText('label-what-is-title', dict.whatIsTitle);
-    setElemHTML('label-what-is-p1', dict.whatIsP1);
-    setElemHTML('label-what-is-p2', dict.whatIsP2);
-    setElemText('pillar-1-title', dict.pillar1Title);
-    setElemHTML('pillar-1-desc', dict.pillar1Desc);
-    setElemText('pillar-2-title', dict.pillar2Title);
-    setElemHTML('pillar-2-desc', dict.pillar2Desc);
-    setElemText('pillar-3-title', dict.pillar3Title);
-    setElemHTML('pillar-3-desc', dict.pillar3Desc);
-
-    setElemHTML('label-founder-role', dict.founderRole);
-    setElemHTML('label-founder-bio', dict.founderBio);
-    setElemHTML('label-founder-bio2', dict.founderBio2);
-
-    // Founder 3-Pillars Narrative
-    setElemText('fp-title-1', dict.fpTitle1);
-    setElemText('fp-desc-1', dict.fpDesc1);
-    setElemText('fp-title-2', dict.fpTitle2);
-    setElemText('fp-desc-2', dict.fpDesc2);
-    setElemText('fp-title-3', dict.fpTitle3);
-    setElemText('fp-desc-3', dict.fpDesc3);
-
-    // Founder Tooltips
-    setElemAttr('badge-pill-anabin', 'data-tooltip', dict.tooltipAnabin);
-    setElemAttr('badge-pill-bluecard', 'data-tooltip', dict.tooltipBluecard);
-    setElemAttr('badge-pill-scenarios', 'data-tooltip', dict.tooltipScenarios);
-
-    // Auth Gate & Industry Selector Modals
+    // Auth Gate Modal
     setElemText('auth-modal-title', dict.authTitle);
     setElemText('auth-modal-subtitle', dict.authSub);
     setElemText('btn-google-text', dict.authGoogle);
     setElemText('btn-clerk-text', dict.authClerk);
     setElemText('auth-remember-label', dict.authRemember);
-    setElemText('auth-divider-text', dict.authDivider || (state.currentLang === 'de' ? 'ODER' : 'OR'));
-    setElemText('btn-auth-text', dict.authBtn);
+    setElemText('auth-divider-text', dict.authDivider);
 
-    setElemText('selector-modal-title', dict.selectorTitle);
-    setElemText('selector-modal-subtitle', dict.selectorSub);
-
-    // Telemetry Counters & Subtitles
-    setElemText('tel-latency-label', dict.telLatencyLabel);
-    setElemHTML('tel-latency-sub', dict.telLatencySub);
-    setElemText('tel-scenarios-label', dict.telScenariosLabel);
-    setElemHTML('tel-scenarios-sub', dict.telScenariosSub);
-    setElemText('tel-sla-label', dict.telSlaLabel);
-    setElemHTML('tel-sla-sub', dict.telSlaSub);
-    setElemText('tel-ledger-label', dict.telLedgerLabel);
-    setElemHTML('tel-ledger-sub', dict.telLedgerSub);
-
-    // Pipeline Steps & Status Tags
-    setElemText('pipeline-tag-text', dict.pipelineTagText);
-    setElemText('pipeline-title-text', dict.pipelineTitleText);
-    setElemText('pipe-step1-badge', dict.pipeStep1Badge);
-    setElemText('pipe-step1-title', dict.pipeStep1Title);
-    setElemHTML('pipe-step1-desc', dict.pipeStep1Desc);
-    setElemHTML('pipe-step1-tag', dict.pipeStep1Tag);
-    setElemText('pipe-step2-badge', dict.pipeStep2Badge);
-    setElemText('pipe-step2-title', dict.pipeStep2Title);
-    setElemHTML('pipe-step2-desc', dict.pipeStep2Desc);
-    setElemHTML('pipe-step2-tag', dict.pipeStep2Tag);
-    setElemText('pipe-step3-badge', dict.pipeStep3Badge);
-    setElemText('pipe-step3-title', dict.pipeStep3Title);
-    setElemHTML('pipe-step3-desc', dict.pipeStep3Desc);
-    setElemHTML('pipe-step3-tag', dict.pipeStep3Tag);
-
-    // 10 Workspaces on page
-    setElemHTML('ws-desc-01', dict.wsDesc01);
-    setElemHTML('ws-meta-01', dict.wsMeta01);
-    setElemHTML('ws-desc-02', dict.wsDesc02);
-    setElemHTML('ws-meta-02', dict.wsMeta02);
-    setElemHTML('ws-desc-03', dict.wsDesc03);
-    setElemHTML('ws-meta-03', dict.wsMeta03);
-    setElemHTML('ws-desc-04', dict.wsDesc04);
-    setElemHTML('ws-meta-04', dict.wsMeta04);
-    setElemHTML('ws-desc-05', dict.wsDesc05);
-    setElemHTML('ws-meta-05', dict.wsMeta05);
-    setElemHTML('ws-desc-06', dict.wsDesc06);
-    setElemHTML('ws-meta-06', dict.wsMeta06);
-    setElemHTML('ws-desc-07', dict.wsDesc07);
-    setElemHTML('ws-meta-07', dict.wsMeta07);
-    setElemHTML('ws-desc-08', dict.wsDesc08);
-    setElemHTML('ws-meta-08', dict.wsMeta08);
-    setElemHTML('ws-desc-09', dict.wsDesc09);
-    setElemHTML('ws-meta-09', dict.wsMeta09);
-    setElemHTML('ws-desc-10', dict.wsDesc10);
-    setElemHTML('ws-meta-10', dict.wsMeta10);
-
-    // Modal workspace descriptions
-    setElemHTML('sel-desc-fintech', dict.wsDesc01);
-    setElemHTML('sel-desc-logistics', dict.wsDesc02);
-    setElemHTML('sel-desc-supply', dict.wsDesc03);
-    setElemHTML('sel-desc-insurtech', dict.wsDesc04);
-    setElemHTML('sel-desc-legaltech', dict.wsDesc05);
-    setElemHTML('sel-desc-healthtech', dict.wsDesc06);
-    setElemHTML('sel-desc-ecommerce', dict.wsDesc07);
-    setElemHTML('sel-desc-cleantech', dict.wsDesc08);
-    setElemHTML('sel-desc-proptech', dict.wsDesc09);
-    setElemHTML('sel-desc-erp', dict.wsDesc10);
-
-    // Discrepancy Inspector
-    setElemText('insp-header-tag', dict.inspHeaderTag);
-    setElemText('insp-header-title', dict.inspHeaderTitle);
-    setElemText('tab-label-raw', dict.tabLabelRaw);
-    setElemText('tab-label-verified', dict.tabLabelVerified);
-    setElemText('meta-lbl-supplier', dict.metaLblSupplier);
-    setElemText('meta-lbl-docno', dict.metaLblDocno);
-    setElemText('meta-lbl-type', dict.metaLblType);
-    setElemText('td-item-name', dict.tdItemName);
-    setElemText('calc-net-lbl', dict.calcNetLbl);
-    setElemText('calc-vat-claimed-lbl', dict.calcVatClaimedLbl);
-    setElemText('trap-pill-badge', dict.trapPillBadge);
-    setElemText('calc-gross-claimed-lbl', dict.calcGrossClaimedLbl);
-    setElemText('alert-trap-heading', dict.alertTrapHeading);
-    setElemText('alert-trap-desc', dict.alertTrapDesc);
-    setElemText('alert-trap-action', dict.alertTrapAction);
-
-    setElemText('meta-lbl-status', dict.metaLblStatus);
-    setElemText('meta-lbl-latency', dict.metaLblLatency);
-    setElemText('meta-lbl-ledger', dict.metaLblLedger);
-    setElemText('td-v-line-title', dict.tdVLineTitle);
-    setElemText('td-v-tax-title', dict.tdVTaxTitle);
-    setElemText('td-v-iban-title', dict.tdVIbanTitle);
-    setElemText('calc-v-net-lbl', dict.calcVNetLbl);
-    setElemText('calc-v-vat-lbl', dict.calcVVatLbl);
-    setElemText('calc-v-gross-lbl', dict.calcVGrossLbl);
-    setElemText('alert-v-heading', dict.alertVHeading);
-    setElemText('alert-v-action', dict.alertVAction);
-
-    // ====================================================================
-    // Top Dock, Hero Scanner, Bento Grid, and Solutions Engineer Profile
-    // ====================================================================
-    setElemText('top-dock-label', dict.topDockLabel || 'Workspaces:');
+    // Hero Section
     setElemText('hero-badge-text', dict.heroBadgeText);
     setElemText('hero-title-main', dict.heroTitleMain);
     setElemText('hero-title-gradient', dict.heroTitleGradient);
@@ -1994,7 +494,7 @@
     setElemText('hub-subheading', dict.hubSubheading);
     setElemText('sc-card-targets-label', dict.scCardTargetsLabel);
 
-    // Apple / Linear Bento Grid
+    // Bento Grid
     setElemText('bento-tag-text', dict.bentoTagText);
     setElemText('bento-heading', dict.bentoHeading);
     setElemText('bento-subheading', dict.bentoSubheading);
@@ -2010,14 +510,11 @@
     // Solutions & Integration Engineer Profile
     setElemText('founder-role-title', dict.founderRoleTitle);
     setElemText('f-imp-title-1', dict.fImpTitle1);
-    setElemText('f-imp-desc-1', dict.fImpDesc1);
+    setElemHTML('f-imp-desc-1', dict.fImpDesc1);
     setElemText('f-imp-title-2', dict.fImpTitle2);
-    setElemText('f-imp-desc-2', dict.fImpDesc2);
+    setElemHTML('f-imp-desc-2', dict.fImpDesc2);
     setElemText('f-imp-title-3', dict.fImpTitle3);
-    setElemText('f-imp-desc-3', dict.fImpDesc3);
-
-    const cmdInput = document.getElementById('command-search-input');
-    if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
+    setElemHTML('f-imp-desc-3', dict.fImpDesc3);
 
     updateThemeUI();
 
@@ -2030,49 +527,38 @@
   }
 
   /**
-   * 16. Authentication & Industry Gate Controller
+   * 7. Authentication State Gate (Non-Blocking Landing Page)
    */
   function checkAuthAndIndustryGate() {
     let rememberMe = false;
     let hasLocalAuth = false;
     let hasSessionAuth = false;
-    let hasPickedIndustry = false;
 
     try {
       rememberMe = localStorage.getItem('haulitz_remember_me') === 'true';
       hasLocalAuth = localStorage.getItem('haulitz_auth') === 'true';
       hasSessionAuth = sessionStorage.getItem('haulitz_auth') === 'true';
-      hasPickedIndustry = sessionStorage.getItem('haulitz_industry_selected') === 'true';
     } catch (e) {}
 
-    const isAuthenticated = (rememberMe && hasLocalAuth) || hasSessionAuth;
-
+    const isAuthenticated = (rememberMe && hasLocalAuth) || hasSessionAuth || !!window.Clerk?.user;
     const authModal = document.getElementById('auth-gate-modal');
-    const industryModal = document.getElementById('industry-selector-modal');
 
     const urlParams = new URLSearchParams(window.location.search);
-    const forceShowSelector = urlParams.get('select_industry') === 'true';
+    const forceShowLogin = urlParams.get('login') === 'true';
 
-    if (!isAuthenticated) {
-      if (authModal) authModal.classList.add('active');
-      if (industryModal) industryModal.classList.remove('active');
-    } else if (!hasPickedIndustry || forceShowSelector) {
-      if (authModal) authModal.classList.remove('active');
-      if (industryModal) industryModal.classList.add('active');
-    } else {
-      if (authModal) authModal.classList.remove('active');
-      if (industryModal) industryModal.classList.remove('active');
+    if (forceShowLogin && !isAuthenticated && authModal) {
+      authModal.classList.add('active');
+    } else if (authModal) {
+      authModal.classList.remove('active');
     }
   }
 
   /**
-   * 17. Dynamic Cursor Spotlight Tracking
+   * 8. Cursor Spotlight Tracking on Interactive Cards
    */
   function initSpotlightTracking() {
-    document.querySelectorAll('.selector-modal-grid').forEach(grid => {
-      grid.addEventListener('mousemove', (e) => {
-        const card = e.target.closest('.selector-industry-card');
-        if (!card) return;
+    document.querySelectorAll('.bento-card, .founder-impact-item, .hub-display-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
         card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
@@ -2081,77 +567,7 @@
   }
 
   /**
-   * 18. Animated Telemetry Metric Counters
-   */
-  function initTelemetryCounters() {
-    const strip = document.getElementById('telemetry-strip');
-    if (!strip) return;
-
-    let animated = false;
-    const animateCounters = () => {
-      if (animated) return;
-      animated = true;
-      document.querySelectorAll('.counter-num').forEach(counter => {
-        const target = parseFloat(counter.getAttribute('data-target'));
-        if (isNaN(target)) return;
-        const duration = 1000;
-        const start = performance.now();
-        const step = (now) => {
-          const progress = Math.min((now - start) / duration, 1);
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          const current = (easeOut * target).toFixed(target % 1 !== 0 ? 1 : 0);
-          counter.textContent = current;
-          if (progress < 1) {
-            requestAnimationFrame(step);
-          } else {
-            counter.textContent = target % 1 !== 0 ? target.toFixed(1) : target;
-          }
-        };
-        requestAnimationFrame(step);
-      });
-    };
-
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          animateCounters();
-          observer.disconnect();
-        }
-      }, { threshold: 0.2 });
-      observer.observe(strip);
-    } else {
-      animateCounters();
-    }
-  }
-
-  /**
-   * 19. Interactive Discrepancy Inspector (Show, Don't Just Tell)
-   */
-  function initDiscrepancyInspector() {
-    const tabRaw = document.getElementById('btn-tab-raw');
-    const tabVerified = document.getElementById('btn-tab-verified');
-    const panelRaw = document.getElementById('panel-raw-doc');
-    const panelVerified = document.getElementById('panel-verified-doc');
-
-    if (!tabRaw || !tabVerified || !panelRaw || !panelVerified) return;
-
-    tabRaw.addEventListener('click', () => {
-      tabRaw.classList.add('active');
-      tabVerified.classList.remove('active');
-      panelRaw.style.display = 'block';
-      panelVerified.style.display = 'none';
-    });
-
-    tabVerified.addEventListener('click', () => {
-      tabVerified.classList.add('active');
-      tabRaw.classList.remove('active');
-      panelVerified.style.display = 'block';
-      panelRaw.style.display = 'none';
-    });
-  }
-
-  /**
-   * 20. Command Palette Spotlight Search (Ctrl+K / Cmd+K)
+   * 9. Spotlight Command Palette Search (Ctrl+K / Cmd+K)
    */
   function initCommandPalette() {
     const cmdBtn = document.getElementById('cmd-k-btn');
@@ -2186,15 +602,18 @@
       filteredDomains.forEach((d, idx) => {
         const item = document.createElement('a');
         item.href = d.url;
-        item.className = `command-result-item ${idx === selectedIndex ? 'selected' : ''}`;
+        item.className = `command-item ${idx === selectedIndex ? 'selected' : ''}`;
         const displayTitle = state.currentLang === 'de' ? d.deTitle : d.title;
         item.innerHTML = `
           <div class="command-item-left">
-            <span class="command-item-num">${d.num}</span>
-            <i class="fa-solid ${d.icon} text-emerald"></i>
-            <span class="command-item-title">${displayTitle}</span>
+            <span class="command-num">${d.num}</span>
+            <i class="fa-solid ${d.icon} command-icon"></i>
+            <div>
+              <div class="command-item-title">${displayTitle}</div>
+              <div class="command-item-sub">${d.law}</div>
+            </div>
           </div>
-          <span class="command-item-law">${d.law}</span>
+          <span class="command-arrow"><i class="fa-solid fa-arrow-right"></i></span>
         `;
         item.addEventListener('mouseenter', () => {
           selectedIndex = idx;
@@ -2205,13 +624,13 @@
     }
 
     function updateSelection() {
-      const items = cmdResults.querySelectorAll('.command-result-item');
+      const items = cmdResults.querySelectorAll('.command-item');
       items.forEach((item, idx) => {
         item.classList.toggle('selected', idx === selectedIndex);
+        if (idx === selectedIndex) {
+          item.scrollIntoView({ block: 'nearest' });
+        }
       });
-      if (items[selectedIndex]) {
-        items[selectedIndex].scrollIntoView({ block: 'nearest' });
-      }
     }
 
     function openPalette() {
@@ -2234,28 +653,30 @@
     });
 
     document.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
         e.preventDefault();
         if (cmdModal.classList.contains('active')) {
           closePalette();
         } else {
           openPalette();
         }
-      } else if (e.key === 'Escape' && cmdModal.classList.contains('active')) {
+      }
+      if (e.key === 'Escape' && cmdModal.classList.contains('active')) {
         closePalette();
       }
     });
 
     cmdInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      if (!query) {
+      const q = e.target.value.toLowerCase().trim();
+      if (!q) {
         filteredDomains = [...domainsList];
       } else {
         filteredDomains = domainsList.filter(d => 
-          d.title.toLowerCase().includes(query) ||
-          d.deTitle.toLowerCase().includes(query) ||
-          d.law.toLowerCase().includes(query) ||
-          d.num.includes(query)
+          d.title.toLowerCase().includes(q) ||
+          d.deTitle.toLowerCase().includes(q) ||
+          d.law.toLowerCase().includes(q) ||
+          d.id.toLowerCase().includes(q) ||
+          d.num.includes(q)
         );
       }
       selectedIndex = 0;
@@ -2281,9 +702,6 @@
     });
   }
 
-  /**
-   * 21. Multi-Domain Living Document Scanner (Interactive Laser Sweep & 3D Tilt)
-   */
   const SCANNER_PRESETS = {
     fintech: {
       url: 'workspaces/fintech.html',
@@ -3014,18 +1432,11 @@
     initDOMElements();
     initLenis();
     initClerk();
-    setupTabs();
     applyLanguageUI();
-    renderDomainGrid();
     setupEventListeners();
     handleHashNavigation();
-    runVerification();
-    fetchFrankfurtPing();
-    fetchLedgerStats();
     checkAuthAndIndustryGate();
     initSpotlightTracking();
-    initTelemetryCounters();
-    initDiscrepancyInspector();
     initCommandPalette();
     initHeroScanner();
     initWorkspaceDock();
@@ -3038,3 +1449,4 @@
   }
 
 })();
+
