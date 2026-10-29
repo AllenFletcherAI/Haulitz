@@ -120,3 +120,38 @@ We chose **Option 3**. Over 1,800 lines of dead code were safely eliminated, 16 
 
 ### 4. When to Reconsider
 If client-side interactive document verification is reintroduced directly onto the landing page canvas rather than inside dedicated workspaces, selectively re-import the necessary verifiers.
+
+
+---
+
+## ADR-005: Zero-Scroll Navigation, Dynamic Scanner Harmonization, and Recruiter Mobility Upgrades
+- **Date:** 2026-10-29
+- **Author:** Allen Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+Evaluation of the updated landing page identified five user friction points:
+1. The top sticky navigation bar displayed a `WORKSPACES:` label (~150px wide) that pushed the 10th tab (`10 Enterprise ERP`) off-screen on standard desktop resolutions (1280px to 1440px), forcing awkward horizontal scrolling.
+2. Clicking workspace tabs was disconnected from the Living Scanner in the hero.
+3. Excessive hero vertical padding pushed the Living Scanner 120px below the fold on standard laptops.
+4. Allen's profile card was missing a Germany-wide relocation mobility badge and key professional recruiter links (LinkedIn, one-click email copy, downloadable executive CV).
+5. Bento grid cards were static wireframes rather than live interactive proof points.
+
+### 2. The Three Options Considered
+1. **Option 1: Hide the 10th workspace tab on desktop**
+   - *Drawback:* Enterprise ERP is a primary target domain for corporate recruiters; hiding it is unacceptable.
+2. **Option 2: Replace tab docks with a dropdown selector**
+   - *Drawback:* Violates Hick's Law and reduces discovery; users cannot see all 10 specialized German industry domains at a glance.
+3. **Option 3: Comprehensive Precision Elevation & Synchronization**
+   - Remove `WORKSPACES:` prefix to reclaim horizontal space; center all 10 pills with compact padding so they fit on any screen >= 1024px without scrolling.
+   - Synchronize top dock and showcase dock with the Living Scanner in real time.
+   - Compress hero vertical padding from 3.5rem to 2.0rem, bringing the Living Scanner above the fold.
+   - Add Germany-wide mobility badge (`📍 Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)`), active availability pill, LinkedIn CTA, and clipboard email copy with toast.
+   - Upgrade Bento Grid with an interactive ISO 7064 Modulo-97 IBAN checker and Web Crypto SHA-256 block sealer.
+
+### 3. The Decision
+We chose **Option 3**. The landing page achieves instant zero-scroll accessibility across all 10 German enterprise domains, brings the Living Scanner immediately above the fold, and equips Allen's profile with comprehensive recruiter tools.
+
+### 4. When to Reconsider
+If new industry workspaces are added beyond the current 10, group them into categorized mega-docks or tab carousels.

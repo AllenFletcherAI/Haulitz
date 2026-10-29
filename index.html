@@ -343,7 +343,7 @@
           </div>
         </div>
 
-        <!-- Bento Card 2: Checksum & Barcode Guard (Formula Visualizer) -->
+        <!-- Bento Card 2: Checksum & Barcode Guard (Interactive Modulo-97 Checker) -->
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-barcode"></i></div>
@@ -353,11 +353,15 @@
             </p>
           </div>
           <div class="bento-formula-widget">
-            <div class="formula-label font-mono-code">SEPA IBAN Modulo-97:</div>
-            <div class="formula-code font-mono-code">
-              <span class="tok-num">98</span> - (<span class="tok-str">IBAN_INT</span> % <span class="tok-num">97</span>) == <span class="tok-pass">01</span>
+            <div class="bento-iban-interactive">
+              <div class="iban-input-wrap">
+                <span class="iban-input-label font-mono-code">TEST IBAN:</span>
+                <input type="text" id="bento-iban-input" class="bento-iban-input font-mono-code" value="DE89 3704 0044 0532 0130 00" maxlength="34" spellcheck="false" />
+              </div>
+              <div class="iban-calc-status" id="bento-iban-status">
+                <span class="scanner-dot"></span> <span class="text-emerald font-bold font-mono-code" id="bento-iban-msg">Remainder == 1 Validated (ISO 7064)</span>
+              </div>
             </div>
-            <div class="formula-meta"><span class="scanner-dot"></span> <span class="text-emerald font-bold font-mono-code">Remainder == 1 Validated</span></div>
           </div>
         </div>
 
@@ -379,7 +383,7 @@
           </div>
         </div>
 
-        <!-- Bento Card 4: Immutable Audit Ledger (Visual Hash Chain) -->
+        <!-- Bento Card 4: Immutable Audit Ledger (Interactive Live Hash Chain) -->
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-fingerprint"></i></div>
@@ -388,7 +392,7 @@
               Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL in Frankfurt (AWS eu-central-1) for permanent GoBD § 147 AO compliance.
             </p>
           </div>
-          <div class="bento-hash-chain-widget font-mono-code">
+          <div class="bento-hash-chain-widget font-mono-code" id="bento-hash-chain">
             <div class="hash-block">
               <span class="block-num">Block #28</span>
               <span class="block-hash">a94f82c3...</span>
@@ -399,11 +403,14 @@
               <span class="block-hash">f59e0b81...</span>
             </div>
             <div class="hash-link">&rarr; SHA-256 &rarr;</div>
-            <div class="hash-block block-active">
-              <span class="block-num text-emerald">Block #30 (Current)</span>
-              <span class="block-hash text-emerald font-bold">3c8d10ae4b...</span>
+            <div class="hash-block block-active" id="bento-current-block">
+              <span class="block-num text-emerald" id="bento-block-num">Block #30 (Current)</span>
+              <span class="block-hash text-emerald font-bold" id="bento-block-hash">3c8d10ae4b...</span>
               <span class="block-tag">AWS eu-central-1 Neon</span>
             </div>
+            <button type="button" class="btn-hash-seal" id="btn-seal-block" title="Compute next SHA-256 block seal in browser">
+              <i class="fa-solid fa-plus-circle text-emerald"></i> <span>Seal Next Block</span>
+            </button>
           </div>
         </div>
       </div>
@@ -418,9 +425,9 @@
           <div class="founder-portrait-frame">
             <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Solutions &amp; Integration Engineer" class="founder-img">
           </div>
-          <!-- Executive Identity & Availability Mini-Panel (Fills the Left Column Void!) -->
+          <!-- Executive Identity & Availability Mini-Panel -->
           <div class="founder-avail-panel">
-            <div class="avail-row"><i class="fa-solid fa-location-dot text-emerald"></i> <span>Germany · Munich / Frankfurt / Remote</span></div>
+            <div class="avail-row"><i class="fa-solid fa-location-dot text-emerald"></i> <span id="f-avail-loc">Germany (Relocation Anywhere · Remote / On-Site)</span></div>
             <div class="avail-row"><i class="fa-solid fa-bolt text-amber"></i> <span>Fast-Track § 18g EU Blue Card Ready</span></div>
             <div class="avail-row"><i class="fa-solid fa-database text-blue"></i> <span>SAP S/4HANA · PostgreSQL · REST/EDI</span></div>
           </div>
@@ -431,6 +438,8 @@
           <div class="founder-executive-role" id="founder-role-title">Solutions &amp; Integration Engineer</div>
 
           <div class="founder-status-pills">
+            <span class="f-pill f-pill-location"><i class="fa-solid fa-location-dot text-emerald"></i> <span id="f-pill-location-text">Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)</span></span>
+            <span class="f-pill f-pill-avail"><span class="status-dot-pulse"></span> <span id="f-pill-avail-text">Available Immediately for Full-Time Roles</span></span>
             <span class="f-pill"><i class="fa-solid fa-graduation-cap text-emerald"></i> <span>M.Sc. Artificial Intelligence (Anabin H+)</span></span>
             <span class="f-pill"><i class="fa-solid fa-id-card text-emerald"></i> <span>§ 18g EU Blue Card Ready (Germany)</span></span>
             <span class="f-pill"><i class="fa-solid fa-circle-check text-emerald"></i> <span>30/30 Verified Scenarios</span></span>
@@ -438,19 +447,39 @@
 
           <div class="founder-impact-grid">
             <div class="founder-impact-item item-problem">
-              <div class="impact-title"><i class="fa-solid fa-triangle-exclamation text-amber"></i> <span id="f-imp-title-1">The Problem</span></div>
+              <div class="impact-title">
+                <svg class="impact-svg text-amber" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span id="f-imp-title-1">The Problem</span>
+              </div>
               <p class="impact-desc" id="f-imp-desc-1">
                 Companies lose millions every year to tiny invoice <strong>rounding errors</strong>, <strong>incorrect tax rates</strong>, and unverified bank details that silently corrupt enterprise ledgers.
               </p>
             </div>
             <div class="founder-impact-item item-solution">
-              <div class="impact-title"><i class="fa-solid fa-network-wired text-emerald"></i> <span id="f-imp-title-2">The Solution Built</span></div>
+              <div class="impact-title">
+                <svg class="impact-svg text-emerald" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="3" rx="2"/>
+                  <path d="M9 9h6v6H9z"/>
+                  <path d="M9 1v2m6-2v2M9 21v2m6-2v2M1 9h2m-2 6h2M21 9h2m-2 6h2"/>
+                </svg>
+                <span id="f-imp-title-2">The Solution Built</span>
+              </div>
               <p class="impact-desc" id="f-imp-desc-2">
                 I engineered HAULITZ as an <strong>automated verification gateway</strong>. It intercepts incoming documents, executes <strong>cent-exact math</strong> in code, and only stages certified records into <strong>SAP S/4HANA</strong>.
               </p>
             </div>
             <div class="founder-impact-item item-fit">
-              <div class="impact-title"><i class="fa-solid fa-briefcase text-blue"></i> <span id="f-imp-title-3">Solutions &amp; Integration Fit</span></div>
+              <div class="impact-title">
+                <svg class="impact-svg text-blue" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <span id="f-imp-title-3">Solutions &amp; Integration Fit</span>
+              </div>
               <p class="impact-desc" id="f-imp-desc-3">
                 Demonstrates direct capability for <strong>Solutions Engineering</strong>: ingesting messy, unstructured third-party data into <strong>SAP S/4HANA</strong> and <strong>PostgreSQL</strong> under German statutory frameworks (<strong>GoBD</strong>, <strong>HGB</strong>, <strong>UStG</strong>).
               </p>
@@ -458,11 +487,17 @@
           </div>
 
           <div class="founder-actions-row">
-            <a href="mailto:allensimeonfletcher@gmail.com" class="btn-contact-pill btn-contact-primary">
-              <i class="fa-solid fa-envelope"></i> <span>Email Allen (Direct Inquiries)</span>
+            <a href="mailto:allensimeonfletcher@gmail.com" class="btn-contact-pill btn-contact-primary" id="btn-email-allen">
+              <i class="fa-solid fa-envelope"></i> <span>allensimeonfletcher@gmail.com</span>
+            </a>
+            <button type="button" class="btn-contact-pill btn-copy-email" id="btn-copy-email" title="Copy email address">
+              <i class="fa-regular fa-copy"></i> <span>Copy Email</span>
+            </button>
+            <a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" rel="noopener noreferrer" class="btn-contact-pill btn-linkedin">
+              <i class="fa-brands fa-linkedin text-blue"></i> <span>LinkedIn Profile</span>
             </a>
             <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-contact-pill">
-              <i class="fa-brands fa-github text-emerald"></i> <span>Inspect GitHub Architecture</span>
+              <i class="fa-brands fa-github text-emerald"></i> <span>GitHub Codebase</span>
             </a>
           </div>
         </div>

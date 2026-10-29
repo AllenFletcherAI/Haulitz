@@ -90,7 +90,10 @@
       fImpTitle2: 'Die Lösung',
       fImpDesc2: 'Ich habe HAULITZ als automatisiertes Gateway entwickelt. Es fängt eingehende Belege ab, prüft Berechnungen cent-genau im Code und übergibt nur zertifizierte Daten an SAP.',
       fImpTitle3: 'Solutions & Integration Fit',
-      fImpDesc3: 'Zeigt direkte Kompetenz für Solutions Engineering: Anbindung unstrukturierter Drittsystem-Daten an strikte Kerndatenbanken mit null Fehlern und voller Compliance.'
+      fImpDesc3: 'Zeigt direkte Kompetenz für Solutions Engineering: Anbindung unstrukturierter Drittsystem-Daten an strikte Kerndatenbanken mit null Fehlern und voller Compliance.',
+      fPillLocation: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Hybrid / Remote)',
+      fPillAvail: 'Sofort verfügbar für Festanstellung',
+      fAvailLoc: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Remote)'
     },
 
     en: {
@@ -157,7 +160,10 @@
       fImpTitle2: 'The Solution Built',
       fImpDesc2: 'I engineered HAULITZ as an automated verification gateway. It intercepts incoming vendor documents, runs cent-exact mathematical checks in code, and only passes certified records into SAP.',
       fImpTitle3: 'Solutions & Integration Fit',
-      fImpDesc3: 'Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.'
+      fImpDesc3: 'Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.',
+      fPillLocation: 'Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)',
+      fPillAvail: 'Available Immediately for Full-Time Roles',
+      fAvailLoc: 'Germany (Relocation Anywhere · Remote / On-Site)'
     }
   };
 
@@ -509,6 +515,9 @@
 
     // Solutions & Integration Engineer Profile
     setElemText('founder-role-title', dict.founderRoleTitle);
+    setElemText('f-pill-location-text', dict.fPillLocation);
+    setElemText('f-pill-avail-text', dict.fPillAvail);
+    setElemText('f-avail-loc', dict.fAvailLoc);
     setElemText('f-imp-title-1', dict.fImpTitle1);
     setElemHTML('f-imp-desc-1', dict.fImpDesc1);
     setElemText('f-imp-title-2', dict.fImpTitle2);
@@ -1415,6 +1424,7 @@
 
     topDockPills.forEach(pill => {
       pill.addEventListener('click', (e) => {
+        e.preventDefault();
         const domainKey = pill.getAttribute('data-domain');
         state.currentScannerDomain = domainKey;
         updateShowcaseGlobal(domainKey);
@@ -1425,6 +1435,126 @@
     // Initialize with default domain (fintech)
     updateShowcaseGlobal(state.currentScannerDomain || 'fintech');
     updateScannerDisplay(state.currentScannerDomain || 'fintech', state.currentScannerMode || 'flawed');
+  }
+
+  /**
+   * 23. Executive Contact Actions: Clipboard Copy & Toast Feedback
+   */
+  function initCopyEmail() {
+    const copyBtn = document.getElementById('btn-copy-email');
+    if (!copyBtn) return;
+    copyBtn.addEventListener('click', async () => {
+      const email = 'allensimeonfletcher@gmail.com';
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(email);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = email;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        showToast(state.currentLang === 'de' ? 'E-Mail in die Zwischenablage kopiert: ' + email : 'Email copied to clipboard: ' + email);
+      } catch (err) {
+        showToast(email);
+      }
+    });
+  }
+
+  /**
+   * 24. Bento Card 2: Interactive ISO 7064 Modulo-97 Checksum Calculator
+   */
+  function initBentoIbanValidator() {
+    const input = document.getElementById('bento-iban-input');
+    const msg = document.getElementById('bento-iban-msg');
+    if (!input || !msg) return;
+
+    function validateIban(raw) {
+      const clean = (raw || '').replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+      if (clean.length < 15 || clean.length > 34) {
+        return { valid: false, text: state.currentLang === 'de' ? 'Ungültige Länge (15-34 Zeichen)' : 'Invalid Length (15-34 chars)' };
+      }
+      const rearranged = clean.slice(4) + clean.slice(0, 4);
+      let numericStr = '';
+      for (let i = 0; i < rearranged.length; i++) {
+        const code = rearranged.charCodeAt(i);
+        if (code >= 65 && code <= 90) {
+          numericStr += (code - 55).toString();
+        } else {
+          numericStr += rearranged[i];
+        }
+      }
+      let remainder = 0;
+      for (let i = 0; i < numericStr.length; i += 7) {
+        const chunk = remainder.toString() + numericStr.substring(i, i + 7);
+        remainder = parseInt(chunk, 10) % 97;
+      }
+
+      if (remainder === 1) {
+        return { valid: true, text: state.currentLang === 'de' ? 'Prüfsumme Gültig (Rest == 1, ISO 7064)' : 'Remainder == 1 Validated (ISO 7064)' };
+      } else {
+        return { valid: false, text: state.currentLang === 'de' ? `Prüfsummenfehler (Rest = ${remainder} ≠ 1)` : `Checksum Failed (Remainder = ${remainder} ≠ 1)` };
+      }
+    }
+
+    input.addEventListener('input', () => {
+      const res = validateIban(input.value);
+      if (res.valid) {
+        msg.className = 'text-emerald font-bold font-mono-code';
+        msg.textContent = res.text;
+      } else {
+        msg.className = 'text-danger font-bold font-mono-code';
+        msg.textContent = res.text;
+      }
+    });
+  }
+
+  /**
+   * 25. Bento Card 4: Interactive SHA-256 Block Sealing Engine
+   */
+  function initBentoHashSealer() {
+    const sealBtn = document.getElementById('btn-seal-block');
+    const blockNum = document.getElementById('bento-block-num');
+    const blockHash = document.getElementById('bento-block-hash');
+    const currentBlock = document.getElementById('bento-current-block');
+    if (!sealBtn || !blockNum || !blockHash) return;
+
+    let currentBlockIndex = 30;
+
+    sealBtn.addEventListener('click', async () => {
+      currentBlockIndex++;
+      const payload = `HAULITZ-RECORD-BLOCK-${currentBlockIndex}-${Date.now()}`;
+      let newHashHex = '';
+      try {
+        if (window.crypto && window.crypto.subtle) {
+          const enc = new TextEncoder();
+          const buf = await window.crypto.subtle.digest('SHA-256', enc.encode(payload));
+          const arr = Array.from(new Uint8Array(buf));
+          newHashHex = arr.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 10) + '...';
+        } else {
+          newHashHex = Math.random().toString(36).substring(2, 12) + '...';
+        }
+      } catch (e) {
+        newHashHex = Math.random().toString(36).substring(2, 12) + '...';
+      }
+
+      blockNum.textContent = `Block #${currentBlockIndex} (${state.currentLang === 'de' ? 'Aktuell' : 'Current'})`;
+      blockHash.textContent = newHashHex;
+
+      if (currentBlock) {
+        currentBlock.style.transition = 'background 0.15s ease, border-color 0.15s ease';
+        currentBlock.style.borderColor = '#10b981';
+        currentBlock.style.background = 'rgba(16, 185, 129, 0.25)';
+        setTimeout(() => {
+          currentBlock.style.borderColor = '';
+          currentBlock.style.background = '';
+        }, 500);
+      }
+
+      showToast(state.currentLang === 'de' ? `Block #${currentBlockIndex} versiegelt: ${newHashHex}` : `Block #${currentBlockIndex} sealed: ${newHashHex}`);
+    });
   }
 
   // Master Initialization Engine
@@ -1440,6 +1570,9 @@
     initCommandPalette();
     initHeroScanner();
     initWorkspaceDock();
+    initCopyEmail();
+    initBentoIbanValidator();
+    initBentoHashSealer();
   }
 
   if (document.readyState === 'loading') {

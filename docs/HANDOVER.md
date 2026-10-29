@@ -52,8 +52,23 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - Hardened SQL queries in `_worker.js` with strict regex whitelisting against SQL injection (OWASP A03).
   - Re-verified all 30/30 statutory verification tests with 100% precision.
 
+- **Zero-Scroll Navigation & Recruiter Mobility Upgrades (ADR-005)**:
+  - Refined top sticky workspace dock: Centered all 10 pills with zero scrolling across desktop displays (1024px to 1920px) and synchronized clicks directly to the Living Scanner and workspace showcase.
+  - Profile Card Mobility & Recruiter Elevation:
+    - Added `📍 Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)` mobility badge.
+    - Added `🟢 Available Immediately for Full-Time Roles` active status pill with pulsing animation.
+    - Replaced OS platform emojis (`⚠️`, `🎛️`, `💼`) with clean, responsive SVGs.
+    - Added LinkedIn profile button (`https://linkedin.com/in/allensimeonfletcher`).
+    - Added one-click `Copy Email` button with interactive toast notification.
+    - Refined portrait frame with an executive dual-layer emerald aura.
+  - Above-The-Fold Elevation: Compressed hero vertical spacing so the Living Scanner's controls and document rows sit comfortably above the fold on 1366x768 and 1440x900 screens.
+  - Bento Grid Interactive Widgets:
+    - Card 2: Embedded live ISO 7064 Modulo-97 SEPA IBAN validator with real-time feedback.
+    - Card 4: Embedded live Web Crypto SHA-256 block sealer with incremental block chaining and visual green flash.
+  - Typography & Theme Polish: Globalized `.gradient-text` with cross-browser transparent fill and balanced anti-runt line wrapping.
+
 ## 2. What We Are Working On Now
-- Commit clean refactor to git and push to GitHub (`origin main`).
+- Commit clean changes to git and push to GitHub (`origin main`).
 - Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
 
 ## 3. Broken Or Dangerous Items

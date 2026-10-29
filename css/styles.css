@@ -458,17 +458,23 @@ button {
 }
 
 /* Global Theme-Aware Gradient Typography */
-.gradient-text {
+.gradient-text,
+.hero-headline .gradient-text {
   background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
   display: inline-block !important;
 }
 
-[data-theme="light"] .gradient-text {
+[data-theme="light"] .gradient-text,
+[data-theme="light"] .hero-headline .gradient-text {
   background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
   display: inline-block !important;
 }
 
@@ -2888,20 +2894,20 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
   display: flex;
   align-items: center;
   justify-content: center !important;
-  gap: 0.32rem !important;
+  gap: 0.28rem !important;
   overflow-x: visible !important;
   flex-wrap: nowrap !important;
   padding: 2px 0 !important;
   width: 100%;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1024px) {
   .dock-pills-scroll {
     overflow-x: auto !important;
     justify-content: flex-start !important;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    padding: 2px 4px !important;
+    padding: 2px 6px !important;
   }
   .dock-pills-scroll::-webkit-scrollbar {
     display: none;
@@ -2911,13 +2917,13 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
 .dock-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem !important;
-  padding: 0.3rem 0.58rem !important;
+  gap: 0.28rem !important;
+  padding: 0.25rem 0.5rem !important;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
   color: var(--color-text-muted);
-  font-size: 0.74rem !important;
+  font-size: 0.72rem !important;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -2969,7 +2975,7 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
    23. THE CINEMATIC HERO & KINETIC TYPOGRAPHY
    ==================================================================== */
 .hero-cinematic {
-  padding: 3.5rem 1.5rem 2.5rem;
+  padding: 2rem 1.25rem 1.75rem;
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -3009,26 +3015,26 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--color-emerald);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
 }
 
 .hero-headline {
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
   font-weight: 900;
-  line-height: 1.12;
+  line-height: 1.14;
   letter-spacing: -0.03em;
   color: var(--color-text-main);
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.85rem;
   text-wrap: balance;
 }
 
 .hero-subheadline {
-  font-size: clamp(1rem, 1.8vw, 1.18rem);
-  line-height: 1.65;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
   color: var(--color-text-muted);
   max-width: 680px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.35rem;
   text-wrap: balance;
 }
 
@@ -3036,8 +3042,8 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3.5rem;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
@@ -3848,12 +3854,13 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
 }
 
 .founder-portrait-frame {
-  width: 190px;
-  height: 190px;
+  width: 175px;
+  height: 175px;
   border-radius: 50%;
-  padding: 5px;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.8) 0%, rgba(14, 165, 233, 0.6) 100%);
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0.15) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.15), 0 8px 24px rgba(0, 0, 0, 0.35);
   flex-shrink: 0;
 }
 
@@ -3917,6 +3924,36 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
   color: #334155;
 }
 
+.f-pill-location {
+  background: rgba(16, 185, 129, 0.1) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  color: var(--color-emerald) !important;
+  font-weight: 700 !important;
+}
+
+.f-pill-avail {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+  color: #34d399 !important;
+  font-weight: 700 !important;
+}
+
+.status-dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
 .founder-impact-grid {
   display: flex;
   flex-direction: column;
@@ -3945,6 +3982,11 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
   font-size: 0.85rem;
   color: var(--color-text-main);
   margin-bottom: 0.3rem;
+}
+
+.impact-svg {
+  flex-shrink: 0;
+  display: inline-block;
 }
 
 .impact-desc {
@@ -3979,6 +4021,8 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
   color: var(--color-text-main);
   text-decoration: none;
   transition: all 0.2s ease;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 [data-theme="light"] .btn-contact-pill {
@@ -4000,6 +4044,88 @@ p, .hud-subtitle, .pillar-desc, .founder-bio, .modal-subtitle, .section-main-des
 
 .btn-contact-primary:hover {
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-linkedin:hover {
+  border-color: #0a66c2 !important;
+  background: rgba(10, 102, 194, 0.15) !important;
+  color: #60a5fa !important;
+}
+
+/* Bento Interactive Check Digit Input */
+.bento-iban-interactive {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.iban-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.75rem;
+  transition: border-color 0.2s ease;
+}
+
+.iban-input-wrap:focus-within {
+  border-color: var(--color-emerald);
+}
+
+[data-theme="light"] .iban-input-wrap {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.iban-input-label {
+  font-size: 0.7rem;
+  color: var(--color-emerald);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.bento-iban-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-main);
+  font-size: 0.78rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.iban-calc-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+}
+
+/* Bento Interactive Hash Seal Button */
+.btn-hash-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 9999px;
+  color: var(--color-emerald);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+  font-family: inherit;
+}
+
+.btn-hash-seal:hover {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--color-emerald);
   transform: translateY(-1px);
 }
 
