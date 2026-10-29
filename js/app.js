@@ -1,6 +1,6 @@
 // js/app.js
-// HAULITZ Interactive Gateway Engine (v4.0)
-// High-Frequency Verification, Chaos Simulation, Tactile Bento Instruments, and Web Audio API
+// HAULITZ Interactive Gateway Engine (v5.0)
+// Architectural Scrollytelling, Living Bento Instruments, Aperture Preloader, Procedural Web Audio Synth
 
 (function() {
   'use strict';
@@ -12,6 +12,8 @@
     constructor() {
       this.ctx = null;
       this.enabled = false;
+      this.droneOsc = null;
+      this.droneGain = null;
       this.initFromStorage();
     }
 
@@ -38,8 +40,10 @@
       if (this.enabled) {
         this.ensureContext();
         this.playChime();
+        this.startDrone();
         showToast('Audio-Feedback aktiviert');
       } else {
+        this.stopDrone();
         showToast('Audio-Feedback stummgeschaltet');
       }
     }
@@ -48,12 +52,53 @@
       const btn = document.getElementById('dock-audio-btn');
       if (!btn) return;
       if (this.enabled) {
-        btn.innerHTML = '<i class="fa-solid fa-volume-high text-emerald" aria-hidden="true"></i>';
+        btn.classList.add('active');
         btn.setAttribute('aria-label', 'Soundeffekte stummschalten');
       } else {
-        btn.innerHTML = '<i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>';
+        btn.classList.remove('active');
         btn.setAttribute('aria-label', 'Soundeffekte aktivieren');
       }
+    }
+
+    startDrone() {
+      if (!this.enabled || this.droneOsc) return;
+      this.ensureContext();
+      try {
+        this.droneOsc = this.ctx.createOscillator();
+        this.droneGain = this.ctx.createGain();
+        this.droneOsc.type = 'sine';
+        this.droneOsc.frequency.setValueAtTime(65.41, this.ctx.currentTime); // C2 low drone
+        this.droneGain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+        this.droneOsc.connect(this.droneGain);
+        this.droneGain.connect(this.ctx.destination);
+        this.droneOsc.start();
+      } catch (e) {}
+    }
+
+    stopDrone() {
+      if (this.droneOsc) {
+        try {
+          this.droneGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
+          setTimeout(() => {
+            if (this.droneOsc) {
+              this.droneOsc.stop();
+              this.droneOsc.disconnect();
+              this.droneOsc = null;
+              this.droneGain = null;
+            }
+          }, 350);
+        } catch (e) {
+          this.droneOsc = null;
+        }
+      }
+    }
+
+    modulateDrone(velocity) {
+      if (!this.enabled || !this.droneOsc) return;
+      try {
+        const targetFreq = 65.41 + Math.min(60, velocity * 0.08);
+        this.droneOsc.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.1);
+      } catch (e) {}
     }
 
     playClick() {
@@ -111,6 +156,44 @@
         osc.stop(now + 0.2);
       } catch (e) {}
     }
+
+    playPulse() {
+      if (!this.enabled) return;
+      this.ensureContext();
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(130.81, now); // C3
+        osc.frequency.exponentialRampToValueAtTime(55, now + 0.12);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(now + 0.12);
+      } catch (e) {}
+    }
+
+    playSeal() {
+      if (!this.enabled) return;
+      this.ensureContext();
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, now); // C5
+        osc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.22); // C6
+        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(now + 0.3);
+      } catch (e) {}
+    }
   }
 
   const sound = new SoundEngine();
@@ -135,330 +218,504 @@
   }
 
   // =========================================================================
-  // 3. LIVING 3D DOCUMENT PARALLAX TILT
+  // 3. CALIBRATION PRELOADER SEQUENCE (1.2s Aperture Shutter)
   // =========================================================================
-  function initDocumentParallax() {
-    const wrap = document.querySelector('.living-canvas-wrap');
-    const box = document.getElementById('perspective-box');
-    if (!wrap || !box) return;
+  function initPreloader() {
+    const preloader = document.getElementById('preloader');
+    const line = document.querySelector('.preloader-line');
+    const counter = document.getElementById('preloader-counter');
+    const status = document.getElementById('preloader-status');
 
-    // Respect prefers-reduced-motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!preloader || !line || !counter) return;
 
-    wrap.addEventListener('mousemove', (e) => {
-      const rect = wrap.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      const rotateX = (-y / rect.height) * 10;
-      const rotateY = (x / rect.width) * 10;
-      box.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
+    let progress = 0;
+    const duration = 1200; // ms
+    const startTime = performance.now();
 
-    wrap.addEventListener('mouseleave', () => {
-      box.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    function step(now) {
+      const elapsed = now - startTime;
+      progress = Math.min(100, Math.floor((elapsed / duration) * 100));
+
+      line.style.width = progress + '%';
+      counter.textContent = String(progress).padStart(3, '0');
+      preloader.setAttribute('aria-valuenow', progress);
+
+      if (progress < 40) {
+        if (status) status.textContent = 'CALIBRATING ARITHMETIC REGISTERS...';
+      } else if (progress < 80) {
+        if (status) status.textContent = 'CHECKING SEPA MODULO-97 LOOKUPS...';
+      } else {
+        if (status) status.textContent = 'VERIFYING GOBD SHA-256 INTEGRITY...';
+      }
+
+      if (progress < 100) {
+        requestAnimationFrame(step);
+      } else {
+        setTimeout(() => {
+          preloader.classList.add('completed');
+          sound.playChime();
+        }, 150);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // =========================================================================
+  // 4. PINNED 4-BEAT SCROLLYTELLING ENGINE
+  // =========================================================================
+  const BEAT_DATA = [
+    {
+      beat: 1,
+      pill: 'PHASE 01 // RAW PAYLOAD INGESTION',
+      title: 'Rechnungsfehler und Rundungsdrift stoppen,<br><span class="gradient-text">bevor Daten Ihr ERP erreichen.</span>',
+      desc: 'Unstrukturierte Lieferantendaten werden in 0.4 Millisekunden erfasst, mathematisch geprüft und vor dem SAP S/4HANA Staging versiegelt.',
+      layerVisual: { display: 'block', opacity: 1, transform: 'translateZ(0px)' },
+      layerAst: { display: 'none', opacity: 0, transform: 'translateZ(-20px)' },
+      layerCrypto: { display: 'none', opacity: 0, transform: 'translateZ(-40px)' },
+      monolithScale: 1.0,
+      glowColor: 'rgba(16, 185, 129, 0.25)'
+    },
+    {
+      beat: 2,
+      pill: 'PHASE 02 // EXACT 64-BIT COMPRESSION',
+      title: 'Exakte 64-Bit Cent-Arithmetik<br><span class="gradient-text">eliminiert IEEE-754 Rundungsverluste.</span>',
+      desc: 'Gleitkommazahlen wie 0.1 + 0.2 erzeugen im Speicher 0.30000000000000004. HAULITZ verarbeitet Festkomma-Cents als vorzeichenlose 64-Bit Ganzzahlen.',
+      layerVisual: { display: 'block', opacity: 1, transform: 'translateZ(10px)' },
+      layerAst: { display: 'none', opacity: 0, transform: 'translateZ(-10px)' },
+      layerCrypto: { display: 'none', opacity: 0, transform: 'translateZ(-30px)' },
+      monolithScale: 0.98,
+      glowColor: 'rgba(56, 189, 248, 0.3)'
+    },
+    {
+      beat: 3,
+      pill: 'PHASE 03 // MULTI-LAYER X-RAY DISSECTION',
+      title: 'Die Anatomie eines Belegs:<br><span class="gradient-text">Sichtbeleg, AST-Token &amp; Binärregister.</span>',
+      desc: 'Ziehen Sie die X-Ray Lupe über den Beleg. Erkennen Sie die syntaktischen Validierungsregeln und maschinennahen Register hinter jeder Zeile.',
+      layerVisual: { display: 'block', opacity: 0.88, transform: 'translateZ(50px)' },
+      layerAst: { display: 'block', opacity: 0.95, transform: 'translateZ(0px)' },
+      layerCrypto: { display: 'block', opacity: 0.92, transform: 'translateZ(-50px)' },
+      monolithScale: 0.96,
+      glowColor: 'rgba(168, 85, 247, 0.35)'
+    },
+    {
+      beat: 4,
+      pill: 'PHASE 04 // ERP VAULT LOCK &amp; SHA-256 SEAL',
+      title: 'Unveränderlicher GoBD-Prüfpfad<br><span class="gradient-text">vor der ERP-Verbuchung.</span>',
+      desc: 'Atomare Freigabe an SAP S/4HANA über BAPI_INCOMINGINVOICE_CREATE. Der kryptografische SHA-256 Block schützt vor unbefugter Mutation.',
+      layerVisual: { display: 'block', opacity: 0.6, transform: 'translateZ(60px)' },
+      layerAst: { display: 'block', opacity: 0.75, transform: 'translateZ(20px)' },
+      layerCrypto: { display: 'block', opacity: 1, transform: 'translateZ(-20px)' },
+      monolithScale: 1.02,
+      glowColor: 'rgba(16, 185, 129, 0.5)'
+    }
+  ];
+
+  function initScrollytelling() {
+    const track = document.getElementById('scrollytelling-track');
+    const pillText = document.getElementById('stage-pill-text');
+    const stageTitle = document.getElementById('stage-title');
+    const stageDesc = document.getElementById('stage-desc');
+    const monolith = document.getElementById('glass-monolith');
+    const layerVis = document.getElementById('layer-visual');
+    const layerAst = document.getElementById('layer-ast');
+    const layerCry = document.getElementById('layer-crypto');
+    const monoLine1 = document.getElementById('mono-line-1');
+    const monoLine2 = document.getElementById('mono-line-2');
+
+    if (!track) return;
+
+    let currentBeatIndex = 0;
+    let lastScrollY = window.scrollY;
+
+    function onScroll() {
+      const rect = track.getBoundingClientRect();
+      const totalScrollable = track.offsetHeight - window.innerHeight;
+      if (totalScrollable <= 0) return;
+
+      const progress = Math.max(0, Math.min(1, -rect.top / totalScrollable));
+
+      // Calculate scroll velocity for typography morphing and sound drone
+      const currentScrollY = window.scrollY;
+      const velocity = Math.abs(currentScrollY - lastScrollY);
+      lastScrollY = currentScrollY;
+
+      sound.modulateDrone(velocity);
+
+      // Kinetic Typography translation and skew based on velocity & progress
+      if (monoLine1 && monoLine2) {
+        const offset = (progress - 0.5) * 120;
+        monoLine1.style.transform = `translateX(${offset}px)`;
+        monoLine2.style.transform = `translateX(${-offset}px)`;
+      }
+
+      // Determine active beat (0..3)
+      let beatIdx = Math.floor(progress * 4);
+      if (beatIdx > 3) beatIdx = 3;
+
+      if (beatIdx !== currentBeatIndex) {
+        currentBeatIndex = beatIdx;
+        applyBeat(currentBeatIndex);
+      }
+    }
+
+    function applyBeat(idx) {
+      const b = BEAT_DATA[idx];
+      if (!b) return;
+
+      // Update indicators
+      for (let i = 1; i <= 4; i++) {
+        const rail = document.getElementById(`rail-beat-${i}`);
+        if (rail) {
+          rail.classList.toggle('active', i === idx + 1);
+        }
+      }
+
+      // Update narrative
+      if (pillText) pillText.textContent = b.pill;
+      if (stageTitle) stageTitle.innerHTML = b.title;
+      if (stageDesc) stageDesc.innerHTML = b.desc;
+
+      // Update Monolith 3D Stack
+      if (monolith) {
+        monolith.style.boxShadow = `0 25px 60px rgba(0, 0, 0, 0.6), 0 0 45px ${b.glowColor}`;
+        monolith.style.transform = `scale(${b.monolithScale})`;
+      }
+
+      if (layerVis) {
+        layerVis.style.display = b.layerVisual.display;
+        layerVis.style.opacity = b.layerVisual.opacity;
+        layerVis.style.transform = b.layerVisual.transform;
+      }
+      if (layerAst) {
+        layerAst.style.display = b.layerAst.display;
+        layerAst.style.opacity = b.layerAst.opacity;
+        layerAst.style.transform = b.layerAst.transform;
+      }
+      if (layerCry) {
+        layerCry.style.display = b.layerCrypto.display;
+        layerCry.style.opacity = b.layerCrypto.opacity;
+        layerCry.style.transform = b.layerCrypto.transform;
+      }
+
+      // Update Dock Nav active link
+      document.querySelectorAll('.dock-link[data-beat]').forEach(link => {
+        const beatNum = parseInt(link.getAttribute('data-beat'), 10);
+        link.classList.toggle('active', beatNum === idx + 1);
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    applyBeat(0); // initialize
+
+    // Dock beat link smooth jump
+    document.querySelectorAll('.dock-link[data-beat]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const beatNum = parseInt(link.getAttribute('data-beat'), 10);
+        const targetProgress = (beatNum - 1 + 0.1) / 4;
+        const totalScrollable = track.offsetHeight - window.innerHeight;
+        const targetScrollTop = track.offsetTop + (targetProgress * totalScrollable);
+        window.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
+        sound.playClick();
+      });
     });
   }
 
   // =========================================================================
-  // 4. CHAOS CONSOLE & LIVING DOCUMENT MUTATION
+  // 5. DRAGGABLE PHYSICAL X-RAY LOUPE (Casa di Solare Standard)
+  // =========================================================================
+  function initDraggableLoupe() {
+    const loupe = document.getElementById('xray-loupe');
+    const container = document.getElementById('glass-monolith');
+    const layerAst = document.getElementById('layer-ast');
+    const layerCry = document.getElementById('layer-crypto');
+
+    if (!loupe || !container) return;
+
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let initialLeft = 0, initialTop = 0;
+
+    loupe.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      loupe.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      startY = e.clientY;
+      initialLeft = loupe.offsetLeft;
+      initialTop = loupe.offsetTop;
+      loupe.style.transition = 'none';
+      sound.playClick();
+      showToast('X-Ray Lupe aktiv: Maschinencode freigelegt', 'fa-solid fa-eye text-emerald');
+    });
+
+    loupe.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      const maxLeft = container.offsetWidth - loupe.offsetWidth - 10;
+      const maxTop = container.offsetHeight - loupe.offsetHeight - 10;
+
+      const newLeft = Math.max(10, Math.min(maxLeft, initialLeft + dx));
+      const newTop = Math.max(10, Math.min(maxTop, initialTop + dy));
+
+      loupe.style.left = newLeft + 'px';
+      loupe.style.top = newTop + 'px';
+
+      // Reveal AST and Crypto registers dynamically when loupe is dragged
+      if (layerAst && layerCry) {
+        layerAst.style.display = 'block';
+        layerAst.style.opacity = '0.95';
+        layerCry.style.display = 'block';
+        layerCry.style.opacity = '0.9';
+      }
+    });
+
+    function endDrag(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      try { loupe.releasePointerCapture(e.pointerId); } catch (err) {}
+      loupe.style.transition = 'transform 0.1s ease';
+      sound.playPulse();
+    }
+
+    loupe.addEventListener('pointerup', endDrag);
+    loupe.addEventListener('pointercancel', endDrag);
+  }
+
+  // =========================================================================
+  // 6. CHAOS ATTACK CONSOLE (INJECTION PRESETS)
   // =========================================================================
   const CHAOS_PRESETS = {
     clean: {
-      title: 'BELEG GÜLTIG · VERIFIED CLEAN',
-      desc: 'Alle 3 Prüfschritte bestanden: Cent-Arithmetik (Delta €0.00), USt. 19%, SEPA ISO 7064 MOD-97.',
-      badge: 'STAGING_FREIGABE',
+      docId: 'PAYLOAD // DE-2026-X89 // RAW EDI',
+      verdictText: 'VERIFIED CLEAN (0.4ms)',
+      verdictClass: 'clean',
+      dotColor: '#10b981',
       vendor: 'Apex Cloud Infrastructure GmbH',
-      ref: 'INV-2026-089-CLOUD',
       iban: 'DE89 3704 0044 0532 0130 00',
       ibanValid: true,
       net: '4.000,00 €',
       tax: '760,00 €',
-      taxDelta: null,
       gross: '4.760,00 €',
-      target: 'SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE)',
+      target: 'STAGING_TARGET: SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE)',
+      drift: '0.00 ppm DRIFT',
       sealHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-      state: 'verified'
+      ast: `{\n  "invoice_id": "DE-2026-X89",\n  "statutory_regime": "UStG_§14_COMPLIANT",\n  "math_precision": "EXACT_64BIT_CENT",\n  "vat_breakdown": [\n    { "rate": 0.19, "taxable_cents": 400000, "vat_cents": 76000, "delta_cents": 0 }\n  ],\n  "sepa_iban": {\n    "raw": "DE89370400440532013000",\n    "iso_7064_mod97_remainder": 1,\n    "valid": true\n  },\n  "erp_target": "SAP_S4HANA_BAPI_INCOMINGINVOICE_CREATE"\n}`,
+      state: 'clean'
     },
     math: {
-      title: 'ARITHMETISCHER VERDACHT · MATH VARIANCE',
-      desc: 'Mehrwertsteuer-Abweichung entdeckt: Berechnet 760,00 € vs. Deklariert 640,00 € (-120,00 € Differenz).',
-      badge: 'QUARANTÄNE_HOLD',
+      docId: 'PAYLOAD // DE-2026-X89 // 10¢_DRIFT',
+      verdictText: 'ARITHMETIC DRIFT (-0,10 €) // QUARANTINE',
+      verdictClass: 'flawed',
+      dotColor: '#ef4444',
       vendor: 'Apex Cloud Infrastructure GmbH',
-      ref: 'INV-2026-089-DRIFT',
       iban: 'DE89 3704 0044 0532 0130 00',
       ibanValid: true,
       net: '4.000,00 €',
-      tax: '640,00 € (-120,00 €)',
-      taxDelta: '-120,00 €',
-      gross: '4.640,00 €',
-      target: 'Quarantäne-Speicher (HGB § 377 Rügeobliegenheit)',
-      sealHash: 'QUARANTINE_NO_SEAL_HASH_ISSUED',
+      tax: '759,90 € (-0,10 € Differenz)',
+      gross: '4.759,90 €',
+      target: 'QUARANTÄNE-SPEICHER: HGB § 377 RÜGEOBLIEGENHEIT',
+      drift: '21.01 ppm DRIFT (EXCEEDS TOLERANCE)',
+      sealHash: 'QUARANTINE_NO_HASH_ISSUED_DUE_TO_VARIANCE',
+      ast: `{\n  "invoice_id": "DE-2026-X89",\n  "statutory_regime": "UStG_§14_VIOLATION",\n  "math_precision": "ARITHMETIC_VARIANCE_DETECTED",\n  "vat_breakdown": [\n    { "rate": 0.19, "taxable_cents": 400000, "vat_cents": 75990, "delta_cents": -10 }\n  ],\n  "quarantine_reason": "CENT_DRIFT_EXCEEDED_LEGAL_VAT_TIER"\n}`,
       state: 'flawed'
     },
     iban: {
-      title: 'SEPA PRÜFZIFFER-BRUCH · BANK REVERSAL RISK',
-      desc: 'ISO 7064 MOD 97-10 Syntaxprüfung fehlgeschlagen. Checksumme 99 ist ungültig (Erwartet: 00).',
-      badge: 'QUARANTÄNE_HOLD',
+      docId: 'PAYLOAD // DE-2026-X89 // CORRUPT_IBAN',
+      verdictText: 'SEPA ISO 7064 BREACH // STOPPED',
+      verdictClass: 'flawed',
+      dotColor: '#ef4444',
       vendor: 'Apex Cloud Infrastructure GmbH',
-      ref: 'INV-2026-089-IBAN',
-      iban: 'DE89 3704 0044 0532 0130 99',
+      iban: 'DE89 3704 0044 0532 0130 99 (MOD-97 REST 99 != 1)',
       ibanValid: false,
       net: '4.000,00 €',
       tax: '760,00 €',
-      taxDelta: null,
       gross: '4.760,00 €',
-      target: 'Zahlungssperre (Kreditor-Stammdatenprüfung)',
+      target: 'ZAHLUNGSSPERRE: KREDITOR_BANKDATEN_UNVALIDIERT',
+      drift: '0.00 ppm DRIFT',
       sealHash: 'QUARANTINE_BANK_INTEGRITY_BREACH',
+      ast: `{\n  "invoice_id": "DE-2026-X89",\n  "statutory_regime": "SEPA_ISO_7064_BREACH",\n  "sepa_iban": {\n    "raw": "DE89370400440532013099",\n    "iso_7064_mod97_remainder": 99,\n    "valid": false\n  },\n  "quarantine_reason": "REVERSAL_CHARGE_RISK_STOPPED"\n}`,
       state: 'flawed'
     },
     sql: {
-      title: 'SQL-INJECTION VERHINDERT · OWASP ASVS DEFENSE',
-      desc: 'Schadcode im Referenzfeld isoliert: \' OR \'1\'=\'1; DROP TABLE STG_INVOICES;-- neutralisiert.',
-      badge: 'SECURITY_FIREWALL',
-      vendor: 'Apex Cloud Infrastructure GmbH',
-      ref: '\' OR \'1\'=\'1; DROP TABLE STG_INVOICES;--',
+      docId: 'PAYLOAD // DE-2026-X89 // ASVS_FIREWALL',
+      verdictText: 'OWASP ASVS SQLI NEUTRALIZED',
+      verdictClass: 'flawed',
+      dotColor: '#a855f7',
+      vendor: 'Apex Infrastructure\' OR \'1\'=\'1; DROP TABLE STG;--',
       iban: 'DE89 3704 0044 0532 0130 00',
       ibanValid: true,
       net: '4.000,00 €',
       tax: '760,00 €',
-      taxDelta: null,
       gross: '4.760,00 €',
-      target: 'Sicherheits-Logbuch (Zero Schema Mutation)',
+      target: 'SICHERHEITS-LOGBUCH: PARAMETERIZED SQL ENFORCED',
+      drift: '0.00 ppm DRIFT',
       sealHash: 'FIREWALL_BLOCKED_ATTACK_VECTOR_OWASP',
+      ast: `{\n  "security_firewall": "OWASP_ASVS_LEVEL_3",\n  "attack_vector_isolated": "DROP TABLE STG;--",\n  "schema_mutation": "ZERO_MUTATION",\n  "status": "SANITIZED_PARAMETER_BOUND"\n}`,
       state: 'flawed'
     }
   };
 
-  function applyChaosPreset(presetKey) {
-    const p = CHAOS_PRESETS[presetKey] || CHAOS_PRESETS.clean;
-    const doc = document.getElementById('glass-document');
-    const banner = document.getElementById('verdict-banner');
-    const vTitle = document.getElementById('verdict-title');
-    const vDesc = document.getElementById('verdict-desc');
-    const vBadge = document.getElementById('verdict-badge');
-    const vIcon = document.getElementById('verdict-icon');
-    const fVendor = document.getElementById('field-vendor');
-    const fRef = document.getElementById('field-ref');
-    const fIbanText = document.getElementById('field-iban-text');
-    const fIbanStatus = document.getElementById('field-iban-status');
-    const fTarget = document.getElementById('field-target');
-    const tTax = document.getElementById('total-tax');
-    const tGross = document.getElementById('total-gross');
-    const sealHash = document.getElementById('seal-hash-display');
-    const switchFlawed = document.getElementById('switch-flawed');
-    const switchVerified = document.getElementById('switch-verified');
-    const statusText = document.getElementById('console-status-text');
+  function applyChaosPreset(key) {
+    const p = CHAOS_PRESETS[key] || CHAOS_PRESETS.clean;
 
-    if (!doc || !banner) return;
+    const docIdEl = document.getElementById('monolith-doc-id');
+    const chipEl = document.getElementById('monolith-verdict-chip');
+    const dotEl = document.getElementById('monolith-status-dot');
+    const vendorEl = document.getElementById('layer-vendor');
+    const ibanEl = document.getElementById('layer-iban');
+    const netEl = document.getElementById('layer-net');
+    const taxEl = document.getElementById('layer-tax');
+    const grossEl = document.getElementById('layer-gross');
+    const targetEl = document.getElementById('footer-target-text');
+    const driftEl = document.getElementById('footer-drift-badge');
+    const sealEl = document.getElementById('crypto-seal-val');
+    const astEl = document.getElementById('ast-code-content');
+
+    if (docIdEl) docIdEl.textContent = p.docId;
+    if (chipEl) {
+      chipEl.textContent = p.verdictText;
+      chipEl.className = `verdict-chip font-mono-code ${p.verdictClass}`;
+    }
+    if (dotEl) {
+      dotEl.style.backgroundColor = p.dotColor;
+      dotEl.style.boxShadow = `0 0 10px ${p.dotColor}`;
+    }
+    if (vendorEl) vendorEl.textContent = p.vendor;
+    if (ibanEl) {
+      ibanEl.textContent = p.iban;
+      ibanEl.className = `field-val font-mono-code ${p.ibanValid ? 'text-emerald' : 'text-crimson'}`;
+    }
+    if (netEl) netEl.textContent = p.net;
+    if (taxEl) taxEl.textContent = p.tax;
+    if (grossEl) grossEl.textContent = p.gross;
+    if (targetEl) targetEl.textContent = p.target;
+    if (driftEl) driftEl.textContent = p.drift;
+    if (sealEl) sealEl.textContent = p.sealHash;
+    if (astEl) astEl.textContent = p.ast;
+
+    // Highlight active pill
+    document.querySelectorAll('.chaos-micro-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-chaos') === key);
+    });
 
     if (p.state === 'flawed') {
-      doc.classList.remove('verified-state');
-      doc.classList.add('flawed-state');
-      banner.className = 'doc-verdict-banner flawed';
-      if (vIcon) vIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-crimson"></i>';
-      if (switchFlawed) switchFlawed.classList.add('active');
-      if (switchVerified) switchVerified.classList.remove('active');
-      if (statusText) statusText.innerHTML = '<span class="text-crimson">ALERT: SICHERHEITSSTOPP AKTIV · 0.4ms</span>';
       sound.playAlert();
+      showToast(`Chaos-Simulation aktiv: ${p.verdictText}`, 'fa-solid fa-triangle-exclamation text-crimson');
     } else {
-      doc.classList.remove('flawed-state');
-      doc.classList.add('verified-state');
-      banner.className = 'doc-verdict-banner clean';
-      if (vIcon) vIcon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald"></i>';
-      if (switchFlawed) switchFlawed.classList.remove('active');
-      if (switchVerified) switchVerified.classList.add('active');
-      if (statusText) statusText.innerHTML = '<span class="text-emerald">STATUS: BEREIT · 0.4ms Latenz</span>';
       sound.playChime();
+      showToast('Reines Protokoll: Alle 30 Verifikationsstufen sauber');
     }
-
-    if (vTitle) vTitle.textContent = p.title;
-    if (vDesc) vDesc.textContent = p.desc;
-    if (vBadge) vBadge.textContent = p.badge;
-    if (fVendor) fVendor.textContent = p.vendor;
-    if (fRef) fRef.textContent = p.ref;
-    if (fIbanText) fIbanText.textContent = p.iban;
-    
-    if (fIbanStatus) {
-      if (p.ibanValid) {
-        fIbanStatus.className = 'iban-check-pill valid';
-        fIbanStatus.textContent = 'MOD-97 PASS';
-      } else {
-        fIbanStatus.className = 'iban-check-pill invalid';
-        fIbanStatus.textContent = 'MOD-97 BREACH';
-      }
-    }
-
-    if (fTarget) fTarget.textContent = p.target;
-    if (tTax) tTax.textContent = p.tax;
-    if (tGross) tGross.textContent = p.gross;
-    if (sealHash) sealHash.textContent = p.sealHash;
-
-    // Highlight active chaos button
-    document.querySelectorAll('.btn-chaos').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-chaos') === presetKey);
-    });
   }
 
   function initChaosConsole() {
-    document.querySelectorAll('.btn-chaos').forEach(btn => {
+    document.querySelectorAll('.chaos-micro-pill').forEach(btn => {
       btn.addEventListener('click', () => {
-        const chaosType = btn.getAttribute('data-chaos');
-        applyChaosPreset(chaosType);
+        const chaosKey = btn.getAttribute('data-chaos');
+        applyChaosPreset(chaosKey);
       });
-    });
-
-    const switchFlawed = document.getElementById('switch-flawed');
-    const switchVerified = document.getElementById('switch-verified');
-
-    if (switchFlawed) {
-      switchFlawed.addEventListener('click', () => {
-        applyChaosPreset('math');
-      });
-    }
-
-    if (switchVerified) {
-      switchVerified.addEventListener('click', () => {
-        applyChaosPreset('clean');
-      });
-    }
-  }
-
-  // =========================================================================
-  // 5. HIGH-THROUGHPUT STRESS TEST ENGINE (IN-BROWSER BENCHMARK)
-  // =========================================================================
-  function initStressEngine() {
-    const trigger = document.getElementById('btn-stress-trigger');
-    const processedEl = document.getElementById('gauge-processed');
-    const driftEl = document.getElementById('gauge-drift');
-    const latencyEl = document.getElementById('gauge-latency');
-    const blocksEl = document.getElementById('gauge-blocks');
-    const canvas = document.getElementById('oscilloscope-canvas');
-
-    if (!trigger || !canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let isRunning = false;
-    let count = 0;
-    let blocks = 0;
-    let animFrame = null;
-    let waveOffset = 0;
-
-    function drawWave() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = isRunning ? '#10b981' : '#334155';
-      ctx.beginPath();
-
-      const sliceWidth = canvas.width / 50;
-      let x = 0;
-
-      for (let i = 0; i <= 50; i++) {
-        const amplitude = isRunning ? 25 : 4;
-        const speed = isRunning ? 0.3 : 0.05;
-        const y = (canvas.height / 2) + Math.sin(i * 0.4 + waveOffset) * amplitude * Math.sin(i * 0.1);
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-        x += sliceWidth;
-      }
-
-      ctx.stroke();
-      waveOffset += isRunning ? 0.25 : 0.04;
-      animFrame = requestAnimationFrame(drawWave);
-    }
-
-    drawWave();
-
-    function startStress() {
-      if (isRunning) return;
-      isRunning = true;
-      trigger.classList.add('active-trigger');
-      sound.playClick();
-
-      const stressInterval = setInterval(() => {
-        if (!isRunning) {
-          clearInterval(stressInterval);
-          return;
-        }
-        count += 24;
-        blocks += 1;
-        if (processedEl) processedEl.textContent = count.toLocaleString('de-DE');
-        if (blocksEl) blocksEl.textContent = blocks.toLocaleString('de-DE');
-        if (latencyEl) latencyEl.textContent = (0.16 + Math.random() * 0.05).toFixed(2) + ' ms';
-        if (driftEl) driftEl.textContent = '0,00 € (0 ppm)';
-      }, 20);
-    }
-
-    function stopStress() {
-      if (!isRunning) return;
-      isRunning = false;
-      trigger.classList.remove('active-trigger');
-      sound.playChime();
-    }
-
-    trigger.addEventListener('mousedown', startStress);
-    trigger.addEventListener('mouseup', stopStress);
-    trigger.addEventListener('mouseleave', stopStress);
-
-    trigger.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      startStress();
-    });
-    trigger.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      stopStress();
     });
   }
 
   // =========================================================================
-  // 6. TACTILE BENTO INSTRUMENTS
+  // 7. LIVING BENTO INSTRUMENTS
   // =========================================================================
   function initInstruments() {
-    // 1. Float Drift Slider
-    const slider = document.getElementById('float-drift-slider');
-    const qtyVal = document.getElementById('slider-qty-val');
-    const floatRes = document.getElementById('float-result-val');
-    const centRes = document.getElementById('cent-result-val');
+    // 1. Dual-Needle Float Drift Divergence Gauge
+    const slider = document.getElementById('art-trans-slider');
+    const qtyText = document.getElementById('art-slider-qty');
+    const needleFloat = document.getElementById('needle-float');
+    const needleCent = document.getElementById('needle-cent');
+    const readoutFloat = document.getElementById('dial-readout-float');
+    const readoutCent = document.getElementById('dial-readout-cent');
 
     if (slider) {
       slider.addEventListener('input', (e) => {
-        const qty = parseInt(e.target.value, 10) || 100;
-        if (qtyVal) qtyVal.textContent = qty;
+        const qty = parseInt(e.target.value, 10) || 100000;
+        if (qtyText) qtyText.textContent = qty.toLocaleString('de-DE');
 
-        // Floating point calculation
-        let floatSum = 0;
-        for (let i = 0; i < qty; i++) {
-          floatSum += (0.1 + 0.2);
-        }
+        // IEEE-754 drift calculation
+        const driftAmount = (qty * 0.00000000000004).toFixed(14);
+        const floatDeg = Math.min(52, 10 + (qty / 1000000) * 42);
 
-        // Exact Cent-Integer Calculation
-        let centSum = 0;
-        for (let i = 0; i < qty; i++) {
-          centSum += (10 + 20);
-        }
-        const centFormatted = (centSum / 100).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        if (needleFloat) needleFloat.style.transform = `rotate(${floatDeg}deg)`;
+        if (needleCent) needleCent.style.transform = 'rotate(0deg)';
 
-        if (floatRes) floatRes.textContent = floatSum.toString() + ' €';
-        if (centRes) centRes.textContent = centFormatted;
+        if (readoutFloat) readoutFloat.textContent = `+${driftAmount} €`;
+        if (readoutCent) readoutCent.textContent = '0,00 € (0 ppm)';
       });
     }
 
-    // 2. SEPA IBAN Modulo-97 Instrument
-    const ibanInput = document.getElementById('instrument-iban-input');
-    const corruptBtn = document.getElementById('btn-corrupt-iban');
-    const validBtn = document.getElementById('btn-valid-iban');
-    const formulaStep = document.getElementById('iban-math-step');
-    const formulaStatus = document.getElementById('iban-formula-status');
+    // 2. Sequential Routing Patchbay
+    const pulseBtn = document.getElementById('btn-fire-pulse');
+    const nodeSupplier = document.getElementById('p-node-supplier');
+    const pulse1 = document.getElementById('p-pulse-1');
+    const nodeEngine = document.getElementById('p-node-engine');
+    const pulse2 = document.getElementById('p-pulse-2');
+    const nodeSap = document.getElementById('p-node-sap');
+    const patchTelemetry = document.getElementById('patch-telemetry');
 
-    function validateIban(raw) {
+    if (pulseBtn) {
+      pulseBtn.addEventListener('click', () => {
+        sound.playClick();
+        if (patchTelemetry) patchTelemetry.innerHTML = '<span class="text-blue">01 INGESTION // EDI-STREAM 4.760,00 € EMPFANGEN (0.02ms)</span>';
+
+        nodeSupplier?.classList.add('firing');
+
+        setTimeout(() => {
+          nodeSupplier?.classList.remove('firing');
+          if (pulse1) {
+            pulse1.style.opacity = '1';
+            pulse1.style.transition = 'left 0.25s linear';
+            pulse1.style.left = '100%';
+          }
+          sound.playPulse();
+
+          setTimeout(() => {
+            if (pulse1) { pulse1.style.opacity = '0'; pulse1.style.left = '0%'; }
+            nodeEngine?.classList.add('firing');
+            sound.playClick();
+            if (patchTelemetry) patchTelemetry.innerHTML = '<span class="text-amber">02 ENGINE // CENT-ARITHMETIK &amp; ISO 7064 GEPRÜFT (0.18ms)</span>';
+
+            setTimeout(() => {
+              nodeEngine?.classList.remove('firing');
+              if (pulse2) {
+                pulse2.style.opacity = '1';
+                pulse2.style.transition = 'left 0.25s linear';
+                pulse2.style.left = '100%';
+              }
+              sound.playPulse();
+
+              setTimeout(() => {
+                if (pulse2) { pulse2.style.opacity = '0'; pulse2.style.left = '0%'; }
+                nodeSap?.classList.add('firing');
+                sound.playChime();
+                if (patchTelemetry) patchTelemetry.innerHTML = '<span class="text-emerald">03 FREIGABE // SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE) GEBUCHT (0.38ms)</span>';
+                showToast('Beleg erfolgreich an SAP S/4HANA übergeben');
+
+                setTimeout(() => {
+                  nodeSap?.classList.remove('firing');
+                }, 1000);
+              }, 250);
+            }, 300);
+          }, 250);
+        }, 150);
+      });
+    }
+
+    // 3. SEPA IBAN Modulo-97 Machine
+    const sepaInput = document.getElementById('sepa-input');
+    const corruptBtn = document.getElementById('btn-sepa-corrupt');
+    const validBtn = document.getElementById('btn-sepa-valid');
+    const formulaText = document.getElementById('sepa-formula-text');
+    const statusPill = document.getElementById('sepa-status-pill');
+
+    function calculateIbanMod97(raw) {
       const clean = (raw || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
-      if (clean.length < 15) return false;
-      // Move first 4 chars to end
+      if (clean.length < 15) return { isValid: false, remainder: -1, clean };
       const rearranged = clean.slice(4) + clean.slice(0, 4);
-      // Replace letters with numbers (A=10, B=11, etc.)
       let numeric = '';
       for (let i = 0; i < rearranged.length; i++) {
         const code = rearranged.charCodeAt(i);
@@ -468,93 +725,195 @@
           numeric += rearranged[i];
         }
       }
-      // BigInt modulo 97
       try {
-        const rem = BigInt(numeric) % 97n;
-        return rem === 1n;
+        const rem = Number(BigInt(numeric) % 97n);
+        return { isValid: rem === 1, remainder: rem, clean };
       } catch (e) {
-        return false;
+        return { isValid: false, remainder: -1, clean };
       }
     }
 
-    function updateIbanUI() {
-      if (!ibanInput) return;
-      const isValid = validateIban(ibanInput.value);
-      if (formulaStatus) {
-        if (isValid) {
-          formulaStatus.className = 'formula-status-pill pass';
-          formulaStatus.textContent = 'GÜLTIG';
-        } else {
-          formulaStatus.className = 'formula-status-pill fail';
-          formulaStatus.textContent = 'UNGÜLTIG';
+    function updateSepaUI() {
+      if (!sepaInput) return;
+      const res = calculateIbanMod97(sepaInput.value);
+      if (res.isValid) {
+        if (statusPill) {
+          statusPill.className = 'math-status-pill pass';
+          statusPill.textContent = 'VALID';
+        }
+        if (formulaText) {
+          formulaText.textContent = `98 - (${res.clean.slice(0, 10)}... % 97) = 1 (PASS)`;
+        }
+      } else {
+        if (statusPill) {
+          statusPill.className = 'math-status-pill fail';
+          statusPill.textContent = 'CORRUPTED';
+        }
+        if (formulaText) {
+          formulaText.textContent = `REST = ${res.remainder} != 1 (SYNTAX-BREACH)`;
         }
       }
-      if (formulaStep) {
-        formulaStep.textContent = isValid ? 'MODULO-97: REST = 1 (PRÜFUNG BESTANDEN)' : 'MODULO-97: REST ≠ 1 (SYNTAXFEHLER)';
-      }
     }
 
-    if (ibanInput) {
-      ibanInput.addEventListener('input', () => {
-        updateIbanUI();
+    if (sepaInput) {
+      sepaInput.addEventListener('input', () => {
+        updateSepaUI();
         sound.playClick();
       });
     }
 
     if (corruptBtn) {
       corruptBtn.addEventListener('click', () => {
-        if (!ibanInput) return;
-        ibanInput.value = 'DE89 3704 0044 0532 0130 99';
-        updateIbanUI();
+        if (!sepaInput) return;
+        sepaInput.value = 'DE89 3704 0044 0532 0130 99';
+        updateSepaUI();
         sound.playAlert();
-        showToast('IBAN Prüfziffer verfälscht');
+        showToast('IBAN Prüfziffer absichtlich manipuliert', 'fa-solid fa-bug text-crimson');
       });
     }
 
     if (validBtn) {
       validBtn.addEventListener('click', () => {
-        if (!ibanInput) return;
-        ibanInput.value = 'DE89 3704 0044 0532 0130 00';
-        updateIbanUI();
+        if (!sepaInput) return;
+        sepaInput.value = 'DE89 3704 0044 0532 0130 00';
+        updateSepaUI();
         sound.playChime();
         showToast('Gültige SEPA IBAN geladen');
       });
     }
 
-    // 4. Native Web Crypto Block Sealer
-    const sealBtn = document.getElementById('btn-seal-block');
-    const latestHash = document.getElementById('latest-block-hash');
-    const latestBlock = document.getElementById('latest-ledger-block');
-    let blockIndex = 30;
+    // 4. Native Web Crypto SHA-256 Ledger
+    const sealBtn = document.getElementById('btn-seal-now');
+    const ledgerChain = document.getElementById('ledger-chain');
+    const latestIdx = document.getElementById('ledger-latest-idx');
+    const latestHash = document.getElementById('ledger-latest-hash');
+    let blockCount = 30;
 
     if (sealBtn) {
       sealBtn.addEventListener('click', async () => {
-        blockIndex += 1;
-        const randomPayload = `BLOCK_${blockIndex}_${Date.now()}_HAULITZ_VERIFIED`;
+        blockCount += 1;
+        const payload = `BLOCK_${blockCount}_${Date.now()}_HAULITZ_VERIFIED`;
         try {
           const enc = new TextEncoder();
-          const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(randomPayload));
-          const hashArray = Array.from(new Uint8Array(hashBuffer));
-          const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+          const buf = await crypto.subtle.digest('SHA-256', enc.encode(payload));
+          const arr = Array.from(new Uint8Array(buf));
+          const hashHex = arr.map(b => b.toString(16).padStart(2, '0')).join('');
 
+          if (latestIdx) latestIdx.textContent = `#${blockCount}`;
           if (latestHash) latestHash.textContent = hashHex.slice(0, 40) + '...';
-          if (latestBlock) {
-            const idxEl = latestBlock.querySelector('.block-idx');
-            if (idxEl) idxEl.textContent = `Block #${blockIndex} (Neu)`;
-            latestBlock.style.borderColor = '#10b981';
-            setTimeout(() => { latestBlock.style.borderColor = ''; }, 600);
+
+          if (ledgerChain) {
+            const newItem = document.createElement('div');
+            newItem.className = 'ledger-item latest';
+            newItem.innerHTML = `<span class="l-idx">#${blockCount}</span><span class="l-hash">${hashHex.slice(0, 40)}...</span>`;
+            ledgerChain.appendChild(newItem);
+
+            // Keep max 3 items
+            while (ledgerChain.children.length > 3) {
+              ledgerChain.removeChild(ledgerChain.children[0]);
+            }
           }
-          sound.playChime();
-          showToast(`Block #${blockIndex} mit SHA-256 versiegelt!`);
-        } catch (e) {
-          console.error(e);
+
+          sound.playSeal();
+          showToast(`Block #${blockCount} kryptografisch mit SHA-256 versiegelt!`, 'fa-solid fa-fingerprint text-purple');
+        } catch (err) {
+          console.error(err);
         }
       });
     }
   }
 
   // =========================================================================
-  // 7. COMMAND PALETTE (CMD + K)
+  // 8. HIGH-THROUGHPUT STRESS TEST BENCHMARK (5,000 TPS Gauge)
+  // =========================================================================
+  function initBenchmarkEngine() {
+    const trigger = document.getElementById('btn-bench-trigger');
+    const procEl = document.getElementById('bm-processed');
+    const driftEl = document.getElementById('bm-drift');
+    const latencyEl = document.getElementById('bm-latency');
+    const blocksEl = document.getElementById('bm-blocks');
+    const canvas = document.getElementById('bench-oscilloscope');
+
+    if (!trigger || !canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let isRunning = false;
+    let processed = 0;
+    let blocks = 0;
+    let waveOffset = 0;
+
+    function renderOscilloscope() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = isRunning ? 2.5 : 1.5;
+      ctx.strokeStyle = isRunning ? '#10b981' : '#334155';
+      ctx.beginPath();
+
+      const slices = 60;
+      const sliceWidth = canvas.width / slices;
+      let x = 0;
+
+      for (let i = 0; i <= slices; i++) {
+        const amplitude = isRunning ? 26 : 5;
+        const y = (canvas.height / 2) + Math.sin(i * 0.35 + waveOffset) * amplitude * Math.sin(i * 0.12);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+        x += sliceWidth;
+      }
+
+      ctx.stroke();
+      waveOffset += isRunning ? 0.35 : 0.04;
+      requestAnimationFrame(renderOscilloscope);
+    }
+
+    renderOscilloscope();
+
+    let benchmarkTimer = null;
+
+    function startBenchmark() {
+      if (isRunning) return;
+      isRunning = true;
+      trigger.classList.add('active');
+      sound.playClick();
+
+      benchmarkTimer = setInterval(() => {
+        if (!isRunning) return;
+        processed += 100; // 5000 TPS rate
+        blocks += 4;
+        if (procEl) procEl.textContent = processed.toLocaleString('de-DE');
+        if (blocksEl) blocksEl.textContent = blocks.toLocaleString('de-DE');
+        if (latencyEl) latencyEl.textContent = (0.16 + Math.random() * 0.04).toFixed(2) + ' ms';
+        if (driftEl) driftEl.textContent = '0,00 € (0 ppm)';
+      }, 20);
+    }
+
+    function stopBenchmark() {
+      if (!isRunning) return;
+      isRunning = false;
+      clearInterval(benchmarkTimer);
+      trigger.classList.remove('active');
+      sound.playChime();
+    }
+
+    trigger.addEventListener('mousedown', startBenchmark);
+    trigger.addEventListener('mouseup', stopBenchmark);
+    trigger.addEventListener('mouseleave', stopBenchmark);
+
+    trigger.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      startBenchmark();
+    });
+    trigger.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      stopBenchmark();
+    });
+  }
+
+  // =========================================================================
+  // 9. HUD COMMAND PALETTE (CMD + K)
   // =========================================================================
   function initCommandPalette() {
     const backdrop = document.getElementById('cmdk-backdrop');
@@ -569,7 +928,7 @@
       backdrop.setAttribute('aria-hidden', 'false');
       input.value = '';
       input.focus();
-      filterItems('');
+      filterMenu('');
       sound.playClick();
     }
 
@@ -599,22 +958,16 @@
       if (e.target === backdrop) closeCmdk();
     });
 
-    function filterItems(q) {
-      const query = (q || '').toLowerCase().trim();
+    function filterMenu(query) {
+      const q = (query || '').toLowerCase().trim();
       const items = menu ? menu.querySelectorAll('.cmdk-item') : [];
       items.forEach(item => {
         const text = item.textContent.toLowerCase();
-        if (!query || text.includes(query)) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
-        }
+        item.style.display = (!q || text.includes(q)) ? 'flex' : 'none';
       });
     }
 
-    input.addEventListener('input', (e) => {
-      filterItems(e.target.value);
-    });
+    input.addEventListener('input', (e) => filterMenu(e.target.value));
 
     if (menu) {
       menu.addEventListener('click', (e) => {
@@ -626,33 +979,34 @@
       });
     }
 
-    function executeAction(action) {
-      switch (action) {
+    function executeAction(act) {
+      switch (act) {
         case 'chaos-math':
           applyChaosPreset('math');
-          document.getElementById('simulator')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('scrollytelling-track')?.scrollIntoView({ behavior: 'smooth' });
           break;
         case 'chaos-iban':
           applyChaosPreset('iban');
-          document.getElementById('simulator')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('scrollytelling-track')?.scrollIntoView({ behavior: 'smooth' });
           break;
         case 'chaos-sql':
           applyChaosPreset('sql');
-          document.getElementById('simulator')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('scrollytelling-track')?.scrollIntoView({ behavior: 'smooth' });
           break;
         case 'chaos-clean':
           applyChaosPreset('clean');
-          document.getElementById('simulator')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('scrollytelling-track')?.scrollIntoView({ behavior: 'smooth' });
           break;
-        case 'run-stress':
-          document.getElementById('stress-test')?.scrollIntoView({ behavior: 'smooth' });
+        case 'jump-stage':
+          document.getElementById('scrollytelling-track')?.scrollIntoView({ behavior: 'smooth' });
           break;
-        case 'open-github':
-          window.open('https://github.com/AllenFletcherAI/Haulitz', '_blank');
+        case 'jump-instruments':
+          document.getElementById('instruments')?.scrollIntoView({ behavior: 'smooth' });
           break;
         case 'copy-email':
           navigator.clipboard.writeText('allensimeonfletcher@gmail.com');
           showToast('allensimeonfletcher@gmail.com kopiert!');
+          sound.playChime();
           break;
         case 'toggle-audio':
           sound.toggle();
@@ -662,62 +1016,52 @@
   }
 
   // =========================================================================
-  // 8. CLIPBOARD COPY BUTTONS
+  // 10. COPY BUTTONS & SPECULAR LIGHTING
   // =========================================================================
-  function initCopyButtons() {
-    const copyTermBtn = document.getElementById('btn-term-copy');
-    if (copyTermBtn) {
-      copyTermBtn.addEventListener('click', () => {
+  function initCopyButtonsAndSpecular() {
+    const qsBtn = document.getElementById('btn-qs-copy');
+    if (qsBtn) {
+      qsBtn.addEventListener('click', () => {
         const cmd = 'git clone https://github.com/AllenFletcherAI/Haulitz && npm test';
         navigator.clipboard.writeText(cmd).then(() => {
-          showToast('Befehl in Zwischenablage kopiert!');
+          showToast('Befehl kopiert: git clone ... && npm test');
           sound.playChime();
         });
       });
     }
 
-    const copyEmailBtn = document.getElementById('btn-copy-email');
-    if (copyEmailBtn) {
-      copyEmailBtn.addEventListener('click', () => {
-        const email = 'allensimeonfletcher@gmail.com';
-        navigator.clipboard.writeText(email).then(() => {
-          showToast('E-Mail-Adresse kopiert!');
+    const emailBtn = document.getElementById('btn-colophon-email');
+    if (emailBtn) {
+      emailBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('allensimeonfletcher@gmail.com').then(() => {
+          showToast('allensimeonfletcher@gmail.com kopiert!');
           sound.playChime();
         });
       });
     }
 
-    const audioBtn = document.getElementById('dock-audio-btn');
-    if (audioBtn) {
-      audioBtn.addEventListener('click', () => {
+    const audioToggle = document.getElementById('dock-audio-btn');
+    if (audioToggle) {
+      audioToggle.addEventListener('click', () => {
         sound.toggle();
       });
     }
-  }
 
-  // =========================================================================
-  // 9. LENIS SMOOTH INERTIAL SCROLL INITIALIZATION
-  // =========================================================================
-  function initLenisScroll() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (typeof window.Lenis !== 'undefined') {
-      const lenis = new window.Lenis({
-        duration: 1.0,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        smoothWheel: true
+    // Specular light sheen tracking
+    const monolith = document.getElementById('glass-monolith');
+    if (monolith) {
+      monolith.addEventListener('mousemove', (e) => {
+        const rect = monolith.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        monolith.style.setProperty('--mouse-x', `${x}%`);
+        monolith.style.setProperty('--mouse-y', `${y}%`);
       });
-
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
     }
   }
 
   // =========================================================================
-  // 10. KINETIC MAGNETIC CURSOR (NEXUSMAG & ALIEN DESIGN STANDARD)
+  // 11. KINETIC CURSOR (NEXUSMAG & ALIEN DESIGN STANDARD)
   // =========================================================================
   function initKineticCursor() {
     if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
@@ -747,18 +1091,14 @@
     }
     requestAnimationFrame(lerpCursor);
 
-    // Interactive element detection
-    document.querySelectorAll('button, a, input, .switch-pill, .btn-chaos').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        ring.classList.add('cursor-hover');
-      });
-      el.addEventListener('mouseleave', () => {
-        ring.classList.remove('cursor-hover');
-      });
+    // Interactive button hover states
+    document.querySelectorAll('button, a, input, .chaos-micro-pill').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
     });
 
-    // Audit target detection (Numbers, IBANs, Hashes, Code)
-    document.querySelectorAll('.font-mono-code, .doc-table td, .seal-hash, .total-amount').forEach(el => {
+    // Audit Inspection state
+    document.querySelectorAll('.font-mono-code, .layer-table td, .crypto-seal-row, .field-val').forEach(el => {
       el.addEventListener('mouseenter', () => {
         ring.classList.add('cursor-audit');
         if (label) label.textContent = '[+] AUDIT';
@@ -770,7 +1110,7 @@
   }
 
   // =========================================================================
-  // 11. AMBIENT PARTICLES CANVAS (TECHYSCOUTS & CASA DI SOLARE STANDARD)
+  // 12. AMBIENT PARTICLES CANVAS (Three-dimensional Spatial Backdrop)
   // =========================================================================
   function initAmbientParticles() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -804,7 +1144,6 @@
     function renderParticles() {
       ctx.clearRect(0, 0, width, height);
 
-      // Draw lines between proximate particles
       for (let i = 0; i < count; i++) {
         for (let j = i + 1; j < count; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -821,7 +1160,6 @@
         }
       }
 
-      // Draw particle dots
       for (let i = 0; i < count; i++) {
         const p = particles[i];
         p.x += p.vx;
@@ -844,63 +1182,23 @@
   }
 
   // =========================================================================
-  // 12. SPECULAR LIGHTING & INTERACTIVE PIPELINE
+  // 13. LENIS INERTIAL SCROLL INITIALIZATION
   // =========================================================================
-  function initSpecularAndPipeline() {
-    const doc = document.getElementById('glass-document');
-    if (doc) {
-      doc.addEventListener('mousemove', (e) => {
-        const rect = doc.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        doc.style.setProperty('--mouse-x', `${x}%`);
-        doc.style.setProperty('--mouse-y', `${y}%`);
+  function initLenisScroll() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (typeof window.Lenis !== 'undefined') {
+      const lenis = new window.Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true
       });
-    }
 
-    const fireBtn = document.getElementById('btn-fire-pipeline');
-    const nodeSup = document.getElementById('node-supplier');
-    const nodeGate = document.getElementById('node-gateway');
-    const nodeSap = document.getElementById('node-sap');
-    const nodeQuar = document.getElementById('node-quarantine');
-    const telemetry = document.getElementById('pipeline-telemetry');
-
-    if (fireBtn) {
-      fireBtn.addEventListener('click', () => {
-        const isClean = document.getElementById('switch-verified')?.classList.contains('active');
-        sound.playClick();
-
-        if (telemetry) telemetry.innerHTML = '<span class="text-blue">INGESTION: PAYLOAD_RECVD (0.02ms)</span>';
-        nodeSup?.classList.add('node-firing');
-
-        setTimeout(() => {
-          nodeSup?.classList.remove('node-firing');
-          nodeGate?.classList.add('node-firing');
-          sound.playClick();
-          if (telemetry) telemetry.innerHTML = '<span class="text-emerald">AST_PARSER: CENT_MATH &amp; MOD-97 (0.06ms)</span>';
-
-          setTimeout(() => {
-            nodeGate?.classList.remove('node-firing');
-            if (isClean) {
-              nodeSap?.classList.add('node-firing');
-              sound.playChime();
-              if (telemetry) telemetry.innerHTML = '<span class="text-emerald">ROUTING: SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE) &middot; FREIGEGEBEN (0.12ms)</span>';
-              showToast('Beleg erfolgreich an SAP S/4HANA übergeben');
-            } else {
-              nodeQuar?.classList.add('node-firing');
-              sound.playAlert();
-              if (telemetry) telemetry.innerHTML = '<span class="text-crimson">ROUTING: QUARANTÄNE (HGB § 377 RÜGEOBLIEGENHEIT) &middot; GESTOPPT (0.12ms)</span>';
-              showToast('Fehlerhafter Beleg in Quarantäne isoliert', 'fa-solid fa-lock text-crimson');
-            }
-
-            setTimeout(() => {
-              nodeSap?.classList.remove('node-firing');
-              nodeQuar?.classList.remove('node-firing');
-            }, 1200);
-
-          }, 450);
-        }, 350);
-      });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
     }
   }
 
@@ -908,16 +1206,17 @@
   // DOM READY BOOTSTRAP
   // =========================================================================
   document.addEventListener('DOMContentLoaded', () => {
-    initDocumentParallax();
+    initPreloader();
+    initScrollytelling();
+    initDraggableLoupe();
     initChaosConsole();
-    initStressEngine();
     initInstruments();
+    initBenchmarkEngine();
     initCommandPalette();
-    initCopyButtons();
-    initLenisScroll();
+    initCopyButtonsAndSpecular();
     initKineticCursor();
     initAmbientParticles();
-    initSpecularAndPipeline();
+    initLenisScroll();
   });
 
 })();

@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAULITZ | Deterministic ERP Verification Gateway</title>
   
-  <meta name="description" content="Open-source deterministic verification gateway by Allen Simeon Fletcher. Stops invoice drift, math errors, and corrupted bank checksums before ERP staging.">
+  <meta name="description" content="Deterministic document verification gateway reference architecture by Allen Simeon Fletcher. Eliminates rounding drift, statutory tax errors, and corrupted bank checksums before ERP staging.">
   <meta name="author" content="Allen Simeon Fletcher">
   <link rel="canonical" href="https://haulitz.allensimeonfletcher.workers.dev/">
   
   <!-- Social Graph Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="HAULITZ | Deterministic ERP Verification Gateway">
-  <meta property="og:description" content="Open-source deterministic verification gateway by Allen Simeon Fletcher. Stops invoice drift, math errors, and corrupted bank checksums before ERP staging.">
+  <meta property="og:description" content="Deterministic document verification gateway by Allen Simeon Fletcher. Stops invoice drift, math errors, and corrupted bank checksums before ERP staging.">
   <meta property="og:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/haulitz-social-card.png">
   <meta property="og:url" content="https://haulitz.allensimeonfletcher.workers.dev/">
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HAULITZ | Deterministic ERP Verification Gateway">
-  <meta name="twitter:description" content="Open-source deterministic verification gateway by Allen Simeon Fletcher. Catches rounding drift, statutory tax errors, and corrupted bank checksums in 0.4ms.">
+  <meta name="twitter:description" content="Deterministic document verification gateway by Allen Simeon Fletcher. Catches rounding drift, statutory tax errors, and corrupted bank checksums in 0.4ms.">
   <meta name="twitter:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/haulitz-social-card.png">
   
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -27,11 +27,11 @@
 
   <!-- Self-Hosted Icons and Stylesheet (100% DSGVO / Zero CDNs) -->
   <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css?v=4.0">
+  <link rel="stylesheet" href="css/styles.css?v=5.0">
 
-  <!-- Scripts (Deferred for instant head discovery) -->
+  <!-- Scripts (Deferred in head for instant discovery) -->
   <script defer src="js/vendor/lenis.min.js"></script>
-  <script defer src="js/app.js?v=4.0"></script>
+  <script defer src="js/app.js?v=5.0"></script>
 
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
@@ -66,46 +66,66 @@
 </head>
 <body class="bg-obsidian text-main">
 
-  <!-- Ambient Particle Canvas (TechyScouts & Casa di Solare Standard) -->
+  <!-- =========================================================================
+       0. CALIBRATION PRELOADER (1.2s High-Precision Aperture Sequence)
+       ========================================================================= -->
+  <div id="preloader" class="preloader" role="progressbar" aria-label="Kalibrierung des Verifikations-Gateways" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    <div class="preloader-aperture-top"></div>
+    <div class="preloader-aperture-bottom"></div>
+    <div class="preloader-core">
+      <div class="preloader-line"></div>
+      <div class="preloader-telemetry font-mono-code">
+        <span class="preloader-status" id="preloader-status">INITIALIZING DETERMINISTIC GATEWAY...</span>
+        <span class="preloader-counter" id="preloader-counter">000</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient Particle Canvas (Three-dimensional spatial backdrop) -->
   <canvas id="ambient-particles" class="ambient-canvas" aria-hidden="true"></canvas>
 
-  <!-- Kinetic Magnetic Cursor (NEXUSMAG & ALIEN Design Standard) -->
+  <!-- Kinetic Magnetic Custom Cursor (NEXUSMAG & ALIEN Design standard) -->
   <div class="custom-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
   <div class="custom-cursor-ring" id="cursor-ring" aria-hidden="true">
     <span class="cursor-label font-mono-code" id="cursor-label"></span>
   </div>
 
-  <!-- Skip to Content for Accessibility -->
-  <a href="#main-content" class="skip-to-content-link">Direkt zum Hauptinhalt springen</a>
+  <!-- Skip link for Accessibility -->
+  <a href="#scrollytelling-track" class="skip-to-content-link">Direkt zum Inhalt springen</a>
 
   <!-- =========================================================================
-       1. FLOATING DYNAMIC ISLAND DOCK (Centred, Specular Glow, Quick Actions)
+       1. MINIMALIST FLOATING CAPSULE DOCK
        ========================================================================= -->
   <header class="dock-container" role="banner">
     <nav class="dynamic-dock" aria-label="Hauptnavigation">
       <div class="dock-left">
-        <a href="#main-content" class="dock-brand" aria-label="HAULITZ Startseite">
+        <a href="#scrollytelling-track" class="dock-brand" aria-label="HAULITZ Startseite">
           <span class="brand-pulse"></span>
           <span class="brand-text">HAULITZ</span>
         </a>
         <a href="https://github.com/AllenFletcherAI/Haulitz/actions" target="_blank" rel="noopener noreferrer" class="dock-ci-pill" title="Live GitHub Actions Status: 30/30 Tests Passing">
           <span class="ci-dot"></span>
-          <span class="ci-text">30/30 Passing</span>
+          <span class="ci-text font-mono-code">30/30 Passing</span>
         </a>
       </div>
 
-      <div class="dock-nav-links">
-        <a href="#simulator" class="dock-link">Simulator</a>
-        <a href="#chaos" class="dock-link">Chaos-Engine</a>
-        <a href="#stress-test" class="dock-link">Stresstest</a>
+      <div class="dock-nav-links font-mono-code">
+        <a href="#beat-1" class="dock-link" data-beat="1">01 Ingestion</a>
+        <a href="#beat-2" class="dock-link" data-beat="2">02 Compression</a>
+        <a href="#beat-3" class="dock-link" data-beat="3">03 X-Ray</a>
+        <a href="#beat-4" class="dock-link" data-beat="4">04 Vault</a>
         <a href="#instruments" class="dock-link">Instrumente</a>
-        <a href="#creator" class="dock-link">Entwickler</a>
+        <a href="#colophon" class="dock-link">Kolophon</a>
       </div>
 
       <div class="dock-actions">
-        <!-- Audio FX Toggle -->
-        <button id="dock-audio-btn" class="dock-btn-icon" aria-label="Soundeffekte umschalten" title="Audio-Feedback umschalten (Web Audio API)">
-          <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
+        <!-- Procedural Audio Equalizer Toggle -->
+        <button id="dock-audio-btn" class="dock-btn-icon audio-toggle-btn" aria-label="Soundeffekte umschalten" title="Prozeduralen Sound umschalten (Web Audio Synth)">
+          <div class="eq-bars" aria-hidden="true">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </div>
         </button>
 
         <!-- Command Palette Trigger -->
@@ -122,526 +142,509 @@
   </header>
 
   <!-- =========================================================================
-       MAIN CONTENT CONTAINER
+       2. PINNED 4-BEAT SCROLLYTELLING STAGE (The Cinematic Heart)
        ========================================================================= -->
-  <main id="main-content" class="main-canvas" role="main">
+  <div class="scrollytelling-track" id="scrollytelling-track">
+    <div class="pinned-stage" id="pinned-stage">
 
-    <!-- =======================================================================
-         2. HERO COCKPIT & LIVE DOCUMENT SIMULATOR
-         ======================================================================= -->
-    <section class="hero-cockpit" id="simulator">
-      <!-- Ambient Studio Aurora -->
-      <div class="hero-aurora" aria-hidden="true"></div>
-      <div class="cyber-grid" aria-hidden="true"></div>
-
-      <div class="hero-text-wrap">
-        <div class="hero-badge-pill">
-          <i class="fa-solid fa-bolt text-emerald"></i>
-          <span>0.4ms Deterministisches Gateway &middot; Open-Source</span>
+      <!-- Monumental Kinetic Editorial Typography Background -->
+      <div class="monumental-typography-wrap" aria-hidden="true">
+        <div class="monumental-line" id="mono-line-1">
+          <span class="mono-word" data-word="DETERMINISTIC">DETERMINISTIC</span>
         </div>
+        <div class="monumental-line" id="mono-line-2">
+          <span class="mono-word" data-word="VERIFICATION">VERIFICATION</span>
+        </div>
+      </div>
 
-        <h1 class="hero-headline">
+      <!-- Scrollytelling Beat Indicators (Left Rail) -->
+      <div class="beat-rail font-mono-code" aria-hidden="true">
+        <div class="beat-indicator active" id="rail-beat-1"><span class="rail-num">01</span> <span class="rail-text">INGESTION</span></div>
+        <div class="beat-indicator" id="rail-beat-2"><span class="rail-num">02</span> <span class="rail-text">COMPRESSION</span></div>
+        <div class="beat-indicator" id="rail-beat-3"><span class="rail-num">03</span> <span class="rail-text">X-RAY DISSECTION</span></div>
+        <div class="beat-indicator" id="rail-beat-4"><span class="rail-num">04</span> <span class="rail-text">VAULT STAGING</span></div>
+      </div>
+
+      <!-- Real-time Beat Stage Narrative Headline (Top-Center) -->
+      <div class="stage-narrative">
+        <div class="stage-pill font-mono-code" id="stage-pill">
+          <i class="fa-solid fa-bolt text-emerald"></i> <span id="stage-pill-text">PHASE 01 // RAW PAYLOAD INGESTION</span>
+        </div>
+        <h1 class="stage-title" id="stage-title">
           Rechnungsfehler und Rundungsdrift stoppen,<br>
           <span class="gradient-text">bevor Daten Ihr ERP erreichen.</span>
         </h1>
-
-        <p class="hero-sub">
-          Deterministische Belegprüfung fängt Cent-Drift, fehlerhafte Mehrwertsteuern und ungültige SEPA-Prüfziffern ab &ndash; mit unveränderbarem SHA-256 Prüfpfad vor dem SAP S/4HANA Staging.
-        </p>
-
-        <!-- Terminal Quickstart Pill -->
-        <div class="terminal-quickstart" id="terminal-quickstart">
-          <div class="term-left">
-            <span class="term-prompt">$</span>
-            <code class="term-code font-mono-code">git clone https://github.com/AllenFletcherAI/Haulitz &amp;&amp; npm test</code>
-          </div>
-          <button class="btn-term-copy" id="btn-term-copy" title="Befehl in Zwischenablage kopieren" aria-label="Befehl kopieren">
-            <i class="fa-regular fa-copy" aria-hidden="true"></i>
-            <span class="copy-label">Kopieren</span>
-          </button>
-        </div>
-
-        <!-- Hero Action Links -->
-        <div class="hero-ctas">
-          <a href="#chaos" class="btn-primary-hero">
-            <i class="fa-solid fa-play" aria-hidden="true"></i>
-            <span>Chaos-Simulator testen</span>
-          </a>
-          <a href="https://stackblitz.com/github/AllenFletcherAI/Haulitz?startScript=test" target="_blank" rel="noopener noreferrer" class="btn-secondary-hero font-mono-code">
-            <i class="fa-solid fa-bolt text-amber" aria-hidden="true"></i>
-            <span>StackBlitz 1-Klick Run</span>
-          </a>
-          <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-secondary-hero">
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-            <span>GitHub Repository</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- =====================================================================
-           CHAOS INJECTION CONTROL BAR (Interactive Attack Triggers)
-           ===================================================================== -->
-      <div class="chaos-console-container" id="chaos">
-        <div class="chaos-console-header">
-          <div class="console-title">
-            <i class="fa-solid fa-crosshairs text-emerald"></i>
-            <span>Chaos-Injektions-Konsole (Echtzeit-Stresstest)</span>
-          </div>
-          <div class="console-status font-mono-code" id="console-status-text">STATUS: BEREIT &middot; 0.4ms Latenz</div>
-        </div>
-
-        <div class="chaos-button-grid" role="group" aria-label="Chaos-Test-Injektionen">
-          <button class="btn-chaos" id="chaos-btn-math" data-chaos="math">
-            <div class="chaos-btn-icon text-amber"><i class="fa-solid fa-calculator"></i></div>
-            <div class="chaos-btn-info">
-              <div class="chaos-btn-title">Cent-Rundungsdrift</div>
-              <div class="chaos-btn-desc">10¢ Rundungsfehler simuliert</div>
-            </div>
-          </button>
-
-          <button class="btn-chaos" id="chaos-btn-iban" data-chaos="iban">
-            <div class="chaos-btn-icon text-crimson"><i class="fa-solid fa-building-columns"></i></div>
-            <div class="chaos-btn-info">
-              <div class="chaos-btn-title">Korrupte IBAN</div>
-              <div class="chaos-btn-desc">Modulo-97 Prüfziffern-Bruch</div>
-            </div>
-          </button>
-
-          <button class="btn-chaos" id="chaos-btn-sql" data-chaos="sql">
-            <div class="chaos-btn-icon text-purple"><i class="fa-solid fa-shield-virus"></i></div>
-            <div class="chaos-btn-info">
-              <div class="chaos-btn-title">SQL Injection</div>
-              <div class="chaos-btn-desc">Payload in Referenz neutralisiert</div>
-            </div>
-          </button>
-
-          <button class="btn-chaos active" id="chaos-btn-clean" data-chaos="clean">
-            <div class="chaos-btn-icon text-emerald"><i class="fa-solid fa-shield-check"></i></div>
-            <div class="chaos-btn-info">
-              <div class="chaos-btn-title">Reines Protokoll</div>
-              <div class="chaos-btn-desc">Cent-Exakt &middot; SHA-256 versiegelt</div>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      <!-- =====================================================================
-           LIVING 3D GLASS DOCUMENT CANVAS (Watermelon UI Standard)
-           ===================================================================== -->
-      <div class="living-canvas-wrap">
-        <div class="document-perspective-box" id="perspective-box">
-          <div class="glass-document" id="glass-document">
-            
-            <!-- Specular Highlight & Holographic Sheen (BLNK & Casa di Solare Standard) -->
-            <div class="glass-specular-highlight" id="glass-specular" aria-hidden="true"></div>
-            <div class="glass-holo-foil" aria-hidden="true"></div>
-
-            <!-- Laser Scanner Beam -->
-            <div class="laser-beam" id="laser-beam" aria-hidden="true"></div>
-
-            <!-- Card Header & Segmented Switch -->
-            <div class="doc-top-bar">
-              <div class="doc-meta-badge">
-                <span class="badge-status-dot" id="doc-status-dot"></span>
-                <span class="font-mono-code font-bold" id="doc-type-label">INVOICE_INBOUND // DE-2026-X89</span>
-              </div>
-
-              <!-- Segmented State Switch -->
-              <div class="state-segmented-switch" role="tablist" aria-label="Belegzustand">
-                <button type="button" class="switch-pill" id="switch-flawed" role="tab" aria-selected="false">
-                  <i class="fa-solid fa-triangle-exclamation text-amber"></i>
-                  <span>Fehlerhafter Beleg</span>
-                </button>
-                <button type="button" class="switch-pill active" id="switch-verified" role="tab" aria-selected="true">
-                  <i class="fa-solid fa-circle-check text-emerald"></i>
-                  <span>HAULITZ Geprüft</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Status Banner (Dynamic Verdict) -->
-            <div class="doc-verdict-banner clean" id="verdict-banner">
-              <div class="verdict-icon" id="verdict-icon"><i class="fa-solid fa-circle-check"></i></div>
-              <div class="verdict-details">
-                <div class="verdict-title font-bold" id="verdict-title">BELEG GÜLTIG &middot; VERIFIED CLEAN</div>
-                <div class="verdict-desc font-mono-code" id="verdict-desc">Alle 3 Prüfschritte bestanden: Cent-Arithmetik (Delta €0.00), USt. 19%, SEPA ISO 7064 MOD-97.</div>
-              </div>
-              <div class="verdict-badge font-mono-code" id="verdict-badge">STAGING_FREIGABE</div>
-            </div>
-
-            <!-- Invoice Document Body -->
-            <div class="doc-body-grid">
-              <div class="doc-col-left">
-                <div class="doc-field-label">Kreditor / Lieferant</div>
-                <div class="doc-field-value font-mono-code" id="field-vendor">Apex Cloud Infrastructure GmbH</div>
-                
-                <div class="doc-field-label" style="margin-top:0.8rem;">Lieferanten-Referenz</div>
-                <div class="doc-field-value font-mono-code" id="field-ref">INV-2026-089-CLOUD</div>
-              </div>
-
-              <div class="doc-col-right">
-                <div class="doc-field-label">SEPA Bankverbindung (IBAN)</div>
-                <div class="iban-display-box font-mono-code" id="field-iban-box">
-                  <span id="field-iban-text">DE89 3704 0044 0532 0130 00</span>
-                  <span class="iban-check-pill valid" id="field-iban-status">MOD-97 PASS</span>
-                </div>
-
-                <div class="doc-field-label" style="margin-top:0.8rem;">ERP-Staging Ziel</div>
-                <div class="doc-field-value font-mono-code text-emerald" id="field-target">
-                  <i class="fa-solid fa-database"></i> SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE)
-                </div>
-              </div>
-            </div>
-
-            <!-- Line Items Table -->
-            <div class="doc-table-wrap">
-              <table class="doc-table" id="doc-items-table">
-                <thead>
-                  <tr>
-                    <th>Position / Leistung</th>
-                    <th class="text-right">Menge</th>
-                    <th class="text-right">Einzelpreis</th>
-                    <th class="text-right">Gesamt (Netto)</th>
-                    <th class="text-center">USt.</th>
-                  </tr>
-                </thead>
-                <tbody id="doc-items-body">
-                  <tr>
-                    <td>Dedicated Staging Clusters (AWS eu-central-1)</td>
-                    <td class="text-right font-mono-code">10 Std.</td>
-                    <td class="text-right font-mono-code">100,00 €</td>
-                    <td class="text-right font-mono-code">1.000,00 €</td>
-                    <td class="text-center font-mono-code">19%</td>
-                  </tr>
-                  <tr>
-                    <td>High-Frequency Ingestion Gateway Engine</td>
-                    <td class="text-right font-mono-code">5 Lizenzen</td>
-                    <td class="text-right font-mono-code">400,00 €</td>
-                    <td class="text-right font-mono-code">2.000,00 €</td>
-                    <td class="text-center font-mono-code">19%</td>
-                  </tr>
-                  <tr>
-                    <td>Cryptographic Block Sealer &amp; Audit Logger</td>
-                    <td class="text-right font-mono-code">20 Knoten</td>
-                    <td class="text-right font-mono-code">50,00 €</td>
-                    <td class="text-right font-mono-code">1.000,00 €</td>
-                    <td class="text-center font-mono-code">19%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Financial Totals & Arithmetic Ledger -->
-            <div class="doc-totals-strip">
-              <div class="doc-crypto-seal-block">
-                <div class="seal-icon"><i class="fa-solid fa-stamp text-emerald"></i></div>
-                <div class="seal-info">
-                  <div class="seal-label">KRYPTOGRAFISCHES PRÜFSIEGEL (SHA-256)</div>
-                  <div class="seal-hash font-mono-code" id="seal-hash-display">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
-                </div>
-              </div>
-
-              <div class="doc-totals-box font-mono-code">
-                <div class="total-row">
-                  <span>Nettosumme:</span>
-                  <span id="total-net">4.000,00 €</span>
-                </div>
-                <div class="total-row" id="total-tax-row">
-                  <span>USt. (19% gesetzlich):</span>
-                  <span id="total-tax">760,00 €</span>
-                </div>
-                <div class="total-row total-highlight">
-                  <span>Rechnungs-Endbetrag:</span>
-                  <span class="total-amount font-bold" id="total-gross">4.760,00 €</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         3. HIGH-THROUGHPUT STRESS TEST ENGINE (Hold to Run Benchmark)
-         ======================================================================= -->
-    <section class="stress-engine-section" id="stress-test">
-      <div class="section-header-centered">
-        <div class="section-tag font-mono-code"><i class="fa-solid fa-gauge-high text-emerald"></i> IN-BROWSER BENCHMARK</div>
-        <h2 class="section-title">High-Throughput Prüfungs-Benchmark</h2>
-        <p class="section-desc">
-          Halten Sie den Trigger gedrückt, um synthetische Rechnungs-Payloads über einen dedizierten Web-Worker direkt in Ihrem Browser zu verifizieren.
+        <p class="stage-desc" id="stage-desc">
+          Unstrukturierte Lieferantendaten werden in 0.4 Millisekunden erfasst, mathematisch geprüft und vor dem SAP S/4HANA Staging versiegelt.
         </p>
       </div>
 
-      <div class="stress-console-card">
-        <div class="stress-trigger-wrap">
-          <button class="btn-stress-trigger" id="btn-stress-trigger" aria-label="Gedrückt halten für Stresstest">
-            <div class="trigger-ring"></div>
-            <i class="fa-solid fa-bolt trigger-icon"></i>
-            <span class="trigger-text">HALTEN FÜR STRESSTEST</span>
-            <span class="trigger-hint font-mono-code">5.000 Belege / Sekunde</span>
+      <!-- Central 3D Interactive Stage Canvas -->
+      <div class="monolithic-canvas-container" id="monolithic-canvas-container">
+
+        <!-- Chaos Attack Floating Badges -->
+        <div class="chaos-pill-strip" id="chaos-strip" role="group" aria-label="Chaos-Test-Injektionen">
+          <button class="chaos-micro-pill" id="chaos-math" data-chaos="math">
+            <i class="fa-solid fa-calculator text-amber"></i> <span>10¢ Cent-Drift</span>
+          </button>
+          <button class="chaos-micro-pill" id="chaos-iban" data-chaos="iban">
+            <i class="fa-solid fa-building-columns text-crimson"></i> <span>Korrupte IBAN</span>
+          </button>
+          <button class="chaos-micro-pill" id="chaos-sql" data-chaos="sql">
+            <i class="fa-solid fa-shield-virus text-purple"></i> <span>SQL Injection</span>
+          </button>
+          <button class="chaos-micro-pill active" id="chaos-clean" data-chaos="clean">
+            <i class="fa-solid fa-shield-check text-emerald"></i> <span>Reines Protokoll</span>
           </button>
         </div>
 
-        <!-- Real-Time Metrics Cluster -->
-        <div class="stress-gauges-grid">
-          <div class="gauge-card">
-            <div class="gauge-label">Geprüfte Belege</div>
-            <div class="gauge-value font-mono-code text-emerald" id="gauge-processed">0</div>
-            <div class="gauge-sub">Web-Worker Durchsatz</div>
-          </div>
+        <!-- 3D Perspective Box -->
+        <div class="perspective-box" id="perspective-box">
+          <div class="glass-monolith" id="glass-monolith">
 
-          <div class="gauge-card">
-            <div class="gauge-label">Rundungsdrift (Fehler)</div>
-            <div class="gauge-value font-mono-code text-blue" id="gauge-drift">0,00 €</div>
-            <div class="gauge-sub">Exakte 64-Bit Cent-Mathematik</div>
-          </div>
+            <!-- Specular Light Sheen & Holographic Prism Foil -->
+            <div class="specular-light-sheen" id="specular-sheen" aria-hidden="true"></div>
+            <div class="prism-foil-edge" aria-hidden="true"></div>
+            <div class="laser-scanner-line" id="laser-scanner" aria-hidden="true"></div>
 
-          <div class="gauge-card">
-            <div class="gauge-label">Durchschnittliche Latenz</div>
-            <div class="gauge-value font-mono-code text-amber" id="gauge-latency">0.18 ms</div>
-            <div class="gauge-sub">In-Memory Ausführung</div>
-          </div>
+            <!-- Monolith Header Bar -->
+            <div class="monolith-header">
+              <div class="meta-tag font-mono-code">
+                <span class="status-pulse-dot" id="monolith-status-dot"></span>
+                <span id="monolith-doc-id">PAYLOAD // DE-2026-X89 // RAW EDI</span>
+              </div>
+              <div class="verdict-chip font-mono-code clean" id="monolith-verdict-chip">
+                <span>VERIFIED CLEAN (0.4ms)</span>
+              </div>
+            </div>
 
-          <div class="gauge-card">
-            <div class="gauge-label">SHA-256 Prüfblöcke</div>
-            <div class="gauge-value font-mono-code text-purple" id="gauge-blocks">0</div>
-            <div class="gauge-sub">Sequentiell verkettet</div>
+            <!-- Monolith Content Layers (Physical X-Ray Stack) -->
+            <div class="monolith-layers-wrap" id="layers-wrap">
+
+              <!-- Layer 1: Visual Rendered Invoice -->
+              <div class="monolith-layer layer-visual" id="layer-visual">
+                <div class="layer-grid">
+                  <div class="layer-field">
+                    <span class="field-label">Kreditor</span>
+                    <span class="field-val font-mono-code" id="layer-vendor">Apex Cloud Infrastructure GmbH</span>
+                  </div>
+                  <div class="layer-field">
+                    <span class="field-label">SEPA Bankverbindung</span>
+                    <span class="field-val font-mono-code text-emerald" id="layer-iban">DE89 3704 0044 0532 0130 00</span>
+                  </div>
+                </div>
+
+                <div class="layer-table-wrap">
+                  <table class="layer-table font-mono-code">
+                    <thead>
+                      <tr>
+                        <th>Position</th>
+                        <th class="text-right">Menge</th>
+                        <th class="text-right">Netto</th>
+                        <th class="text-center">USt.</th>
+                      </tr>
+                    </thead>
+                    <tbody id="layer-table-body">
+                      <tr>
+                        <td>Cloud Staging Node Cluster</td>
+                        <td class="text-right">10 Std.</td>
+                        <td class="text-right">1.000,00 €</td>
+                        <td class="text-center">19%</td>
+                      </tr>
+                      <tr>
+                        <td>Deterministic Ingestion Engine</td>
+                        <td class="text-right">5 Liz.</td>
+                        <td class="text-right">2.000,00 €</td>
+                        <td class="text-center">19%</td>
+                      </tr>
+                      <tr>
+                        <td>Cryptographic Block Sealer</td>
+                        <td class="text-right">20 Knoten</td>
+                        <td class="text-right">1.000,00 €</td>
+                        <td class="text-center">19%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="layer-totals font-mono-code">
+                  <div class="layer-total-line">
+                    <span>Nettosumme:</span> <span id="layer-net">4.000,00 €</span>
+                  </div>
+                  <div class="layer-total-line" id="layer-tax-line">
+                    <span>USt. (19% gesetzlich):</span> <span id="layer-tax">760,00 €</span>
+                  </div>
+                  <div class="layer-total-line highlight">
+                    <span>Rechnungs-Endbetrag:</span> <span class="text-emerald font-bold" id="layer-gross">4.760,00 €</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Layer 2: Syntactic AST Token Stream (Under the Hood) -->
+              <div class="monolith-layer layer-ast font-mono-code" id="layer-ast" aria-hidden="true">
+                <div class="ast-header">// SYNTACTIC_AST_TOKENS (ZUGFeRD 2.2 / XRechnung)</div>
+                <pre class="ast-code"><code id="ast-code-content">{
+  "invoice_id": "DE-2026-X89",
+  "statutory_regime": "UStG_§14_COMPLIANT",
+  "math_precision": "EXACT_64BIT_CENT",
+  "vat_breakdown": [
+    { "rate": 0.19, "taxable_cents": 400000, "vat_cents": 76000, "delta_cents": 0 }
+  ],
+  "sepa_iban": {
+    "raw": "DE89370400440532013000",
+    "iso_7064_mod97_remainder": 1,
+    "valid": true
+  },
+  "erp_target": "SAP_S4HANA_BAPI_INCOMINGINVOICE_CREATE"
+}</code></pre>
+              </div>
+
+              <!-- Layer 3: Binary Register & Cryptographic Hash Block -->
+              <div class="monolith-layer layer-crypto font-mono-code" id="layer-crypto" aria-hidden="true">
+                <div class="crypto-header">// BINARY_REGISTERS &amp; GoBD_SHA256_SEAL</div>
+                <div class="crypto-grid">
+                  <div class="reg-box">
+                    <span class="reg-title">CENT_REG_NET:</span>
+                    <span class="reg-val text-blue">0x0000000000061A80 (400000)</span>
+                  </div>
+                  <div class="reg-box">
+                    <span class="reg-title">CENT_REG_VAT:</span>
+                    <span class="reg-val text-emerald">0x00000000000128E0 (76000)</span>
+                  </div>
+                  <div class="reg-box">
+                    <span class="reg-title">CENT_REG_GROSS:</span>
+                    <span class="reg-val text-purple">0x0000000000074360 (476000)</span>
+                  </div>
+                </div>
+                <div class="crypto-seal-row">
+                  <span class="seal-prefix">SHA-256 HASH:</span>
+                  <span class="seal-full text-emerald" id="crypto-seal-val">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Draggable X-Ray Inspection Loupe (Casa di Solare Standard) -->
+            <div class="xray-loupe" id="xray-loupe" title="Ziehen Sie die Lupe über den Beleg, um Maschinencode freizulegen">
+              <div class="loupe-rim"></div>
+              <div class="loupe-crosshair"></div>
+              <div class="loupe-tag font-mono-code">X-RAY // LOUPE</div>
+            </div>
+
+            <!-- Monolith Footer Status Strip -->
+            <div class="monolith-footer font-mono-code">
+              <div class="footer-target">
+                <i class="fa-solid fa-server text-emerald"></i>
+                <span id="footer-target-text">STAGING_TARGET: SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE)</span>
+              </div>
+              <div class="footer-drift">
+                <span class="drift-badge" id="footer-drift-badge">0.00 ppm DRIFT</span>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Oscilloscope Wave Canvas -->
-        <div class="oscilloscope-wrap">
-          <canvas id="oscilloscope-canvas" width="800" height="90" aria-label="Echtzeit-Durchsatz Oszilloskop"></canvas>
-        </div>
       </div>
-    </section>
 
-    <!-- =======================================================================
-         4. TACTILE BENTO INSTRUMENTS (Playable Toys, Watermelon UI Style)
-         ======================================================================= -->
-    <section class="bento-instruments-section" id="instruments">
-      <div class="section-header-centered">
-        <div class="section-tag font-mono-code"><i class="fa-solid fa-microchip text-emerald"></i> INTERAKTIVE INSTRUMENTE</div>
-        <h2 class="section-title">Deterministische Schutzmechanismen</h2>
-        <p class="section-desc">
-          Testen Sie die Kern-Prüfroutinen direkt im Browser &ndash; berühren, verändern und sofort verifizieren.
+      <!-- Quick Terminal Quickstart Strip (Anchored inside the stage) -->
+      <div class="stage-quickstart font-mono-code">
+        <span class="qs-prompt">$</span>
+        <code class="qs-code">git clone https://github.com/AllenFletcherAI/Haulitz &amp;&amp; npm test</code>
+        <button class="btn-qs-copy" id="btn-qs-copy" title="Befehl kopieren" aria-label="Befehl in Zwischenablage kopieren">
+          <i class="fa-regular fa-copy" aria-hidden="true"></i> <span>Kopieren</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       3. THE PLAYABLE LIVING INSTRUMENTS (Tactile Physical Art)
+       ========================================================================= -->
+  <section class="instruments-section" id="instruments">
+    <div class="instruments-container">
+      
+      <div class="section-title-wrap">
+        <span class="section-sub-mono font-mono-code"><i class="fa-solid fa-microchip text-emerald"></i> HARDWARE INSTRUMENTATION</span>
+        <h2 class="editorial-heading">Living Bento Instruments</h2>
+        <p class="editorial-lead">
+          Testen Sie die Schutzmechanismen direkt im Browser. Ziehen Sie Regler, prüfen Sie Prüfziffern und versiegeln Sie kryptografische Blöcke in Echtzeit.
         </p>
       </div>
 
-      <div class="instruments-grid">
+      <div class="instruments-art-grid">
 
-        <!-- Instrument 1: Float Drift Drag Slider -->
-        <div class="instrument-card" id="card-float-slider">
-          <div class="instrument-header">
-            <div class="inst-icon text-amber"><i class="fa-solid fa-sliders"></i></div>
-            <div class="inst-info">
-              <h3 class="inst-title">Float-Drift Drag Slider</h3>
-              <p class="inst-desc">Verschieben Sie die Positionsmenge, um IEEE-754 Rundungsdrift gegen Cent-Arithmetik zu testen.</p>
+        <!-- Instrument 1: Float Drift Divergence Gauge (Dual Needles) -->
+        <div class="instrument-art-card" id="card-float-divergence">
+          <div class="art-card-top">
+            <span class="art-tag text-amber font-mono-code"><i class="fa-solid fa-sliders"></i> DIVERGENCE ENGINE</span>
+            <h3 class="art-title">Float-Drift Divergenz-Messgerät</h3>
+            <p class="art-desc">
+              Verschieben Sie die Transaktionsmenge. Beobachten Sie, wie Standard-IEEE-754-Floats in die Gefahrenzone driften, während 64-Bit-Cent-Math bei 0.000000 € arretiert bleibt.
+            </p>
+          </div>
+
+          <div class="dual-needle-stage font-mono-code">
+            <div class="needle-dial dial-float">
+              <div class="dial-meter">
+                <div class="dial-needle" id="needle-float"></div>
+                <div class="dial-center"></div>
+              </div>
+              <div class="dial-readout text-crimson" id="dial-readout-float">+0.00000000000004 €</div>
+              <div class="dial-sub">IEEE-754 Float (Drift)</div>
+            </div>
+
+            <div class="needle-dial dial-cent">
+              <div class="dial-meter">
+                <div class="dial-needle locked" id="needle-cent"></div>
+                <div class="dial-center"></div>
+              </div>
+              <div class="dial-readout text-emerald" id="dial-readout-cent">0,00 € (0 ppm)</div>
+              <div class="dial-sub">HAULITZ 64-Bit Cent (Exakt)</div>
             </div>
           </div>
 
-          <div class="slider-control-box">
-            <div class="slider-label-row font-mono-code">
-              <span>Menge: <strong id="slider-qty-val" class="text-emerald">100</strong> Posten</span>
-              <span>Einzelpreis: 0,10 € + 0,20 €</span>
+          <div class="slider-wrap">
+            <div class="slider-readout font-mono-code">
+              <span>Transaktionen: <strong id="art-slider-qty" class="text-emerald">100.000</strong> Rechnungen</span>
             </div>
-            <input type="range" id="float-drift-slider" min="1" max="1000" value="100" class="custom-range-slider" aria-label="Postenmenge für Float-Drift">
-          </div>
-
-          <div class="slider-comparison-grid font-mono-code">
-            <div class="compare-box float-fail">
-              <div class="compare-title text-crimson">Standard Float (IEEE-754)</div>
-              <div class="compare-value text-crimson" id="float-result-val">30.00000000000004 €</div>
-              <div class="compare-note">0.1 + 0.2 driftet bei Skalierung</div>
-            </div>
-
-            <div class="compare-box cent-pass">
-              <div class="compare-title text-emerald">HAULITZ 64-Bit Cent Math</div>
-              <div class="compare-value text-emerald" id="cent-result-val">30,00 €</div>
-              <div class="compare-note">Exact integer arithmetic (0 drift)</div>
-            </div>
+            <input type="range" id="art-trans-slider" min="1" max="1000000" value="100000" class="art-range-slider" aria-label="Anzahl der Transaktionen">
           </div>
         </div>
 
-        <!-- Instrument 2: Real-Time SEPA IBAN Modulo-97 Tester -->
-        <div class="instrument-card" id="card-iban-tester">
-          <div class="instrument-header">
-            <div class="inst-icon text-blue"><i class="fa-solid fa-building-columns"></i></div>
-            <div class="inst-info">
-              <h3 class="inst-title">ISO 7064 MOD 97-10 Prüfer</h3>
-              <p class="inst-desc">Echtzeit-Syntaxvalidierung von Bankverbindungen vor Ausführung des Zahlungslaufs.</p>
-            </div>
+        <!-- Instrument 2: Live Node Patchbay (workflow / Jolt Digital Standard) -->
+        <div class="instrument-art-card" id="card-node-patchbay">
+          <div class="art-card-top">
+            <span class="art-tag text-emerald font-mono-code"><i class="fa-solid fa-network-wired"></i> SEQUENTIAL ROUTING</span>
+            <h3 class="art-title">Deterministische Patchbay</h3>
+            <p class="art-desc">
+              Feuern Sie ein Testpaket ab und verfolgen Sie die sequentielle Latenz durch Ingestion, Parser, Arithmetik und Staging.
+            </p>
           </div>
 
-          <div class="iban-tester-box">
-            <label for="instrument-iban-input" class="sr-only">SEPA IBAN eingeben</label>
-            <input type="text" id="instrument-iban-input" class="custom-iban-input font-mono-code" value="DE89 3704 0044 0532 0130 00" maxlength="32" placeholder="DE89...">
-            
-            <div class="iban-action-btns">
-              <button class="btn-micro" id="btn-corrupt-iban"><i class="fa-solid fa-bug text-crimson"></i> 1 Ziffer fälschen</button>
-              <button class="btn-micro" id="btn-valid-iban"><i class="fa-solid fa-check text-emerald"></i> Gültige IBAN</button>
+          <div class="patchbay-stage">
+            <div class="patch-nodes-row font-mono-code">
+              <div class="patch-node" id="p-node-supplier">
+                <div class="p-node-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                <span class="p-node-label">Lieferant</span>
+              </div>
+              <div class="patch-line"><div class="patch-pulse" id="p-pulse-1"></div></div>
+              <div class="patch-node" id="p-node-engine">
+                <div class="p-node-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <span class="p-node-label">HAULITZ</span>
+              </div>
+              <div class="patch-line"><div class="patch-pulse" id="p-pulse-2"></div></div>
+              <div class="patch-node p-node-dest" id="p-node-sap">
+                <div class="p-node-icon"><i class="fa-solid fa-database"></i></div>
+                <span class="p-node-label">SAP S/4HANA</span>
+              </div>
             </div>
 
-            <div class="iban-formula-display font-mono-code" id="iban-formula-box">
-              <span id="iban-math-step">FORMEL: 98 - (IBAN % 97) = 01 &middot; REST 1</span>
-              <span class="formula-status-pill pass" id="iban-formula-status">GÜLTIG</span>
+            <div class="patch-telemetry font-mono-code" id="patch-telemetry">
+              BEREIT // 0.4ms Gesamtlatenz // 0 Schemamutationen
             </div>
+
+            <button class="btn-fire-pulse" id="btn-fire-pulse">
+              <i class="fa-solid fa-bolt text-emerald"></i>
+              <span>Pipeline-Paket abfeuern (Echtzeit-Durchlauf)</span>
+            </button>
           </div>
         </div>
 
-        <!-- Instrument 3: Dynamic Data Circuit Pipeline -->
-        <div class="instrument-card" id="card-pipeline">
-          <div class="instrument-header">
-            <div class="inst-icon text-emerald"><i class="fa-solid fa-network-wired"></i></div>
-            <div class="inst-info">
-              <h3 class="inst-title">Deterministische ERP-Pipeline</h3>
-              <p class="inst-desc">Verfolgen Sie Datenpakete von der Edge-Erfassung bis zur Verzweigung.</p>
-            </div>
+        <!-- Instrument 3: ISO 7064 SEPA IBAN Modulo-97 Machine -->
+        <div class="instrument-art-card" id="card-sepa-machine">
+          <div class="art-card-top">
+            <span class="art-tag text-blue font-mono-code"><i class="fa-solid fa-building-columns"></i> ISO 7064 MOD 97-10</span>
+            <h3 class="art-title">SEPA-Prüfziffern Synthesizer</h3>
+            <p class="art-desc">
+              Echtzeit-Berechnung des Modulo-97 Rests. Schützt Zahlungsläufe vor kostspieligen Rückläufergebühren.
+            </p>
           </div>
 
-          <div class="pipeline-visual-box">
-            <div class="pipeline-node" id="node-supplier">
-              <div class="node-icon"><i class="fa-solid fa-file-invoice"></i></div>
-              <div class="node-name">Lieferant</div>
+          <div class="sepa-machine-body">
+            <input type="text" id="sepa-input" class="sepa-input font-mono-code" value="DE89 3704 0044 0532 0130 00" maxlength="32" placeholder="DE...">
+            <div class="sepa-quick-actions">
+              <button class="btn-micro" id="btn-sepa-corrupt"><i class="fa-solid fa-bug text-crimson"></i> Prüfziffer fälschen</button>
+              <button class="btn-micro" id="btn-sepa-valid"><i class="fa-solid fa-check text-emerald"></i> Gültige IBAN</button>
             </div>
-
-            <div class="pipeline-connector">
-              <div class="pulse-beam" id="pulse-beam-1"></div>
-            </div>
-
-            <div class="pipeline-node node-active" id="node-gateway">
-              <div class="node-icon"><i class="fa-solid fa-shield-halved"></i></div>
-              <div class="node-name">HAULITZ</div>
-            </div>
-
-            <div class="pipeline-split-connector">
-              <div class="split-line-pass"></div>
-              <div class="split-line-fail"></div>
-            </div>
-
-            <div class="pipeline-destinations">
-              <div class="pipeline-node node-success" id="node-sap">
-                <div class="node-icon"><i class="fa-solid fa-database"></i></div>
-                <div class="node-name">SAP S/4HANA</div>
-              </div>
-              <div class="pipeline-node node-quarantine" id="node-quarantine">
-                <div class="node-icon"><i class="fa-solid fa-lock"></i></div>
-                <div class="node-name">Quarantäne</div>
-              </div>
+            <div class="sepa-math-strip font-mono-code" id="sepa-math-strip">
+              <span class="math-formula" id="sepa-formula-text">98 - (DE89370400440532013000 % 97) = 1</span>
+              <span class="math-status-pill pass" id="sepa-status-pill">VALID</span>
             </div>
           </div>
-
-          <div class="pipeline-telemetry font-mono-code" id="pipeline-telemetry">
-            STATUS: 100% Determinismus &middot; 0 Schemamutationen
-          </div>
-
-          <button class="btn-micro" id="btn-fire-pipeline" style="margin-top:0.75rem; width:100%;">
-            <i class="fa-solid fa-play text-emerald"></i>
-            <span>Pipeline-Paket abfeuern (Echtzeit-Durchlauf)</span>
-          </button>
         </div>
 
         <!-- Instrument 4: Native Web Crypto SHA-256 Ledger -->
-        <div class="instrument-card" id="card-crypto-ledger">
-          <div class="instrument-header">
-            <div class="inst-icon text-purple"><i class="fa-solid fa-link"></i></div>
-            <div class="inst-info">
-              <h3 class="inst-title">Web Crypto SHA-256 Ledger</h3>
-              <p class="inst-desc">Erzeugt echte kryptografische Prüfblöcke über die browser-eigene SubtleCrypto-API.</p>
-            </div>
+        <div class="instrument-art-card" id="card-web-crypto">
+          <div class="art-card-top">
+            <span class="art-tag text-purple font-mono-code"><i class="fa-solid fa-fingerprint"></i> SUBTLE CRYPTO API</span>
+            <h3 class="art-title">Web Crypto SHA-256 Ledger</h3>
+            <p class="art-desc">
+              Erzeugt echte 256-Bit Prüfpfad-Siegel direkt über die native Browser-Kryptografie.
+            </p>
           </div>
 
-          <div class="ledger-chain-box font-mono-code" id="ledger-chain-display">
-            <div class="chain-block">
-              <div class="block-idx">Block #28</div>
-              <div class="block-hash">a94a8fe5ccb19ba61c4c0873d391e987982fbbd3</div>
+          <div class="crypto-ledger-body font-mono-code">
+            <div class="ledger-chain" id="ledger-chain">
+              <div class="ledger-item">
+                <span class="l-idx">#29</span>
+                <span class="l-hash">4b227777d4dd1fc61c6f884f48641d02b4d121d3</span>
+              </div>
+              <div class="ledger-item latest" id="ledger-latest">
+                <span class="l-idx" id="ledger-latest-idx">#30</span>
+                <span class="l-hash" id="ledger-latest-hash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4</span>
+              </div>
             </div>
-            <div class="chain-block">
-              <div class="block-idx">Block #29</div>
-              <div class="block-hash">4b227777d4dd1fc61c6f884f48641d02b4d121d3</div>
-            </div>
-            <div class="chain-block active-block" id="latest-ledger-block">
-              <div class="block-idx">Block #30 (Neuester)</div>
-              <div class="block-hash" id="latest-block-hash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4</div>
-            </div>
-          </div>
 
-          <button class="btn-block-seal" id="btn-seal-block">
-            <i class="fa-solid fa-fingerprint text-emerald"></i>
-            <span>Nächsten Block live versiegeln</span>
+            <button class="btn-seal-now" id="btn-seal-now">
+              <i class="fa-solid fa-stamp text-emerald"></i>
+              <span>Nächsten Block live versiegeln</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. HIGH-THROUGHPUT STRESS TEST BENCHMARK (5,000 TPS Gauge)
+       ========================================================================= -->
+  <section class="benchmark-section" id="benchmark">
+    <div class="benchmark-container">
+      <div class="benchmark-header">
+        <span class="section-sub-mono font-mono-code"><i class="fa-solid fa-gauge-high text-emerald"></i> WEB WORKER BENCHMARK</span>
+        <h2 class="editorial-heading">5.000 Belege / Sekunde</h2>
+        <p class="editorial-lead">
+          Halten Sie den Auslöser gedrückt, um synthetische Rechnungsdaten über einen dedizierten Web-Worker direkt in Ihrem Browser zu verifizieren.
+        </p>
+      </div>
+
+      <div class="benchmark-cockpit">
+        <div class="trigger-center">
+          <button class="btn-benchmark-trigger" id="btn-bench-trigger" aria-label="Gedrückt halten für Stresstest">
+            <div class="bench-ring"></div>
+            <i class="fa-solid fa-bolt bench-icon"></i>
+            <span class="bench-label">HALTEN FÜR STRESSTEST</span>
+            <span class="bench-sub font-mono-code">5.000 TPS</span>
           </button>
         </div>
 
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         5. CREATOR DOSSIER & INSTITUTIONAL FOOTER
-         ======================================================================= -->
-    <section class="creator-section" id="creator">
-      <div class="creator-card">
-        <div class="creator-avatar-wrap">
-          <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher" class="creator-img" width="120" height="120">
-          <div class="avatar-ring"></div>
-        </div>
-
-        <div class="creator-content">
-          <div class="creator-badge-strip">
-            <span class="badge-role">Solutions &amp; Integration Engineer</span>
-            <span class="badge-status"><span class="live-pulse-dot"></span> Sofort verfügbar</span>
+        <div class="bench-metrics-row font-mono-code">
+          <div class="b-metric">
+            <div class="bm-label">GEPRÜFTE BELEGE</div>
+            <div class="bm-val text-emerald" id="bm-processed">0</div>
           </div>
-
-          <h2 class="creator-name">Allen Simeon Fletcher</h2>
-          
-          <p class="creator-bio">
-            M.Sc. Artificial Intelligence &middot; Spezialisiert auf deterministische Integrations-Gateways, mathematisch exakte Cent-Arithmetik und verlässliche SAP S/4HANA Staging-Pipelines.
-          </p>
-
-          <div class="creator-mobility-row font-mono-code">
-            <span><i class="fa-solid fa-location-dot text-emerald"></i> Deutschland</span>
-            <span><i class="fa-solid fa-id-card text-blue"></i> EU Blue Card (§ 18g AufenthG)</span>
-            <span><i class="fa-solid fa-language text-purple"></i> Deutsch B2/C1</span>
-            <span><i class="fa-solid fa-graduation-cap text-amber"></i> Anabin H+</span>
+          <div class="b-metric">
+            <div class="bm-label">RUNDUNGSDRIFT</div>
+            <div class="bm-val text-blue" id="bm-drift">0,00 €</div>
           </div>
-
-          <div class="creator-actions">
-            <a href="mailto:allensimeonfletcher@gmail.com?subject=HAULITZ%20Executive%20Dossier%20%26%20CV" class="btn-creator-action btn-primary">
-              <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
-              <span>Lebenslauf &amp; Dossier anfordern</span>
-            </a>
-            <button class="btn-creator-action btn-secondary font-mono-code" id="btn-copy-email">
-              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-              <span id="copy-email-text">allensimeonfletcher@gmail.com</span>
-            </button>
-            <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-creator-action btn-ghost" title="GitHub Profil">
-              <i class="fa-brands fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" rel="noopener noreferrer" class="btn-creator-action btn-ghost" title="LinkedIn Profil">
-              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-            </a>
+          <div class="b-metric">
+            <div class="bm-label">LATENZ</div>
+            <div class="bm-val text-amber" id="bm-latency">0.18 ms</div>
+          </div>
+          <div class="b-metric">
+            <div class="bm-label">SHA-256 BLÖCKE</div>
+            <div class="bm-val text-purple" id="bm-blocks">0</div>
           </div>
         </div>
-      </div>
-    </section>
 
-  </main>
+        <div class="canvas-wave-box">
+          <canvas id="bench-oscilloscope" width="900" height="80" aria-label="Durchsatz-Oszilloskop"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- =========================================================================
-       MINIMAL SINGLE-LINE FOOTER
+       5. ARCHITECTURAL COLOPHON & VERIFICATION MONOGRAPH (Zero Resume Clichés)
        ========================================================================= -->
-  <footer class="minimal-footer" role="contentinfo">
-    <div class="footer-inner">
-      <div class="footer-left font-mono-code">
-        &copy; 2026 HAULITZ &middot; Entwickelt von <strong class="text-main">Allen Simeon Fletcher</strong> &middot; MIT Open Source &middot; Zero Tracking
+  <section class="colophon-section" id="colophon">
+    <div class="colophon-container">
+      
+      <div class="colophon-card">
+        <div class="colophon-stamp font-mono-code">
+          <span>ARCHITECTURAL MONOGRAPH // VERIFICATION REFERENCE</span>
+          <span>EST. 2026</span>
+        </div>
+
+        <div class="colophon-grid">
+          <div class="colophon-author">
+            <div class="author-portrait-frame">
+              <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher" class="author-portrait-img" width="140" height="140">
+              <div class="portrait-specular-ring"></div>
+            </div>
+            <h3 class="author-display-name">Allen Simeon Fletcher</h3>
+            <div class="author-title-pill font-mono-code">Solutions &amp; Integration Engineer</div>
+          </div>
+
+          <div class="colophon-statement">
+            <p class="statement-lead">
+              Dieses System wurde als referenzielle Ingenieursarchitektur entwickelt, um aufzuzeigen, wie deterministische Cent-Arithmetik, gesetzliche Steuerprüfungen und kryptografische Prüfpfade vor dem ERP-Staging greifen müssen.
+            </p>
+
+            <div class="statement-specs font-mono-code">
+              <div class="spec-row">
+                <span class="spec-key">STANDORT &amp; MOBILITÄT:</span>
+                <span class="spec-val">Deutschland &middot; Offen für weltweite Einsätze</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">ARBEITSERLAUBNIS:</span>
+                <span class="spec-val text-emerald">EU Blue Card (§ 18g AufenthG) &middot; Sofort verfügbar</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">SPRACHNIVEAU:</span>
+                <span class="spec-val">Deutsch B2/C1 &middot; Englisch Muttersprache (C2)</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">AKADEMISCHER GRAD:</span>
+                <span class="spec-val">M.Sc. Artificial Intelligence &middot; Anabin H+ akkreditiert</span>
+              </div>
+            </div>
+
+            <div class="colophon-actions">
+              <a href="mailto:allensimeonfletcher@gmail.com?subject=HAULITZ%20Executive%20Dossier%20%26%20CV" class="btn-colophon btn-primary">
+                <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
+                <span>Lebenslauf &amp; Dossier anfordern</span>
+              </a>
+              <button class="btn-colophon btn-secondary font-mono-code" id="btn-colophon-email">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <span>allensimeonfletcher@gmail.com</span>
+              </button>
+              <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-colophon btn-icon" title="GitHub Repository">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/allen-fletcher/" target="_blank" rel="noopener noreferrer" class="btn-colophon btn-icon" title="LinkedIn Profil">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="colophon-footer-bar font-mono-code">
+          <span>SHA-256 DIGEST: 55e12a5b6f7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e</span>
+          <span>SYSTEM_STATE: OPERATIONAL</span>
+        </div>
       </div>
-      <div class="footer-right">
-        <a href="impressum.html" class="footer-link">Impressum (§ 5 DDG)</a>
-        <span class="footer-dot">&middot;</span>
-        <a href="datenschutz.html" class="footer-link">Datenschutz (DSGVO)</a>
-        <span class="footer-dot">&middot;</span>
-        <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. MINIMALIST SINGLE-LINE FOOTER
+       ========================================================================= -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-wrap font-mono-code">
+      <div class="f-left">
+        &copy; 2026 HAULITZ &middot; Engineered by <strong class="text-main">Allen Simeon Fletcher</strong> &middot; MIT Open Source &middot; Zero Tracking
+      </div>
+      <div class="f-right">
+        <a href="impressum.html" class="f-link">Impressum (§ 5 DDG)</a>
+        <span class="f-sep">&middot;</span>
+        <a href="datenschutz.html" class="f-link">Datenschutz (DSGVO)</a>
+        <span class="f-sep">&middot;</span>
+        <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="f-link">GitHub</a>
       </div>
     </div>
   </footer>
@@ -653,28 +656,28 @@
     <div class="cmdk-dialog" role="dialog" aria-modal="true" aria-label="Befehlspalette">
       <div class="cmdk-search-wrap">
         <i class="fa-solid fa-magnifying-glass cmdk-search-icon"></i>
-        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Befehl eingeben oder suchen... (z. B. 'test', 'iban', 'cv')" autocomplete="off">
+        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Befehl eingeben oder suchen... (z. B. 'xray', 'chaos', 'stress', 'cv')" autocomplete="off">
         <span class="cmdk-esc-hint font-mono-code">ESC</span>
       </div>
 
       <div class="cmdk-menu" id="cmdk-menu" role="listbox">
-        <div class="cmdk-group-title">Aktionen &amp; Chaos-Tests</div>
+        <div class="cmdk-group-title">Aktionen &amp; Stresstests</div>
         
         <div class="cmdk-item" role="option" data-action="chaos-math">
           <i class="fa-solid fa-calculator text-amber"></i>
-          <span>Chaos-Injektion: Cent-Rundungsdrift testen</span>
+          <span>Chaos-Injektion: 10¢ Cent-Rundungsdrift testen</span>
           <span class="cmdk-shortcut font-mono-code">1</span>
         </div>
 
         <div class="cmdk-item" role="option" data-action="chaos-iban">
           <i class="fa-solid fa-building-columns text-crimson"></i>
-          <span>Chaos-Injektion: Korrupte SEPA-IBAN testen</span>
+          <span>Chaos-Injektion: Korrupte SEPA-IBAN prüfen</span>
           <span class="cmdk-shortcut font-mono-code">2</span>
         </div>
 
         <div class="cmdk-item" role="option" data-action="chaos-sql">
           <i class="fa-solid fa-shield-virus text-purple"></i>
-          <span>Chaos-Injektion: SQL Injection Firewall prüfen</span>
+          <span>Chaos-Injektion: SQL Injection Firewall abfeuern</span>
           <span class="cmdk-shortcut font-mono-code">3</span>
         </div>
 
@@ -684,18 +687,18 @@
           <span class="cmdk-shortcut font-mono-code">4</span>
         </div>
 
-        <div class="cmdk-group-title">Navigation &amp; Verifikation</div>
+        <div class="cmdk-group-title">Navigation &amp; Steuerung</div>
 
-        <div class="cmdk-item" role="option" data-action="run-stress">
-          <i class="fa-solid fa-bolt text-emerald"></i>
-          <span>High-Throughput Stresstest starten</span>
+        <div class="cmdk-item" role="option" data-action="jump-stage">
+          <i class="fa-solid fa-film text-emerald"></i>
+          <span>Zum 4-Phasen-Scrollytelling springen</span>
           <span class="cmdk-shortcut font-mono-code">S</span>
         </div>
 
-        <div class="cmdk-item" role="option" data-action="open-github">
-          <i class="fa-brands fa-github"></i>
-          <span>30/30 Testszenarien auf GitHub ansehen</span>
-          <span class="cmdk-shortcut font-mono-code">G</span>
+        <div class="cmdk-item" role="option" data-action="jump-instruments">
+          <i class="fa-solid fa-microchip text-blue"></i>
+          <span>Zu den Bento-Instrumenten springen</span>
+          <span class="cmdk-shortcut font-mono-code">I</span>
         </div>
 
         <div class="cmdk-item" role="option" data-action="copy-email">
@@ -706,16 +709,14 @@
 
         <div class="cmdk-item" role="option" data-action="toggle-audio">
           <i class="fa-solid fa-volume-high text-amber"></i>
-          <span>Web Audio Soundeffekte umschalten</span>
+          <span>Web Audio Prozeduralen Synth umschalten</span>
           <span class="cmdk-shortcut font-mono-code">M</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- =========================================================================
-       TOAST NOTIFICATION COMPONENT
-       ========================================================================= -->
+  <!-- Toast Notification Component -->
   <div id="toast-notification" class="toast-notification font-mono-code" role="status" aria-live="polite">
     <i class="fa-solid fa-check text-emerald" id="toast-icon"></i>
     <span id="toast-message">In Zwischenablage kopiert!</span>

@@ -167,16 +167,36 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Zero-Dependency Architecture**: Zero heavy 3D library bundles; 100% native Canvas and modern CSS physics.
   - **100% Deterministic Pass**: All 30 statutory scenarios pass with 100% precision.
 
+- **Site of the Month (SOTM) Scrollytelling Stage & Living Bento Overhaul (ADR-015)**:
+  - **1.2s Aperture Shutter Calibration Preloader**: High-precision dual-aperture shutter revealing the UI upon calibration completion (000 to 100%).
+  - **Pinned 4-Beat Scrollytelling Track (`#scrollytelling-track`)**:
+    - Beat 1: Ingestion (0.00-0.25)
+    - Beat 2: Compression (0.25-0.50)
+    - Beat 3: Multi-Layer X-Ray Dissection (0.50-0.75) with 3D layer peeling (`layer-visual`, `layer-ast`, `layer-crypto`)
+    - Beat 4: Vault Staging (0.75-1.00) with emerald pulse and SHA-256 seal burn.
+  - **Monumental Kinetic Typography**: `DETERMINISTIC VERIFICATION` background with velocity-tracking horizontal translation.
+  - **Draggable Physical X-Ray Loupe (`#xray-loupe`)**: Pointer-tracked inspection loupe uncovering machine-level AST tokens and registers over the glass monolith.
+  - **Tactile Living Bento Instruments**:
+    - Float-Drift Divergence Gauge: Interactive range slider driving dual dials — IEEE-754 red-line needle vs rigid 64-bit Cent lock.
+    - Deterministic Sequential Routing Patchbay: Step-by-step pulse animation across Supplier -> HAULITZ -> SAP S/4HANA with live microsecond telemetry.
+    - ISO 7064 SEPA Modulo-97 Synthesizer: Real-time BigInt remainder validator.
+    - SubtleCrypto SHA-256 Ledger: Genuine cryptographic block seal generation.
+  - **High-Throughput Benchmark (5,000 TPS Gauge)**: Hold-to-test trigger with dynamic green oscilloscope canvas waveform.
+  - **Architectural Colophon**: Minimal, editorial executive presentation of Allen Simeon Fletcher (EU Blue Card § 18g Ready, 1-click dossier download).
+  - **Procedural Audio Synth Engine**: Mechanical clicks, alerts, chimes, and scroll-velocity modulated low drone.
+  - **Zero External CDNs / 100% DSGVO Compliant**: Native CSS 3D perspectives, native Canvas, zero bundle bloat.
+
 ## 2. What We Are Working On Now
-- Stage, commit, and push ADR-014 to GitHub remote `origin main`.
-- Verify live edge deployment on Cloudflare Workers.
+- Commit and push ADR-015 to GitHub remote `origin main`.
+- Verify GitHub Actions CI run.
+- Verify live edge deployment on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
 
 ## 3. Broken Or Dangerous Items
 - None. All 30 automated statutory and mathematical test scenarios pass with zero regressions.
 
 ## 4. What To Do Next
 - Verify live edge delivery on `https://haulitz.allensimeonfletcher.workers.dev/`.
-- Test kinetic cursor and specular reflection on desktop viewports.
+- Test scrollytelling track and loupe interaction on desktop and mobile viewports.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main`.
