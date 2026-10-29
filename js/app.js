@@ -20,6 +20,8 @@
   const state = {
     currentTab: 'cockpit',
     currentDomain: 'fintech',
+    currentScannerDomain: 'fintech',
+    currentScannerMode: 'flawed',
     currentScenario: 'scenario_a',
     currentLang: savedLang === 'en' ? 'en' : 'de',
     currentTheme: savedTheme === 'light' ? 'light' : 'dark', // Strict Obsidian Default
@@ -2018,6 +2020,13 @@
     if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
 
     updateThemeUI();
+
+    if (typeof updateScannerDisplay === 'function') {
+      updateScannerDisplay(state.currentScannerDomain, state.currentScannerMode);
+    }
+    if (typeof updateShowcaseGlobal === 'function') {
+      updateShowcaseGlobal(state.currentScannerDomain);
+    }
   }
 
   /**
@@ -2273,61 +2282,623 @@
   }
 
   /**
-   * 21. Living Document Scanner (Interactive Laser Sweep & 3D Tilt)
+   * 21. Multi-Domain Living Document Scanner (Interactive Laser Sweep & 3D Tilt)
    */
+  const SCANNER_PRESETS = {
+    fintech: {
+      url: 'fintech.html',
+      icon: 'fa-microchip',
+      ruleIcon: 'fa-shield-halved',
+      docBadge: 'INV-2024-8841',
+      vendor: 'Nordic Industrial Supply GmbH',
+      channel: 'PDF / ZUGFeRD 2.2',
+      ruleVal: 'DE89 3704 0044 0532 ...',
+      de: {
+        activeName: 'FinTech & Rechnungsprüfung',
+        net: '€4.200,00',
+        itemName: 'Server-Baugruppen (12x @ €350,00)',
+        itemVal: '€4.200,00',
+        vatLabel: 'Berechnete USt (19%):',
+        grossLabel: 'Rechnungs-Gesamtbetrag:',
+        ruleLabel: 'SEPA IBAN Modulo-97:',
+        ruleStatus: 'Prüfsumme Gültig',
+        flawedTag: '⚠ +€120,00 Zu viel berechnet',
+        flawedVat: '€918,00',
+        flawedGross: '€5.118,00',
+        flawedTitle: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 14 UStG FEHLER)',
+        flawedDesc: 'Lieferant hat USt um +€120,00 überhöht ausgewiesen. Verbuchung in SAP S/4HANA blockiert. Kaufmännische Mängelrüge erstellt.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> Cent-genau abgeglichen',
+        verifiedVat: '€798,00',
+        verifiedGross: '€4.998,00',
+        verifiedTitle: '✔ REVISIONSSICHER: FREIGABE FÜR SAP S/4HANA',
+        verifiedDesc: 'Posten-Arithmetik auf den Cent abgeglichen (€798,00 USt). GoBD § 147 AO SHA-256 Prüfsiegel in Frankfurt festgeschrieben.'
+      },
+      en: {
+        activeName: 'FinTech & Invoicing',
+        net: '€4,200.00',
+        itemName: 'High-Torque Server Units (12x @ €350.00)',
+        itemVal: '€4,200.00',
+        vatLabel: 'Calculated Tax (19% VAT):',
+        grossLabel: 'Invoice Gross Total:',
+        ruleLabel: 'SEPA IBAN Modulo-97:',
+        ruleStatus: 'Checksum Valid',
+        flawedTag: '⚠ +€120.00 Overcharge',
+        flawedVat: '€918.00',
+        flawedGross: '€5,118.00',
+        flawedTitle: '🚨 PAYMENT RUN HALTED (§ 14 UStG VIOLATION)',
+        flawedDesc: 'Vendor overcharged VAT by +€120.00. ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> Exact Cent Reconciled',
+        verifiedVat: '€798.00',
+        verifiedGross: '€4,998.00',
+        verifiedTitle: '✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA',
+        verifiedDesc: 'Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned in Frankfurt.'
+      }
+    },
+    logistics: {
+      url: 'logistics.html',
+      icon: 'fa-ship',
+      ruleIcon: 'fa-anchor',
+      docBadge: 'BOL-HAM-9042',
+      vendor: 'Hapag-Lloyd Ocean Carrier',
+      channel: 'EDIFACT IFTMIN / Sea Waybill',
+      ruleVal: 'MSKU 014285 [7]',
+      de: {
+        activeName: 'Seefracht & Maritime Logistik',
+        net: '24.500,00 kg',
+        itemName: 'ISO 6346 Container MSKU 014285-7 (40ft High Cube)',
+        itemVal: 'Tara: 3.820 kg',
+        vatLabel: 'SOLAS VGM & Achslast-Prüfung (§ 412 HGB):',
+        grossLabel: 'Deklariertes Fracht-Bruttogewicht:',
+        ruleLabel: 'ISO 6346 Modulo-11 Prüfziffer:',
+        ruleStatus: 'Prüfziffer Konform (7)',
+        flawedTag: '⚠ +1.250 kg Überladung (§ 412 HGB)',
+        flawedVat: '25.750 kg',
+        flawedGross: 'ÜBERLADUNG ABGEWIESEN',
+        flawedTitle: '🚨 KRANVERLADUNG GESTOPPT (SOLAS / HGB § 412)',
+        flawedDesc: 'Deklariertes Gewicht überschreitet Schiffstraglast um 1.250 kg. Container für Stauplan am HHLA-Terminal gesperrt.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> SOLAS VGM Zertifiziert',
+        verifiedVat: '24.500 kg',
+        verifiedGross: '24.500 KG FREIGEGEBEN',
+        verifiedTitle: '✔ FRACHT FREIGEGEBEN: BEREIT ZUR VERLADUNG',
+        verifiedDesc: 'Gewicht innerhalb der § 412 HGB Toleranz. Manifest signiert und an HHLA Terminal-Gateway übertragen.'
+      },
+      en: {
+        activeName: 'Freight & Maritime',
+        net: '24,500.00 kg',
+        itemName: 'ISO 6346 Container MSKU 014285-7 (40ft High Cube)',
+        itemVal: 'Tare: 3,820 kg',
+        vatLabel: 'SOLAS VGM & Axle Weight Audit (§ 412 HGB):',
+        grossLabel: 'Declared Freight Gross Weight:',
+        ruleLabel: 'ISO 6346 Modulo-11 Check Digit:',
+        ruleStatus: 'Check Digit Valid (7)',
+        flawedTag: '⚠ +1,250 kg Overload (§ 412 HGB)',
+        flawedVat: '25,750 kg',
+        flawedGross: 'OVERLOAD REJECTED',
+        flawedTitle: '🚨 CRANE LOADING HALTED (SOLAS / HGB § 412)',
+        flawedDesc: 'Declared container weight exceeds vessel rating by 1,250 kg. Stowage loading at HHLA terminal blocked.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> SOLAS VGM Certified',
+        verifiedVat: '24,500 kg',
+        verifiedGross: '24,500 KG CERTIFIED',
+        verifiedTitle: '✔ CARGO CLEARED: READY FOR STOWAGE',
+        verifiedDesc: 'Weight within § 412 HGB axle tolerance. Manifest signed and dispatched to HHLA terminal gateway.'
+      }
+    },
+    supply: {
+      url: 'supply-chain.html',
+      icon: 'fa-industry',
+      ruleIcon: 'fa-clock',
+      docBadge: 'GR-2024-5519',
+      vendor: 'Brose Fahrzeugteile SE',
+      channel: 'VDA 4913 / ASN Inbound',
+      ruleVal: '48h Handelsrechtlicher Fristtimer',
+      de: {
+        activeName: 'Supply Chain 3-Wege-Abgleich',
+        net: '5.000 Stück (PO #44021)',
+        itemName: 'Stellmotoren Elektrik (Charge #88B-02)',
+        itemVal: 'Bestellt: 5.000 Stk',
+        vatLabel: '3-Wege-Abgleich (Bestellung vs. Lieferschein vs. WE):',
+        grossLabel: 'Physischer Wareneingang Rampe 4:',
+        ruleLabel: 'HGB § 377 Rügefrist-Wahrung:',
+        ruleStatus: 'Frist Gewahrt',
+        flawedTag: '⚠ 350 Stück Mindermenge',
+        flawedVat: '4.650 Stk geliefert',
+        flawedGross: 'MINDERMENGE RÜGE',
+        flawedTitle: '🚨 HGB § 377 MÄNGELRÜGE AUTOMATISCH ERSTELLT',
+        flawedDesc: 'Rampe erfasst nur 4.650 statt 5.000 Einheiten. Automatische Mängelrüge erstellt zur Wahrung aller Gewährleistungsrechte.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> 3-Wege-Abgleich 100% Identisch',
+        verifiedVat: '5.000 Stk vollständig',
+        verifiedGross: '5.000 STK GEBUCHT',
+        verifiedTitle: '✔ SAP MIGO WARENEINGANG 101 BEREITGESTELLT',
+        verifiedDesc: 'Bestellung, Lieferschein und Rampenscan stimmen überein. Automatische Bestandsfortschreibung in SAP S/4HANA erfolgt.'
+      },
+      en: {
+        activeName: 'Supply Chain Triad',
+        net: '5,000 Units (PO #44021)',
+        itemName: 'Electric Actuator Motors (Batch #88B-02)',
+        itemVal: 'PO Target: 5,000 pcs',
+        vatLabel: '3-Way Triad (PO vs. B/L vs. Dock Receipt):',
+        grossLabel: 'Physical Dock Receipt Gate 4:',
+        ruleLabel: 'HGB § 377 Inspection Window:',
+        ruleStatus: 'Window Protected',
+        flawedTag: '⚠ 350 Units Shortfall',
+        flawedVat: '4,650 pcs Delivered',
+        flawedGross: 'SHORTFALL DISPUTE',
+        flawedTitle: '🚨 HGB § 377 STATUTORY DISPUTE MEMO DRAFTED',
+        flawedDesc: 'Dock counted 4,650 instead of 5,000 units. Statutory dispute memo issued to preserve buyer warranty rights.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> 3-Way Match 100% Exact',
+        verifiedVat: '5,000 pcs Complete',
+        verifiedGross: '5,000 PCS BOOKED',
+        verifiedTitle: '✔ SAP MIGO GOODS RECEIPT 101 POSTED',
+        verifiedDesc: 'PO, delivery note, and dock barcode match perfectly. Automatic inventory update committed in SAP S/4HANA.'
+      }
+    },
+    insurtech: {
+      url: 'insurtech.html',
+      icon: 'fa-shield-halved',
+      ruleIcon: 'fa-handshake',
+      docBadge: 'CLM-2024-7712',
+      vendor: 'Autohaus Schmidt GmbH & Co.',
+      channel: 'Audatex / SilverDAT XML',
+      ruleVal: '-€300,00 Gemäß Police',
+      de: {
+        activeName: 'InsurTech & Schadenregulierung',
+        net: '€3.480,00 Netto-Schaden',
+        itemName: 'Mechanik & Richtbank (14,5 AW @ €195,00 / AW)',
+        itemVal: '€2.827,50 Lohnkosten',
+        vatLabel: 'BGH VI ZR 53/09 & VVG § 86 Stundensatz-Prüfung:',
+        grossLabel: 'Geforderte Regulierungs-Summe:',
+        ruleLabel: 'Kasko-Selbstbeteiligung Abzug:',
+        ruleStatus: 'Klausel Abgezogen',
+        flawedTag: '⚠ +€725,00 Richtwert überschritten',
+        flawedVat: '€195,00 / AW (Überhöht)',
+        flawedGross: 'KÜRZUNG ERFORDERLICH',
+        flawedTitle: '🚨 SCHADENSAUSZAHLUNG GESTOPPT (VVG § 86 CAP)',
+        flawedDesc: 'Stundensatz übersteigt DEKRA-Regionalwert um +€50,00/AW. Regress-Kürzungsschreiben an Werkstatt generiert.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> BGH Regionalrichtwert Eingehalten',
+        verifiedVat: '€145,00 / AW (Gedeckelt)',
+        verifiedGross: 'NETTO €2.755,00 FREIGABE',
+        verifiedTitle: '✔ SCHADEN REGULIERT: ZUR SEPA-ANWEISUNG FREIGEGEBEN',
+        verifiedDesc: 'Stundensätze bereinigt; Selbstbeteiligung einbehalten. Regulierung zur automatischen Überweisung freigegeben.'
+      },
+      en: {
+        activeName: 'InsurTech Claims',
+        net: '€3,480.00 Net Claim',
+        itemName: 'Chassis Alignment Labor (14.5 AW @ €195.00 / AW)',
+        itemVal: '€2,827.50 Labor Cost',
+        vatLabel: 'BGH VI ZR 53/09 & VVG § 86 Labor Rate Cap:',
+        grossLabel: 'Claimed Indemnity Total:',
+        ruleLabel: 'Contractual Deductible Subtraction:',
+        ruleStatus: 'Clause Applied',
+        flawedTag: '⚠ +€725.00 Regional Cap Exceeded',
+        flawedVat: '€195.00 / AW (Capped)',
+        flawedGross: 'INDEMNITY CAPPED',
+        flawedTitle: '🚨 CLAIM PAYMENT SUSPENDED (VVG § 86 CAP)',
+        flawedDesc: 'Labor rate exceeds DEKRA benchmark by +€50.00/AW. Subrogation reduction memo drafted for adjuster.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> BGH Regional Benchmark Compliant',
+        verifiedVat: '€145.00 / AW (Compliant)',
+        verifiedGross: 'NET €2,755.00 APPROVED',
+        verifiedTitle: '✔ CLAIM SETTLEMENT AUTHORIZED FOR SEPA TRANSFER',
+        verifiedDesc: 'Labor capped to regional benchmark; deductible subtracted. Settlement dispatched to claims ledger.'
+      }
+    },
+    legaltech: {
+      url: 'legaltech.html',
+      icon: 'fa-scale-balanced',
+      ruleIcon: 'fa-gavel',
+      docBadge: 'ESG-2024-3011',
+      vendor: 'Bavaria Minerals & Smelting AG',
+      channel: 'LkSG Compliance Dossier / JSON',
+      ruleVal: 'Hohe Risikostufe BAFA 2024',
+      de: {
+        activeName: 'LegalTech & LkSG Compliance',
+        net: 'Tier-1 Lieferkette (Rohstoffe)',
+        itemName: 'Hüttenbetrieb Sm-902 Kobalt & Nickel Audit',
+        itemVal: 'Audit-Score: 62/100',
+        vatLabel: 'LkSG § 4-§ 7 Sorgfaltspflichten & ISO 14001:',
+        grossLabel: 'Lieferanten-Zulassungsstatus:',
+        ruleLabel: 'BAFA Gesetzliche Risikobewertung:',
+        ruleStatus: 'BAFA Alarm',
+        flawedTag: '⚠ ISO 14001 & Menschenrechts-Audit fehlt',
+        flawedVat: 'Nicht Konform',
+        flawedGross: 'LIEFERANT GESPERRT',
+        flawedTitle: '🚨 LIEFERVERTRAG GESPERRT (LkSG § 5 VERSTOSS)',
+        flawedDesc: 'Kritische Mängel in Tier-1 Raffinerie festgestellt. Präventionsplan und BAFA-Meldung automatisch vorbereitet.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> Vollständige LkSG & CSDDD Freigabe',
+        verifiedVat: 'Geprüft 98/100',
+        verifiedGross: 'FREIGEGEBENER TIER-1',
+        verifiedTitle: '✔ LIEFERANT AUDITIERT: BEREITSTELLUNG FREIGEGEBEN',
+        verifiedDesc: 'Audit-Dokumente validiert und mit GoBD SHA-256 Prüfsiegel unveränderbar im Frankfurter Ledger verankert.'
+      },
+      en: {
+        activeName: 'LegalTech Compliance',
+        net: 'Tier-1 Supply Chain (Raw Materials)',
+        itemName: 'Smelter Sm-902 Cobalt & Nickel Audit',
+        itemVal: 'Audit Score: 62/100',
+        vatLabel: 'LkSG § 4-§ 7 Due Diligence & ISO 14001:',
+        grossLabel: 'Supplier Clearance Status:',
+        ruleLabel: 'BAFA Statutory Risk Evaluation:',
+        ruleStatus: 'BAFA Red Flag',
+        flawedTag: '⚠ Missing ISO 14001 & HR Audit',
+        flawedVat: 'Non-Compliant',
+        flawedGross: 'SUPPLIER QUARANTINED',
+        flawedTitle: '🚨 SUPPLIER BLOCKED (LkSG § 5 VIOLATION)',
+        flawedDesc: 'Critical audit gaps in upstream Tier-1 refining. Mandatory prevention plan and BAFA report drafted.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> Full LkSG & CSDDD Clearance',
+        verifiedVat: 'Audited 98/100',
+        verifiedGross: 'APPROVED TIER-1',
+        verifiedTitle: '✔ SUPPLIER CLEARED FOR GLOBAL PRODUCTION',
+        verifiedDesc: 'Audit documentation validated and sealed with immutable SHA-256 hash in Frankfurt ledger.'
+      }
+    },
+    healthtech: {
+      url: 'healthtech.html',
+      icon: 'fa-hospital-user',
+      ruleIcon: 'fa-user-doctor',
+      docBadge: 'GOA-2024-4190',
+      vendor: 'Klinikum Privatarztabrechnung Dr. Weber',
+      channel: 'PADneXt / GOÄ XML Stream',
+      ruleVal: '2,3x Gesetzlicher Regelhöchstsatz',
+      de: {
+        activeName: 'HealthTech & GOÄ Abrechnung',
+        net: 'GOÄ Ziffer 435 + 50',
+        itemName: 'Ultraschalluntersuchung Abdomen (1x @ 3,5x Faktor)',
+        itemVal: 'Liquidation: €478,20',
+        vatLabel: 'GOÄ § 5 Abs. 2 Steigerungssatz-Prüfung:',
+        grossLabel: 'Abrechnungsbetrag nach Prüfung:',
+        ruleLabel: 'PKV Erstattungsfähigkeits-Grenze:',
+        ruleStatus: 'Begründungspflichtig',
+        flawedTag: '⚠ 3,5x Faktor ohne medizinische Begründung',
+        flawedVat: '3,5x Höchstsatz (Ungültig)',
+        flawedGross: 'KÜRZUNG AUF 2,3X',
+        flawedTitle: '🚨 RECHNUNG ABGELEHNT: GOÄ § 5 VERSTOSS',
+        flawedDesc: 'Mit 3,5x liquidiert ohne individuelle schriftliche Patientenbegründung. Automatische Kürzung auf 2,3x Regelsatz (€314,25).',
+        verifiedTag: '<i class="fa-solid fa-check"></i> GOÄ § 5 Begründet & Bestätigt',
+        verifiedVat: '2,3x Regelsatz',
+        verifiedGross: '€314,25 FREIGEGEBEN',
+        verifiedTitle: '✔ GOÄ-ABRECHNUNG FREIGEGEBEN: AN PKV ÜBERMITTELT',
+        verifiedDesc: 'Medizinische Begründung validiert. Abrechnungsdaten über PADneXt-Schnittstelle an private Krankenversicherung übermittelt.'
+      },
+      en: {
+        activeName: 'HealthTech & GOÄ',
+        net: 'GOÄ Code 435 + 50',
+        itemName: 'Abdominal Ultrasound (1x @ 3.5x Multiplier)',
+        itemVal: 'Billed: €478.20',
+        vatLabel: 'GOÄ § 5 Abs. 2 Steigerungssatz Audit:',
+        grossLabel: 'Reimbursable Liquidation Amount:',
+        ruleLabel: 'PKV Reimbursability Benchmark:',
+        ruleStatus: 'Justification Req.',
+        flawedTag: '⚠ 3.5x Lacks Pathology Rationale',
+        flawedVat: '3.5x Max Rate (Invalid)',
+        flawedGross: 'CAPPED TO 2.3X',
+        flawedTitle: '🚨 LIQUIDATION REJECTED: GOÄ § 5 VIOLATION',
+        flawedDesc: 'Billed at 3.5x without individual written pathology rationale. Statutory fee reduced to 2.3x (€314.25).',
+        verifiedTag: '<i class="fa-solid fa-check"></i> GOÄ § 5 Justified & Verified',
+        verifiedVat: '2.3x Standard Rate',
+        verifiedGross: '€314.25 AUTHORIZED',
+        verifiedTitle: '✔ GOÄ FEE CERTIFIED: PASSED TO HEALTH INSURER',
+        verifiedDesc: 'Medical justification validated against catalogue. Dispatched to private health insurance clearinghouse.'
+      }
+    },
+    ecommerce: {
+      url: 'ecommerce.html',
+      icon: 'fa-cart-shopping',
+      ruleIcon: 'fa-barcode',
+      docBadge: 'ASN-2024-9128',
+      vendor: 'Shenzhen Precision Electronics Co.',
+      channel: 'EDI 856 / GS1 Barcode Stream',
+      ruleVal: '€44.239,63 Konvertiert',
+      de: {
+        activeName: 'E-Commerce & WMS Logistik',
+        net: '2.400 Pakete (Container 902)',
+        itemName: 'Smart Sensor Hubs (EAN: 4012345678901)',
+        itemVal: '$48.000,00 USD Warenwert',
+        vatLabel: 'GS1 EAN-13 Prüfsumme & EZB-Wechselkurs:',
+        grossLabel: 'SAP MM Wareneingangsbuchung:',
+        ruleLabel: 'EZB EUR/USD Referenzkurs (1,0850):',
+        ruleStatus: 'Kurs Fixiert',
+        flawedTag: '⚠ GS1 EAN-13 Prüfziffer falsch (0 != 1)',
+        flawedVat: 'EAN Ungültig',
+        flawedGross: 'WARENEINGANG GESTOPPT',
+        flawedTitle: '🚨 PALETTENSCAN ABGEWIESEN: UNGÜLTIGER BARCODE',
+        flawedDesc: 'Prüfziffer des EAN-13 Barcodes rechnerisch fehlerhaft. Fördertechnik leitet Palette automatisch in Sperrlager-Bucht 7.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> GS1 EAN-13 Prüfsumme Gültig',
+        verifiedVat: 'EAN-13 Verifiziert',
+        verifiedGross: '€44.239,63 GEBUCHT',
+        verifiedTitle: '✔ HOCHREGALLAGER-EINLAGERUNG VOLLSTÄNDIG FREIGEGEBEN',
+        verifiedDesc: 'Barcode verifiziert. Währungsumrechnung via offiziellem EZB-Kurs fehlerfrei in SAP MM verbucht.'
+      },
+      en: {
+        activeName: 'E-Commerce WMS',
+        net: '2,400 Packages (Container 902)',
+        itemName: 'Smart Sensor Hubs (EAN: 4012345678901)',
+        itemVal: '$48,000.00 USD Invoice Val',
+        vatLabel: 'GS1 EAN-13 Checksum & ECB FX Audit:',
+        grossLabel: 'SAP MM Goods Receipt Ingestion:',
+        ruleLabel: 'ECB EUR/USD Fixing (1.0850):',
+        ruleStatus: 'Rate Locked',
+        flawedTag: '⚠ GS1 EAN-13 Check Mismatch (0 != 1)',
+        flawedVat: 'EAN Corrupted',
+        flawedGross: 'WMS INGESTION HALTED',
+        flawedTitle: '🚨 PALLET SCAN REJECTED: INVALID BARCODE',
+        flawedDesc: 'EAN-13 check digit formula failed. Automated conveyor diverts pallet to quarantine bay 7.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> GS1 EAN-13 Checksum Verified',
+        verifiedVat: 'EAN-13 Validated',
+        verifiedGross: '€44,239.63 COMMITTED',
+        verifiedTitle: '✔ HIGH-BAY WAREHOUSE INGESTION AUTHORIZED',
+        verifiedDesc: 'Barcode check digit confirmed. FX converted via official ECB fixing into SAP MM.'
+      }
+    },
+    cleantech: {
+      url: 'cleantech.html',
+      icon: 'fa-bolt',
+      ruleIcon: 'fa-plug',
+      docBadge: 'PV-2024-1184',
+      vendor: 'NordSolar Grid Inverters GmbH',
+      channel: 'Modbus-TCP / EEG XML Feed',
+      ruleVal: '50,00 Hz (49,80 - 50,20 Hz)',
+      de: {
+        activeName: 'CleanTech & PV-Netzeinspeisung',
+        net: '135,0 kWp Anlagenleistung',
+        itemName: 'PV-Dachanlage Gewerbepark (3-Phasen Wechselrichter)',
+        itemVal: 'Spitzen-Erzeugung: 112,4 kW',
+        vatLabel: 'VDE-AR-N 4105 & EEG § 9 70%-Einspeisedeckel:',
+        grossLabel: 'Einspeiseleistung ins öffentliche Netz:',
+        ruleLabel: 'Netzstabilitäts-Frequenzfenster:',
+        ruleStatus: 'Netzfrequenz Stabil',
+        flawedTag: '⚠ 70% EEG-Grenze um +17,9 kW überschritten',
+        flawedVat: '83,2% Einspeisung',
+        flawedGross: 'NETZABREGELUNG AUSGELÖST',
+        flawedTitle: '🚨 NETZBETREIBER-VERSTOSS (EEG § 9 ÜBEREINSPEISUNG)',
+        flawedDesc: 'Einspeisung überschreitet 70%-Grenze ohne aktives Rundsteuersignal. Automatisches Drosselungssignal an Wechselrichter gesendet.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> VDE-AR-N 4105 70%-Deckel Eingehalten',
+        verifiedVat: '69,8% Gesetzeskonform',
+        verifiedGross: '94,5 KW FREIGEGEBEN',
+        verifiedTitle: '✔ NETZKONFORMITÄT ZERTIFIZIERT: EEG-VERGÜTUNG FREIGEGEBEN',
+        verifiedDesc: 'Einspeisung gesetzteskonform unterhalb des Limits abgeregelt. Telemetrie für EEG-Einspeisevergütung signiert.'
+      },
+      en: {
+        activeName: 'CleanTech Solar',
+        net: '135.0 kWp Plant Capacity',
+        itemName: 'Rooftop Solar Array (3-Phase Inverters)',
+        itemVal: 'Peak Generation: 112.4 kW',
+        vatLabel: 'VDE-AR-N 4105 & EEG § 9 70% Feed-in Cap:',
+        grossLabel: 'Net Grid Feed-in Power:',
+        ruleLabel: 'Grid Frequency Window:',
+        ruleStatus: 'Frequency Nominal',
+        flawedTag: '⚠ 70% EEG Cap Exceeded (+17.9 kW)',
+        flawedVat: '83.2% Feed-in',
+        flawedGross: 'GRID CURTAILMENT',
+        flawedTitle: '🚨 GRID OPERATOR VIOLATION (EEG § 9 OVERFEED)',
+        flawedDesc: 'Solar feed-in exceeded 70% limit without active ripple control. Automated inverter throttling command issued.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> VDE-AR-N 4105 70% Cap Enforced',
+        verifiedVat: '69.8% Compliant',
+        verifiedGross: '94.5 KW FEED-IN OK',
+        verifiedTitle: '✔ GRID CERTIFICATION VERIFIED: TARIFF EARNED',
+        verifiedDesc: 'Feed-in power locked safely beneath statutory limit. Telemetry signed for public grid ledger.'
+      }
+    },
+    proptech: {
+      url: 'proptech.html',
+      icon: 'fa-building',
+      ruleIcon: 'fa-leaf',
+      docBadge: 'HKV-2024-6022',
+      vendor: 'Techem & Ista Messdienstabrechnung',
+      channel: 'HeizkostenV Datenaustausch',
+      ruleVal: '10-Stufen CO2-Modell Geregelt',
+      de: {
+        activeName: 'PropTech & Heizkostenabrechnung',
+        net: '24 Wohneinheiten MFH',
+        itemName: 'Jahresheizung & Warmwasser (€38.450,00 Gesamtkosten)',
+        itemVal: 'Gesamtkosten: €38.450,00',
+        vatLabel: 'HeizkostenV § 7 & § 12 Gesetzlicher 70/30 Schlüssel:',
+        grossLabel: 'Umlagefähige Nebenkostenabrechnung:',
+        ruleLabel: 'CO2-Kostenaufteilung (§ 5 CO2KostAufG):',
+        ruleStatus: 'CO2-Split Berechnet',
+        flawedTag: '⚠ Unzulässiger 50/50 Schlüssel (15% Kürzungsrecht)',
+        flawedVat: '50% / 50% Fehlerhaft',
+        flawedGross: 'NEUBERECHNUNG ERFORDERLICH',
+        flawedTitle: '🚨 MIETERRÜGE AUSGELÖST: HEIZKOSTENV § 12 KÜRZUNGSRECHT',
+        flawedDesc: 'Abrechnung mit unzulässigem 50/50 Schlüssel ohne Sanierungsbefreiung. Mieter besitzen gesetzliches 15%-Kürzungsrecht.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> HeizkostenV 70/30 Schlüssel Gesetzeskonform',
+        verifiedVat: '70% Verbrauch / 30% Grund',
+        verifiedGross: '€38.450,00 RECHTSSICHER',
+        verifiedTitle: '✔ NEBENKOSTENABRECHNUNG RECHTSSICHER ERSTELLT',
+        verifiedDesc: '70% Verbrauchs- und 30% Grundflächenanteile cent-genau berechnet. Vollständig rügesicher für 24 Wohneinheiten.'
+      },
+      en: {
+        activeName: 'PropTech Real Estate',
+        net: '24 Residential Units',
+        itemName: 'Annual Heating & Hot Water (€38,450.00 Total)',
+        itemVal: 'Total Costs: €38,450.00',
+        vatLabel: 'HeizkostenV § 7 & § 12 Mandatory 70/30 Split:',
+        grossLabel: 'Apportionable Operating Cost Statement:',
+        ruleLabel: 'CO2 Cost Sharing (§ 5 CO2KostAufG):',
+        ruleStatus: 'CO2 Split Done',
+        flawedTag: '⚠ Illegal 50/50 Split (15% Rent Cut)',
+        flawedVat: '50% / 50% Invalid',
+        flawedGross: 'RECALCULATION REQ',
+        flawedTitle: '🚨 TENANT DISPUTE: HEIZKOSTENV § 12 APPLIED',
+        flawedDesc: 'Billed on invalid 50/50 split without insulation waiver. Tenants legally entitled to 15% rent reduction.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> HeizkostenV 70/30 Statutory Allocation Confirmed',
+        verifiedVat: '70% Consumption / 30% Base',
+        verifiedGross: '€38,450.00 RECONCILED',
+        verifiedTitle: '✔ OPERATING COSTS CERTIFIED: AUDIT-PROOF',
+        verifiedDesc: '70% consumption and 30% base area keys mathematically reconciled. Zero tenant dispute exposure.'
+      }
+    },
+    erp: {
+      url: 'erp-staging.html',
+      icon: 'fa-database',
+      ruleIcon: 'fa-server',
+      docBadge: 'SQL-2024-0019',
+      vendor: 'SAP S/4HANA Staging Queue',
+      channel: 'REST OData V4 / RFC BAPI',
+      ruleVal: 'SHA-256 Block-Verkettung Aktiv',
+      de: {
+        activeName: 'Enterprise ERP & SAP Firewall',
+        net: 'Enterprise Payload Puffer',
+        itemName: 'Inbound EDI BAPI Payload: BAPI_ACC_DOCUMENT_POST',
+        itemVal: 'Transaktionsgröße: 1.842 KB',
+        vatLabel: 'Parametrisierte T-SQL & OWASP ASVS Injection-Schutz:',
+        grossLabel: 'Datenbank-Transaktionsstatus:',
+        ruleLabel: 'Frankfurt AWS eu-central-1 Neon Ledger:',
+        ruleStatus: 'Ledger Synchron',
+        flawedTag: "⚠ SQL-Injection Schadcode erkannt (' OR 1=1 --)",
+        flawedVat: 'Bösartige Syntax',
+        flawedGross: 'INJECTION BLOCKIERT',
+        flawedTitle: '🚨 OWASP ASVS FIREWALL: BÖSARTIGE SQL-INJECTION ABGEWEHRT',
+        flawedDesc: 'Unerlaubte SQL-Syntax im Bemerkungsfeld abgefangen. Payload isoliert und Sicherheits-Incident im Ledger protokolliert.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> Parametrisiertes T-SQL Prepared Statement',
+        verifiedVat: 'OWASP Level-3 Bestanden',
+        verifiedGross: 'IN S/4HANA BEREITGESTELLT',
+        verifiedTitle: '✔ TRANSAKTION GEPRÜFT: AN SAP S/4HANA ÜBERGEBEN',
+        verifiedDesc: 'Keine rohen String-Verknüpfungen. Transaktion deterministisch im Frankfurter Neon-PostgreSQL Ledger festgeschrieben.'
+      },
+      en: {
+        activeName: 'Enterprise ERP',
+        net: 'Enterprise Payload Buffer',
+        itemName: 'Inbound EDI BAPI Payload: BAPI_ACC_DOCUMENT_POST',
+        itemVal: 'Transaction Payload: 1,842 KB',
+        vatLabel: 'Parameterized T-SQL & OWASP ASVS Defense:',
+        grossLabel: 'Database Transaction Status:',
+        ruleLabel: 'Frankfurt AWS eu-central-1 Neon Ledger:',
+        ruleStatus: 'Ledger Synced',
+        flawedTag: "⚠ SQL Injection Detected (' OR 1=1 --)",
+        flawedVat: 'Malicious Syntax',
+        flawedGross: 'INJECTION BLOCKED',
+        flawedTitle: '🚨 OWASP ASVS FIREWALL: MALICIOUS PAYLOAD DROPPED',
+        flawedDesc: 'Unsanitized SQL fragment detected in comment field. Payload quarantined; security incident logged.',
+        verifiedTag: '<i class="fa-solid fa-check"></i> Parameterized T-SQL Prepared Statement',
+        verifiedVat: 'OWASP Level-3 Passed',
+        verifiedGross: 'STAGED TO S/4HANA',
+        verifiedTitle: '✔ TRANSACTION VERIFIED: COMMITTED TO SAP S/4HANA',
+        verifiedDesc: 'Zero raw string concatenation. Database transaction safely committed to Frankfurt PostgreSQL ledger.'
+      }
+    }
+  };
+
+  let updateShowcaseGlobal = null;
+
+  function updateScannerDisplay(domainKey, mode) {
+    state.currentScannerDomain = domainKey || state.currentScannerDomain || 'fintech';
+    state.currentScannerMode = mode || state.currentScannerMode || 'flawed';
+
+    const preset = SCANNER_PRESETS[state.currentScannerDomain] || SCANNER_PRESETS.fintech;
+    const lang = state.currentLang === 'de' ? 'de' : 'en';
+    const data = preset[lang] || preset.en;
+
+    const docBadge = document.getElementById('scanner-doc-badge');
+    const metaVendor = document.getElementById('sc-meta-val-vendor');
+    const metaChannel = document.getElementById('sc-meta-val-channel');
+    const metaNet = document.getElementById('sc-meta-val-net');
+    const itemIcon = document.getElementById('sc-item-icon');
+    const itemName = document.getElementById('sc-item-name');
+    const itemVal = document.getElementById('sc-item-val');
+    const vatLabel = document.getElementById('sc-vat-label');
+    const vatRow = document.getElementById('scanner-vat-row');
+    const vatTag = document.getElementById('scanner-vat-tag');
+    const vatAmount = document.getElementById('scanner-vat-amount');
+    const grossLabel = document.getElementById('sc-gross-label');
+    const grossVal = document.getElementById('scanner-gross-val');
+    const ruleIcon = document.getElementById('sc-rule-icon');
+    const ibanLabel = document.getElementById('sc-iban-label');
+    const ibanVal = document.getElementById('sc-iban-val');
+    const ibanStatus = document.getElementById('sc-iban-status');
+    const bannerFlawed = document.getElementById('scanner-banner-flawed');
+    const bannerVerified = document.getElementById('scanner-banner-verified');
+    const alertTitleFlawed = document.getElementById('sc-alert-title-flawed');
+    const alertDescFlawed = document.getElementById('sc-alert-desc-flawed');
+    const alertTitleVerified = document.getElementById('sc-alert-title-verified');
+    const alertDescVerified = document.getElementById('sc-alert-desc-verified');
+    const btnFlawed = document.getElementById('btn-scanner-flawed');
+    const btnVerified = document.getElementById('btn-scanner-verified');
+    const activeTagName = document.getElementById('sc-active-tag-name');
+    const activeTagPrefix = document.getElementById('sc-active-tag-prefix');
+    const launchBtn = document.getElementById('hero-scanner-launch-btn');
+    const launchBtnLabel = document.getElementById('sc-launch-btn-label');
+
+    if (docBadge) docBadge.textContent = preset.docBadge;
+    if (metaVendor) metaVendor.textContent = preset.vendor;
+    if (metaChannel) metaChannel.textContent = preset.channel;
+    if (metaNet) metaNet.textContent = data.net;
+
+    if (itemIcon) itemIcon.className = `fa-solid ${preset.icon} text-muted`;
+    if (itemName) itemName.textContent = data.itemName;
+    if (itemVal) itemVal.textContent = data.itemVal;
+
+    if (vatLabel) vatLabel.textContent = data.vatLabel;
+    if (grossLabel) grossLabel.textContent = data.grossLabel;
+
+    if (ruleIcon) ruleIcon.className = `fa-solid ${preset.ruleIcon} text-muted`;
+    if (ibanLabel) ibanLabel.textContent = data.ruleLabel;
+    if (ibanVal) ibanVal.textContent = preset.ruleVal;
+    if (ibanStatus) ibanStatus.textContent = data.ruleStatus;
+
+    if (activeTagPrefix) activeTagPrefix.textContent = lang === 'de' ? 'Aktiver Workspace:' : 'Active Workspace:';
+    if (activeTagName) activeTagName.textContent = data.activeName;
+    if (launchBtn) launchBtn.href = preset.url;
+    if (launchBtnLabel) launchBtnLabel.textContent = lang === 'de' ? `${data.activeName} öffnen` : `Launch ${data.activeName} Workspace`;
+
+    if (state.currentScannerMode === 'flawed') {
+      if (btnFlawed) btnFlawed.classList.add('active');
+      if (btnVerified) btnVerified.classList.remove('active');
+      if (vatRow) vatRow.classList.remove('verified');
+      if (vatTag) {
+        vatTag.className = 'badge-scanner-discrepancy';
+        vatTag.textContent = data.flawedTag;
+      }
+      if (vatAmount) {
+        vatAmount.className = 'font-mono-code font-bold text-danger';
+        vatAmount.textContent = data.flawedVat;
+      }
+      if (grossVal) {
+        grossVal.className = 'font-mono-code font-bold text-danger scanner-gross-val';
+        grossVal.textContent = data.flawedGross;
+      }
+      if (alertTitleFlawed) alertTitleFlawed.textContent = data.flawedTitle;
+      if (alertDescFlawed) alertDescFlawed.textContent = data.flawedDesc;
+      if (bannerFlawed) bannerFlawed.style.display = 'flex';
+      if (bannerVerified) bannerVerified.style.display = 'none';
+    } else {
+      if (btnVerified) btnVerified.classList.add('active');
+      if (btnFlawed) btnFlawed.classList.remove('active');
+      if (vatRow) vatRow.classList.add('verified');
+      if (vatTag) {
+        vatTag.className = 'badge-scanner-clean';
+        vatTag.innerHTML = data.verifiedTag;
+      }
+      if (vatAmount) {
+        vatAmount.className = 'font-mono-code font-bold text-emerald';
+        vatAmount.textContent = data.verifiedVat;
+      }
+      if (grossVal) {
+        grossVal.className = 'font-mono-code font-bold text-emerald scanner-gross-val';
+        grossVal.textContent = data.verifiedGross;
+      }
+      if (alertTitleVerified) alertTitleVerified.textContent = data.verifiedTitle;
+      if (alertDescVerified) alertDescVerified.textContent = data.verifiedDesc;
+      if (bannerFlawed) bannerFlawed.style.display = 'none';
+      if (bannerVerified) bannerVerified.style.display = 'flex';
+    }
+  }
+
   function initHeroScanner() {
     const btnFlawed = document.getElementById('btn-scanner-flawed');
     const btnVerified = document.getElementById('btn-scanner-verified');
     const wrap = document.getElementById('hero-scanner-wrap');
     const card = document.getElementById('hero-scanner-card');
-    const vatTag = document.getElementById('scanner-vat-tag');
-    const vatAmount = document.getElementById('scanner-vat-amount');
-    const vatRow = document.getElementById('scanner-vat-row');
-    const grossVal = document.getElementById('scanner-gross-val');
-    const bannerFlawed = document.getElementById('scanner-banner-flawed');
-    const bannerVerified = document.getElementById('scanner-banner-verified');
 
-    if (!btnFlawed || !btnVerified) return;
+    if (btnFlawed) {
+      btnFlawed.addEventListener('click', () => {
+        updateScannerDisplay(state.currentScannerDomain, 'flawed');
+      });
+    }
 
-    btnFlawed.addEventListener('click', () => {
-      btnFlawed.classList.add('active');
-      btnVerified.classList.remove('active');
-      if (vatRow) vatRow.classList.remove('verified');
-      if (vatTag) {
-        vatTag.className = 'badge-scanner-discrepancy';
-        vatTag.textContent = state.currentLang === 'de' ? '⚠ +€120,00 Zu viel berechnet' : '⚠ +€120.00 Overcharge';
-      }
-      if (vatAmount) {
-        vatAmount.className = 'font-mono-code font-bold text-danger';
-        vatAmount.textContent = state.currentLang === 'de' ? '€918,00' : '€918.00';
-      }
-      if (grossVal) {
-        grossVal.className = 'font-mono-code font-bold text-danger scanner-gross-val';
-        grossVal.textContent = state.currentLang === 'de' ? '€5.118,00' : '€5,118.00';
-      }
-      if (bannerFlawed) bannerFlawed.style.display = 'flex';
-      if (bannerVerified) bannerVerified.style.display = 'none';
-    });
-
-    btnVerified.addEventListener('click', () => {
-      btnVerified.classList.add('active');
-      btnFlawed.classList.remove('active');
-      if (vatRow) vatRow.classList.add('verified');
-      if (vatTag) {
-        vatTag.className = 'badge-scanner-clean';
-        vatTag.innerHTML = state.currentLang === 'de' ? '<i class="fa-solid fa-check"></i> Cent-genau abgeglichen' : '<i class="fa-solid fa-check"></i> Exact Cent Reconciled';
-      }
-      if (vatAmount) {
-        vatAmount.className = 'font-mono-code font-bold text-emerald';
-        vatAmount.textContent = state.currentLang === 'de' ? '€798,00' : '€798.00';
-      }
-      if (grossVal) {
-        grossVal.className = 'font-mono-code font-bold text-emerald scanner-gross-val';
-        grossVal.textContent = state.currentLang === 'de' ? '€4.998,00' : '€4,998.00';
-      }
-      if (bannerFlawed) bannerFlawed.style.display = 'none';
-      if (bannerVerified) bannerVerified.style.display = 'flex';
-    });
+    if (btnVerified) {
+      btnVerified.addEventListener('click', () => {
+        updateScannerDisplay(state.currentScannerDomain, 'verified');
+      });
+    }
 
     // 3D Parallax Tilt with Smooth Physics
     if (wrap && card) {
@@ -2346,6 +2917,8 @@
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
       });
     }
+
+    updateScannerDisplay(state.currentScannerDomain, state.currentScannerMode);
   }
 
   /**
@@ -2371,7 +2944,7 @@
       erp: 'erp-staging.html'
     };
 
-    const updateShowcase = (domainKey) => {
+    updateShowcaseGlobal = (domainKey) => {
       const d = domainsData[domainKey];
       if (!d) return;
 
@@ -2416,19 +2989,24 @@
     dockPills.forEach(pill => {
       pill.addEventListener('click', () => {
         const domainKey = pill.getAttribute('data-domain');
-        updateShowcase(domainKey);
+        state.currentScannerDomain = domainKey;
+        updateShowcaseGlobal(domainKey);
+        updateScannerDisplay(domainKey, state.currentScannerMode);
       });
     });
 
     topDockPills.forEach(pill => {
       pill.addEventListener('click', (e) => {
         const domainKey = pill.getAttribute('data-domain');
-        updateShowcase(domainKey);
+        state.currentScannerDomain = domainKey;
+        updateShowcaseGlobal(domainKey);
+        updateScannerDisplay(domainKey, state.currentScannerMode);
       });
     });
 
     // Initialize with default domain (fintech)
-    updateShowcase('fintech');
+    updateShowcaseGlobal(state.currentScannerDomain || 'fintech');
+    updateScannerDisplay(state.currentScannerDomain || 'fintech', state.currentScannerMode || 'flawed');
   }
 
   // Master Initialization Engine

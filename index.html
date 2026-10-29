@@ -92,10 +92,6 @@
   <!-- Persistent Top Workspace Quick Switcher (Strict Zero-Clip, Instant 1-Click Access) -->
   <nav class="top-workspace-dock" id="top-workspace-dock" aria-label="10 Industry Workspaces">
     <div class="top-workspace-dock-inner">
-      <div class="dock-title-label">
-        <i class="fa-solid fa-layer-group text-emerald"></i>
-        <span id="top-dock-label">Workspaces:</span>
-      </div>
       <div class="dock-pills-scroll" id="top-dock-pills">
         <a href="fintech.html" class="dock-pill active" data-domain="fintech"><span class="dock-pill-num">01</span><i class="fa-solid fa-file-invoice-dollar"></i><span>FinTech</span></a>
         <a href="logistics.html" class="dock-pill" data-domain="logistics"><span class="dock-pill-num">02</span><i class="fa-solid fa-ship"></i><span>Maritime</span></a>
@@ -153,7 +149,7 @@
           <div class="scanner-card-header">
             <div class="scanner-card-title-group">
               <span class="scanner-live-pill"><span class="scanner-dot"></span> <span id="scanner-feed-label">LIVE INGESTION FEED</span></span>
-              <span class="scanner-doc-badge font-mono-code">INV-2024-8841</span>
+              <span class="scanner-doc-badge font-mono-code" id="scanner-doc-badge">INV-2024-8841</span>
             </div>
             <!-- Interactive State Switcher -->
             <div class="scanner-mode-switch">
@@ -169,20 +165,20 @@
           <!-- Document Canvas Body -->
           <div class="scanner-doc-body">
             <!-- Document Meta Bar -->
-            <div class="scanner-meta-row">
+            <div class="scanner-meta-row" id="scanner-meta-row">
               <div><span class="meta-sub" id="sc-meta-sub-vendor">Vendor:</span> <strong id="sc-meta-val-vendor">Nordic Industrial Supply</strong></div>
               <div><span class="meta-sub" id="sc-meta-sub-channel">Channel:</span> <span id="sc-meta-val-channel">PDF / EDI Inbound</span></div>
-              <div><span class="meta-sub" id="sc-meta-sub-net">Subtotal Net:</span> <span class="font-mono-code font-bold">€4,200.00</span></div>
+              <div><span class="meta-sub" id="sc-meta-sub-net">Subtotal Net:</span> <span class="font-mono-code font-bold" id="sc-meta-val-net">€4,200.00</span></div>
             </div>
 
             <!-- Line Items Row -->
-            <div class="scanner-line-items">
-              <div class="scanner-item-row">
-                <span class="item-name"><i class="fa-solid fa-microchip text-muted"></i> <span id="sc-item-name">High-Torque Server Units (12x @ €350.00)</span></span>
-                <span class="font-mono-code font-bold">€4,200.00</span>
+            <div class="scanner-line-items" id="scanner-line-items">
+              <div class="scanner-item-row" id="scanner-item-row-1">
+                <span class="item-name"><i class="fa-solid fa-microchip text-muted" id="sc-item-icon"></i> <span id="sc-item-name">High-Torque Server Units (12x @ €350.00)</span></span>
+                <span class="font-mono-code font-bold" id="sc-item-val">€4,200.00</span>
               </div>
               
-              <!-- VAT Calculation Line with Hotspot -->
+              <!-- Verification Line with Hotspot -->
               <div class="scanner-item-row vat-row" id="scanner-vat-row">
                 <span class="item-name">
                   <span id="sc-vat-label">Calculated Tax (19% VAT):</span>
@@ -192,21 +188,21 @@
               </div>
 
               <!-- Total Gross Amount Row -->
-              <div class="scanner-item-row gross-row">
+              <div class="scanner-item-row gross-row" id="scanner-gross-row">
                 <span class="item-name font-bold" id="sc-gross-label">Invoice Gross Total:</span>
                 <span class="font-mono-code font-bold text-danger scanner-gross-val" id="scanner-gross-val">€5,118.00</span>
               </div>
 
-              <!-- Bank Checksum Line -->
-              <div class="scanner-item-row bank-row">
-                <span class="item-name"><i class="fa-solid fa-building-columns text-muted"></i> <span id="sc-iban-label">SEPA IBAN Modulo-97:</span> <span class="font-mono-code">DE89 3704 0044 ...</span></span>
-                <span class="badge-scanner-clean"><i class="fa-solid fa-check"></i> <span id="sc-iban-status">Checksum Valid</span></span>
+              <!-- Checksum / Rule Line -->
+              <div class="scanner-item-row bank-row" id="scanner-bank-row">
+                <span class="item-name"><i class="fa-solid fa-shield-halved text-muted" id="sc-rule-icon"></i> <span id="sc-iban-label">SEPA IBAN Modulo-97:</span> <span class="font-mono-code" id="sc-iban-val">DE89 3704 0044 ...</span></span>
+                <span class="badge-scanner-clean" id="sc-iban-badge"><i class="fa-solid fa-check"></i> <span id="sc-iban-status">Checksum Valid</span></span>
               </div>
             </div>
 
             <!-- Action Status Banner -->
             <div class="scanner-alert-banner alert-flawed" id="scanner-banner-flawed">
-              <i class="fa-solid fa-hand-holding-dollar banner-icon text-danger"></i>
+              <i class="fa-solid fa-hand-holding-dollar banner-icon text-danger" id="scanner-banner-icon-flawed"></i>
               <div class="banner-text">
                 <div class="banner-title text-danger" id="sc-alert-title-flawed">🚨 PAYMENT RUN HALTED (§ 14 UStG VIOLATION)</div>
                 <div class="banner-desc" id="sc-alert-desc-flawed">Vendor overcharged VAT by +€120.00. ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.</div>
@@ -214,11 +210,21 @@
             </div>
 
             <div class="scanner-alert-banner alert-verified" id="scanner-banner-verified" style="display:none;">
-              <i class="fa-solid fa-circle-check banner-icon text-emerald"></i>
+              <i class="fa-solid fa-circle-check banner-icon text-emerald" id="scanner-banner-icon-verified"></i>
               <div class="banner-text">
                 <div class="banner-title text-emerald" id="sc-alert-title-verified">✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA</div>
                 <div class="banner-desc" id="sc-alert-desc-verified">Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned.</div>
               </div>
+            </div>
+
+            <!-- Scanner Footer Launch Strip -->
+            <div class="scanner-footer-launch">
+              <span class="scanner-active-domain-tag" id="scanner-active-domain-tag">
+                <i class="fa-solid fa-layer-group text-emerald"></i> <span id="sc-active-tag-prefix">Active Workspace:</span> <strong id="sc-active-tag-name">FinTech &amp; Invoicing</strong>
+              </span>
+              <a href="fintech.html" class="btn-scanner-launch font-bold" id="hero-scanner-launch-btn">
+                <span id="sc-launch-btn-label">Launch Dedicated Workspace</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -313,7 +319,7 @@
       </div>
 
       <div class="bento-grid">
-        <!-- Bento Card 1: Exact Cent Math -->
+        <!-- Bento Card 1: Exact Cent Math (Visual Float vs Cent Engine) -->
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-calculator"></i></div>
@@ -322,19 +328,22 @@
               Every invoice subtotal, quantity multiplier, and VAT tier is audited strictly to the exact cent in code. Stops tiny fractions from compounding into massive audit balance-sheet discrepancies.
             </p>
           </div>
-          <div class="bento-mini-widget math-widget">
-            <div class="widget-stat-row">
-              <span>Audited Variance:</span>
-              <span class="font-mono-code text-emerald font-bold">€0.0000</span>
+          <div class="bento-comparison-widget">
+            <div class="comp-col comp-fail">
+              <div class="comp-header"><i class="fa-solid fa-triangle-exclamation text-danger"></i> <span>IEEE-754 Float Math</span></div>
+              <div class="comp-code font-mono-code">0.1 + 0.2 = 0.30000000000000004</div>
+              <div class="comp-sub text-danger">❌ Compounding Variance Trap</div>
             </div>
-            <div class="widget-stat-row">
-              <span>Precision Engine:</span>
-              <span class="font-mono-code">64-bit Safe Cent Math</span>
+            <div class="comp-divider">vs</div>
+            <div class="comp-col comp-pass">
+              <div class="comp-header"><i class="fa-solid fa-circle-check text-emerald"></i> <span>HAULITZ 64-bit Cent Math</span></div>
+              <div class="comp-code font-mono-code font-bold">10¢ + 20¢ = 30¢</div>
+              <div class="comp-sub text-emerald">✔ Exact Cent Deterministic</div>
             </div>
           </div>
         </div>
 
-        <!-- Bento Card 2: Checksum & Barcode Guard -->
+        <!-- Bento Card 2: Checksum & Barcode Guard (Formula Visualizer) -->
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-barcode"></i></div>
@@ -343,12 +352,16 @@
               Enforces international ISO 7064 Modulo-97 (SEPA IBAN) and GS1 EAN-13 check digit algorithms before money moves. Eliminates typoed payments and fake accounts.
             </p>
           </div>
-          <div class="bento-mini-widget check-widget">
-            <div class="widget-pill-badge text-emerald"><i class="fa-solid fa-circle-check"></i> Modulo-97 Rest == 1</div>
+          <div class="bento-formula-widget">
+            <div class="formula-label font-mono-code">SEPA IBAN Modulo-97:</div>
+            <div class="formula-code font-mono-code">
+              <span class="tok-num">98</span> - (<span class="tok-str">IBAN_INT</span> % <span class="tok-num">97</span>) == <span class="tok-pass">01</span>
+            </div>
+            <div class="formula-meta"><span class="scanner-dot"></span> <span class="text-emerald font-bold font-mono-code">Remainder == 1 Validated</span></div>
           </div>
         </div>
 
-        <!-- Bento Card 3: Automated ERP Firewall -->
+        <!-- Bento Card 3: Automated ERP Firewall (Bifurcated Pipeline) -->
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-network-wired"></i></div>
@@ -357,13 +370,16 @@
               Verified documents stream cleanly into SAP S/4HANA and PostgreSQL. Erroneous documents automatically generate a structured commercial dispute memo dispatched via API.
             </p>
           </div>
-          <div class="bento-mini-widget pipe-widget">
-            <div class="pipe-node pass">Pass &rarr; SAP S/4HANA</div>
-            <div class="pipe-node fail">Fail &rarr; Auto Dispute</div>
+          <div class="bento-pipeline-visual">
+            <div class="b-pipe-source"><i class="fa-solid fa-file-shield text-emerald"></i> Ingestion Inbound</div>
+            <div class="b-pipe-split">
+              <div class="b-pipe-branch pass"><i class="fa-solid fa-circle-check text-emerald"></i> Pass &rarr; SAP S/4HANA Staging</div>
+              <div class="b-pipe-branch fail"><i class="fa-solid fa-shield-xmark text-danger"></i> Fail &rarr; Auto Dispute Memo</div>
+            </div>
           </div>
         </div>
 
-        <!-- Bento Card 4: Immutable Audit Ledger -->
+        <!-- Bento Card 4: Immutable Audit Ledger (Visual Hash Chain) -->
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-fingerprint"></i></div>
@@ -372,8 +388,22 @@
               Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL in Frankfurt (AWS eu-central-1) for permanent GoBD § 147 AO compliance.
             </p>
           </div>
-          <div class="bento-mini-widget hash-widget">
-            <span class="font-mono-code font-bold text-emerald">SHA-256 SEAL CHAIN • AWS EU-CENTRAL-1 NEON</span>
+          <div class="bento-hash-chain-widget font-mono-code">
+            <div class="hash-block">
+              <span class="block-num">Block #28</span>
+              <span class="block-hash">a94f82c3...</span>
+            </div>
+            <div class="hash-link">&rarr; SHA-256 &rarr;</div>
+            <div class="hash-block">
+              <span class="block-num">Block #29</span>
+              <span class="block-hash">f59e0b81...</span>
+            </div>
+            <div class="hash-link">&rarr; SHA-256 &rarr;</div>
+            <div class="hash-block block-active">
+              <span class="block-num text-emerald">Block #30 (Current)</span>
+              <span class="block-hash text-emerald font-bold">3c8d10ae4b...</span>
+              <span class="block-tag">AWS eu-central-1 Neon</span>
+            </div>
           </div>
         </div>
       </div>
@@ -388,6 +418,12 @@
           <div class="founder-portrait-frame">
             <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Solutions &amp; Integration Engineer" class="founder-img">
           </div>
+          <!-- Executive Identity & Availability Mini-Panel (Fills the Left Column Void!) -->
+          <div class="founder-avail-panel">
+            <div class="avail-row"><i class="fa-solid fa-location-dot text-emerald"></i> <span>Germany · Munich / Frankfurt / Remote</span></div>
+            <div class="avail-row"><i class="fa-solid fa-bolt text-amber"></i> <span>Fast-Track § 18g EU Blue Card Ready</span></div>
+            <div class="avail-row"><i class="fa-solid fa-database text-blue"></i> <span>SAP S/4HANA · PostgreSQL · REST/EDI</span></div>
+          </div>
         </div>
 
         <div class="founder-info-col">
@@ -401,32 +437,32 @@
           </div>
 
           <div class="founder-impact-grid">
-            <div class="founder-impact-item">
+            <div class="founder-impact-item item-problem">
               <div class="impact-title"><i class="fa-solid fa-triangle-exclamation text-amber"></i> <span id="f-imp-title-1">The Problem</span></div>
               <p class="impact-desc" id="f-imp-desc-1">
-                Companies lose millions every year to tiny invoice rounding errors, incorrect tax rates, and unverified bank details that slip past manual checks.
+                Companies lose millions every year to tiny invoice <strong>rounding errors</strong>, <strong>incorrect tax rates</strong>, and unverified bank details that silently corrupt enterprise ledgers.
               </p>
             </div>
-            <div class="founder-impact-item">
-              <div class="impact-title"><i class="fa-solid fa-bridge text-emerald"></i> <span id="f-imp-title-2">The Solution Built</span></div>
+            <div class="founder-impact-item item-solution">
+              <div class="impact-title"><i class="fa-solid fa-network-wired text-emerald"></i> <span id="f-imp-title-2">The Solution Built</span></div>
               <p class="impact-desc" id="f-imp-desc-2">
-                I engineered HAULITZ as an automated verification gateway. It intercepts incoming vendor documents, runs cent-exact mathematical checks in code, and only passes certified records into ERP systems like SAP.
+                I engineered HAULITZ as an <strong>automated verification gateway</strong>. It intercepts incoming documents, executes <strong>cent-exact math</strong> in code, and only stages certified records into <strong>SAP S/4HANA</strong>.
               </p>
             </div>
-            <div class="founder-impact-item">
+            <div class="founder-impact-item item-fit">
               <div class="impact-title"><i class="fa-solid fa-briefcase text-blue"></i> <span id="f-imp-title-3">Solutions &amp; Integration Fit</span></div>
               <p class="impact-desc" id="f-imp-desc-3">
-                Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.
+                Demonstrates direct capability for <strong>Solutions Engineering</strong>: ingesting messy, unstructured third-party data into <strong>SAP S/4HANA</strong> and <strong>PostgreSQL</strong> under German statutory frameworks (<strong>GoBD</strong>, <strong>HGB</strong>, <strong>UStG</strong>).
               </p>
             </div>
           </div>
 
           <div class="founder-actions-row">
-            <a href="mailto:allensimeonfletcher@gmail.com" class="btn-contact-pill">
-              <i class="fa-solid fa-envelope text-emerald"></i> <span>allensimeonfletcher@gmail.com</span>
+            <a href="mailto:allensimeonfletcher@gmail.com" class="btn-contact-pill btn-contact-primary">
+              <i class="fa-solid fa-envelope"></i> <span>Email Allen (Direct Inquiries)</span>
             </a>
             <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-contact-pill">
-              <i class="fa-brands fa-github text-emerald"></i> <span>github.com/AllenFletcherAI/Haulitz</span>
+              <i class="fa-brands fa-github text-emerald"></i> <span>Inspect GitHub Architecture</span>
             </a>
           </div>
         </div>

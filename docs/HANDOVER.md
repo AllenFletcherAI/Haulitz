@@ -2,29 +2,40 @@
 Standard: ASD-STE100 Simplified Technical English · Habit 01
 
 ## 1. What We Finished (Done)
-- **Cinematic Hero with Live Moving Document Scanner**:
-  - Engineered kinetic typography headline and human-first subheadline with zero legal jargon or AI slop.
-  - Implemented the Living Document Scanner card with a vertical laser sweep animation (`@keyframes laserSweep`) and real-time interactive toggling between "Flawed Invoice" (highlighting €120.00 VAT overcharge trap and blocked SAP staging) and "HAULITZ Verified" (recalculating line items to the cent, assigning cryptographic SHA-256 seal, and clearing for SAP S/4HANA).
-  - Added smooth 3D mouse parallax tilt physics with automatic recentering.
-- **Persistent Top Workspace Quick Switcher (Strict Zero-Clip Dock)**:
-  - Positioned a sleek horizontal dock right beneath the header with all 10 domain icons, badges, and numbers (01–10).
-  - Enables instant 1-click workspace switching at the very top of the page without page scrolling.
-  - Resolved all top border clipping issues on cards by increasing vertical breathing room and setting `box-sizing: border-box`.
-- **Interactive 10-Industry Workspace Hub (Hick's Law Alignment)**:
-  - Replaced the overwhelming 10-card wall of clutter with a streamlined sliding pill dock and a single dynamic showcase card.
-  - Clicking any industry pill smoothly updates statutory rules, target employers, document types, and direct launch links.
-- **Apple / Linear-Style Bento Grid**:
-  - Implemented 4 tactile architecture cards: Zero Rounding Drift, Algorithmic Check Digits, Automated ERP Firewall, and Immutable Frankfurt Audit Trail.
-  - Added interactive mini-widgets (safe 64-bit cent math, Modulo-97 rest check, ERP pipeline nodes, and SHA-256 seal chain).
-- **Executive Solutions & Integration Engineer Profile**:
-  - Displayed at the very bottom of the page in an authoritative executive layout.
-  - Includes Allen Simeon Fletcher's portrait in an emerald-accented circular frame, official qualification badges (M.Sc. AI Anabin H+, § 18g EU Blue Card Ready, 30/30 Verified Scenarios), and 3 structured impact pillars (The Problem, The Solution Built, Solutions & Integration Fit).
-- **Header Brand Polish**:
-  - Leveled the top of the green "HZ" badge with the top of the "HAULITZ" brand typography.
-  - Tightened vertical spacing between "HAULITZ" and "Enterprise Verification Gateway".
-- **Verification Integrity**:
-  - `node verify_haulitz.js` passes all 30/30 statutory and mathematical scenarios with 100% precision.
-  - `node -c js/app.js` passes clean syntax validation.
+- **Top Navigation Bar (Zero-Scroll Master Dock)**:
+  - Preserved both tab bars (the top sticky switcher and the on-page showcase dock) per user request.
+  - Removed the bulky `WORKSPACES:` label to reclaim ~140px of horizontal room.
+  - Applied compact padding (`0.3rem 0.58rem`) and centered all 10 pills (`01 FinTech` through `10 Enterprise ERP`) so all 10 pills fit cleanly in a single row on desktop without horizontal scrolling or clipping.
+  - Implemented a solid opaque background (`#090d16`) with an emerald bottom hairline to prevent background text bleed-through when scrolling.
+- **Living Document Scanner (10-Domain Real-Time Morphing)**:
+  - Connected the living scanner directly to all 10 industry workspaces.
+  - Clicking any tab in either the top dock or the on-page dock dynamically morphs the document badge, vendor, channel, line items, and statutory violation alerts in real time.
+  - Built comprehensive presets for all 10 German domains: FinTech (§ 14 UStG VAT overcharge), Maritime (SOLAS VGM & § 412 HGB overload), Supply Chain (HGB § 377 3-way shortfall), InsurTech (VVG § 86 labor cap), LegalTech (LkSG § 5 BAFA audit gaps), HealthTech (GOÄ § 5 Abs. 2 multiplier ceiling), E-Commerce (GS1 EAN-13 check digit mismatch), CleanTech (VDE-AR-N 4105 & EEG § 9 70% inverter cap), PropTech (HeizkostenV § 12 70/30 split violation), and Enterprise ERP (OWASP ASVS SQL injection firewall).
+  - Maintained sweeping vertical laser beam, 3D mouse parallax tilt physics, and real-time recalculation between Flawed and Verified states.
+  - Added a dedicated footer launch strip displaying the active workspace name with a direct link to the full workspace.
+- **Atmospheric Studio Lighting & Depth**:
+  - Eliminated the flat dead-black background with an ambient radial aurora glow cone (`rgba(16, 185, 129, 0.16)` and `rgba(6, 182, 212, 0.08)`) behind the hero and scanner.
+  - Fixed headline gradient bug: Made `.gradient-text` a global utility rule so "before they hit your books." radiates in radiant emerald.
+- **Apple / Linear-Style Bento Grid (Tactile Micro-Widgets)**:
+  - Replaced empty wireframe boxes with rich, interactive micro-applications:
+    - Card 1: Live IEEE-754 Float Math vs. HAULITZ Safe 64-bit Cent Math comparison (`0.1 + 0.2 = 0.30000000000000004` vs. `10¢ + 20¢ = 30¢`).
+    - Card 2: Step-by-step SEPA IBAN Modulo-97 formula visualizer (`98 - (IBAN % 97) == 01`).
+    - Card 3: Bifurcated ERP architecture pipeline (Pass &rarr; SAP S/4HANA Staging vs. Fail &rarr; Auto HGB § 377 Dispute Notice).
+    - Card 4: Cryptographic SHA-256 block chain (Block #28 &rarr; Block #29 &rarr; Block #30 with AWS eu-central-1 Neon badge).
+- **Executive Solutions & Integration Engineer Profile (Allen Simeon Fletcher)**:
+  - Eliminated the 270px void beneath Allen's portrait with an Executive Identity & Availability mini-panel:
+    - `📍 Germany · Munich / Frankfurt / Remote`
+    - `⚡ Fast-Track § 18g EU Blue Card Ready`
+    - `🎯 SAP S/4HANA · PostgreSQL · REST/EDI Gateways`
+  - Rebalanced the 3 credential pills onto a single line.
+  - Added distinctive left accent borders (Amber for Problem, Emerald for Solution, Cyan for Fit).
+  - Highlighted German enterprise keywords in bold.
+  - Upgraded action buttons with a primary emerald email CTA.
+- **Global Anti-Runt Typography**:
+  - Applied `text-wrap: balance` to headings and `text-wrap: pretty` to body text.
+- **Deterministic Verification Suite**:
+  - `node verify_haulitz.js` passed all 30/30 scenarios with 100% precision.
+  - `node -c js/app.js` passed clean syntax validation.
 
 ## 2. What We Are Working On Now
 - Commit all changes to git and push to GitHub (`origin main`).
