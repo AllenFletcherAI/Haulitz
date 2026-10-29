@@ -192,3 +192,40 @@ We chose **Option 3**. The landing page achieves institutional Awwwards/Linear-g
 ### 4. When to Reconsider
 If multi-tenant organization self-signup or billing portals are introduced, expand the FAQ and legal disclosures accordingly.
 
+---
+
+## ADR-007: Strategic Repositioning to Open-Source Reference Architecture, Statutory Law Precision, and Real Enterprise Ingestion Modeling
+- **Date:** 2026-10-29
+- **Author:** Allen Simeon Fletcher
+- **AI Model Assisting:** Antigravity / DeepMind Pair Programmer
+- **Status:** APPROVED & ACTIVE
+
+### 1. The Context & Problem
+A rigorous technical critique identified that the site suffered from an identity conflict: it presented itself as a commercial enterprise SaaS product ("HAULITZ Enterprise Verification Gateway") while simultaneously serving as a personal engineering portfolio ("Allen Simeon Fletcher · Available for Full-Time Roles"). This created two major credibility issues:
+1. **Uncanny Valley Positioning:** Enterprise buyers saw an unincorporated entity on a free `workers.dev` URL without IDW PS 880 / SOC 2 certification; hiring managers saw a candidate wearing an artificial SaaS company costume.
+2. **Statutory & Domain Inaccuracies:** The legal citations conflated invoice mandatory fields (§ 14 UStG) with tax rates (§ 12 UStG), misapplied physical goods inspection law (HGB § 377) to accounting documents, overstated bank check digit validation as account existence, and claimed GoBD compliance through hash chaining alone.
+3. **Overclaimed Enterprise Interfaces:** Vague claims of "zero schema mutation REST connectors into SAP" without specifying BAPIs, IDocs, or staging tables, alongside category errors (listing HR tool Personio and database PostgreSQL as ERP staging targets).
+4. **Hosting Inconsistency:** Claimed Frankfurt data residency while deployed on a global Anycast edge network.
+5. **Shallow Math Example:** Trivial `0.1 + 0.2` float trope failed to demonstrate the real cumulative per-line rounding hazards that break enterprise ERP payment runs.
+
+### 2. The Three Options Considered
+1. **Option 1: Double down on commercial SaaS framing**
+   - *Drawback:* Requires registering a German legal entity (GmbH/UG), paying for formal IDW PS 880 / GoBD certification audits, purchasing custom domains, creating a sales team, and drafting commercial DPAs/AVVs. Unrealistic and dishonest for an engineer seeking employment.
+2. **Option 2: Strip all enterprise concepts down to a basic static resume**
+   - *Drawback:* Throws away 30 fully verified domain test suites and weakens the demonstration of Solutions & Integration Engineering capability.
+3. **Option 3: Transparent, Authoritative Engineering Reference Implementation**
+   - Proudly frame HAULITZ as an open-source technical reference architecture engineered by Allen Simeon Fletcher to demonstrate deterministic document verification before ERP staging.
+   - Correct all German legal citations: separate § 12 UStG (rates) from § 14 UStG (invoice content); scope HGB § 377 strictly to physical supply chain triads; frame GoBD as compliance principles (BMF-Schreiben); specify ISO 7064 MOD 97-10 syntax validation.
+   - Replace shallow float tropes with real cumulative per-line rounding vs subtotal rounding hazards.
+   - Specify concrete SAP S/4HANA integration interfaces (`BAPI_INCOMINGINVOICE_CREATE`, IDoc `INVOIC02`, `STG_VENDOR_INVOICES`) and DATEV formats.
+   - Clarify the hosting model: Edge ingestion runtime + Frankfurt AWS `eu-central-1` VPC target architecture.
+   - Add permanent security hygiene (`robots.txt`, `sitemap.xml`, `.well-known/security.txt`, security headers in `_worker.js`, explicit zero-cookie disclosure).
+   - Enforce 100% strict German localization in DE mode and 100% strict English in EN mode.
+
+### 3. The Decision
+We chose **Option 3**. The site transitions from a fake SaaS company into an authentic, mathematically verified reference architecture that commands immediate respect from senior tech leads, SAP architects, and recruiters.
+
+### 4. When to Reconsider
+If HAULITZ is subsequently commercialized into a standalone venture, establish the corporate entity and obtain formal third-party compliance attestations.
+
+

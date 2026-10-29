@@ -78,6 +78,20 @@ Standard: ASD-STE100 Simplified Technical English · Habit 01
   - **Rich Metadata & SEO Schema**: Added OpenGraph preview tags, Twitter cards, and Schema.org JSON-LD structured data for `SoftwareApplication` and `Person`.
   - **Full Test Suite & Verification**: Passed 30/30 deterministic tests and 19/19 DOM/JS feature integrity checks with zero regressions.
 
+- **Strategic Repositioning to Open-Source Reference Architecture & Statutory Precision (ADR-007)**:
+  - **Unified Authentic Narrative**: Eliminated fake enterprise SaaS costume. Framed HAULITZ transparently as an open-source technical reference architecture engineered by Allen Simeon Fletcher.
+  - **German Statutory & Legal Precision**:
+    - Separated tax rates (§ 12 Abs. 1 & 2 UStG) from mandatory invoice content (§ 14 UStG).
+    - Scoped HGB § 377 (Kaufmännische Rügeobliegenheit) strictly to physical supply chain triads (PO vs. Goods Receipt vs. Invoice).
+    - Framed GoBD accurately as compliance principles (BMF-Schreiben) supported by sequential SHA-256 seal chaining.
+    - Specified ISO 7064 MOD 97-10 syntax check with clear disclosure on account existence verification.
+  - **Real Enterprise Arithmetic Hazards**: Upgraded Bento Card 1 from trivial float tropes to cumulative per-line tax rounding variances, multi-rate tax baskets, and ECB reference FX conversions.
+  - **Concrete Enterprise Integration Interfaces**: Replaced marketing jargon with explicit technical interfaces: SAP MM-LIV BAPIs (`BAPI_INCOMINGINVOICE_CREATE`), IDocs (`INVOIC02`), DATEV formats, and relational AP staging schemas (`STG_VENDOR_INVOICES`).
+  - **Hosting Transparency & Security Headers**: Clarified edge runtime ingestion + private Frankfurt VPC target architecture. Added security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`) in `_worker.js`.
+  - **SEO & Compliance Hygiene**: Added `robots.txt`, `sitemap.xml`, `.well-known/security.txt`, and explicit zero-cookie privacy declaration.
+  - **Strict Bilingual Discipline**: Implemented 100% natural, grammatically correct German in DE mode (including all FAQs and legal notices) and 100% professional English in EN mode.
+  - **Sanitized Scraped Artifacts**: Hidden toast placeholder sanitized to prevent scrapers from extracting orphaned success notices.
+
 ## 2. What We Are Working On Now
 - Commit clean changes to git and push to GitHub (`origin main`).
 - Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).

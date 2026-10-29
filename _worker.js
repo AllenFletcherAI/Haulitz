@@ -322,15 +322,31 @@ export default {
       '/erp-staging.html': '/workspaces/erp-staging.html'
     };
 
+    function withSecurityHeaders(resp) {
+      if (!resp) return resp;
+      const newHeaders = new Headers(resp.headers);
+      newHeaders.set('X-Content-Type-Options', 'nosniff');
+      newHeaders.set('X-Frame-Options', 'SAMEORIGIN');
+      newHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+      newHeaders.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+      return new Response(resp.body, {
+        status: resp.status,
+        statusText: resp.statusText,
+        headers: newHeaders
+      });
+    }
+
     if (workspaceAliases[url.pathname] && env && env.ASSETS && typeof env.ASSETS.fetch === 'function') {
       const rewritten = new URL(request.url);
       rewritten.pathname = workspaceAliases[url.pathname];
-      return env.ASSETS.fetch(new Request(rewritten, request));
+      const resp = await env.ASSETS.fetch(new Request(rewritten, request));
+      return withSecurityHeaders(resp);
     }
 
     // 8. Default fallback: serve static assets via Cloudflare Pages / Workers Assets
     if (env && env.ASSETS && typeof env.ASSETS.fetch === 'function') {
-      return env.ASSETS.fetch(request);
+      const resp = await env.ASSETS.fetch(request);
+      return withSecurityHeaders(resp);
     }
 
     return new Response('Haulitz Enterprise Gateway (Worker Active)', {

@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAULITZ | Deterministic Enterprise Verification Gateway</title>
+  <title>HAULITZ | Deterministic Enterprise Verification Gateway (Reference Implementation)</title>
   
-  <meta name="description" content="HAULITZ audits vendor invoice math, German statutory VAT (19%/7%), and SEPA IBAN checksums before ERP staging. GoBD § 147 AO compliant cryptographic audit trail.">
-  <meta name="keywords" content="invoice verification, GoBD, § 14 UStG, SAP S4HANA staging, SEPA IBAN check, deterministic audit, German enterprise ERP">
+  <meta name="description" content="HAULITZ is an open-source technical reference architecture engineered by Allen Simeon Fletcher. Demonstrates deterministic invoice arithmetic, German statutory VAT compliance (§ 12 &amp; § 14 UStG), and cryptographic GoBD audit logging before ERP staging.">
+  <meta name="keywords" content="invoice verification, GoBD, § 12 UStG, § 14 UStG, SAP S4HANA staging, SEPA IBAN check, ISO 7064, deterministic audit, German enterprise ERP, Solutions Engineer">
   <meta name="author" content="Allen Simeon Fletcher">
 
   <!-- Open Graph / LinkedIn / Facebook Social Previews -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://haulitz.allensimeonfletcher.workers.dev/">
-  <meta property="og:title" content="HAULITZ | Deterministic Enterprise Verification Gateway">
-  <meta property="og:description" content="Catch invoice errors before they hit your books. Audits calculations, VAT rates, and IBANs before ERP payment runs.">
+  <meta property="og:title" content="HAULITZ | Deterministic Enterprise Verification Gateway (Reference Implementation)">
+  <meta property="og:description" content="Open-source reference implementation by Allen Simeon Fletcher. Audits vendor invoice arithmetic, statutory VAT, and bank checksums before ERP staging.">
   <meta property="og:image" content="https://haulitz.allensimeonfletcher.workers.dev/assets/favicon.svg">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HAULITZ | Deterministic Enterprise Verification Gateway">
-  <meta name="twitter:description" content="Automated invoice math and tax rate verification before SAP S/4HANA payment runs.">
+  <meta name="twitter:title" content="HAULITZ | Deterministic Enterprise Verification Gateway (Reference Implementation)">
+  <meta name="twitter:description" content="Automated invoice arithmetic, statutory German VAT (§ 12/§ 14 UStG), and SEPA ISO 7064 MOD 97-10 verification before SAP S/4HANA payment runs.">
 
   <!-- Schema.org JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -31,7 +31,7 @@
         "name": "HAULITZ",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "All",
-        "description": "Deterministic enterprise document verification gateway enforcing GoBD § 147 AO, § 14 UStG, and SEPA ISO 7064 compliance prior to ERP staging.",
+        "description": "Deterministic enterprise document verification gateway reference architecture enforcing § 12 & § 14 UStG, GoBD audit trail principles, and SEPA ISO 7064 MOD 97-10 compliance prior to ERP staging.",
         "author": {
           "@type": "Person",
           "name": "Allen Simeon Fletcher"
@@ -105,7 +105,7 @@
       <div class="brand-badge">HZ</div>
       <div class="brand-text-block">
         <span class="brand-name">HAULITZ</span>
-        <span class="brand-subtitle">Enterprise Verification Gateway</span>
+        <span class="brand-subtitle" id="header-brand-subtitle">Reference Implementation</span>
       </div>
     </a>
 
@@ -162,27 +162,27 @@
       <!-- Top Glowing Status Pill -->
       <div class="hero-badge-pill">
         <span class="live-pulse-dot"></span>
-        <span id="hero-badge-text">DETERMINISTIC VERIFICATION ENGINE</span>
+        <span id="hero-badge-text">OPEN-SOURCE REFERENCE IMPLEMENTATION · DETERMINISTIC ENGINE</span>
       </div>
 
       <!-- High-Impact Kinetic Headline -->
       <h1 class="hero-headline">
-        <span id="hero-title-main">Catch invoice errors</span><br>
-        <span class="gradient-text" id="hero-title-gradient">before they hit your books.</span>
+        <span id="hero-title-main">Deterministic invoice verification</span><br>
+        <span class="gradient-text" id="hero-title-gradient">before ERP staging.</span>
       </h1>
 
       <!-- Human-First Clear Subheadline (No Legal Salad) -->
       <p class="hero-subheadline" id="hero-subheadline">
-        HAULITZ automatically audits calculations, tax rates, and bank details on vendor invoices before ERP staging. No math drift. No bad payments. No audit panic.
+        A technical reference architecture engineered by Allen Simeon Fletcher. Audits vendor invoice arithmetic, statutory German VAT tiers (§ 12 &amp; § 14 UStG), and SEPA ISO 7064 MOD 97-10 check digits in code before payment runs.
       </p>
 
       <!-- Two Focused Action CTAs (Hick's Law) -->
       <div class="hero-cta-group">
         <a href="#hero-scanner-wrap" class="btn-primary-hero" id="btn-hero-test">
-          <i class="fa-solid fa-play"></i> <span id="btn-hero-test-text">Test Live Scanner</span>
+          <i class="fa-solid fa-play"></i> <span id="btn-hero-test-text">Test Live Ingestion Scanner</span>
         </a>
         <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-secondary-hero">
-          <i class="fa-brands fa-github"></i> <span id="btn-hero-github-text">View Source on GitHub</span>
+          <i class="fa-brands fa-github"></i> <span id="btn-hero-github-text">Inspect GitHub Code &amp; Tests (30/30)</span>
         </a>
       </div>
 
@@ -228,7 +228,7 @@
               <!-- Verification Line with Hotspot -->
               <div class="scanner-item-row vat-row" id="scanner-vat-row">
                 <span class="item-name">
-                  <span id="sc-vat-label">Calculated Tax (19% VAT):</span>
+                  <span id="sc-vat-label">Calculated Tax (19% VAT per § 12 Abs. 1 UStG):</span>
                   <span class="badge-scanner-discrepancy" id="scanner-vat-tag">⚠ +€120.00 Overcharge</span>
                 </span>
                 <span class="font-mono-code font-bold text-danger" id="scanner-vat-amount">€918.00</span>
@@ -242,8 +242,8 @@
 
               <!-- Checksum / Rule Line -->
               <div class="scanner-item-row bank-row" id="scanner-bank-row">
-                <span class="item-name"><i class="fa-solid fa-shield-halved text-muted" id="sc-rule-icon"></i> <span id="sc-iban-label">SEPA IBAN Modulo-97:</span> <span class="font-mono-code" id="sc-iban-val">DE89 3704 0044 ...</span></span>
-                <span class="badge-scanner-clean" id="sc-iban-badge"><i class="fa-solid fa-check"></i> <span id="sc-iban-status">Checksum Valid</span></span>
+                <span class="item-name"><i class="fa-solid fa-shield-halved text-muted" id="sc-rule-icon"></i> <span id="sc-iban-label">SEPA IBAN (ISO 7064 MOD 97-10):</span> <span class="font-mono-code" id="sc-iban-val">DE89 3704 0044 ...</span></span>
+                <span class="badge-scanner-clean" id="sc-iban-badge"><i class="fa-solid fa-check"></i> <span id="sc-iban-status">Syntax Valid (MOD 97-10)</span></span>
               </div>
             </div>
 
@@ -251,8 +251,8 @@
             <div class="scanner-alert-banner alert-flawed" id="scanner-banner-flawed">
               <i class="fa-solid fa-hand-holding-dollar banner-icon text-danger" id="scanner-banner-icon-flawed"></i>
               <div class="banner-text">
-                <div class="banner-title text-danger" id="sc-alert-title-flawed">🚨 PAYMENT RUN HALTED (§ 14 UStG VIOLATION)</div>
-                <div class="banner-desc" id="sc-alert-desc-flawed">Vendor overcharged VAT by +€120.00. ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.</div>
+                <div class="banner-title text-danger" id="sc-alert-title-flawed">🚨 PAYMENT RUN HALTED (§ 12 Abs. 1 &amp; § 14 UStG VARIANCE)</div>
+                <div class="banner-desc" id="sc-alert-desc-flawed">Vendor claimed €918.00 VAT instead of statutory €798.00 (+€120.00 discrepancy). ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.</div>
               </div>
             </div>
 
@@ -260,7 +260,7 @@
               <i class="fa-solid fa-circle-check banner-icon text-emerald" id="scanner-banner-icon-verified"></i>
               <div class="banner-text">
                 <div class="banner-title text-emerald" id="sc-alert-title-verified">✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA</div>
-                <div class="banner-desc" id="sc-alert-desc-verified">Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned.</div>
+                <div class="banner-desc" id="sc-alert-desc-verified">Line math reconciled to the exact cent (€798.00 VAT / €4,998.00 Gross). Sequential SHA-256 seal assigned for GoBD audit trail.</div>
               </div>
             </div>
 
@@ -291,49 +291,48 @@
           <div class="comp-badge-item">
             <i class="fa-solid fa-file-shield text-emerald"></i>
             <div>
-              <span class="comp-law font-mono-code">GoBD § 147 AO</span>
-              <span class="comp-desc">Immutable Hash Chaining</span>
+              <span class="comp-law font-mono-code" id="badge-gobd-law">GoBD (BMF-Grundsätze)</span>
+              <span class="comp-desc" id="badge-gobd-desc">Unveränderbarkeit &amp; SHA-256 Prüfpfad</span>
             </div>
           </div>
           <div class="comp-badge-item">
             <i class="fa-solid fa-calculator text-emerald"></i>
             <div>
-              <span class="comp-law font-mono-code">§ 14 UStG</span>
-              <span class="comp-desc">19% / 7% Statutory VAT</span>
+              <span class="comp-law font-mono-code" id="badge-ustg-law">§ 12 &amp; § 14 UStG</span>
+              <span class="comp-desc" id="badge-ustg-desc">19% / 7% USt &amp; Pflichtangaben</span>
             </div>
           </div>
           <div class="comp-badge-item">
             <i class="fa-solid fa-gavel text-amber"></i>
             <div>
-              <span class="comp-law font-mono-code">HGB § 377</span>
-              <span class="comp-desc">Commercial Defect Notices</span>
+              <span class="comp-law font-mono-code" id="badge-hgb-law">HGB § 377 (Supply Chain)</span>
+              <span class="comp-desc" id="badge-hgb-desc">3-Wege-Abgleich (PO vs. Wareneingang)</span>
             </div>
           </div>
           <div class="comp-badge-item">
             <i class="fa-solid fa-building-columns text-emerald"></i>
             <div>
-              <span class="comp-law font-mono-code">SEPA ISO 7064</span>
-              <span class="comp-desc">Modulo-97 Checksums</span>
+              <span class="comp-law font-mono-code" id="badge-iban-law">ISO 7064 MOD 97-10</span>
+              <span class="comp-desc" id="badge-iban-desc">IBAN-Syntax &amp; Prüfziffern</span>
             </div>
           </div>
           <div class="comp-badge-item">
             <i class="fa-solid fa-server text-blue"></i>
             <div>
-              <span class="comp-law font-mono-code">DSGVO / GDPR</span>
-              <span class="comp-desc">Frankfurt (AWS eu-central-1)</span>
+              <span class="comp-law font-mono-code" id="badge-dsgvo-law">DSGVO / GDPR</span>
+              <span class="comp-desc" id="badge-dsgvo-desc">Frankfurt VPC Referenzarchitektur</span>
             </div>
           </div>
         </div>
 
         <div class="erp-ecosystem-strip">
-          <span class="erp-strip-label" id="erp-ecosystem-label">STAGING TARGETS:</span>
+          <span class="erp-strip-label" id="erp-ecosystem-label">SCHNITTSTELLEN &amp; INTEGRATIONSZIELE:</span>
           <div class="erp-logos-row">
-            <span class="erp-logo-chip"><i class="fa-solid fa-database text-emerald"></i> SAP S/4HANA</span>
-            <span class="erp-logo-chip"><i class="fa-solid fa-file-invoice text-blue"></i> DATEV</span>
-            <span class="erp-logo-chip"><i class="fa-solid fa-network-wired text-cyan"></i> Microsoft Dynamics</span>
-            <span class="erp-logo-chip"><i class="fa-solid fa-credit-card text-amber"></i> Pleo &amp; Moss</span>
-            <span class="erp-logo-chip"><i class="fa-solid fa-users-gear text-purple"></i> Personio</span>
-            <span class="erp-logo-chip"><i class="fa-solid fa-server text-emerald"></i> PostgreSQL</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-database text-emerald"></i> SAP S/4HANA (MM-LIV / BAPI)</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-file-invoice text-blue"></i> DATEV Format (Rechnungswesen)</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-network-wired text-cyan"></i> MS Dynamics 365 (F&amp;O / BC)</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-code-compare text-amber"></i> ZUGFeRD 2.2 / XRechnung</span>
+            <span class="erp-logo-chip"><i class="fa-solid fa-server text-emerald"></i> PostgreSQL AP Staging (RLS)</span>
           </div>
         </div>
       </div>
@@ -427,30 +426,30 @@
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-calculator"></i></div>
-            <h3 class="bento-title" id="bento-1-title">Zero Rounding Drift</h3>
+            <h3 class="bento-title" id="bento-1-title">Per-Line Rounding &amp; Integer Math Guard</h3>
             <p class="bento-desc" id="bento-1-desc">
-              Every invoice subtotal, quantity multiplier, and VAT tier is audited strictly to the exact cent in code. Stops tiny fractions from compounding into massive audit balance-sheet discrepancies.
+              Enterprise ERP payment runs break when cumulative per-line tax rounding deviates from aggregated net subtotals, or when floating-point conversion drifts across foreign exchange rates. HAULITZ executes all financial math strictly in 64-bit integer cents (BigInt), reconciling line-item rounding differences before staging.
             </p>
           </div>
           <div class="bento-comparison-widget">
             <div class="comp-col comp-fail">
-              <div class="comp-header"><i class="fa-solid fa-triangle-exclamation text-danger"></i> <span>IEEE-754 Float Math</span></div>
-              <div class="comp-code font-mono-code" id="bento-float-calc">0.1 + 0.2 = 0.30000000000000004 €</div>
+              <div class="comp-header"><i class="fa-solid fa-triangle-exclamation text-danger"></i> <span id="bento-float-header">Floating-Point Drift</span></div>
+              <div class="comp-code font-mono-code" id="bento-float-calc">50 × €0.3781 → 50 × €0.38 = €19.00 (Delta +€0.09)</div>
               <div class="comp-sub text-danger" id="bento-float-sub">❌ Compounding Variance Trap</div>
             </div>
             <div class="comp-divider">vs</div>
             <div class="comp-col comp-pass">
-              <div class="comp-header"><i class="fa-solid fa-circle-check text-emerald"></i> <span>HAULITZ 64-bit Cent Math</span></div>
-              <div class="comp-code font-mono-code font-bold" id="bento-cent-calc">10¢ + 20¢ = 30¢ (€0.30)</div>
-              <div class="comp-sub text-emerald" id="bento-cent-sub">✔ Exact Cent Deterministic</div>
+              <div class="comp-header"><i class="fa-solid fa-circle-check text-emerald"></i> <span id="bento-cent-header">HAULITZ 64-bit Cent Math</span></div>
+              <div class="comp-code font-mono-code font-bold" id="bento-cent-calc">50 × 199¢ @ 19% = 1890.5¢ → 1891¢ (€18.91)</div>
+              <div class="comp-sub text-emerald" id="bento-cent-sub">✔ Exact Statutory Cent Reconciliation</div>
             </div>
           </div>
           <div class="bento-cent-interactive-row">
-            <span class="cent-interactive-label font-mono-code">TEST VALUE PRESETS:</span>
+            <span class="cent-interactive-label font-mono-code" id="bento-presets-label">TEST VALUE PRESETS:</span>
             <div class="cent-btn-group">
-              <button type="button" class="btn-cent-test active" data-test="1">0.10€ + 0.20€</button>
-              <button type="button" class="btn-cent-test" data-test="2">19.99€ × 3 + 0.01€</button>
-              <button type="button" class="btn-cent-test" data-test="3">105.15€ @ 19% VAT</button>
+              <button type="button" class="btn-cent-test active" data-test="1" id="btn-preset-1">50 Lines @ €1.99 (19% VAT)</button>
+              <button type="button" class="btn-cent-test" data-test="2" id="btn-preset-2">Mixed VAT (§ 12 Abs. 1 &amp; 2 UStG)</button>
+              <button type="button" class="btn-cent-test" data-test="3" id="btn-preset-3">FX Rate (USD to EUR ECB Ref)</button>
             </div>
           </div>
         </div>
@@ -459,9 +458,9 @@
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-barcode"></i></div>
-            <h3 class="bento-title" id="bento-2-title">Algorithmic Check Digits</h3>
+            <h3 class="bento-title" id="bento-2-title">ISO 7064 MOD 97-10 Check Digits</h3>
             <p class="bento-desc" id="bento-2-desc">
-              Enforces international ISO 7064 Modulo-97 (SEPA IBAN) and GS1 EAN-13 check digit algorithms before money moves. Eliminates typoed payments and fake accounts.
+              Validates international SEPA IBAN check digits strictly via the ISO 7064 MOD 97-10 algorithm before queuing disbursement runs. Catches transposition errors, misplaced characters, and corrupted bank codes prior to EBICS transmission. (Note: Validates check digit integrity; account existence requires directory lookup).
             </p>
           </div>
           <div class="bento-formula-widget">
@@ -471,7 +470,7 @@
                 <input type="text" id="bento-iban-input" class="bento-iban-input font-mono-code" value="DE89 3704 0044 0532 0130 00" maxlength="34" spellcheck="false" />
               </div>
               <div class="iban-calc-status" id="bento-iban-status">
-                <span class="scanner-dot"></span> <span class="text-emerald font-bold font-mono-code" id="bento-iban-msg">Remainder == 1 Validated (ISO 7064)</span>
+                <span class="scanner-dot"></span> <span class="text-emerald font-bold font-mono-code" id="bento-iban-msg">Remainder == 1 Validated (ISO 7064 MOD 97-10)</span>
               </div>
             </div>
           </div>
@@ -481,16 +480,16 @@
         <div class="bento-card">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-network-wired"></i></div>
-            <h3 class="bento-title" id="bento-3-title">Automated ERP Firewall</h3>
+            <h3 class="bento-title" id="bento-3-title">Pre-Staging ERP Firewall</h3>
             <p class="bento-desc" id="bento-3-desc">
-              Verified documents stream cleanly into SAP S/4HANA and PostgreSQL. Erroneous documents automatically generate a structured commercial dispute memo dispatched via API.
+              Acts as an automated pre-staging validation buffer. Compliant invoices generate structured payloads ready for SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE / INVOIC02) and DATEV. Defective invoices generate automated dispute memos before records touch company ledgers.
             </p>
           </div>
           <div class="bento-pipeline-visual">
-            <div class="b-pipe-source"><i class="fa-solid fa-file-shield text-emerald"></i> Ingestion Inbound</div>
+            <div class="b-pipe-source"><i class="fa-solid fa-file-shield text-emerald"></i> Ingestion (ZUGFeRD / XRechnung)</div>
             <div class="b-pipe-split">
               <div class="b-pipe-branch pass"><i class="fa-solid fa-circle-check text-emerald"></i> Pass &rarr; SAP S/4HANA Staging</div>
-              <div class="b-pipe-branch fail"><i class="fa-solid fa-shield-xmark text-danger"></i> Fail &rarr; Auto Dispute Memo</div>
+              <div class="b-pipe-branch fail"><i class="fa-solid fa-shield-xmark text-danger"></i> Fail &rarr; Auto Dispute Notice</div>
             </div>
           </div>
         </div>
@@ -499,9 +498,9 @@
         <div class="bento-card bento-card-wide">
           <div class="bento-card-content">
             <div class="bento-icon-badge"><i class="fa-solid fa-fingerprint"></i></div>
-            <h3 class="bento-title" id="bento-4-title">Immutable Frankfurt Audit Trail</h3>
+            <h3 class="bento-title" id="bento-4-title">Tamper-Evident SHA-256 Audit Trail</h3>
             <p class="bento-desc" id="bento-4-desc">
-              Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL in Frankfurt (AWS eu-central-1) for permanent GoBD § 147 AO compliance.
+              Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL for GoBD-compliant record immutability (gemäß BMF-Schreiben). Designed for private VPC deployment in Frankfurt (AWS eu-central-1).
             </p>
           </div>
           <div class="bento-hash-chain-widget font-mono-code" id="bento-hash-chain">
@@ -518,7 +517,7 @@
             <div class="hash-block block-active" id="bento-current-block">
               <span class="block-num text-emerald" id="bento-block-num">Block #30 (Current)</span>
               <span class="block-hash text-emerald font-bold" id="bento-block-hash">3c8d10ae4b...</span>
-              <span class="block-tag">AWS eu-central-1 Neon</span>
+              <span class="block-tag">PostgreSQL Ledger · SHA-256 Chain</span>
             </div>
             <button type="button" class="btn-hash-seal" id="btn-seal-block" title="Compute next SHA-256 block seal in browser">
               <i class="fa-solid fa-plus-circle text-emerald"></i> <span>Seal Next Block</span>
@@ -539,9 +538,9 @@
           </div>
           <!-- Executive Identity & Availability Mini-Panel -->
           <div class="founder-avail-panel">
-            <div class="avail-row"><i class="fa-solid fa-location-dot text-emerald"></i> <span id="f-avail-loc">Germany (Relocation Anywhere · Remote / On-Site)</span></div>
-            <div class="avail-row"><i class="fa-solid fa-bolt text-amber"></i> <span>Fast-Track § 18g EU Blue Card Ready</span></div>
-            <div class="avail-row"><i class="fa-solid fa-database text-blue"></i> <span>SAP S/4HANA · PostgreSQL · REST/EDI</span></div>
+            <div class="avail-row"><i class="fa-solid fa-location-dot text-emerald"></i> <span id="f-avail-loc">Germany (Relocation Nationwide · Remote / On-Site)</span></div>
+            <div class="avail-row"><i class="fa-solid fa-bolt text-amber"></i> <span id="f-avail-visa">EU Blue Card Eligible (§ 18g AufenthG)</span></div>
+            <div class="avail-row"><i class="fa-solid fa-database text-blue"></i> <span>SAP S/4HANA Staging · PostgreSQL · REST/EDI</span></div>
           </div>
         </div>
 
@@ -550,11 +549,11 @@
           <div class="founder-executive-role" id="founder-role-title">Solutions &amp; Integration Engineer</div>
 
           <div class="founder-status-pills">
-            <span class="f-pill f-pill-location"><i class="fa-solid fa-location-dot text-emerald"></i> <span id="f-pill-location-text">Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)</span></span>
+            <span class="f-pill f-pill-location"><i class="fa-solid fa-location-dot text-emerald"></i> <span id="f-pill-location-text">Germany (Open to Relocation Nationwide · On-Site / Hybrid / Remote)</span></span>
             <span class="f-pill f-pill-avail"><span class="status-dot-pulse"></span> <span id="f-pill-avail-text">Available Immediately for Full-Time Roles</span></span>
-            <span class="f-pill"><i class="fa-solid fa-graduation-cap text-emerald"></i> <span>M.Sc. Artificial Intelligence (Anabin H+)</span></span>
-            <span class="f-pill"><i class="fa-solid fa-id-card text-emerald"></i> <span>§ 18g EU Blue Card Ready (Germany)</span></span>
-            <span class="f-pill"><i class="fa-solid fa-circle-check text-emerald"></i> <span>30/30 Verified Scenarios</span></span>
+            <span class="f-pill"><i class="fa-solid fa-graduation-cap text-emerald"></i> <span id="f-pill-degree-text">M.Sc. Artificial Intelligence (Degree Recognized in Germany · Anabin H+)</span></span>
+            <span class="f-pill"><i class="fa-solid fa-id-card text-emerald"></i> <span id="f-pill-visa-text">EU Blue Card Eligible (§ 18g AufenthG)</span></span>
+            <span class="f-pill"><i class="fa-solid fa-circle-check text-emerald"></i> <span id="f-pill-tests-text">30/30 Verified Scenarios (tests/verify_haulitz.js)</span></span>
           </div>
 
           <div class="founder-impact-grid">
@@ -565,10 +564,10 @@
                   <line x1="12" y1="9" x2="12" y2="13"/>
                   <line x1="12" y1="17" x2="12.01" y2="17"/>
                 </svg>
-                <span id="f-imp-title-1">The Problem</span>
+                <span id="f-imp-title-1">The Engineering Challenge</span>
               </div>
               <p class="impact-desc" id="f-imp-desc-1">
-                Companies lose millions every year to tiny invoice <strong>rounding errors</strong>, <strong>incorrect tax rates</strong>, and unverified bank details that silently corrupt enterprise ledgers.
+                Enterprise financial ingestion pipelines halt when incoming vendor documents contain subtle <strong>per-line rounding errors</strong>, statutory <strong>tax rate mismatches</strong>, or malformed bank check digits. Manual reconciliation costs companies thousands of accounting and engineering hours.
               </p>
             </div>
             <div class="founder-impact-item item-solution">
@@ -578,10 +577,10 @@
                   <path d="M9 9h6v6H9z"/>
                   <path d="M9 1v2m6-2v2M9 21v2m6-2v2M1 9h2m-2 6h2M21 9h2m-2 6h2"/>
                 </svg>
-                <span id="f-imp-title-2">The Solution Built</span>
+                <span id="f-imp-title-2">The Reference Architecture</span>
               </div>
               <p class="impact-desc" id="f-imp-desc-2">
-                I engineered HAULITZ as an <strong>automated verification gateway</strong>. It intercepts incoming documents, executes <strong>cent-exact math</strong> in code, and only stages certified records into <strong>SAP S/4HANA</strong>.
+                I engineered HAULITZ as an open-source technical reference gateway. It validates multi-format vendor payloads (ZUGFeRD 2.2, XRechnung, EDI, PDF) in memory with <strong>64-bit integer cent precision</strong>, isolates <strong>SAP S/4HANA staging tables</strong> from malformed data, and generates GoBD-aligned cryptographic audit trails.
               </p>
             </div>
             <div class="founder-impact-item item-fit">
@@ -590,10 +589,10 @@
                   <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
                 </svg>
-                <span id="f-imp-title-3">Solutions &amp; Integration Fit</span>
+                <span id="f-imp-title-3">Solutions Engineering Capability</span>
               </div>
               <p class="impact-desc" id="f-imp-desc-3">
-                Demonstrates direct capability for <strong>Solutions Engineering</strong>: ingesting messy, unstructured third-party data into <strong>SAP S/4HANA</strong> and <strong>PostgreSQL</strong> under German statutory frameworks (<strong>GoBD</strong>, <strong>HGB</strong>, <strong>UStG</strong>).
+                Demonstrates direct capability for <strong>Solutions Engineering</strong>: connecting messy third-party partner inputs into strict core enterprise systems (<strong>SAP S/4HANA</strong>, <strong>DATEV</strong>, <strong>PostgreSQL</strong>) under German statutory requirements with zero data corruption.
               </p>
             </div>
           </div>
@@ -612,7 +611,7 @@
               <i class="fa-solid fa-file-arrow-down text-emerald"></i> <span>Request CV Dossier</span>
             </a>
             <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="btn-contact-pill">
-              <i class="fa-brands fa-github text-emerald"></i> <span>GitHub Codebase</span>
+              <i class="fa-brands fa-github text-emerald"></i> <span>GitHub Code &amp; Tests (30/30)</span>
             </a>
           </div>
         </div>
@@ -717,11 +716,11 @@
             <span class="footer-brand-title">HAULITZ</span>
           </div>
           <p class="footer-mission" id="footer-mission-text">
-            Deterministic Enterprise Verification Gateway for ERP &amp; Supply Chain. Enforcing cent-exact math, statutory VAT, and cryptographic audit trails before payment execution.
+            Deterministic enterprise verification gateway &amp; open-source reference implementation engineered by Allen Simeon Fletcher. Demonstrates cent-exact math, German statutory VAT tiers (§ 12 &amp; § 14 UStG), and GoBD-aligned cryptographic audit trails before ERP staging.
           </p>
           <div class="footer-hosting-badge">
             <i class="fa-solid fa-server text-emerald"></i>
-            <span id="footer-host-text">Hosted in Frankfurt (AWS eu-central-1) · DSGVO Compliant</span>
+            <span id="footer-host-text">Edge Ingestion Gateway · Target VPC Architecture Frankfurt (AWS eu-central-1)</span>
           </div>
           <div class="footer-status-indicator">
             <span class="status-dot-pulse"></span>
@@ -750,12 +749,12 @@
         <div class="footer-col">
           <h4 class="footer-heading" id="f-head-arch">Architecture &amp; Proof</h4>
           <ul class="footer-links-list">
-            <li><a href="#hero-scanner-wrap">Live Document Scanner</a></li>
+            <li><a href="#hero-scanner-wrap">Live Ingestion Scanner</a></li>
             <li><a href="#section-workspaces">Deterministic Rules Hub</a></li>
-            <li><a href="#section-bento">Safe Cent Integer Math</a></li>
-            <li><a href="#section-bento">SEPA Modulo-97 Validator</a></li>
-            <li><a href="#section-bento">GoBD Frankfurt Ledger</a></li>
-            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer">Inspect GitHub Source</a></li>
+            <li><a href="#section-bento">Integer Cent Math Guard</a></li>
+            <li><a href="#section-bento">ISO 7064 MOD 97-10 Checker</a></li>
+            <li><a href="#section-bento">GoBD SHA-256 Audit Trail</a></li>
+            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer">Inspect GitHub Source &amp; Tests</a></li>
             <li><a href="#section-founder">Solutions Engineer Profile</a></li>
           </ul>
         </div>
@@ -766,7 +765,7 @@
           <ul class="footer-links-list">
             <li><a href="mailto:allensimeonfletcher@gmail.com"><i class="fa-solid fa-envelope text-emerald"></i> allensimeonfletcher@gmail.com</a></li>
             <li><a href="https://linkedin.com/in/allensimeonfletcher" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-blue"></i> LinkedIn Profile</a></li>
-            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository</a></li>
+            <li><a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github text-emerald"></i> GitHub Repository (30/30 Tests)</a></li>
             <li><a href="javascript:void(0)" id="link-open-impressum"><i class="fa-solid fa-scale-balanced text-muted"></i> Impressum (§ 5 TMG)</a></li>
             <li><a href="javascript:void(0)" id="link-open-datenschutz"><i class="fa-solid fa-user-shield text-muted"></i> Datenschutzerklärung (DSGVO)</a></li>
           </ul>
@@ -775,12 +774,12 @@
 
       <div class="footer-bottom-bar">
         <div class="footer-copyright">
-          &copy; 2026 HAULITZ &middot; Engineered by <a href="#section-founder" class="text-emerald font-bold">Allen Simeon Fletcher</a>. Built with deterministic engineering discipline.
+          &copy; 2026 HAULITZ &middot; Reference implementation engineered by <a href="#section-founder" class="text-emerald font-bold">Allen Simeon Fletcher</a>. Built with deterministic engineering discipline.
         </div>
         <div class="footer-legal-links">
-          <button type="button" class="btn-text-legal" id="btn-impressum-legal">Impressum</button>
+          <button type="button" class="btn-text-legal" id="btn-impressum-legal">Impressum (§ 5 TMG)</button>
           <span>&middot;</span>
-          <button type="button" class="btn-text-legal" id="btn-datenschutz-legal">Datenschutz</button>
+          <button type="button" class="btn-text-legal" id="btn-datenschutz-legal">Datenschutz (DSGVO)</button>
         </div>
       </div>
     </div>
@@ -804,8 +803,8 @@
       <div class="legal-modal-body">
         <h4>Angaben gemäß § 5 TMG</h4>
         <p>
-          <strong>HAULITZ Enterprise Verification Gateway</strong><br>
-          Entwickelt und betrieben von:<br>
+          <strong>HAULITZ — Open-Source-Referenzarchitektur</strong><br>
+          Entwickelt und bereitgestellt von:<br>
           <strong>Allen Simeon Fletcher</strong><br>
           M.Sc. Artificial Intelligence &middot; Solutions &amp; Integration Engineer<br>
           Standort: Deutschland (Bundesweit verfügbar · Remote / Vor Ort)
@@ -818,9 +817,13 @@
         </p>
         <h4>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h4>
         <p>Allen Simeon Fletcher</p>
+        <h4>Rechtliche Einordnung des Projekts</h4>
+        <p>
+          HAULITZ ist eine technische Open-Source-Referenzimplementierung und ein Demonstrationsportal für deterministische Ingestion- und Verifikations-Pipelines. Es stellt kein kommerzielles SaaS-Angebot und keine Steuer- oder Rechtsberatung dar. Gesetzliche Zitate (§ 12/§ 14 UStG, GoBD, HGB § 377, ISO 7064) illustrieren die in Code abgebildeten Prüfregeln.
+        </p>
         <h4>Haftungsausschluss</h4>
         <p>
-          Die Inhalte dieses Software-Portals wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+          Die Inhalte dieses Portals wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte nach den allgemeinen Gesetzen verantwortlich.
         </p>
       </div>
     </div>
@@ -839,28 +842,32 @@
       <div class="legal-modal-body">
         <h4>1. Datenschutz auf einen Blick</h4>
         <p>
-          Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. HAULITZ verarbeitet Belegdaten deterministisch im Browser. Keine vertraulichen Rohdokumente oder Bankkontoinhalte werden dauerhaft auf externen Servern gespeichert.
+          Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. HAULITZ verarbeitet Belegdaten im Rahmen der Demonstration deterministisch direkt im Browser. Keine vertraulichen Rohdokumente oder Bankkontoinhalte werden dauerhaft auf externen Servern gespeichert.
         </p>
-        <h4>2. Hosting &amp; Serverstandort</h4>
+        <h4>2. Keine Tracking-Cookies oder Analysetools</h4>
         <p>
-          Das Hosting dieser Anwendung erfolgt über Cloudflare Edge und PostgreSQL-Instanzen in Frankfurt am Main, Deutschland (AWS eu-central-1), unter strikter Einhaltung der europäischen Datenschutz-Grundverordnung (DSGVO).
+          Diese Webseite verwendet <strong>weder Tracking-Cookies noch Werbepixel noch Third-Party-Analysedienste</strong>. Lokale Browserspeicher (localStorage) werden ausschließlich technisch genutzt, um Ihre aktive Sprachauswahl (DE/EN) und Farbschema-Einstellung (Dark/Light) lokal auf Ihrem Endgerät zu sichern.
         </p>
-        <h4>3. Kryptografische Hashes &amp; GoBD</h4>
+        <h4>3. Hosting &amp; Ziel-Infrastruktur</h4>
+        <p>
+          Das Frontend dieser Referenzarchitektur wird über das globale Edge-Netzwerk von Cloudflare bereitgestellt. Die demonstrierte Zielarchitektur für Produktivsysteme ist für private VPC-Deployments in Frankfurt am Main (AWS eu-central-1) unter strikter DSGVO-Konformität konzipiert.
+        </p>
+        <h4>4. Kryptografische Hashes &amp; GoBD</h4>
         <p>
           Im Rahmen der GoBD-Prüfpfadführung werden ausschließlich mathematische Prüfsummen (SHA-256 Hashes) und Prüfprotokoll-Zeitstempel festgeschrieben. Ein Rückschluss auf Betriebs- oder Geschäftsgeheimnisse Dritter ist aus diesen Hashes nicht möglich.
         </p>
-        <h4>4. Ihre Rechte</h4>
+        <h4>5. Ihre Rechte gemäß DSGVO</h4>
         <p>
-          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten.
+          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten (Art. 15–18 DSGVO).
         </p>
       </div>
     </div>
   </div>
 
   <!-- Interactive Toast Notification -->
-  <div class="toast-notification" id="toast-notification">
+  <div class="toast-notification" id="toast-notification" aria-live="polite" style="display:none;">
     <i class="fa-solid fa-circle-check text-emerald" id="toast-icon"></i>
-    <span id="toast-message">Meldung erfolgreich gesendet</span>
+    <span id="toast-message"></span>
   </div>
 
   <!-- ====================================================================

@@ -31,6 +31,9 @@
       cmdKText: 'Suchen...',
       cmdSearchPlaceholder: 'Workspace suchen (z.B. FinTech, Fracht, Supply Chain, Solar)...',
 
+      // Header Brand
+      headerBrandSubtitle: 'Referenzarchitektur',
+
       // Auth Gate Modal
       authTitle: 'HAULITZ Gateway Sign-In',
       authSub: 'Authentifizieren Sie sich für den Zugriff auf die 10 Industrie-Workspaces',
@@ -40,12 +43,12 @@
       authDivider: 'ODER',
 
       // Hero Section
-      heroBadgeText: 'DETERMINISTISCHE VERIFIKATION',
-      heroTitleMain: 'Rechnungsfehler erkennen,',
-      heroTitleGradient: 'bevor sie in Ihre Bücher gelangen.',
-      heroSubheadline: 'HAULITZ prüft Berechnungen, Steuersätze und Bankdaten auf Eingangsrechnungen deterministisch im Code. Kein Rundungsdrift. Keine Fehlzahlungen. Keine Audit-Panik.',
-      btnHeroTestText: 'Live-Scanner testen',
-      btnHeroGithubText: 'Architektur auf GitHub prüfen',
+      heroBadgeText: 'OPEN-SOURCE-REFERENZARCHITEKTUR · DETERMINISTISCHE VERIFIKATION',
+      heroTitleMain: 'Deterministische Belegprüfung,',
+      heroTitleGradient: 'bevor Daten Ihr ERP erreichen.',
+      heroSubheadline: 'Eine technische Referenzarchitektur von Allen Simeon Fletcher. Prüft Posten-Arithmetik, deutsche USt-Sätze (§ 12 & § 14 UStG) und SEPA ISO 7064 MOD 97-10 Prüfziffern im Code vor dem SAP- und DATEV-Zahlungslauf.',
+      btnHeroTestText: 'Live-Ingestion-Scanner testen',
+      btnHeroGithubText: 'GitHub Quellcode & Tests (30/30)',
 
       // Living Document Scanner Card
       scannerFeedLabel: 'ECHTZEIT-BELEGEINGANG',
@@ -55,54 +58,92 @@
       scMetaSubChannel: 'Übertragungskanal:',
       scMetaSubNet: 'Nettobetrag:',
       scItemName: 'Server-Baugruppen (12x @ €350,00)',
-      scVatLabel: 'Berechnete USt (19%):',
-      scGrossLabel: 'Rechnungs-Gesamtbetrag:',
-      scIbanLabel: 'SEPA IBAN Modulo-97:',
-      scIbanStatus: 'Prüfsumme Gültig',
-      scAlertTitleFlawed: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 14 UStG FEHLER)',
-      scAlertDescFlawed: 'Lieferant hat USt um +€120,00 überhöht ausgewiesen. Verbuchung in SAP S/4HANA blockiert. Kaufmännische Mängelrüge erstellt.',
-      scAlertTitleVerified: '✔ REVISIONSSICHER: FREIGABE FÜR SAP S/4HANA',
-      scAlertDescVerified: 'Posten-Arithmetik auf den Cent abgeglichen (€798,00 USt). GoBD § 147 AO SHA-256 Prüfsiegel in Frankfurt festgeschrieben.',
+      scVatLabel: 'Berechnete USt (19% gem. § 12 Abs. 1 UStG):',
+      scGrossLabel: 'Rechnungsgesamtbetrag:',
+      scIbanLabel: 'SEPA IBAN (ISO 7064 MOD 97-10):',
+      scIbanStatus: 'Syntax gültig (MOD 97-10)',
+      scAlertTitleFlawed: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 12 Abs. 1 & § 14 UStG ABWEICHUNG)',
+      scAlertDescFlawed: 'Lieferant berechnet 19% USt mit €918,00 statt gesetzlich €798,00 (+€120,00 Differenz). Verbuchung in SAP S/4HANA blockiert. Kaufmännische Beanstandung generiert.',
+      scAlertTitleVerified: '✔ AUDIT-FREIGABE: BEREIT FÜR SAP S/4HANA',
+      scAlertDescVerified: 'Posten-Arithmetik auf den Cent korrigiert (€798,00 USt / €4.998,00 Gesamtbetrag). Sequenzieller SHA-256 Prüfblock für GoBD-Prüfpfad versiegelt.',
 
       // 10-Industry Workspace Hub
-      hubTagText: 'DETERMINISTISCHES PRÜF-GATEWAY',
-      hubHeading: '10 Branchen-Workspaces',
-      hubSubheading: 'Wählen Sie Ihren Industrie-Workspace für deterministische Belegprüfungen und GoBD-Versiegelung',
-      scCardTargetsLabel: 'Zielsysteme & ERP:',
+      hubTagText: '10 BRANCHEN-WORKSPACES',
+      hubHeading: 'Spezialisierte Prüfregeln für Unternehmens-Workflows',
+      hubSubheading: 'Wählen Sie eine Branche, um deterministische Validierungsregeln für Ihr ERP-Schema in Echtzeit zu testen.',
+      scCardTargetsLabel: 'Schnittstellen & Zielsysteme:',
+
+      // Compliance Ribbon Badges
+      badgeGobdLaw: 'GoBD (BMF-Grundsätze)',
+      badgeGobdDesc: 'Unveränderbarkeit & SHA-256 Prüfpfad',
+      badgeUstgLaw: '§ 12 & § 14 UStG',
+      badgeUstgDesc: '19% / 7% USt & Pflichtangaben',
+      badgeHgbLaw: 'HGB § 377 (Supply Chain)',
+      badgeHgbDesc: '3-Wege-Abgleich (PO vs. Wareneingang)',
+      badgeIbanLaw: 'ISO 7064 MOD 97-10',
+      badgeIbanDesc: 'IBAN-Syntax & Prüfziffern',
+      badgeDsgvoLaw: 'DSGVO / GDPR',
+      badgeDsgvoDesc: 'Frankfurt VPC Referenzarchitektur',
+      erpEcosystemLabel: 'SCHNITTSTELLEN & INTEGRATIONSZIELE:',
 
       // Apple / Linear Bento Grid
       bentoTagText: 'KERNARCHITEKTUR & SCHUTZSCHRANKEN',
       bentoHeading: 'Wie HAULITZ Ihr Unternehmen schützt',
       bentoSubheading: 'Vier deterministische Schutzschranken im Code, bevor Finanzdaten in unveränderbare Ledger fließen.',
-      bento1Title: 'Null Rundungsdrift (Safe Cent Math)',
-      bento1Desc: 'Jede Zwischensumme, Mengenskalierung und USt-Stufe wird im Code strikt centgenau als 64-Bit-Ganzzahl berechnet. Verhindert, dass Bruchteile von Cents zu Bilanzabweichungen kumulieren.',
-      bento2Title: 'Algorithmische Prüfziffern',
-      bento2Desc: 'Erzwingt ISO 7064 Modulo-97 (SEPA IBAN), ISO 6346 Modulo-11 (Seefrachtcontainer) und GS1 EAN-13 Prüfziffern, bevor Zahlungen ausgelöst werden.',
-      bento3Title: 'Automatisierte ERP-Firewall',
-      bento3Desc: 'Valide Belege fließen direkt in SAP S/4HANA Staging-Tabellen. Fehlerhafte Belege generieren automatisch kaufmännische Mängelrügen nach HGB § 377.',
-      bento4Title: 'Frankfurter GoBD-Prüfpfad',
-      bento4Desc: 'Jede Prüfung erzeugt einen SHA-256 kryptografischen Hash, der mit dem Vorgängerblock verkettet und in Frankfurt (AWS eu-central-1) festgeschrieben wird.',
+      bento1Title: 'Positionsrundung & Cent-Genauigkeit',
+      bento1Desc: 'Kumulierte Rundungsdifferenzen über Dutzende Rechnungspositionen oder Währungsumrechnungen bringen ERP-Abstimmungen zum Stillstand. HAULITZ rechnet strikt in 64-Bit Integer-Cents (BigInt) und verhindert Rundungsdrift vor dem Hauptbuch.',
+      bentoFloatHeader: 'Gleitkomma-Drift',
+      bentoCentHeader: 'HAULITZ 64-Bit Cent-Genauigkeit',
+      bentoFloatCalc: '50 × €0,3781 → 50 × €0,38 = €19,00 (Delta +€0,09)',
+      bentoCentCalc: '50 × 199¢ @ 19% = 1890,5¢ → 1891¢ (€18,91)',
+      bentoFloatSub: '❌ Kumulierte Rundungsabweichung',
+      bentoCentSub: '✔ Exakter Cent-Abgleich nach Gesetz',
+      bentoPresetsLabel: 'TESTWERTE AUSWÄHLEN:',
+      btnPreset1: '50 Positionen @ 1,99 € (19% USt)',
+      btnPreset2: 'Gemischte USt-Sätze (§ 12 Abs. 1 & 2)',
+      btnPreset3: 'Währungsumrechnung (USD/EUR EZB)',
+      bento2Title: 'ISO 7064 MOD 97-10 Prüfziffern',
+      bento2Desc: 'Validiert IBAN-Syntax und Prüfziffern mathematisch per ISO 7064 MOD 97-10 vor dem Anstoßen von SEPA-Überweisungen. Fängt Tippfehler und Zahlendreher zuverlässig ab. (Hinweis: Prüft Syntaxintegrität; Kontoverifikation erfordert Bankverzeichnisabfrage).',
+      bentoIbanMsg: 'Modulo-97 Rest == 1 Gültig (ISO 7064 MOD 97-10)',
+      bento3Title: 'Pre-Staging ERP-Firewall',
+      bento3Desc: 'Dient als automatisierter Prüfpuffer vor SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE / INVOIC02) und DATEV. Fehlerhafte Belege erzeugen strukturierte Beanstandungsmemos vor dem Staging.',
+      bento4Title: 'Revisionssicherer SHA-256 Prüfpfad',
+      bento4Desc: 'Jeder Prüflauf wird kryptografisch mit dem Vorgängerblock verkettet und unterstützt GoBD-Anforderungen an Unveränderbarkeit und Prüfbarkeit (gemäß BMF-Schreiben). Zielarchitektur für PostgreSQL in Frankfurt (AWS eu-central-1).',
 
       // Solutions & Integration Engineer Profile
       founderRoleTitle: 'Solutions & Integration Engineer',
-      fImpTitle1: 'Das Problem',
-      fImpDesc1: 'Unternehmen verlieren jährlich Millionen durch unbemerkte Rundungsfehler, falsche USt-Sätze und ungeprüfte Bankdaten, die manuelle Kontrollen passieren.',
-      fImpTitle2: 'Die Lösung',
-      fImpDesc2: 'Ich habe HAULITZ als automatisiertes Gateway entwickelt. Es fängt eingehende Belege ab, prüft Berechnungen cent-genau im Code und übergibt nur zertifizierte Daten an SAP.',
-      fImpTitle3: 'Solutions & Integration Fit',
-      fImpDesc3: 'Zeigt direkte Kompetenz für Solutions Engineering: Anbindung unstrukturierter Drittsystem-Daten an strikte Kerndatenbanken mit null Fehlern und voller Compliance.',
+      fImpTitle1: 'Die technische Herausforderung',
+      fImpDesc1: 'Enterprise-Ingestion-Pipelines geraten ins Stocken, wenn eingehende Rechnungen minimale <strong>Rundungsabweichungen</strong>, fehlerhafte <strong>Steuersätze</strong> oder ungültige Bankprüfziffern enthalten. Die manuelle Nachbearbeitung kostet tausende Arbeitsstunden.',
+      fImpTitle2: 'Die Referenzarchitektur',
+      fImpDesc2: 'Ich habe HAULITZ als Open-Source-Referenzgateway entwickelt. Es prüft Belege (ZUGFeRD 2.2, XRechnung, EDI, PDF) im Speicher mit <strong>64-Bit-Cent-Präzision</strong>, schirmt <strong>SAP S/4HANA Staging-Tabellen</strong> vor korrupten Daten ab und führt GoBD-konforme Prüfpfade.',
+      fImpTitle3: 'Solutions Engineering Kompetenzprofil',
+      fImpDesc3: 'Beweist direkte Kompetenz für <strong>Solutions Engineering</strong>: Integration unstrukturierter Drittsystem-Daten in strikte Enterprise-Strukturen (<strong>SAP S/4HANA</strong>, <strong>DATEV</strong>, <strong>PostgreSQL</strong>) unter Einhaltung deutscher Rechtsvorgaben mit null Datenkorruption.',
       fPillLocation: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Hybrid / Remote)',
       fPillAvail: 'Sofort verfügbar für Festanstellung',
       fAvailLoc: 'Deutschland (Bundesweit umzugsbereit · Vor Ort / Remote)',
+      fAvailVisa: 'EU Blue Card berechtigt (§ 18g AufenthG)',
+      fPillDegreeText: 'M.Sc. Artificial Intelligence (Anerkannt in Deutschland · Anabin H+)',
+      fPillVisaText: 'EU Blue Card berechtigt (§ 18g AufenthG · Sofortige Visa-Förderung)',
+      fPillTestsText: '30/30 Verifizierte Testszenarien (tests/verify_haulitz.js)',
 
-      // FAQ Section
+      // FAQ Section (100% German)
       faqTagText: 'HÄUFIG GESTELLTE FRAGEN (FAQ)',
-      faqHeading: 'Architektur- & Integrationsfragen für CFOs und Lead Architects',
-      faqSubheading: 'Antworten zur deterministischen Fehlererkennung, GoBD-Zertifizierung und ERP-Staging in bestehende Systemlandschaften.',
+      faqHeading: 'Architektur- & Integrationsfragen für Lead Architects',
+      faqSubheading: 'Präzise Antworten zu SAP S/4HANA Staging, GoBD-Grundsätzen, cent-genauer Mathematik und DSGVO-Architektur.',
+      faqQ1: 'Wie integriert HAULITZ mit bestehenden SAP S/4HANA- oder ERP-Systemen?',
+      faqA1: 'HAULITZ fungiert als deterministischer Vor-Staging-Puffer. Eingehende Rechnungen werden vor dem Schreiben in Produktivtabellen validiert. Konforme Belege werden als strukturierte Parameter-Objekte für SAP BAPIs (BAPI_INCOMINGINVOICE_CREATE), IDocs (INVOIC02) oder DATEV-Staging-Tabellen aufbereitet. Fehlerhafte Belege generieren automatisierte Beanstandungsmemos ohne Schema-Mutationen.',
+      faqQ2: 'Werden vertrauliche Belegdaten dauerhaft gespeichert oder offengelegt?',
+      faqA2: 'Nein. In dieser Referenzarchitektur erfolgt die mathematische Validierung flüchtig im Speicher. Für eine GoBD-konforme Prüfpfaddokumentation werden lediglich kryptografische SHA-256 Hashes und Metadaten festgeschrieben. Vertrauliche Originalbelege verbleiben in der geschützten Kundeninfrastruktur.',
+      faqQ3: 'Wie werden deutsche Umsatzsteuersätze und Posten-Arithmetik geprüft?',
+      faqA3: 'HAULITZ berechnet alle Posten und USt-Stufen (§ 12 Abs. 1 für 19%, § 12 Abs. 2 für 7% gem. UStG) strikt centgenau über 64-Bit Integer-Arithmetik (BigInt). Kumulierte Rundungsfehler zwischen Zeilenrundung und Summenrundung werden vor der Verbuchung abgeglichen.',
+      faqQ4: 'Welche elektronischen Rechnungsformate werden unterstützt?',
+      faqA4: 'Unterstützt werden ZUGFeRD 2.2, Factur-X, nationale XRechnung (CII- und UBL-Syntax) sowie strukturierte EDIFACT-Nachrichten. Unstrukturierte PDF-Rechnungen können über vorgelagerte OCR-Gateways eingespeist werden.',
+      faqQ5: 'Wo läuft die Ziel-Infrastruktur und wie ist die DSGVO gewährleistet?',
+      faqA5: 'Das Frontend dieser Referenzarchitektur wird über Cloudflare Edge ausgeliefert. Die Produktiv-Zielarchitektur ist für private VPC-Deployments in Frankfurt am Main (AWS eu-central-1 / deutsche Rechenzentren) ausgelegt, um volle DSGVO-Datenhoheit und GoBD-Revisionssicherheit zu gewährleisten.',
 
       // Footer
-      footerMissionText: 'Deterministisches Verifikations-Gateway für ERP & Supply Chain. Durchsetzung cent-genauer Mathematik, gesetzlicher USt und kryptografischer Prüfpfade vor dem Zahlungslauf.',
-      footerHostText: 'Gehostet in Frankfurt am Main (AWS eu-central-1) · DSGVO-konform',
+      footerMissionText: 'Deterministisches Verifikations-Gateway & Open-Source-Referenzarchitektur von Allen Simeon Fletcher. Durchsetzung cent-genauer Mathematik, gesetzlicher USt (§ 12 & § 14 UStG) und GoBD-konformer Prüfpfade vor dem ERP-Zahlungslauf.',
+      footerHostText: 'Edge Ingestion Gateway · Ziel-VPC-Architektur Frankfurt am Main (AWS eu-central-1)',
       footerStatusText: 'Alle 10 Workspaces betriebsbereit · 100% deterministische SLA'
     },
 
@@ -110,6 +151,9 @@
       langBtn: 'EN',
       cmdKText: 'Search...',
       cmdSearchPlaceholder: 'Search workspaces (e.g. FinTech, Maritime, Supply Chain, Solar)...',
+
+      // Header Brand
+      headerBrandSubtitle: 'Reference Implementation',
 
       // Auth Gate Modal
       authTitle: 'HAULITZ Gateway Sign-In',
@@ -120,12 +164,12 @@
       authDivider: 'OR',
 
       // Hero Section
-      heroBadgeText: 'DETERMINISTIC VERIFICATION ENGINE',
-      heroTitleMain: 'Catch invoice errors',
-      heroTitleGradient: 'before they hit your books.',
-      heroSubheadline: 'HAULITZ automatically audits calculations, tax rates, and bank details on vendor invoices before ERP staging. No math drift. No bad payments. No audit panic.',
-      btnHeroTestText: 'Test Live Scanner',
-      btnHeroGithubText: 'Inspect GitHub Architecture',
+      heroBadgeText: 'OPEN-SOURCE REFERENCE IMPLEMENTATION · DETERMINISTIC ENGINE',
+      heroTitleMain: 'Deterministic invoice verification',
+      heroTitleGradient: 'before ERP staging.',
+      heroSubheadline: 'A technical reference architecture engineered by Allen Simeon Fletcher. Audits vendor invoice arithmetic, statutory German VAT tiers (§ 12 & § 14 UStG), and SEPA ISO 7064 MOD 97-10 check digits in code before payment runs.',
+      btnHeroTestText: 'Test Live Ingestion Scanner',
+      btnHeroGithubText: 'Inspect GitHub Code & Tests (30/30)',
 
       // Living Document Scanner Card
       scannerFeedLabel: 'LIVE INGESTION FEED',
@@ -135,54 +179,92 @@
       scMetaSubChannel: 'Ingestion Channel:',
       scMetaSubNet: 'Subtotal Net:',
       scItemName: 'High-Torque Server Units (12x @ €350.00)',
-      scVatLabel: 'Calculated Tax (19% VAT):',
+      scVatLabel: 'Calculated Tax (19% VAT per § 12 Abs. 1 UStG):',
       scGrossLabel: 'Invoice Gross Total:',
-      scIbanLabel: 'SEPA IBAN Modulo-97:',
-      scIbanStatus: 'Checksum Valid',
-      scAlertTitleFlawed: '🚨 PAYMENT RUN HALTED (§ 14 UStG VIOLATION)',
-      scAlertDescFlawed: 'Vendor overcharged VAT by +€120.00. ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.',
+      scIbanLabel: 'SEPA IBAN (ISO 7064 MOD 97-10):',
+      scIbanStatus: 'Syntax Valid (MOD 97-10)',
+      scAlertTitleFlawed: '🚨 PAYMENT RUN HALTED (§ 12 Abs. 1 & § 14 UStG VARIANCE)',
+      scAlertDescFlawed: 'Vendor claimed €918.00 VAT instead of statutory €798.00 (+€120.00 discrepancy). ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.',
       scAlertTitleVerified: '✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA',
-      scAlertDescVerified: 'Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned in Frankfurt.',
+      scAlertDescVerified: 'Line math reconciled to the exact cent (€798.00 VAT / €4,998.00 Gross). Sequential SHA-256 seal assigned for GoBD audit trail.',
 
       // 10-Industry Workspace Hub
-      hubTagText: 'DETERMINISTIC VERIFICATION GATEWAY',
-      hubHeading: '10 Domain Workspaces',
-      hubSubheading: 'Select your target industry workspace for deterministic document verification and GoBD sealing',
-      scCardTargetsLabel: 'Target Systems & ERP:',
+      hubTagText: '10 DOMAIN WORKSPACES',
+      hubHeading: 'Built for your specific enterprise workflow',
+      hubSubheading: 'Select an industry below to preview deterministic validation rules tailored to your ERP schema.',
+      scCardTargetsLabel: 'Interfaces & Targets:',
+
+      // Compliance Ribbon Badges
+      badgeGobdLaw: 'GoBD Principles (BMF)',
+      badgeGobdDesc: 'Immutability & SHA-256 Audit Trail',
+      badgeUstgLaw: '§ 12 & § 14 UStG',
+      badgeUstgDesc: '19% / 7% VAT & Mandatory Fields',
+      badgeHgbLaw: 'HGB § 377 (Supply Chain)',
+      badgeHgbDesc: '3-Way Match (PO vs. Goods Receipt)',
+      badgeIbanLaw: 'ISO 7064 MOD 97-10',
+      badgeIbanDesc: 'IBAN Syntax & Check Digits',
+      badgeDsgvoLaw: 'DSGVO / GDPR',
+      badgeDsgvoDesc: 'Frankfurt VPC Reference Architecture',
+      erpEcosystemLabel: 'INTERFACES & TARGETS:',
 
       // Apple / Linear Bento Grid
       bentoTagText: 'CORE ARCHITECTURE & SAFETY BOUNDARIES',
       bentoHeading: 'How HAULITZ protects your business',
       bentoSubheading: 'Four deterministic guardrails running in code before financial data commits to permanent ledgers.',
-      bento1Title: 'Zero Rounding Drift (Safe Cent Math)',
-      bento1Desc: 'Every invoice subtotal, quantity multiplier, and VAT tier is audited strictly to the exact cent in code as 64-bit integer values. Stops tiny fractions from compounding into balance-sheet discrepancies.',
-      bento2Title: 'Algorithmic Check Digits',
-      bento2Desc: 'Enforces international ISO 7064 Modulo-97 (SEPA IBAN), ISO 6346 Modulo-11 (ocean container), and GS1 EAN-13 check digit algorithms before money moves.',
-      bento3Title: 'Automated ERP Firewall',
-      bento3Desc: 'Verified documents stream cleanly into SAP S/4HANA staging tables. Erroneous documents automatically generate a commercial defect notice citing HGB § 377.',
-      bento4Title: 'Frankfurt GoBD Audit Trail',
-      bento4Desc: 'Every verification produces a SHA-256 cryptographic hash, cryptographically chained to its predecessor block and committed in Frankfurt (AWS eu-central-1).',
+      bento1Title: 'Per-Line Rounding & Integer Math Guard',
+      bento1Desc: 'Enterprise ERP payment runs break when cumulative per-line tax rounding deviates from aggregated net subtotals, or when floating-point conversion drifts across foreign exchange rates. HAULITZ executes all financial math strictly in 64-bit integer cents (BigInt), reconciling line-item rounding differences before staging.',
+      bentoFloatHeader: 'Floating-Point Drift',
+      bentoCentHeader: 'HAULITZ 64-bit Cent Math',
+      bentoFloatCalc: '50 × €0.3781 → 50 × €0.38 = €19.00 (Delta +€0.09)',
+      bentoCentCalc: '50 × 199¢ @ 19% = 1890.5¢ → 1891¢ (€18.91)',
+      bentoFloatSub: '❌ Compounding Variance Trap',
+      bentoCentSub: '✔ Exact Statutory Cent Reconciliation',
+      bentoPresetsLabel: 'TEST VALUE PRESETS:',
+      btnPreset1: '50 Lines @ €1.99 (19% VAT)',
+      btnPreset2: 'Mixed VAT (§ 12 Abs. 1 & 2 UStG)',
+      btnPreset3: 'FX Rate (USD to EUR ECB Ref)',
+      bento2Title: 'ISO 7064 MOD 97-10 Check Digits',
+      bento2Desc: 'Validates international SEPA IBAN check digits strictly via the ISO 7064 MOD 97-10 algorithm before queuing disbursement runs. Catches transposition errors, misplaced characters, and corrupted bank codes prior to EBICS transmission. (Note: Validates check digit integrity; account existence requires directory lookup).',
+      bentoIbanMsg: 'Remainder == 1 Validated (ISO 7064 MOD 97-10)',
+      bento3Title: 'Pre-Staging ERP Firewall',
+      bento3Desc: 'Acts as an automated pre-staging validation buffer. Compliant invoices generate structured payloads ready for SAP S/4HANA (BAPI_INCOMINGINVOICE_CREATE / INVOIC02) and DATEV. Defective invoices generate automated dispute memos before records touch company ledgers.',
+      bento4Title: 'Tamper-Evident SHA-256 Audit Trail',
+      bento4Desc: 'Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL for GoBD-compliant record immutability (gemäß BMF-Schreiben). Designed for private VPC deployment in Frankfurt (AWS eu-central-1).',
 
       // Solutions & Integration Engineer Profile
       founderRoleTitle: 'Solutions & Integration Engineer',
-      fImpTitle1: 'The Problem',
-      fImpDesc1: 'Companies lose millions every year to tiny invoice rounding errors, incorrect tax rates, and unverified bank details that silently slip past manual checks.',
-      fImpTitle2: 'The Solution Built',
-      fImpDesc2: 'I engineered HAULITZ as an automated verification gateway. It intercepts incoming vendor documents, runs cent-exact mathematical checks in code, and only passes certified records into SAP.',
-      fImpTitle3: 'Solutions & Integration Fit',
-      fImpDesc3: 'Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.',
+      fImpTitle1: 'The Engineering Challenge',
+      fImpDesc1: 'Enterprise financial ingestion pipelines halt when incoming vendor documents contain subtle <strong>per-line rounding errors</strong>, statutory <strong>tax rate mismatches</strong>, or malformed bank check digits. Manual reconciliation costs companies thousands of accounting and engineering hours.',
+      fImpTitle2: 'The Reference Architecture',
+      fImpDesc2: 'I engineered HAULITZ as an open-source technical reference gateway. It validates multi-format vendor payloads (ZUGFeRD 2.2, XRechnung, EDI, PDF) in memory with <strong>64-bit integer cent precision</strong>, isolates <strong>SAP S/4HANA staging tables</strong> from malformed data, and generates GoBD-aligned cryptographic audit trails.',
+      fImpTitle3: 'Solutions Engineering Capability',
+      fImpDesc3: 'Demonstrates direct capability for <strong>Solutions Engineering</strong>: connecting messy third-party partner inputs into strict core enterprise systems (<strong>SAP S/4HANA</strong>, <strong>DATEV</strong>, <strong>PostgreSQL</strong>) under German statutory requirements with zero data corruption.',
       fPillLocation: 'Germany (Open to Relocation Anywhere in Germany · On-Site / Hybrid / Remote)',
       fPillAvail: 'Available Immediately for Full-Time Roles',
       fAvailLoc: 'Germany (Relocation Anywhere · Remote / On-Site)',
+      fAvailVisa: 'EU Blue Card Eligible (§ 18g AufenthG)',
+      fPillDegreeText: 'M.Sc. Artificial Intelligence (Degree Recognized in Germany · Anabin H+)',
+      fPillVisaText: 'EU Blue Card Eligible (§ 18g AufenthG · Fast-Track Sponsorship)',
+      fPillTestsText: '30/30 Verified Scenarios (tests/verify_haulitz.js)',
 
-      // FAQ Section
+      // FAQ Section (100% English)
       faqTagText: 'FREQUENTLY ASKED QUESTIONS (FAQ)',
-      faqHeading: 'Frequently Asked Questions',
-      faqSubheading: 'Direct answers to key integration, compliance, and security questions from enterprise finance and IT teams.',
+      faqHeading: 'Architecture & Integration FAQs for Lead Architects',
+      faqSubheading: 'Direct answers on SAP S/4HANA staging, GoBD principles, cent-exact math, and DSGVO architecture.',
+      faqQ1: 'How does HAULITZ integrate with our existing SAP S/4HANA or ERP system?',
+      faqA1: 'HAULITZ acts as a deterministic pre-staging validation buffer. Ingested invoices are verified in memory before staging tables receive data. Compliant documents generate clean parameter payloads for SAP BAPIs (BAPI_INCOMINGINVOICE_CREATE), IDocs (INVOIC02), or DATEV staging schemas. Erroneous documents generate automated dispute memos without schema mutation.',
+      faqQ2: 'Does HAULITZ store or expose our confidential supplier invoices?',
+      faqA2: 'No. In this reference implementation, validation executes ephemerally in memory within the client runtime. For GoBD audit trail documentation, only cryptographic SHA-256 seal hashes and validation receipts are committed to the audit ledger. Raw confidential supplier documents remain strictly inside customer-controlled infrastructure.',
+      faqQ3: 'How are German statutory VAT rates and line-item math audited?',
+      faqA3: 'HAULITZ calculates all subtotals, quantity multipliers, and statutory tax tiers (§ 12 Abs. 1 for 19% standard, § 12 Abs. 2 for 7% reduced per UStG) strictly to the exact cent using 64-bit integer arithmetic (BigInt). Cumulative variances between per-line rounding and subtotal rounding are reconciled prior to posting.',
+      faqQ4: 'Which electronic invoice standards are supported?',
+      faqA4: 'HAULITZ supports German and European electronic formats, including ZUGFeRD 2.2 (Comfort and Extended profiles), Factur-X, national German XRechnung (CII and UBL XML syntax), and structured EDIFACT messages. Unstructured scanned PDFs can be ingested via upstream OCR gateways.',
+      faqQ5: 'Where is the target infrastructure hosted and is it GDPR-compliant?',
+      faqA5: 'The frontend of this reference architecture is served globally via Cloudflare Edge. The enterprise production target is designed for deployment into private VPC clusters in Frankfurt am Main (AWS eu-central-1 / sovereign EU clouds) under strict DSGVO / GDPR data residency and GoBD audit compliance.',
 
       // Footer
-      footerMissionText: 'Deterministic Enterprise Verification Gateway for ERP & Supply Chain. Enforcing cent-exact math, statutory VAT, and cryptographic audit trails before payment execution.',
-      footerHostText: 'Hosted in Frankfurt (AWS eu-central-1) · DSGVO Compliant',
+      footerMissionText: 'Deterministic enterprise verification gateway & open-source reference implementation engineered by Allen Simeon Fletcher. Demonstrates cent-exact math, German statutory VAT tiers (§ 12 & § 14 UStG), and GoBD-aligned cryptographic audit trails before ERP staging.',
+      footerHostText: 'Edge Ingestion Gateway · Target VPC Architecture Frankfurt (AWS eu-central-1)',
       footerStatusText: 'All 10 Workspaces Operational · 100% Deterministic SLA'
     }
   };
@@ -347,9 +429,15 @@
     if (DOM.toastIcon) {
       DOM.toastIcon.className = `fa-solid ${isError ? 'fa-triangle-exclamation text-crimson' : 'fa-circle-check text-emerald'}`;
     }
+    DOM.toast.style.display = 'flex';
     DOM.toast.classList.add('show');
     setTimeout(() => {
       DOM.toast.classList.remove('show');
+      setTimeout(() => {
+        if (DOM.toast && !DOM.toast.classList.contains('show')) {
+          DOM.toast.style.display = 'none';
+        }
+      }, 350);
     }, 4500);
   }
 
@@ -477,7 +565,8 @@
       if (el && html) el.innerHTML = html;
     };
 
-    // Header Search Bar
+    // Header Brand & Search Bar
+    setElemText('header-brand-subtitle', dict.headerBrandSubtitle);
     setElemText('cmd-k-text', dict.cmdKText);
     const cmdInput = document.getElementById('command-search-input');
     if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
@@ -515,6 +604,19 @@
     setElemText('sc-alert-title-verified', dict.scAlertTitleVerified);
     setElemText('sc-alert-desc-verified', dict.scAlertDescVerified);
 
+    // Statutory Compliance Ribbon
+    setElemText('badge-gobd-law', dict.badgeGobdLaw);
+    setElemText('badge-gobd-desc', dict.badgeGobdDesc);
+    setElemText('badge-ustg-law', dict.badgeUstgLaw);
+    setElemText('badge-ustg-desc', dict.badgeUstgDesc);
+    setElemText('badge-hgb-law', dict.badgeHgbLaw);
+    setElemText('badge-hgb-desc', dict.badgeHgbDesc);
+    setElemText('badge-iban-law', dict.badgeIbanLaw);
+    setElemText('badge-iban-desc', dict.badgeIbanDesc);
+    setElemText('badge-dsgvo-law', dict.badgeDsgvoLaw);
+    setElemText('badge-dsgvo-desc', dict.badgeDsgvoDesc);
+    setElemText('erp-ecosystem-label', dict.erpEcosystemLabel);
+
     // Workspace Hub
     setElemText('hub-tag-text', dict.hubTagText);
     setElemText('hub-heading', dict.hubHeading);
@@ -527,8 +629,19 @@
     setElemText('bento-subheading', dict.bentoSubheading);
     setElemText('bento-1-title', dict.bento1Title);
     setElemText('bento-1-desc', dict.bento1Desc);
+    setElemText('bento-float-header', dict.bentoFloatHeader);
+    setElemText('bento-cent-header', dict.bentoCentHeader);
+    setElemText('bento-float-calc', dict.bentoFloatCalc);
+    setElemText('bento-cent-calc', dict.bentoCentCalc);
+    setElemText('bento-float-sub', dict.bentoFloatSub);
+    setElemText('bento-cent-sub', dict.bentoCentSub);
+    setElemText('bento-presets-label', dict.bentoPresetsLabel);
+    setElemText('btn-preset-1', dict.btnPreset1);
+    setElemText('btn-preset-2', dict.btnPreset2);
+    setElemText('btn-preset-3', dict.btnPreset3);
     setElemText('bento-2-title', dict.bento2Title);
     setElemText('bento-2-desc', dict.bento2Desc);
+    setElemText('bento-iban-msg', dict.bentoIbanMsg);
     setElemText('bento-3-title', dict.bento3Title);
     setElemText('bento-3-desc', dict.bento3Desc);
     setElemText('bento-4-title', dict.bento4Title);
@@ -539,6 +652,10 @@
     setElemText('f-pill-location-text', dict.fPillLocation);
     setElemText('f-pill-avail-text', dict.fPillAvail);
     setElemText('f-avail-loc', dict.fAvailLoc);
+    setElemText('f-avail-visa', dict.fAvailVisa);
+    setElemText('f-pill-degree-text', dict.fPillDegreeText);
+    setElemText('f-pill-visa-text', dict.fPillVisaText);
+    setElemText('f-pill-tests-text', dict.fPillTestsText);
     setElemText('f-imp-title-1', dict.fImpTitle1);
     setElemHTML('f-imp-desc-1', dict.fImpDesc1);
     setElemText('f-imp-title-2', dict.fImpTitle2);
@@ -546,10 +663,20 @@
     setElemText('f-imp-title-3', dict.fImpTitle3);
     setElemHTML('f-imp-desc-3', dict.fImpDesc3);
 
-    // FAQ Section
+    // FAQ Section (Strict 100% Locale Hydration)
     setElemText('faq-tag-text', dict.faqTagText);
     setElemText('faq-heading', dict.faqHeading);
     setElemText('faq-subheading', dict.faqSubheading);
+    setElemText('faq-q-1', dict.faqQ1);
+    setElemText('faq-a-1', dict.faqA1);
+    setElemText('faq-q-2', dict.faqQ2);
+    setElemText('faq-a-2', dict.faqA2);
+    setElemText('faq-q-3', dict.faqQ3);
+    setElemText('faq-a-3', dict.faqA3);
+    setElemText('faq-q-4', dict.faqQ4);
+    setElemText('faq-a-4', dict.faqA4);
+    setElemText('faq-q-5', dict.faqQ5);
+    setElemText('faq-a-5', dict.faqA5);
 
     // Footer
     setElemText('footer-mission-text', dict.footerMissionText);
@@ -756,40 +883,40 @@
         net: '€4.200,00',
         itemName: 'Server-Baugruppen (12x @ €350,00)',
         itemVal: '€4.200,00',
-        vatLabel: 'Berechnete USt (19%):',
-        grossLabel: 'Rechnungs-Gesamtbetrag:',
-        ruleLabel: 'SEPA IBAN Modulo-97:',
-        ruleStatus: 'Prüfsumme Gültig',
-        flawedTag: '⚠ +€120,00 Zu viel berechnet',
+        vatLabel: 'Berechnete USt (19% gem. § 12 Abs. 1 UStG):',
+        grossLabel: 'Rechnungsgesamtbetrag:',
+        ruleLabel: 'SEPA IBAN (ISO 7064 MOD 97-10):',
+        ruleStatus: 'Syntax gültig (MOD 97-10)',
+        flawedTag: '⚠ +€120,00 zu viel berechnet',
         flawedVat: '€918,00',
         flawedGross: '€5.118,00',
-        flawedTitle: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 14 UStG FEHLER)',
-        flawedDesc: 'Lieferant hat USt um +€120,00 überhöht ausgewiesen. Verbuchung in SAP S/4HANA blockiert. Kaufmännische Mängelrüge erstellt.',
+        flawedTitle: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 12 Abs. 1 & § 14 UStG ABWEICHUNG)',
+        flawedDesc: 'Lieferant berechnet 19% USt mit €918,00 statt gesetzlich €798,00 (+€120,00 Differenz). Verbuchung in SAP S/4HANA blockiert. Kaufmännische Beanstandung generiert.',
         verifiedTag: '<i class="fa-solid fa-check"></i> Cent-genau abgeglichen',
         verifiedVat: '€798,00',
         verifiedGross: '€4.998,00',
-        verifiedTitle: '✔ REVISIONSSICHER: FREIGABE FÜR SAP S/4HANA',
-        verifiedDesc: 'Posten-Arithmetik auf den Cent abgeglichen (€798,00 USt). GoBD § 147 AO SHA-256 Prüfsiegel in Frankfurt festgeschrieben.'
+        verifiedTitle: '✔ AUDIT-FREIGABE: BEREIT FÜR SAP S/4HANA',
+        verifiedDesc: 'Posten-Arithmetik auf den Cent korrigiert (€798,00 USt / €4.998,00 Gesamtbetrag). Sequenzieller SHA-256 Prüfblock für GoBD-Prüfpfad versiegelt.'
       },
       en: {
         activeName: 'FinTech & Invoicing',
         net: '€4,200.00',
         itemName: 'High-Torque Server Units (12x @ €350.00)',
         itemVal: '€4,200.00',
-        vatLabel: 'Calculated Tax (19% VAT):',
+        vatLabel: 'Calculated Tax (19% VAT per § 12 Abs. 1 UStG):',
         grossLabel: 'Invoice Gross Total:',
-        ruleLabel: 'SEPA IBAN Modulo-97:',
-        ruleStatus: 'Checksum Valid',
+        ruleLabel: 'SEPA IBAN (ISO 7064 MOD 97-10):',
+        ruleStatus: 'Syntax Valid (MOD 97-10)',
         flawedTag: '⚠ +€120.00 Overcharge',
         flawedVat: '€918.00',
         flawedGross: '€5,118.00',
-        flawedTitle: '🚨 PAYMENT RUN HALTED (§ 14 UStG VIOLATION)',
-        flawedDesc: 'Vendor overcharged VAT by +€120.00. ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.',
+        flawedTitle: '🚨 PAYMENT RUN HALTED (§ 12 Abs. 1 & § 14 UStG VARIANCE)',
+        flawedDesc: 'Vendor claimed €918.00 VAT instead of statutory €798.00 (+€120.00 discrepancy). ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.',
         verifiedTag: '<i class="fa-solid fa-check"></i> Exact Cent Reconciled',
         verifiedVat: '€798.00',
         verifiedGross: '€4,998.00',
         verifiedTitle: '✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA',
-        verifiedDesc: 'Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned in Frankfurt.'
+        verifiedDesc: 'Line math reconciled to the exact cent (€798.00 VAT / €4,998.00 Gross). Sequential SHA-256 seal assigned for GoBD audit trail.'
       }
     },
     logistics: {
@@ -1628,16 +1755,16 @@
 
     const presets = {
       '1': {
-        float: '0.1 + 0.2 = 0.30000000000000004 €',
-        cent: '10¢ + 20¢ = 30¢ (€0.30)'
+        float: '50 × €0.3781 → 50 × €0.38 = €19.00 (Delta +€0.09)',
+        cent: '50 × 199¢ @ 19% = 1890.5¢ → 1891¢ (€18.91)'
       },
       '2': {
-        float: '19.99 * 3 + 0.01 = 59.980000000000004 €',
-        cent: '1999¢ × 3 + 1¢ = 5998¢ (€59.98)'
+        float: '120.00 € @ 19% + 80.00 € @ 7% = 28.40 € (Unverified Split)',
+        cent: '12000¢ @ 19% (2280¢) + 8000¢ @ 7% (560¢) = 2840¢ (€28.40)'
       },
       '3': {
-        float: '105.15 * 0.19 = 19.978500000000003 €',
-        cent: '10515¢ × 19 / 100 = 1998¢ (€19.98)'
+        float: '$4,250.00 ÷ 1.0842 = €3,919.9409693... (Float Drift)',
+        cent: '425000¢ × 10000 / 10842 = 391994¢ (€3,919.94 Exact)'
       }
     };
 

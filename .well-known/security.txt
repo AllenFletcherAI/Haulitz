@@ -1,0 +1,4 @@
+Contact: mailto:allensimeonfletcher@gmail.com
+Preferred-Languages: en, de
+Canonical: https://haulitz.allensimeonfletcher.workers.dev/.well-known/security.txt
+Policy: https://github.com/AllenFletcherAI/Haulitz/blob/main/docs/THREAT.md
