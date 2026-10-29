@@ -86,10 +86,10 @@
   <section class="executive-hud" style="padding: 2.25rem 1.5rem 1.5rem; text-align: center;">
     <div class="hud-inner" style="max-width: 840px; margin: 0 auto;">
       <h1 class="hud-title" id="hero-heading" style="font-size: 2.1rem; margin-bottom: 0.65rem;">
-        HAULITZ: <span class="gradient-text">Deterministisches Prüf-Gateway für ERP &amp; Supply Chain</span>
+        HAULITZ: <span class="gradient-text">Deterministisches Prüf-Gateway für ERP &amp;&nbsp;Supply&nbsp;Chain</span>
       </h1>
       <p class="hud-subtitle" id="hero-subheading" style="font-size: 1rem; line-height: 1.6; max-width: 720px; margin: 0 auto; color: var(--color-text-muted);">
-        Stoppt Rechenfehler, falsche Steuersätze nach § 14 UStG und beschädigte Prüfziffern vor der Buchung in SAP S/4HANA.
+        Stoppt Rechenfehler, falsche Steuersätze nach §&nbsp;14&nbsp;UStG und beschädigte Prüfziffern vor der Buchung in SAP&nbsp;S/4HANA.
       </p>
     </div>
   </section>
@@ -97,208 +97,218 @@
   <!-- Main Container -->
   <main class="main-container">
     
-    <div class="founder-overview-section">
-        
-        <!-- Section 1: What is Haulitz? -->
-        <div class="about-haulitz-card">
-          <div class="about-header">
-            <div>
-              <h2 class="about-lead-title" id="label-what-is-title">Was ist HAULITZ?</h2>
-            </div>
+    <!-- ====================================================================
+         TIER 2: 10 DEDICATED WORKSPACES (AT THE VERY TOP FOR INSTANT ACCESS)
+         ==================================================================== -->
+    <section class="workspaces-top-section" id="section-workspaces">
+      <div class="workspaces-header-row">
+        <div>
+          <div class="workspace-section-badge">
+            <span class="live-pulse-dot"></span>
+            <span>DETERMINISTIC VERIFICATION GATEWAY</span>
           </div>
-
-          <p style="font-size: 0.88rem; line-height: 1.6; color: var(--color-text-muted);" id="label-what-is-p1">
-            HAULITZ prüft Rechnungen, Frachtbriefe und Wareneingänge direkt im Code. Das System berechnet Postensummen auf den Cent genau, verifiziert Steuersätze nach § 14 UStG und prüft Prüfziffern nach IBAN Modulo-97, ISO 6346 und GS1 EAN-13.
+          <h2 class="section-main-heading" id="domain-section-title">
+            10 Branchen-Workspaces
+          </h2>
+          <p class="section-main-desc" id="domain-section-desc">
+            Wählen Sie Ihren Industrie-Workspace für deterministische Belegprüfungen und GoBD-Versiegelung
           </p>
-          <p style="font-size: 0.88rem; line-height: 1.6; color: var(--color-text-muted); margin-top:0.5rem;" id="label-what-is-p2">
-            Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.
-          </p>
-
-          <!-- 3 Concrete Capabilities -->
-          <div class="pillars-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem;">
-            <div class="pillar-item">
-              <i class="fa-solid fa-calculator pillar-icon"></i>
-              <div class="pillar-title" id="pillar-1-title">Deterministische Mathematik</div>
-              <div class="pillar-desc" id="pillar-1-desc">Keine Rundungsfehler. Einzelposten, Rabatte und Umsatzsteuer werden nach § 14 UStG und HGB § 377 auf Cent-Ebene nachgerechnet.</div>
-            </div>
-            <div class="pillar-item">
-              <i class="fa-solid fa-fingerprint pillar-icon"></i>
-              <div class="pillar-title" id="pillar-2-title">Revisionssicheres Ledger</div>
-              <div class="pillar-desc" id="pillar-2-desc">GoBD § 147 AO Konformität. Jeder verifizierte Beleg wird mit Vorgänger-Hash verkettet in PostgreSQL (Frankfurt eu-central-1) protokolliert.</div>
-            </div>
-            <div class="pillar-item">
-              <i class="fa-solid fa-envelope-open-text pillar-icon"></i>
-              <div class="pillar-title" id="pillar-3-title">Automatisierte Mängelrüge</div>
-              <div class="pillar-desc" id="pillar-3-desc">Bei Rechendifferenzen generiert das System eine strukturierte Rüge nach HGB § 377 und versendet diese über die Resend API.</div>
-            </div>
-          </div>
         </div>
-
-        <!-- Section 2: Who is Allen Simeon Fletcher? -->
-        <div class="founder-card">
-          <div class="founder-photo-wrap">
-            <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Solutions &amp; Integration Engineer" class="founder-photo">
-          </div>
-          
-          <div class="founder-details">
-            <h2 class="founder-name">Allen Simeon Fletcher</h2>
-            <div class="founder-role" id="label-founder-role">Solutions &amp; Integration Engineer</div>
-            
-            <p class="founder-bio" id="label-founder-bio">
-              Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.
-            </p>
-            <p class="founder-bio" id="label-founder-bio2" style="margin-top:-0.25rem;">
-              Das Projekt belegt seine Kernkompetenz als Solutions &amp; Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD § 147 AO, § 14 UStG, HGB § 377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.
-            </p>
-
-            <div class="founder-links-row">
-              <a href="mailto:allensimeonfletcher@gmail.com" class="founder-contact-pill">
-                <i class="fa-solid fa-envelope text-emerald"></i> <span>allensimeonfletcher@gmail.com</span>
-              </a>
-              <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="founder-contact-pill">
-                <i class="fa-brands fa-github text-emerald"></i> <span>github.com/AllenFletcherAI/Haulitz</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Section 3: The 10 Dedicated Workspaces (Sleek 5x2 Grid Directly on Page) -->
-      <div style="margin-top: 2.25rem;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+      <div class="selector-modal-grid">
+        <a href="fintech.html" class="selector-industry-card" data-domain="fintech">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">01</span>
+            <i class="fa-solid fa-file-invoice-dollar selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>FinTech &amp; Invoicing</h4>
+            <p>§&nbsp;14&nbsp;UStG &amp; SEPA Modulo-97</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-scale-balanced"></i> §&nbsp;14&nbsp;UStG, GoBD</div>
+          </div>
+        </a>
+
+        <a href="logistics.html" class="selector-industry-card" data-domain="logistics">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">02</span>
+            <i class="fa-solid fa-ship selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>Freight &amp; Maritime</h4>
+            <p>ISO 6346 &amp; §&nbsp;412&nbsp;HGB Masse</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-ship"></i> ADSp 2017, HGB</div>
+          </div>
+        </a>
+
+        <a href="supply-chain.html" class="selector-industry-card" data-domain="supply">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">03</span>
+            <i class="fa-solid fa-industry selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>Supply Chain Triad</h4>
+            <p>HGB&nbsp;§&nbsp;377 3-Wege-Abgleich</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-industry"></i> HGB&nbsp;§&nbsp;377 Rüge</div>
+          </div>
+        </a>
+
+        <a href="insurtech.html" class="selector-industry-card" data-domain="insurtech">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">04</span>
+            <i class="fa-solid fa-shield-halved selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>InsurTech Claims</h4>
+            <p>VVG §&nbsp;86 &amp; BGB §&nbsp;249 Caps</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-shield-halved"></i> VVG §&nbsp;86, BGB</div>
+          </div>
+        </a>
+
+        <a href="legaltech.html" class="selector-industry-card" data-domain="legaltech">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">05</span>
+            <i class="fa-solid fa-scale-balanced selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>LegalTech Compliance</h4>
+            <p>LkSG §&nbsp;4–§&nbsp;7 &amp; ISO 14001</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD</div>
+          </div>
+        </a>
+
+        <a href="healthtech.html" class="selector-industry-card" data-domain="healthtech">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">06</span>
+            <i class="fa-solid fa-hospital-user selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>HealthTech &amp; GOÄ</h4>
+            <p>GOÄ §&nbsp;5 Abs.&nbsp;2 Gebührenrahmen</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-hospital-user"></i> GOÄ §&nbsp;5 Abs.&nbsp;2</div>
+          </div>
+        </a>
+
+        <a href="ecommerce.html" class="selector-industry-card" data-domain="ecommerce">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">07</span>
+            <i class="fa-solid fa-cart-shopping selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>E-Commerce WMS</h4>
+            <p>GS1 EAN-13 &amp; FX-Konvertierung</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-cart-shopping"></i> GS1 Standard</div>
+          </div>
+        </a>
+
+        <a href="cleantech.html" class="selector-industry-card" data-domain="cleantech">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">08</span>
+            <i class="fa-solid fa-bolt selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>CleanTech Solar</h4>
+            <p>VDE-AR-N 4105 &amp; EEG §&nbsp;9</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-bolt"></i> VDE-AR-N 4105</div>
+          </div>
+        </a>
+
+        <a href="proptech.html" class="selector-industry-card" data-domain="proptech">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">09</span>
+            <i class="fa-solid fa-building selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>PropTech Real Estate</h4>
+            <p>HeizkostenV §&nbsp;7 &amp; §&nbsp;12 (70/30)</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-building"></i> HeizkostenV</div>
+          </div>
+        </a>
+
+        <a href="erp-staging.html" class="selector-industry-card" data-domain="erp">
+          <div class="selector-card-top">
+            <span class="selector-num-badge">10</span>
+            <i class="fa-solid fa-database selector-card-icon"></i>
+          </div>
+          <div class="selector-card-body">
+            <h4>Enterprise ERP</h4>
+            <p>Parametrisierte T-SQL &amp; OWASP</p>
+            <div class="selector-card-meta"><i class="fa-solid fa-database"></i> OWASP ASVS</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TIER 3: WHAT IS HAULITZ? (BUSINESS VALUE & CAPABILITIES)
+         ==================================================================== -->
+    <section class="about-haulitz-section" style="margin-top: 3.5rem;">
+      <div class="about-haulitz-card">
+        <div class="about-header">
           <div>
-            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--color-text-main); margin: 0;" id="domain-section-title">
-              10 Branchen-Workspaces
-            </h3>
-            <p style="font-size: 0.8rem; color: var(--color-text-muted); margin: 0.2rem 0 0 0;" id="domain-section-desc">
-              Dedizierte Validierungs-Seiten für branchenspezifische Belegprüfungen
-            </p>
+            <h2 class="about-lead-title" id="label-what-is-title">Was ist HAULITZ?</h2>
           </div>
         </div>
 
-        <div class="selector-modal-grid">
-          <a href="fintech.html" class="selector-industry-card" data-domain="fintech">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">01</span>
-              <i class="fa-solid fa-file-invoice-dollar selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>FinTech &amp; Invoicing</h4>
-              <p>§ 14 UStG &amp; SEPA Modulo-97</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-scale-balanced"></i> § 14 UStG, GoBD</div>
-            </div>
-          </a>
+        <p style="font-size: 0.92rem; line-height: 1.65; color: var(--color-text-muted);" id="label-what-is-p1">
+          HAULITZ prüft Rechnungen, Frachtbriefe und Wareneingänge direkt im Code. Das System berechnet Postensummen auf den Cent genau, verifiziert Steuersätze nach §&nbsp;14&nbsp;UStG und prüft Prüfziffern nach IBAN&nbsp;Modulo-97, ISO&nbsp;6346 und GS1&nbsp;EAN-13.
+        </p>
+        <p style="font-size: 0.92rem; line-height: 1.65; color: var(--color-text-muted); margin-top:0.6rem;" id="label-what-is-p2">
+          Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS&nbsp;eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.
+        </p>
 
-          <a href="logistics.html" class="selector-industry-card" data-domain="logistics">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">02</span>
-              <i class="fa-solid fa-ship selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>Freight &amp; Maritime</h4>
-              <p>ISO 6346 &amp; § 412 HGB Masse</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-ship"></i> ADSp 2017, HGB</div>
-            </div>
-          </a>
-
-          <a href="supply-chain.html" class="selector-industry-card" data-domain="supply">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">03</span>
-              <i class="fa-solid fa-industry selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>Supply Chain Triad</h4>
-              <p>HGB § 377 3-Wege-Abgleich</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-industry"></i> HGB § 377 Rüge</div>
-            </div>
-          </a>
-
-          <a href="insurtech.html" class="selector-industry-card" data-domain="insurtech">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">04</span>
-              <i class="fa-solid fa-shield-halved selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>InsurTech Claims</h4>
-              <p>VVG § 86 &amp; BGB § 249 Caps</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-shield-halved"></i> VVG § 86, BGB</div>
-            </div>
-          </a>
-
-          <a href="legaltech.html" class="selector-industry-card" data-domain="legaltech">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">05</span>
-              <i class="fa-solid fa-scale-balanced selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>LegalTech Compliance</h4>
-              <p>LkSG § 4–§ 7 &amp; ISO 14001</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-file-contract"></i> LkSG, EU CSDDD</div>
-            </div>
-          </a>
-
-          <a href="healthtech.html" class="selector-industry-card" data-domain="healthtech">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">06</span>
-              <i class="fa-solid fa-hospital-user selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>HealthTech &amp; GOÄ</h4>
-              <p>GOÄ § 5 Abs. 2 Gebührenrahmen</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-hospital-user"></i> GOÄ § 5 Abs. 2</div>
-            </div>
-          </a>
-
-          <a href="ecommerce.html" class="selector-industry-card" data-domain="ecommerce">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">07</span>
-              <i class="fa-solid fa-cart-shopping selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>E-Commerce WMS</h4>
-              <p>GS1 EAN-13 &amp; FX-Konvertierung</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-cart-shopping"></i> GS1 Standard</div>
-            </div>
-          </a>
-
-          <a href="cleantech.html" class="selector-industry-card" data-domain="cleantech">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">08</span>
-              <i class="fa-solid fa-bolt selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>CleanTech Solar</h4>
-              <p>VDE-AR-N 4105 &amp; EEG § 9</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-bolt"></i> VDE-AR-N 4105</div>
-            </div>
-          </a>
-
-          <a href="proptech.html" class="selector-industry-card" data-domain="proptech">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">09</span>
-              <i class="fa-solid fa-building selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>PropTech Real Estate</h4>
-              <p>HeizkostenV § 7 &amp; § 12 (70/30)</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-building"></i> HeizkostenV</div>
-            </div>
-          </a>
-
-          <a href="erp-staging.html" class="selector-industry-card" data-domain="erp">
-            <div class="selector-card-top">
-              <span class="selector-num-badge">10</span>
-              <i class="fa-solid fa-database selector-card-icon"></i>
-            </div>
-            <div class="selector-card-body">
-              <h4>Enterprise ERP</h4>
-              <p>Parametrisierte T-SQL &amp; OWASP</p>
-              <div class="selector-card-meta"><i class="fa-solid fa-database"></i> OWASP ASVS</div>
-            </div>
-          </a>
+        <!-- 3 Concrete Capabilities -->
+        <div class="pillars-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;">
+          <div class="pillar-item">
+            <i class="fa-solid fa-calculator pillar-icon"></i>
+            <div class="pillar-title" id="pillar-1-title">Deterministische Mathematik</div>
+            <div class="pillar-desc" id="pillar-1-desc">Keine Rundungsfehler. Einzelposten, Rabatte und Umsatzsteuer werden nach §&nbsp;14&nbsp;UStG und HGB&nbsp;§&nbsp;377 auf Cent-Ebene nachgerechnet.</div>
+          </div>
+          <div class="pillar-item">
+            <i class="fa-solid fa-fingerprint pillar-icon"></i>
+            <div class="pillar-title" id="pillar-2-title">Revisionssicheres Ledger</div>
+            <div class="pillar-desc" id="pillar-2-desc">GoBD&nbsp;§&nbsp;147&nbsp;AO Konformität. Jeder verifizierte Beleg wird mit Vorgänger-Hash verkettet in PostgreSQL (Frankfurt eu-central-1) protokolliert.</div>
+          </div>
+          <div class="pillar-item">
+            <i class="fa-solid fa-envelope-open-text pillar-icon"></i>
+            <div class="pillar-title" id="pillar-3-title">Automatisierte Mängelrüge</div>
+            <div class="pillar-desc" id="pillar-3-desc">Bei Rechendifferenzen generiert das System eine strukturierte Rüge nach HGB&nbsp;§&nbsp;377 und versendet diese über die Resend&nbsp;API.</div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <!-- ====================================================================
+         TIER 4: FOUNDER CALLING CARD & DIRECT CREDENTIALS (AT THE VERY BOTTOM)
+         ==================================================================== -->
+    <section class="founder-section" style="margin-top: 3.5rem; margin-bottom: 2rem;">
+      <div class="founder-card">
+        <div class="founder-photo-wrap">
+          <img src="assets/allen_fletcher.jpg" alt="Allen Simeon Fletcher - Solutions &amp; Integration Engineer" class="founder-photo">
+        </div>
+        
+        <div class="founder-details">
+          <h2 class="founder-name">Allen Simeon Fletcher</h2>
+          <div class="founder-role" id="label-founder-role">Solutions &amp;&nbsp;Integration&nbsp;Engineer</div>
+          
+          <p class="founder-bio" id="label-founder-bio">
+            Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.
+          </p>
+          <p class="founder-bio" id="label-founder-bio2" style="margin-top:-0.25rem;">
+            Das Projekt belegt seine Kernkompetenz als Solutions &amp; Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP&nbsp;S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD&nbsp;§&nbsp;147&nbsp;AO, §&nbsp;14&nbsp;UStG, HGB&nbsp;§&nbsp;377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.
+          </p>
+
+          <div class="founder-links-row">
+            <a href="mailto:allensimeonfletcher@gmail.com" class="founder-contact-pill">
+              <i class="fa-solid fa-envelope text-emerald"></i> <span>allensimeonfletcher@gmail.com</span>
+            </a>
+            <a href="https://github.com/AllenFletcherAI/Haulitz" target="_blank" rel="noopener noreferrer" class="founder-contact-pill">
+              <i class="fa-brands fa-github text-emerald"></i> <span>github.com/AllenFletcherAI/Haulitz</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 

@@ -51,8 +51,8 @@
       tabPillCockpit: 'Deterministisch',
       tabPillPortal: 'Live DB',
       tabPillSops: 'SAP S/4HANA',
-      heroHeading: 'HAULITZ: Deterministisches Prüf-Gateway für ERP & Supply Chain',
-      heroSubheading: 'Stoppt Rechenfehler, falsche Steuersätze nach § 14 UStG und beschädigte Prüfziffern vor der Buchung in SAP S/4HANA.',
+      heroHeading: 'HAULITZ: Deterministisches Prüf-Gateway für ERP &amp;&nbsp;Supply&nbsp;Chain',
+      heroSubheading: 'Stoppt Rechenfehler, falsche Steuersätze nach §&nbsp;14&nbsp;UStG und beschädigte Prüfziffern vor der Buchung in SAP&nbsp;S/4HANA.',
       kpiLedgerLabel: 'GoBD Ledger-Höhe (Frankfurt)',
       kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
       kpiLatencyLabel: 'Edge-zu-DB Latenz',
@@ -62,8 +62,8 @@
       kpiRelayLabel: 'Mängelrügen-Relay',
       kpiRelayVal: 'Resend Aktiv',
       kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Alarmierung aktiv',
-      domainTitle: '<i class="fa-solid fa-layer-group"></i> 10 Branchen-Workspaces',
-      domainDesc: 'Dedizierte Validierungs-Seiten für branchenspezifische Belegprüfungen',
+      domainTitle: '10 Branchen-Workspaces',
+      domainDesc: 'Wählen Sie Ihren Industrie-Workspace für deterministische Belegprüfungen und GoBD-Versiegelung',
       openWorkspace: 'Workspace öffnen',
       scenarioA: 'Szenario A: Valider Beleg',
       scenarioB: 'Szenario B: Rechnerische Falle',
@@ -104,18 +104,18 @@
       btnLaunchWorkspaces: 'Industrie-Workspace auswählen (10 Branchen) →',
       whatIsTag: 'Funktionsweise',
       whatIsTitle: 'Was ist HAULITZ?',
-      whatIsP1: 'HAULITZ prüft Rechnungen, Frachtbriefe und Wareneingänge direkt im Code. Das System berechnet Postensummen auf den Cent genau, verifiziert Steuersätze nach § 14 UStG und prüft Prüfziffern nach IBAN Modulo-97, ISO 6346 und GS1 EAN-13.',
-      whatIsP2: 'Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.',
+      whatIsP1: 'HAULITZ prüft Rechnungen, Frachtbriefe und Wareneingänge direkt im Code. Das System berechnet Postensummen auf den Cent genau, verifiziert Steuersätze nach §&nbsp;14&nbsp;UStG und prüft Prüfziffern nach IBAN&nbsp;Modulo-97, ISO&nbsp;6346 und GS1&nbsp;EAN-13.',
+      whatIsP2: 'Geprüfte Belege erhalten ein SHA-256 Siegel. Dieser Block wird unveränderbar in PostgreSQL in Frankfurt (AWS&nbsp;eu-central-1) festgeschrieben. Fehlerhafte Belege werden isoliert, bevor Zahlungen in SAP gebucht werden.',
       pillar1Title: 'Deterministische Mathematik',
-      pillar1Desc: 'Keine Rundungsfehler. Einzelposten, Rabatte und Umsatzsteuer werden nach § 14 UStG und HGB § 377 auf Cent-Ebene nachgerechnet.',
+      pillar1Desc: 'Keine Rundungsfehler. Einzelposten, Rabatte und Umsatzsteuer werden nach §&nbsp;14&nbsp;UStG und HGB&nbsp;§&nbsp;377 auf Cent-Ebene nachgerechnet.',
       pillar2Title: 'Revisionssicheres Ledger',
-      pillar2Desc: 'GoBD § 147 AO Konformität. Jeder verifizierte Beleg wird mit Vorgänger-Hash verkettet in PostgreSQL (Frankfurt eu-central-1) protokolliert.',
+      pillar2Desc: 'GoBD&nbsp;§&nbsp;147&nbsp;AO Konformität. Jeder verifizierte Beleg wird mit Vorgänger-Hash verkettet in PostgreSQL (Frankfurt eu-central-1) protokolliert.',
       pillar3Title: 'Automatisierte Mängelrüge',
-      pillar3Desc: 'Bei Rechendifferenzen generiert das System eine strukturierte Rüge nach HGB § 377 und versendet diese über die Resend API.',
+      pillar3Desc: 'Bei Rechendifferenzen generiert das System eine strukturierte Rüge nach HGB&nbsp;§&nbsp;377 und versendet diese über die Resend&nbsp;API.',
       founderTag: 'Solutions & Integration Engineer',
-      founderRole: 'Solutions & Integration Engineer',
+      founderRole: 'Solutions &amp;&nbsp;Integration&nbsp;Engineer',
       founderBio: 'Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) konzipiert HAULITZ als deterministisches Schnittstellen-Gateway zwischen unstrukturierten Belegen und ERP-Systemen.',
-      founderBio2: 'Das Projekt belegt seine Kernkompetenz als Solutions & Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD § 147 AO, § 14 UStG, HGB § 377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.',
+      founderBio2: 'Das Projekt belegt seine Kernkompetenz als Solutions &amp; Integration Engineer: die fehlerfreie Überführung externer Geschäftsdaten in SAP&nbsp;S/4HANA und PostgreSQL nach deutschen Gesetzes- und Rechnungslegungsstandards (GoBD&nbsp;§&nbsp;147&nbsp;AO, §&nbsp;14&nbsp;UStG, HGB&nbsp;§&nbsp;377). Durch die Kombination aus exakter Arithmetik, Prüfziffern-Algorithmen und automatisierter Mängelrügen-Zustellung schützt er Enterprise-Systeme vor Fehlbuchungen und Datenkorruption.',
       
       // Auth Gate & Modals
       authTitle: 'HAULITZ Gateway Sign-In',
@@ -141,8 +141,8 @@
       tabPillCockpit: 'Deterministic',
       tabPillPortal: 'Live DB',
       tabPillSops: 'SAP S/4HANA',
-      heroHeading: 'HAULITZ: Deterministic Verification Gateway for ERP & Supply Chain',
-      heroSubheading: 'Prevents arithmetic variances, invalid § 14 UStG tax calculations, and corrupted check digits before SAP S/4HANA staging.',
+      heroHeading: 'HAULITZ: Deterministic Verification Gateway for ERP &amp;&nbsp;Supply&nbsp;Chain',
+      heroSubheading: 'Prevents arithmetic variances, invalid §&nbsp;14&nbsp;UStG tax calculations, and corrupted check digits before SAP&nbsp;S/4HANA staging.',
       kpiLedgerLabel: 'GoBD Ledger Height (Frankfurt)',
       kpiLedgerSub: '<i class="fa-solid fa-link"></i> AWS eu-central-1 Neon DB',
       kpiLatencyLabel: 'Edge-to-DB Latency',
@@ -152,8 +152,8 @@
       kpiRelayLabel: 'Dispute Relay',
       kpiRelayVal: 'Resend Active',
       kpiRelaySub: '<i class="fa-solid fa-envelope-circle-check"></i> Alerting active',
-      domainTitle: '<i class="fa-solid fa-layer-group"></i> 10 Domain Workspaces',
-      domainDesc: 'Dedicated validation workspaces for industry-specific document inspections',
+      domainTitle: '10 Domain Workspaces',
+      domainDesc: 'Select your target industry workspace for deterministic document verification and GoBD sealing',
       openWorkspace: 'Open Workspace',
       scenarioA: 'Scenario A: Valid Document',
       scenarioB: 'Scenario B: Arithmetic Trap',
@@ -194,18 +194,18 @@
       btnLaunchWorkspaces: 'Select Industry Workspace (10 Domains) →',
       whatIsTag: 'System Overview',
       whatIsTitle: 'What is HAULITZ?',
-      whatIsP1: 'HAULITZ validates vendor invoices, ocean bills of lading, and goods receipts directly in code. The engine calculates exact cent totals, checks tax rates per § 14 UStG, and verifies checksums across IBAN Modulo-97, ISO 6346, and GS1 EAN-13.',
-      whatIsP2: 'Compliant records receive a SHA-256 seal committed to PostgreSQL in Frankfurt (AWS eu-central-1). Documents with math discrepancies or corrupted check digits are quarantined before SAP staging.',
+      whatIsP1: 'HAULITZ validates vendor invoices, ocean bills of lading, and goods receipts directly in code. The engine calculates exact cent totals, checks tax rates per §&nbsp;14&nbsp;UStG, and verifies checksums across IBAN&nbsp;Modulo-97, ISO&nbsp;6346, and GS1&nbsp;EAN-13.',
+      whatIsP2: 'Compliant records receive a SHA-256 seal committed to PostgreSQL in Frankfurt (AWS&nbsp;eu-central-1). Documents with math discrepancies or corrupted check digits are quarantined before SAP staging.',
       pillar1Title: 'Deterministic Arithmetic',
-      pillar1Desc: 'Zero rounding drift. Line items, discounts, and German VAT are audited strictly to the cent per § 14 UStG and HGB § 377.',
+      pillar1Desc: 'Zero rounding drift. Line items, discounts, and German VAT are audited strictly to the cent per §&nbsp;14&nbsp;UStG and HGB&nbsp;§&nbsp;377.',
       pillar2Title: 'Immutable Audit Ledger',
-      pillar2Desc: 'GoBD § 147 AO compliance. Every verified record chains with its predecessor hash in PostgreSQL (Frankfurt eu-central-1).',
+      pillar2Desc: 'GoBD&nbsp;§&nbsp;147&nbsp;AO compliance. Every verified record chains with its predecessor hash in PostgreSQL (Frankfurt eu-central-1).',
       pillar3Title: 'Automated Dispute Dispatch',
-      pillar3Desc: 'When calculations fail, the engine drafts an HGB § 377 notice and dispatches it immediately via Resend API.',
+      pillar3Desc: 'When calculations fail, the engine drafts an HGB&nbsp;§&nbsp;377 notice and dispatches it immediately via Resend&nbsp;API.',
       founderTag: 'Solutions & Integration Engineer',
-      founderRole: 'Solutions & Integration Engineer',
+      founderRole: 'Solutions &amp;&nbsp;Integration&nbsp;Engineer',
       founderBio: 'Allen Simeon Fletcher (M.Sc. Artificial Intelligence, VIT, Anabin H+) built HAULITZ as a deterministic interface gateway between unstructured commercial documents and enterprise ERP schemas.',
-      founderBio2: 'The system demonstrates his direct qualifications as a Solutions & Integration Engineer: connecting messy third-party documents to SAP S/4HANA and PostgreSQL under German commercial and statutory frameworks (GoBD § 147 AO, § 14 UStG, HGB § 377). By coupling exact cent math, checksum algorithms, and automated API dispute dispatch, he ensures enterprise backends receive zero corrupt or hallucinated data.',
+      founderBio2: 'The system demonstrates his direct qualifications as a Solutions &amp; Integration Engineer: connecting messy third-party documents to SAP&nbsp;S/4HANA and PostgreSQL under German commercial and statutory frameworks (GoBD&nbsp;§&nbsp;147&nbsp;AO, §&nbsp;14&nbsp;UStG, HGB&nbsp;§&nbsp;377). By coupling exact cent math, checksum algorithms, and automated API dispute dispatch, he ensures enterprise backends receive zero corrupt or hallucinated data.',
       
       // Auth Gate & Modals
       authTitle: 'HAULITZ Gateway Sign-In',
@@ -1523,7 +1523,7 @@
       const subtitlePart = parts.length > 1 ? parts[1].trim() : dict.heroHeading;
       DOM.heroHeading.innerHTML = `HAULITZ: <span class="gradient-text">${subtitlePart}</span>`;
     }
-    if (DOM.heroSubheading) DOM.heroSubheading.textContent = dict.heroSubheading;
+    if (DOM.heroSubheading) DOM.heroSubheading.innerHTML = dict.heroSubheading;
 
     if (DOM.domainSectionTitle) DOM.domainSectionTitle.innerHTML = dict.domainTitle;
     if (DOM.domainSectionDesc) DOM.domainSectionDesc.textContent = dict.domainDesc;
@@ -1543,13 +1543,13 @@
     setElemHTML('label-what-is-p1', dict.whatIsP1);
     setElemHTML('label-what-is-p2', dict.whatIsP2);
     setElemText('pillar-1-title', dict.pillar1Title);
-    setElemText('pillar-1-desc', dict.pillar1Desc);
+    setElemHTML('pillar-1-desc', dict.pillar1Desc);
     setElemText('pillar-2-title', dict.pillar2Title);
-    setElemText('pillar-2-desc', dict.pillar2Desc);
+    setElemHTML('pillar-2-desc', dict.pillar2Desc);
     setElemText('pillar-3-title', dict.pillar3Title);
-    setElemText('pillar-3-desc', dict.pillar3Desc);
+    setElemHTML('pillar-3-desc', dict.pillar3Desc);
 
-    setElemText('label-founder-role', dict.founderRole);
+    setElemHTML('label-founder-role', dict.founderRole);
     setElemHTML('label-founder-bio', dict.founderBio);
     setElemHTML('label-founder-bio2', dict.founderBio2);
 
