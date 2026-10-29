@@ -215,7 +215,62 @@
       fpDesc3: 'Das System belegt meine Kernkompetenz: die fehlerfreie Überführung unstrukturierter Drittsystem-Daten in SAP S/4HANA und PostgreSQL nach deutschen Gesetzesstandards (GoBD, HGB, UStG) mit deterministischer Zuverlässigkeit.',
       tooltipAnabin: 'Vollwertig anerkannter ausländischer Hochschulabschluss (Master-Ebene in Deutschland)',
       tooltipBluecard: 'Beschleunigtes Fachkräfteverfahren nach § 81a / § 18g AufenthG (EU Blue Card)',
-      tooltipScenarios: '100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger'
+      tooltipScenarios: '100% deterministische Belegprüfung: cent-genaue Arithmetik, Prüfziffern und GoBD-Ledger',
+
+      // Hero Section
+      heroBadgeText: 'DETERMINISTISCHE PRÜF-ENGINE',
+      heroTitleMain: 'Stoppt Rechnungsfehler',
+      heroTitleGradient: 'bevor sie in Ihre Bücher gelangen.',
+      heroSubheadline: 'HAULITZ prüft Arithmetik, Steuersätze und Bankverbindungen auf Eingangsrechnungen vollautomatisch vor der Verbuchung. Keine Rundungsdifferenzen. Keine Falschzahlungen. Volle Revisionssicherheit.',
+      btnHeroTestText: 'Live-Scanner testen',
+      btnHeroGithubText: 'Quellcode auf GitHub',
+      topDockLabel: 'Workspaces:',
+
+      // Living Scanner Card
+      scannerFeedLabel: 'LIVE-EINGANGSSTREAM',
+      scannerBtnFlawedText: 'Fehlerhafte Rechnung',
+      scannerBtnVerifiedText: 'HAULITZ Verifiziert',
+      scMetaSubVendor: 'Lieferant:',
+      scMetaSubChannel: 'Kanal:',
+      scMetaSubNet: 'Nettobetrag:',
+      scItemName: 'High-Torque Server Units (12x @ €350,00)',
+      scVatLabel: 'Berechnete Steuer (19% USt):',
+      scGrossLabel: 'Rechnungs-Gesamtbetrag brutto:',
+      scIbanLabel: 'SEPA IBAN Modulo-97:',
+      scIbanStatus: 'Prüfziffer Gültig',
+      scAlertTitleFlawed: '🚨 ZAHLUNGSLAUF GESTOPPT (§ 14 UStG FEHLER)',
+      scAlertDescFlawed: 'Lieferant hat USt um +€120,00 überhöht ausgewiesen. Verbuchung in SAP S/4HANA blockiert. Kaufmännische Mängelrüge erstellt.',
+      scAlertTitleVerified: '✔ REVISIONSSICHER: FREIGABE FÜR SAP S/4HANA',
+      scAlertDescVerified: 'Posten-Arithmetik auf den Cent abgeglichen (€798,00 USt). GoBD § 147 AO SHA-256 Prüfsiegel in Frankfurt festgeschrieben.',
+
+      // Workspace Hub
+      hubTagText: '10 BRANCHEN-WORKSPACES',
+      hubHeading: 'Maßgeschneidert für Ihren Unternehmens-Workflow',
+      hubSubheading: 'Wählen Sie eine Branche, um deterministische Prüfregeln für Ihr ERP-Schema vorab zu prüfen.',
+      scCardTargetsLabel: 'Zielsysteme:',
+      scBtnLaunchText: 'Workspace öffnen',
+
+      // Bento Grid
+      bentoTagText: 'KERN-ARCHITEKTUR',
+      bentoHeading: 'Wie HAULITZ Ihr Unternehmen schützt',
+      bentoSubheading: 'Vier deterministische Schutzschranken im Code, bevor Daten in finale Hauptbücher fließen.',
+      bento1Title: 'Keine Rundungsdifferenzen',
+      bento1Desc: 'Jede Zwischensumme, Mengenumrechnung und Steuerstufe wird cent-genau im Code auditiert. Verhindert kriechende Rundungsfehler in der Bilanz.',
+      bento2Title: 'Algorithmische Prüfziffern',
+      bento2Desc: 'Prüft ISO 7064 Modulo-97 (SEPA IBAN) und GS1 EAN-13 Prüfziffern, bevor Geld transferiert wird. Verhindert Zahlendreher und Falschüberweisungen.',
+      bento3Title: 'Automatisierte ERP-Firewall',
+      bento3Desc: 'Geprüfte Belege fließen direkt in SAP S/4HANA und PostgreSQL. Bei Fehlern wird automatisch eine strukturierte kaufmännische Mängelrüge per API erzeugt.',
+      bento4Title: 'Revisionssicheres Frankfurt Audit-Ledger',
+      bento4Desc: 'Jeder Prüflauf wird kryptografisch mit SHA-256 verkettet und in PostgreSQL in Frankfurt (AWS eu-central-1) für GoBD § 147 AO revisionssicher archiviert.',
+
+      // Executive Founder Card
+      founderRoleTitle: 'Solutions & Integration Engineer',
+      fImpTitle1: 'Die Problemstellung',
+      fImpDesc1: 'Unternehmen verlieren jährlich Millionen durch unbemerkte Rundungsdifferenzen, falsche Steuersätze und ungeprüfte Bankverbindungen in Eingangsrechnungen.',
+      fImpTitle2: 'Die entwickelte Lösung',
+      fImpDesc2: 'Ich habe HAULITZ als automatisiertes Prüf-Gateway entwickelt. Es fängt Belege vor der Verbuchung ab, prüft Arithmetik und Prüfziffern deterministisch im Code und leitet nur zertifizierte Datensätze an SAP weiter.',
+      fImpTitle3: 'Passung als Solutions & Integration Engineer',
+      fImpDesc3: 'Belegt direkte Praxiskompetenz für Solutions Engineering: fehlerfreie Anbindung unstrukturierter Drittsystem-Daten an Kernsysteme (SAP S/4HANA, PostgreSQL) unter deutschen Gesetzesstandards (GoBD, HGB, UStG).'
     },
     en: {
       beacon: 'Frankfurt eu-central-1: ',
@@ -392,7 +447,62 @@
       fpDesc3: 'Demonstrates direct qualifications for Solutions & Integration Engineering: ingesting messy real-world documents into SAP S/4HANA and PostgreSQL under German statutory frameworks (GoBD, HGB, UStG) with zero data loss or drift.',
       tooltipAnabin: 'Fully recognized foreign university degree (Master level in Germany, Anabin H+)',
       tooltipBluecard: 'Accelerated skilled worker procedure under § 18g AufenthG (EU Blue Card)',
-      tooltipScenarios: '100% deterministic verification: cent-accurate math, check digits, and GoBD ledger'
+      tooltipScenarios: '100% deterministic verification: cent-accurate math, check digits, and GoBD ledger',
+
+      // Hero Section
+      heroBadgeText: 'DETERMINISTIC VERIFICATION ENGINE',
+      heroTitleMain: 'Catch invoice errors',
+      heroTitleGradient: 'before they hit your books.',
+      heroSubheadline: 'HAULITZ automatically audits calculations, tax rates, and bank details on vendor invoices before ERP staging. No math drift. No bad payments. No audit panic.',
+      btnHeroTestText: 'Test Live Scanner',
+      btnHeroGithubText: 'View Source on GitHub',
+      topDockLabel: 'Workspaces:',
+
+      // Living Scanner Card
+      scannerFeedLabel: 'LIVE INGESTION FEED',
+      scannerBtnFlawedText: 'Flawed Invoice',
+      scannerBtnVerifiedText: 'HAULITZ Verified',
+      scMetaSubVendor: 'Vendor:',
+      scMetaSubChannel: 'Channel:',
+      scMetaSubNet: 'Subtotal Net:',
+      scItemName: 'High-Torque Server Units (12x @ €350.00)',
+      scVatLabel: 'Calculated Tax (19% VAT):',
+      scGrossLabel: 'Invoice Gross Total:',
+      scIbanLabel: 'SEPA IBAN Modulo-97:',
+      scIbanStatus: 'Checksum Valid',
+      scAlertTitleFlawed: '🚨 PAYMENT RUN HALTED (§ 14 UStG VIOLATION)',
+      scAlertDescFlawed: 'Vendor overcharged VAT by +€120.00. ERP staging to SAP S/4HANA blocked. Commercial dispute memo drafted.',
+      scAlertTitleVerified: '✔ AUDIT CERTIFIED: AUTHORIZED FOR SAP S/4HANA',
+      scAlertDescVerified: 'Line math reconciled to the exact cent (€798.00 VAT). GoBD § 147 AO cryptographic SHA-256 seal assigned in Frankfurt.',
+
+      // Workspace Hub
+      hubTagText: '10 INDUSTRY WORKSPACES',
+      hubHeading: 'Built for your specific enterprise workflow',
+      hubSubheading: 'Select an industry below to preview deterministic validation rules tailored to your ERP schema.',
+      scCardTargetsLabel: 'Target Systems:',
+      scBtnLaunchText: 'Launch Workspace',
+
+      // Bento Grid
+      bentoTagText: 'CORE ARCHITECTURE',
+      bentoHeading: 'How HAULITZ protects your business',
+      bentoSubheading: 'Four deterministic guardrails running in code before financial data commits to permanent ledgers.',
+      bento1Title: 'Zero Rounding Drift',
+      bento1Desc: 'Every invoice subtotal, quantity multiplier, and VAT tier is audited strictly to the exact cent in code. Stops tiny fractions from compounding into massive audit balance-sheet discrepancies.',
+      bento2Title: 'Algorithmic Check Digits',
+      bento2Desc: 'Enforces international ISO 7064 Modulo-97 (SEPA IBAN) and GS1 EAN-13 check digit algorithms before money moves. Eliminates typoed payments and fake accounts.',
+      bento3Title: 'Automated ERP Firewall',
+      bento3Desc: 'Verified documents stream cleanly into SAP S/4HANA and PostgreSQL. Erroneous documents automatically generate a structured commercial dispute memo dispatched via API.',
+      bento4Title: 'Immutable Frankfurt Audit Trail',
+      bento4Desc: 'Every single verification run chains with its predecessor block using SHA-256 and commits to PostgreSQL in Frankfurt (AWS eu-central-1) for permanent GoBD § 147 AO compliance.',
+
+      // Executive Founder Card
+      founderRoleTitle: 'Solutions & Integration Engineer',
+      fImpTitle1: 'The Problem',
+      fImpDesc1: 'Companies lose millions every year to tiny invoice rounding errors, incorrect tax rates, and unverified bank details that slip past manual checks.',
+      fImpTitle2: 'The Solution Built',
+      fImpDesc2: 'I engineered HAULITZ as an automated verification gateway. It intercepts incoming vendor documents, runs cent-exact mathematical checks in code, and only passes certified records into ERP systems like SAP.',
+      fImpTitle3: 'Solutions & Integration Fit',
+      fImpDesc3: 'Demonstrates direct capability for Solutions Engineering: connecting messy, unstructured enterprise data into strict core databases with zero errors and total regulatory compliance.'
     }
   };
 
@@ -1848,6 +1958,62 @@
     setElemText('alert-v-heading', dict.alertVHeading);
     setElemText('alert-v-action', dict.alertVAction);
 
+    // ====================================================================
+    // Top Dock, Hero Scanner, Bento Grid, and Solutions Engineer Profile
+    // ====================================================================
+    setElemText('top-dock-label', dict.topDockLabel || 'Workspaces:');
+    setElemText('hero-badge-text', dict.heroBadgeText);
+    setElemText('hero-title-main', dict.heroTitleMain);
+    setElemText('hero-title-gradient', dict.heroTitleGradient);
+    setElemText('hero-subheadline', dict.heroSubheadline);
+    setElemText('btn-hero-test-text', dict.btnHeroTestText);
+    setElemText('btn-hero-github-text', dict.btnHeroGithubText);
+
+    // Living Scanner Card
+    setElemText('scanner-feed-label', dict.scannerFeedLabel);
+    setElemText('scanner-btn-flawed-text', dict.scannerBtnFlawedText);
+    setElemText('scanner-btn-verified-text', dict.scannerBtnVerifiedText);
+    setElemText('sc-meta-sub-vendor', dict.scMetaSubVendor);
+    setElemText('sc-meta-sub-channel', dict.scMetaSubChannel);
+    setElemText('sc-meta-sub-net', dict.scMetaSubNet);
+    setElemText('sc-item-name', dict.scItemName);
+    setElemText('sc-vat-label', dict.scVatLabel);
+    setElemText('sc-gross-label', dict.scGrossLabel);
+    setElemText('sc-iban-label', dict.scIbanLabel);
+    setElemText('sc-iban-status', dict.scIbanStatus);
+    setElemText('sc-alert-title-flawed', dict.scAlertTitleFlawed);
+    setElemText('sc-alert-desc-flawed', dict.scAlertDescFlawed);
+    setElemText('sc-alert-title-verified', dict.scAlertTitleVerified);
+    setElemText('sc-alert-desc-verified', dict.scAlertDescVerified);
+
+    // Workspace Hub
+    setElemText('hub-tag-text', dict.hubTagText);
+    setElemText('hub-heading', dict.hubHeading);
+    setElemText('hub-subheading', dict.hubSubheading);
+    setElemText('sc-card-targets-label', dict.scCardTargetsLabel);
+
+    // Apple / Linear Bento Grid
+    setElemText('bento-tag-text', dict.bentoTagText);
+    setElemText('bento-heading', dict.bentoHeading);
+    setElemText('bento-subheading', dict.bentoSubheading);
+    setElemText('bento-1-title', dict.bento1Title);
+    setElemText('bento-1-desc', dict.bento1Desc);
+    setElemText('bento-2-title', dict.bento2Title);
+    setElemText('bento-2-desc', dict.bento2Desc);
+    setElemText('bento-3-title', dict.bento3Title);
+    setElemText('bento-3-desc', dict.bento3Desc);
+    setElemText('bento-4-title', dict.bento4Title);
+    setElemText('bento-4-desc', dict.bento4Desc);
+
+    // Solutions & Integration Engineer Profile
+    setElemText('founder-role-title', dict.founderRoleTitle);
+    setElemText('f-imp-title-1', dict.fImpTitle1);
+    setElemText('f-imp-desc-1', dict.fImpDesc1);
+    setElemText('f-imp-title-2', dict.fImpTitle2);
+    setElemText('f-imp-desc-2', dict.fImpDesc2);
+    setElemText('f-imp-title-3', dict.fImpTitle3);
+    setElemText('f-imp-desc-3', dict.fImpDesc3);
+
     const cmdInput = document.getElementById('command-search-input');
     if (cmdInput && dict.cmdSearchPlaceholder) cmdInput.placeholder = dict.cmdSearchPlaceholder;
 
@@ -2106,6 +2272,165 @@
     });
   }
 
+  /**
+   * 21. Living Document Scanner (Interactive Laser Sweep & 3D Tilt)
+   */
+  function initHeroScanner() {
+    const btnFlawed = document.getElementById('btn-scanner-flawed');
+    const btnVerified = document.getElementById('btn-scanner-verified');
+    const wrap = document.getElementById('hero-scanner-wrap');
+    const card = document.getElementById('hero-scanner-card');
+    const vatTag = document.getElementById('scanner-vat-tag');
+    const vatAmount = document.getElementById('scanner-vat-amount');
+    const vatRow = document.getElementById('scanner-vat-row');
+    const grossVal = document.getElementById('scanner-gross-val');
+    const bannerFlawed = document.getElementById('scanner-banner-flawed');
+    const bannerVerified = document.getElementById('scanner-banner-verified');
+
+    if (!btnFlawed || !btnVerified) return;
+
+    btnFlawed.addEventListener('click', () => {
+      btnFlawed.classList.add('active');
+      btnVerified.classList.remove('active');
+      if (vatRow) vatRow.classList.remove('verified');
+      if (vatTag) {
+        vatTag.className = 'badge-scanner-discrepancy';
+        vatTag.textContent = state.currentLang === 'de' ? '⚠ +€120,00 Zu viel berechnet' : '⚠ +€120.00 Overcharge';
+      }
+      if (vatAmount) {
+        vatAmount.className = 'font-mono-code font-bold text-danger';
+        vatAmount.textContent = state.currentLang === 'de' ? '€918,00' : '€918.00';
+      }
+      if (grossVal) {
+        grossVal.className = 'font-mono-code font-bold text-danger scanner-gross-val';
+        grossVal.textContent = state.currentLang === 'de' ? '€5.118,00' : '€5,118.00';
+      }
+      if (bannerFlawed) bannerFlawed.style.display = 'flex';
+      if (bannerVerified) bannerVerified.style.display = 'none';
+    });
+
+    btnVerified.addEventListener('click', () => {
+      btnVerified.classList.add('active');
+      btnFlawed.classList.remove('active');
+      if (vatRow) vatRow.classList.add('verified');
+      if (vatTag) {
+        vatTag.className = 'badge-scanner-clean';
+        vatTag.innerHTML = state.currentLang === 'de' ? '<i class="fa-solid fa-check"></i> Cent-genau abgeglichen' : '<i class="fa-solid fa-check"></i> Exact Cent Reconciled';
+      }
+      if (vatAmount) {
+        vatAmount.className = 'font-mono-code font-bold text-emerald';
+        vatAmount.textContent = state.currentLang === 'de' ? '€798,00' : '€798.00';
+      }
+      if (grossVal) {
+        grossVal.className = 'font-mono-code font-bold text-emerald scanner-gross-val';
+        grossVal.textContent = state.currentLang === 'de' ? '€4.998,00' : '€4,998.00';
+      }
+      if (bannerFlawed) bannerFlawed.style.display = 'none';
+      if (bannerVerified) bannerVerified.style.display = 'flex';
+    });
+
+    // 3D Parallax Tilt with Smooth Physics
+    if (wrap && card) {
+      wrap.addEventListener('mousemove', (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6; // max 6 deg
+        const rotateY = ((x - centerX) / centerX) * 6;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+      });
+
+      wrap.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+  }
+
+  /**
+   * 22. Interactive 10-Industry Workspace Hub Dock (Hick's Law)
+   */
+  function initWorkspaceDock() {
+    const dockPills = document.querySelectorAll('#workspace-pill-dock .ws-pill');
+    const topDockPills = document.querySelectorAll('#top-dock-pills .dock-pill');
+    if (!dockPills.length && !topDockPills.length) return;
+
+    const domainsData = (window.Haulitz && window.Haulitz.Domains) || {};
+
+    const domainPages = {
+      fintech: 'fintech.html',
+      logistics: 'logistics.html',
+      supply: 'supply-chain.html',
+      insurtech: 'insurtech.html',
+      legaltech: 'legaltech.html',
+      healthtech: 'healthtech.html',
+      ecommerce: 'ecommerce.html',
+      cleantech: 'cleantech.html',
+      proptech: 'proptech.html',
+      erp: 'erp-staging.html'
+    };
+
+    const updateShowcase = (domainKey) => {
+      const d = domainsData[domainKey];
+      if (!d) return;
+
+      const scNum = document.getElementById('sc-card-num');
+      const scTitle = document.getElementById('sc-card-title');
+      const scDocType = document.getElementById('sc-card-doc-type');
+      const scBadgeText = document.getElementById('sc-card-badge-text');
+      const scDesc = document.getElementById('sc-card-desc');
+      const scRules = document.getElementById('sc-card-rules');
+      const scTargets = document.getElementById('sc-card-targets');
+      const scLaunchBtn = document.getElementById('sc-card-launch-btn');
+      const scBtnLaunchText = document.getElementById('sc-btn-launch-text');
+
+      if (scNum) scNum.textContent = d.number;
+      if (scTitle) scTitle.textContent = state.currentLang === 'de' ? (d.germanTitle || d.title) : d.title;
+      if (scDocType) scDocType.textContent = d.documentType;
+      if (scBadgeText) scBadgeText.textContent = d.law;
+      if (scDesc) scDesc.textContent = d.description;
+      if (scTargets) scTargets.textContent = `${d.targetEmployers} • SAP S/4HANA`;
+
+      if (scRules && Array.isArray(d.rules)) {
+        scRules.innerHTML = d.rules.map(r => `
+          <div class="showcase-rule-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>${r}</span>
+          </div>
+        `).join('');
+      }
+
+      const targetUrl = domainPages[domainKey] || `${domainKey}.html`;
+      if (scLaunchBtn) scLaunchBtn.href = targetUrl;
+      if (scBtnLaunchText) {
+        const titleName = state.currentLang === 'de' ? (d.germanTitle || d.title) : d.title;
+        scBtnLaunchText.textContent = state.currentLang === 'de' ? `${titleName} öffnen` : `Launch ${d.title} Workspace`;
+      }
+
+      // Sync active state in both pill docks
+      dockPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-domain') === domainKey));
+      topDockPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-domain') === domainKey));
+    };
+
+    dockPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const domainKey = pill.getAttribute('data-domain');
+        updateShowcase(domainKey);
+      });
+    });
+
+    topDockPills.forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        const domainKey = pill.getAttribute('data-domain');
+        updateShowcase(domainKey);
+      });
+    });
+
+    // Initialize with default domain (fintech)
+    updateShowcase('fintech');
+  }
+
   // Master Initialization Engine
   function boot() {
     initDOMElements();
@@ -2124,6 +2449,8 @@
     initTelemetryCounters();
     initDiscrepancyInspector();
     initCommandPalette();
+    initHeroScanner();
+    initWorkspaceDock();
   }
 
   if (document.readyState === 'loading') {

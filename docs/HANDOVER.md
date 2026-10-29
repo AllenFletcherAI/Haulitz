@@ -2,40 +2,41 @@
 Standard: ASD-STE100 Simplified Technical English · Habit 01
 
 ## 1. What We Finished (Done)
-- **Complete Elimination of the Floating Switcher Pill**:
-  - Removed `#floating-quick-switch` markup, CSS rules, and JavaScript listeners.
-  - Eliminated the occlusion of Pipeline Node 02 and unblocked the Founder contact buttons (Email and GitHub).
-- **100% Bilingual Language Isolation (Eradication of "Denglish")**:
-  - Header search trigger correctly displays `Search... ⌘K` in English mode and `Suchen... ⌘K` in German mode.
-  - All 4 telemetry card subtitles translate dynamically (`⚡ In-browser deterministic`, `100% audit precision`, `0 calculation variances`, `AWS eu-central-1 Neon`).
-  - Pipeline badges and status tags localized (`01 INBOUND`, `02 HAULITZ FIREWALL`, `03 ERP STAGING`; `⚠ Arithmetic Variance Trap`, `✔ < 2ms Deterministic Audit`, `Certified for SAP S/4HANA`).
-  - All 10 workspace card descriptions and statutory badges localized on both the main page grid and the modal dialog.
-  - Pure CSS micro-tooltips on founder badges dynamically localized.
-- **Luxury Obsidian Canvas & Specular Elevation**:
-  - Removed harsh 32px coordinate graph paper grid lines.
-  - Implemented an obsidian background (`#07080b`) with subtle ambient radial illumination (`rgba(16, 185, 129, 0.08)` and `rgba(59, 130, 246, 0.03)`).
-  - Enhanced cards with multi-tier glassmorphism, specular top borders, and soft drop shadows.
-- **Interactive Discrepancy Inspector ("Show, Don't Just Tell")**:
-  - Integrated a live Before vs. After reconciliation inspector inside "What is HAULITZ?".
-  - Tab 1 displays a raw vendor invoice with an arithmetic discrepancy (+€120.00 VAT overcharge) and an automated SAP payment hold notice.
-  - Tab 2 displays the certified cent-exact audit with SHA-256 seal and SAP S/4HANA authorization.
-- **Executive Founder Presentation**:
-  - Replaced radioactive neon green radar glow on portrait with an executive frame (neutral border and deep ambient shadow).
-  - Restructured narrative into 3 crisp executive pillars: The Problem, The Engineering Bridge, and the Solutions & Integration Engineer Fit.
+- **Cinematic Hero with Live Moving Document Scanner**:
+  - Engineered kinetic typography headline and human-first subheadline with zero legal jargon or AI slop.
+  - Implemented the Living Document Scanner card with a vertical laser sweep animation (`@keyframes laserSweep`) and real-time interactive toggling between "Flawed Invoice" (highlighting €120.00 VAT overcharge trap and blocked SAP staging) and "HAULITZ Verified" (recalculating line items to the cent, assigning cryptographic SHA-256 seal, and clearing for SAP S/4HANA).
+  - Added smooth 3D mouse parallax tilt physics with automatic recentering.
+- **Persistent Top Workspace Quick Switcher (Strict Zero-Clip Dock)**:
+  - Positioned a sleek horizontal dock right beneath the header with all 10 domain icons, badges, and numbers (01–10).
+  - Enables instant 1-click workspace switching at the very top of the page without page scrolling.
+  - Resolved all top border clipping issues on cards by increasing vertical breathing room and setting `box-sizing: border-box`.
+- **Interactive 10-Industry Workspace Hub (Hick's Law Alignment)**:
+  - Replaced the overwhelming 10-card wall of clutter with a streamlined sliding pill dock and a single dynamic showcase card.
+  - Clicking any industry pill smoothly updates statutory rules, target employers, document types, and direct launch links.
+- **Apple / Linear-Style Bento Grid**:
+  - Implemented 4 tactile architecture cards: Zero Rounding Drift, Algorithmic Check Digits, Automated ERP Firewall, and Immutable Frankfurt Audit Trail.
+  - Added interactive mini-widgets (safe 64-bit cent math, Modulo-97 rest check, ERP pipeline nodes, and SHA-256 seal chain).
+- **Executive Solutions & Integration Engineer Profile**:
+  - Displayed at the very bottom of the page in an authoritative executive layout.
+  - Includes Allen Simeon Fletcher's portrait in an emerald-accented circular frame, official qualification badges (M.Sc. AI Anabin H+, § 18g EU Blue Card Ready, 30/30 Verified Scenarios), and 3 structured impact pillars (The Problem, The Solution Built, Solutions & Integration Fit).
+- **Header Brand Polish**:
+  - Leveled the top of the green "HZ" badge with the top of the "HAULITZ" brand typography.
+  - Tightened vertical spacing between "HAULITZ" and "Enterprise Verification Gateway".
 - **Verification Integrity**:
-  - `node verify_haulitz.js` passes all 30/30 scenarios with 100% precision.
+  - `node verify_haulitz.js` passes all 30/30 statutory and mathematical scenarios with 100% precision.
+  - `node -c js/app.js` passes clean syntax validation.
 
 ## 2. What We Are Working On Now
-- Stage, commit, and push updates to `origin main`.
-- Verify live production deployment on Cloudflare Edge at `https://haulitz.allensimeonfletcher.workers.dev/`.
+- Commit all changes to git and push to GitHub (`origin main`).
+- Verify live production edge on Cloudflare Workers (`https://haulitz.allensimeonfletcher.workers.dev/`).
 
 ## 3. Broken Or Dangerous Items
 - None. All statutory and mathematical test suites pass deterministically.
 
 ## 4. What To Do Next
-- Run git push to trigger Cloudflare Edge sync.
-- Verify live rendering on production URL.
+- Monitor live edge deployment on Cloudflare.
+- Run interactive drill testing on both dark and light modes.
 
 ## 5. Do Not Touch
 - Git remote `origin`: Synchronized with `main`.
-- `.env`: Kept local-only and safely ignored by `.gitignore` and `.assetsignore`.
+- `.env`: Kept strictly local and ignored by `.gitignore` and `.assetsignore`.
